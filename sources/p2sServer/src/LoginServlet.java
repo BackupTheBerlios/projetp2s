@@ -890,7 +890,138 @@ public class LoginServlet extends HttpServlet {
                                 
                                 rsIndicateursProjet.close();
                                 
+                                /****************************** LES INDICATEURS D'UN PROJET *************************/
                                 
+                                prepState = conn.prepareStatement("Select * from seuilsfixes_projet where idprojet = " + rsIdProjets.getString("idprojet"));
+                                ResultSet rsSeuilsProjet = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsSeuilsProjet.next()){
+                                    
+                                    
+                                    
+                                    out.println("<seuilsProjet>");
+                                    
+                                    out.println("<totalChargesProjetMin>");
+                                    if(rsSeuilsProjet.getInt("totalChargesProjetMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("totalChargesProjetMin"));
+                                    out.println("</totalChargesProjetMin>");
+                                    
+                                    out.println("<totalChargesProjetMax>");
+                                    if(rsSeuilsProjet.getInt("totalChargesProjetMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("totalChargesProjetMax"));
+                                    out.println("</totalChargesProjetMax>");
+                                    
+                                    out.println("<tachesTermineesProjetMin>");
+                                    if(rsSeuilsProjet.getInt("tachesTermineesProjetMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("tachesTermineesProjetMin"));
+                                    out.println("</tachesTermineesProjetMin>");
+                                    
+                                    out.println("<tachesTermineesProjetMax>");
+                                    if(rsSeuilsProjet.getInt("tachesTermineesProjetMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("tachesTermineesProjetMax"));
+                                    out.println("</tachesTermineesProjetMax>");
+                                    
+                                    out.println("<dureeMoyenneTacheMin>");
+                                    if(rsSeuilsProjet.getFloat("dureeMoyenneTacheMin") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("dureeMoyenneTacheMin"));
+                                    out.println("</dureeMoyenneTacheMin>");
+                                    
+                                    out.println("<dureeMoyenneTacheMax>");
+                                    if(rsSeuilsProjet.getFloat("dureeMoyenneTacheMax") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("dureeMoyenneTacheMax"));
+                                    out.println("</dureeMoyenneTacheMax>");
+                                    
+                                    out.println("<nombreParticipantsMin>");
+                                    if(rsSeuilsProjet.getInt("nombreParticipantsMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreParticipantsMin"));
+                                    out.println("</nombreParticipantsMin>");
+                                    
+                                    out.println("<nombreParticipantsMax>");
+                                    if(rsSeuilsProjet.getInt("nombreParticipantsMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreParticipantsMax"));
+                                    out.println("</nombreParticipantsMax>");
+                                    
+                                    out.println("<nombreParticipantsMax>");
+                                    if(rsSeuilsProjet.getInt("nombreParticipantsMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreParticipantsMax"));
+                                    out.println("</nombreParticipantsMax>");
+                                    
+                                    
+                                    out.println("<avancementProjetMin>");
+                                    if(rsSeuilsProjet.getInt("avancementProjetMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("avancementProjetMin"));
+                                    out.println("</avancementProjetMin>");
+                                    
+                                    out.println("<avancementProjetMax>");
+                                    if(rsSeuilsProjet.getInt("avancementProjetMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("avancementProjetMax"));
+                                    out.println("</avancementProjetMax>");
+                                    
+                                    out.println("<totalChargesIterationMin>");
+                                    if(rsSeuilsProjet.getInt("totalChargesIterationMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("totalChargesIterationMin"));
+                                    out.println("</totalChargesIterationMin>");
+                                    
+                                    out.println("<totalChargesIterationMax>");
+                                    if(rsSeuilsProjet.getInt("totalChargesIterationMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("totalChargesIterationMax"));
+                                    out.println("</totalChargesIterationMax>");
+                                    
+                                    out.println("<tacheTermineesIterationMin>");
+                                    if(rsSeuilsProjet.getInt("tacheTermineesIterationMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("tacheTermineesIterationMin"));
+                                    out.println("</tacheTermineesIterationMin>");
+                                    
+                                    out.println("<tacheTermineesIterationMax>");
+                                    if(rsSeuilsProjet.getInt("tacheTermineesIterationMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("tacheTermineesIterationMax"));
+                                    out.println("</tacheTermineesIterationMax>");
+                                    
+                                    
+                                    
+                                    out.println("<dureeMoyenneIterationMin>");
+                                    if(rsSeuilsProjet.getFloat("dureeMoyenneIterationMin") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("dureeMoyenneIterationMin"));
+                                    out.println("</dureeMoyenneIterationMin>");
+                                    
+                                    out.println("<dureeMoyenneIterationMax>");
+                                    if(rsSeuilsProjet.getFloat("dureeMoyenneIterationMax") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("dureeMoyenneIterationMax"));
+                                    out.println("</dureeMoyenneIterationMax>");
+                                    
+                                    out.println("<nombreParticipantIterationMin>");
+                                    if(rsSeuilsProjet.getInt("nombreParticipantIterationMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreParticipantIterationMin"));
+                                    out.println("</nombreParticipantIterationMin>");
+                                    
+                                    out.println("<nombreParticipantIterationMax>");
+                                    if(rsSeuilsProjet.getInt("nombreParticipantIterationMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreParticipantIterationMax"));
+                                    out.println("</nombreParticipantIterationMax>");
+                                    
+                                    out.println("<chargeMoyenneMin>");
+                                    if(rsSeuilsProjet.getFloat("chargeMoyenneMin") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("chargeMoyenneMin"));
+                                    out.println("</chargeMoyenneMin>");
+                                    
+                                    out.println("<chargeMoyenneMax>");
+                                    if(rsSeuilsProjet.getFloat("chargeMoyenneMax") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("chargeMoyenneMax"));
+                                    out.println("</chargeMoyenneMax>");
+                                    
+                                    out.println("<nombreTacheParticipantMin>");
+                                    if(rsSeuilsProjet.getInt("nombreTacheParticipantMin") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreTacheParticipantMin"));
+                                    out.println("</nombreTacheParticipantMin>");
+                                    
+                                    out.println("<nombreTacheParticipantMax>");
+                                    if(rsSeuilsProjet.getInt("nombreTacheParticipantMax") != -1)
+                                        out.println(rsSeuilsProjet.getInt("nombreTacheParticipantMax"));
+                                    out.println("</nombreTacheParticipantMax>");
+                                    
+                                    out.println("</seuilsProjet>");
+                                    
+                                }
                                 out.println("</projet>");
                             }
                             rsProjets.close();
