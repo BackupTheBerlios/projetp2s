@@ -86,6 +86,16 @@ public class MAJBDCDP extends HttpServlet {
                 DocumentBuilder constructeur = usine.newDocumentBuilder();
                 document= constructeur.parse(new java.io.ByteArrayInputStream(FluxTotal.getBytes()));
                 
+                PreparedStatement prepState3 = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + login +"'");
+                ResultSet rs3 = prepState3.executeQuery(); // Execution de la requete
+                
+                if(rs3.next()){
+                    do{ 
+                            Statement sdrop = conn.createStatement();
+                            sdrop.executeUpdate("Delete from chefprojet_projets where idprojet = " + rs3.getInt("idprojet"));
+                    }while(rs3.next());
+                }
+                
                 NodeList liens = document.getElementsByTagName("CDP");
                 for(int i = 0 ; i < liens.getLength() ; i++){
                     String loginCDP = "";
@@ -107,19 +117,6 @@ public class MAJBDCDP extends HttpServlet {
                         
                     }
                     
-                    PreparedStatement prepState3 = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + login +"'");
-                    ResultSet rs3 = prepState3.executeQuery(); // Execution de la requete
-                    
-                    if(rs3.next()){
-                        do{
-                            int id = 0;
-                            for(int n = 0 ; n < projets.size() ; n++){
-
-                                Statement sdrop = conn.createStatement();
-                                sdrop.executeUpdate("Delete from chefprojet_projets where idprojet = " + rs3.getInt("idprojet"));
-                            }
-                        }while(rs3.next());
-                    }
                     
                     for(int l = 0 ; l < projets.size() ; l++){
                         
@@ -134,8 +131,7 @@ public class MAJBDCDP extends HttpServlet {
                         PreparedStatement prepState2 = conn.prepareStatement("Select * from chefprojet_projets where idprojet = '" + id +"'");
                         ResultSet rs2 = prepState2.executeQuery(); // Execution de la requete
                         
-                        if(!rs2.next())
-                            s.executeUpdate("Insert into chefprojet_projets values('" + loginCDP + "'," + id + ")");
+                        s.executeUpdate("Insert into chefprojet_projets values('" + loginCDP + "'," + id + ")");
                         
                     }
                     
