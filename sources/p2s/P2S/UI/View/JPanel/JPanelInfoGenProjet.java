@@ -42,7 +42,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         initText();
         
         // On affiche les infos du projet
-       // this.LabelNomProjet.setText(proj.getNom());
+        // this.LabelNomProjet.setText(proj.getNom());
         this.textNomProjet.setText(proj.getNom());
         this.textNomProjet.setBackground(new Color(255,255,255));
         this.textNomProjet.setEditable(false);
@@ -75,21 +75,34 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         //this.LabelIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
         //this.LabelIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
         //this.LabelIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
-        
-        this.textIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString()+" %");
-        this.textIndAvancementProjet.setBackground(new Color(255,255,255));
-        
-        this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
-        this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
-        
-        this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
-        this.textIndNombreParticipants.setBackground(new Color(255,255,255));
-        
-        this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
-        this.textIndTachesTerminees.setBackground(new Color(255,255,255));
-        
-        this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
-        this.textIndTotalCharges.setBackground(new Color(255,255,255));
+        if(ind != null){
+            if(new Float(ind.getAvancementProjet()) != null)
+                this.textIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString()+" %");
+            this.textIndAvancementProjet.setBackground(new Color(255,255,255));
+            
+            if(new Float(ind.getDureeMoyenneTache()) != null)
+                this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
+            this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
+            
+            if(new Float(ind.getNombreParticipants()) != null)
+                this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
+            this.textIndNombreParticipants.setBackground(new Color(255,255,255));
+            
+            if(new Float(ind.getTachesTerminees()) != null)
+                this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
+            this.textIndTachesTerminees.setBackground(new Color(255,255,255));
+            
+            if(new Float(ind.getTotalCharges()) != null)
+                this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+            this.textIndTotalCharges.setBackground(new Color(255,255,255));
+        }else{
+            this.textIndAvancementProjet.setText("0");
+            this.textIndDureeMoyenneTache.setText("0");
+            this.textIndNombreParticipants.setText("0");
+            this.textIndTachesTerminees.setText("0");
+            this.textIndTotalCharges.setText("0");  
+        }
+            
     }
     
     /** This method is called from within the constructor to
@@ -214,7 +227,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         add(textStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 270, -1));
 
     }//GEN-END:initComponents
-
+    
     private void JButtonAlerteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlerteActionPerformed
         new JDialogAlerte((java.awt.Frame)this.getRootPane().getParent(),true).show();
     }//GEN-LAST:event_JButtonAlerteActionPerformed
