@@ -26,7 +26,7 @@ public class JTabbedPaneProjet extends JTabbedPane {
         initComponents();
         
         this.addTab(Bundle.getText("JTabbedPaneProjet_TabInfoGen"),new JPanelInfoGenProjet(proj));
-        this.addTab(Bundle.getText("JTabbedPaneProjet_TabRisques"),new JPanelInfoRisque(proj));
+        this.addTab(Bundle.getText("JTabbedPaneProjet_TabRisques"),new JPanelInfoRisque(proj.getListeRisques()));
     }
     
     /** This method is called from within the constructor to
