@@ -60,6 +60,8 @@ public class CreerUnMessageServlet extends HttpServlet {
         String login = request.getParameter("login");
         String sujet = request.getParameter("sujet");
         String message = request.getParameter("message");
+        String sup = "sup";
+        String cdp = "cdp";
        
        
         try {
@@ -68,7 +70,7 @@ public class CreerUnMessageServlet extends HttpServlet {
                 Connection conn = DriverManager.getConnection("jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword());
                 
                  // Requete SQL
-                PreparedStatement prepState = conn.prepareStatement("Select * from superviseur_projets where login = '" + login + "'");
+                PreparedStatement prepState = conn.prepareStatement("Select * from utilisateurs where login = '" + login + "' and (fonction= '" + sup + "' or fonction= '" + cdp + "')");
                 ResultSet rsUser = prepState.executeQuery(); // Execution de la requete
                 
                 if(rsUser.next()){
