@@ -49,7 +49,7 @@ public class JPanelIndicTachesMembre extends javax.swing.JPanel {
         
         ModeleTableMesure tableModel = new ModeleTableMesure(donnees, nomsColonnes) ;        
         table = new JTable(tableModel) ;
-	table.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+	table.setDefaultRenderer(Float.class, new NumericRenderer()) ;
 	table.setPreferredScrollableViewportSize(new Dimension(500, 100)) ;
         tableScrollPane = new JScrollPane(table) ;
         add(tableScrollPane, java.awt.BorderLayout.CENTER);
