@@ -34,10 +34,24 @@ public class JPanelInfoProbleme extends javax.swing.JPanel {
         {
             if (problemes.get(i) instanceof Probleme)
             {
-                donnees[i][0] = ((Probleme)problemes.get(i)).getNom() ;
-                donnees[i][1] = ((Probleme)problemes.get(i)).getCause() ;
-		donnees[i][2] = ((Probleme)problemes.get(i)).getDebut() ;
-                donnees[i][3] = ((Probleme)problemes.get(i)).getFin() ;
+                
+                if(((Probleme)problemes.get(i)).getNom() != null)
+                    donnees[i][0] = ((Probleme)problemes.get(i)).getNom() ;
+                else
+                    donnees[i][0] = "N/C"; 
+                
+                if(((Probleme)problemes.get(i)).getCause() != null)
+                    donnees[i][1] = ((Probleme)problemes.get(i)).getCause() ;
+                else
+                    donnees[i][1] = "N/C"; 
+                if(((Probleme)problemes.get(i)).getDebut() != null)
+                    donnees[i][2] = ((Probleme)problemes.get(i)).getDebut() ;
+                else
+                    donnees[i][2] = "N/C"; 
+                if(((Probleme)problemes.get(i)).getFin() != null)
+                    donnees[i][3] = ((Probleme)problemes.get(i)).getFin() ;
+                else
+                    donnees[i][3] = "N/C"; 
             }
         }
         
