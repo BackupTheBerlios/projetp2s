@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 import javax.swing.*;
 import java.awt.Color;
+import P2S.Model.Messages;
 
 
 /**
@@ -15,11 +16,11 @@ public class JDialogLireMessages extends javax.swing.JDialog {
     private String message;
     private String sujet;
     
-    public JDialogLireMessages(java.awt.Frame parent, boolean modal, String sujet, String message) {
+    public JDialogLireMessages(java.awt.Frame parent, boolean modal, Messages mess) {
         super(parent, modal);
         initComponents();
-        this.sujet = sujet;
-        this.message = message;
+        this.sujet = mess.getSujet();
+        this.message = mess.getMessage();
        
         this.initText();
        
