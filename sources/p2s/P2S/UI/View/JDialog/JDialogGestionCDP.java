@@ -242,11 +242,13 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         int longueurFlux = flux.length();
         int longueurActuelle = 0 ;
         URL url;        
-        
+        System.out.println("NITNI : " + flux);
         try{
             // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=0&flux=");
-            BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=0&flux="+flux);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                    url.openStream()));
             // On lit le fichier
             
             int longueurReelle ;

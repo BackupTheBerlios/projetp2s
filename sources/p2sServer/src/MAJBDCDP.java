@@ -57,7 +57,7 @@ public class MAJBDCDP extends HttpServlet {
             this.FluxTotal = "";
         
         this.FluxTotal = this.FluxTotal + flux;
-        System.out.println("Flux : "+this.FluxTotal);
+        System.out.println("Flux Server : "+this.FluxTotal);
         
         if(lecture.compareTo("2") == 0){
             String cheminBD;
