@@ -164,6 +164,19 @@ CREATE TABLE `mesures` (
   PRIMARY KEY  (`idmesure`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `problemes`;
+CREATE TABLE `problemes` (
+  `idprobleme` int(10) unsigned NOT NULL auto_increment,
+  `nom` varchar(45) NOT NULL default '',
+  `cause` varchar(200) default NULL,
+  `debut` date default NULL,
+  `fin` date default NULL,
+  `idprojet` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`idprobleme`),
+  KEY `FK_probemes_idprojet` (`idprojet`),
+  CONSTRAINT `FK_problemes_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `projets`;
 CREATE TABLE `projets` (
   `idprojet` int(10) unsigned NOT NULL auto_increment,
@@ -189,19 +202,6 @@ CREATE TABLE `risques` (
   PRIMARY KEY  (`idrisque`),
   KEY `FK_risques_idprojet` (`idprojet`),
   CONSTRAINT `FK_risques_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `problemes`;
-CREATE TABLE `problemes` (
-  `idprobleme` int(10) unsigned NOT NULL auto_increment,
-  `nom` varchar(45) NOT NULL default '',
-  `cause` varchar(200) NOT NULL default '',
-  `debut` date default NULL,
-  `fin` date default NULL,
-  `idprojet` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`idprobleme`),
-  KEY `FK_probemes_idprojet` (`idprojet`),
-  CONSTRAINT `FK_problemes_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `roles`;

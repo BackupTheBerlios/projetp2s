@@ -571,7 +571,8 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</nom>");
                                         
                                         out.println("<cause>");
-                                        out.println(rsProblemes.getString("cause"));
+                                        if(rsProblemes.getString("cause") != null)
+                                            out.println(rsProblemes.getString("cause"));
                                         out.println("</cause>");
                                         
                                         
