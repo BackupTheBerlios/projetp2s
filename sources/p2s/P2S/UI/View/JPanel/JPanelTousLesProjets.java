@@ -8,7 +8,10 @@ package P2S.UI.View.JPanel;
 
 import P2S.Model.Projet;
 import java.util.Vector;
-import javax.swing.JLabel;
+import javax.swing.*;
+import java.awt.*;
+import P2S.UI.View.JPanel.*;
+import java.awt.event.ActionEvent;
 
 /**
  * JPanel affichant les informations sur l'ensemble des projets
@@ -34,9 +37,18 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
             gridBagConstraints.gridy = i;
             gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
             gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-            add(new JLabel(((Projet)listeProjets.get(i)).getNom()), gridBagConstraints);
+            add(new JTextField(((Projet)listeProjets.get(i)).getNom()), gridBagConstraints);
+            gridBagConstraints.gridx = 1;
+            gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
+            JButton detail = new JButton("détail");
+            final Projet p = (Projet)listeProjets.get(i);
+            
+            detail.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(ActionEvent e) {}});
+               add(detail,gridBagConstraints);
+           
         }
-        
+       
         // On ajoute ce label vide pour mettre en forme le panel
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.weightx = 1;
