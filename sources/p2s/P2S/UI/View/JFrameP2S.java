@@ -50,12 +50,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     /** Creates new form JFrameP2S */
     public JFrameP2S() {
-        // Look & Feel de l'application
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        
         
         initComponents();
         

@@ -52,6 +52,10 @@
     <servlet-name>InfosBDServlet</servlet-name>
     <servlet-class>InfosBDServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>TestConnexionServlet</servlet-name>
+    <servlet-class>TestConnexionServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
@@ -99,6 +103,10 @@
   <servlet-mapping>
     <servlet-name>InfosBDServlet</servlet-name>
     <url-pattern>/InfosBDServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestConnexionServlet</servlet-name>
+    <url-pattern>/TestConnexionServlet</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>
