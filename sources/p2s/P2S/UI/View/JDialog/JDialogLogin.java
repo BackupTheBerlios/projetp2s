@@ -140,7 +140,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     }//GEN-END:initComponents
 
     private void formWindowClosed (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        System.exit(0) ;
+        //System.exit(0) ;
     }//GEN-LAST:event_formWindowClosed
 
     private void JPasswordFieldMDPFocusLost (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPFocusLost
