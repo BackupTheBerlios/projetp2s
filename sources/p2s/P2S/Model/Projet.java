@@ -14,6 +14,7 @@ public class Projet {
     private String description;
     private Date dateDebut;
     private Date dateFin;
+    private IndicateursProjet indicateursProjet;
     private Vector listeMesures;
     private Vector listeIt;
     private Vector listeMembres;
@@ -32,6 +33,7 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
+        this.indicateursProjet = new IndicateursProjet();
     }
     
     //Constructeur sans listes
@@ -44,7 +46,21 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
+        this.indicateursProjet = new IndicateursProjet();
     }   
+    
+    //Constructeur avec indicateur
+    public Projet(String nom, String description, Date dateDebut, Date dateFin, IndicateursProjet indicateursProjet) {        
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.listeMesures = new Vector();
+        this.listeIt = new Vector();
+        this.listeMembres = new Vector();        
+        this.listeRisques = new Vector();
+        this.indicateursProjet = indicateursProjet;
+    }
     
     public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres) {        
         this.nom = nom;
@@ -55,6 +71,7 @@ public class Projet {
         this.listeIt = new Vector(listeIt);
         this.listeMembres = new Vector(listeMembres);    
         this.listeRisques = new Vector();
+        this.indicateursProjet = new IndicateursProjet();
     }
        
     
@@ -146,4 +163,13 @@ public class Projet {
     public void setListeRisques(Vector listeRisques) {
         this.listeRisques = listeRisques;
     }
+    
+    public IndicateursProjet getIndicateursProjet(){
+        return indicateursProjet;
+    }
+    
+    public void setIndicateursProjet(IndicateursProjet indicateursProjet){
+        this.indicateursProjet = indicateursProjet;
+    }
+    
 }

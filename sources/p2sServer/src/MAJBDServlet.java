@@ -17,7 +17,7 @@ import javax.servlet.http.*;
 
 /**
  *
- * @author Fabien
+ * @author Fabien       
  * @version
  */
 public class MAJBDServlet extends HttpServlet {

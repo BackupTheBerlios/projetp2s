@@ -134,7 +134,7 @@ public class JDialogLogin extends javax.swing.JDialog {
         
         try{
             // Envoie du login et du password a la servlet "LoginServlet" pour identifier l'utilisateur
-            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+this.JPasswordFieldMDP.getText());
+            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.JPasswordFieldMDP.getText()));
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(

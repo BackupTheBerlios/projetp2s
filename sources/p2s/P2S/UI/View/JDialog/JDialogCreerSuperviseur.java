@@ -1,12 +1,11 @@
 package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.*;
-import P2S.Model.*;
-import P2S.UI.View.*;
+import P2S.Inf.Md5;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
-import P2S.UI.View.JDialog.JDialogCreerSuperviseur;
+
 
 /**
  * jdialog qui permet a un directeur de creer un superviseur
@@ -95,7 +94,7 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
         
         try{
             // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
-            URL url = new URL("http://localhost:8084/p2sserver/CreerSuperviseurServlet?login="+this.jTextFieldLogin.getText()+"&password="+this.jPasswordMDP.getText());
+            URL url = new URL("http://localhost:8084/p2sserver/CreerSuperviseurServlet?login="+this.jTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.jPasswordMDP.getText()));
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(

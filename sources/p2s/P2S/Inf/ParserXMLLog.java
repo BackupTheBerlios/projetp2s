@@ -70,7 +70,7 @@ public class ParserXMLLog {
     
     public Vector lireProjets(){
         Vector projets = new Vector();
-        /*
+        
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         NodeList listeProjets = this._document.getElementsByTagName("projet");
@@ -87,6 +87,7 @@ public class ParserXMLLog {
             String description = null;
             Date dateDebut = null;
             Date dateFin = null;
+            IndicateursProjet indicateursProjet = null;
             Vector iterationList = new Vector();
             
             //Recuperation des attributs du projet
@@ -121,162 +122,250 @@ public class ParserXMLLog {
                         System.out.println("Probleme pour parser dateFin");
                     }
                 
+                //Recuperation des indicateurs liées aux projets
+                if(attributCourant.getNodeName().equalsIgnoreCase("indicateursprojet")){
+                    
+                    int totalCharges = 0;
+                    int tachesTerminees = 0;
+                    int dureeMoyenneTache = 0;
+                    int nombreParticipants = 0;
+                    float avancementProjet = 0;
+                    
+                    NodeList attributsIndicateurProjet = attributCourant.getChildNodes();
+                    
+                    for(int nbrIndicateurs=0; nbrIndicateurs<attributsIndicateurProjet.getLength();nbrIndicateurs++ ){
+                        
+                        Node indicateurActuel = attributsIndicateurProjet.item(nbrIndicateurs);
+                        
+                        //Recuperation du total des charges
+                        if(indicateurActuel.getNodeName().equalsIgnoreCase("totalcharges"))
+                            totalCharges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                        
+                        //Recuperation du nombre de taches terminees
+                        if(indicateurActuel.getNodeName().equalsIgnoreCase("tachesterminees"))
+                            tachesTerminees = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                        
+                        //Recuperation du duree moyenne des taches
+                        if(indicateurActuel.getNodeName().equalsIgnoreCase("dureemoyennetache"))
+                            dureeMoyenneTache = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                        
+                        //Recuperation du nombre de participants
+                        if(indicateurActuel.getNodeName().equalsIgnoreCase("nombreparticipants"))
+                            nombreParticipants = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                        
+                        //Recuperation du taux d'avancement
+                        if(indicateurActuel.getNodeName().equalsIgnoreCase("avancementprojet"))
+                            avancementProjet = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
+                        
+                    }
+                    indicateursProjet = new IndicateursProjet(totalCharges , tachesTerminees, dureeMoyenneTache, nombreParticipants, avancementProjet);
+                }
+                
                 //Recuperation des iterations
                 if(attributCourant.getNodeName().equalsIgnoreCase("iterations")){
-                 
+                    
                     NodeList iterationNodeList = attributCourant.getChildNodes();
-      
+                    
                     for(int tailleIterationNodeList = 0 ; tailleIterationNodeList < iterationNodeList.getLength() ; tailleIterationNodeList++){
-                 
+                        
                         int idIteration;
                         int numero = 0;
                         Date dateDebutPrevue = null;
                         Date dateDebutReelle = null;
                         Date dateFinPrevue = null;
                         Date dateFinReelle = null;
+                        IndicateursIteration indicateursIteration = null;
                         Vector tacheListe = new Vector();
-                 
+                        
+                        Node attributIteration = iterationNodeList.item(tailleIterationNodeList);
+                        NodeList attributsIterationCourant = attributIteration.getChildNodes();
+                        
                         //Recuperation des attributs de l'itération
-                        for(int k = 0 ; k < attributs.getLength() ; k++){
-                 
-                            Node attributIterationCourant = attributs.item(k);
-                 
+                        for(int k = 0 ; k < attributsIterationCourant.getLength() ; k++){
+                            
+                            Node attributIterationCourant = attributsIterationCourant.item(k);
+                            
                             //Recuperation de l'id de l'iteration
-                            if(attributCourant.getNodeName().equalsIgnoreCase("id"))
-                                idIteration = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
-                 
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("id"))
+                                idIteration = Integer.parseInt(attributIterationCourant.getFirstChild().getNodeValue());
+                            
                             //Recuperation du numero de l'iteration
-                            if(attributCourant.getNodeName().equalsIgnoreCase("numero")){
-                                idIteration = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
-                                System.out.println(Integer.parseInt(attributCourant.getFirstChild().getNodeValue()));
-                            }
-                 
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("numero"))
+                                numero = Integer.parseInt(attributIterationCourant.getFirstChild().getNodeValue());
+                            
                             //Recuperation de la date de debut prevue de l'iteration
-                            if(attributCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
                                 try{
-                                    dateDebutPrevue = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                    dateDebutPrevue = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateDebutPrevue");
                                 }
-                 
+                            
                             //Recuperation de la date de debut reelle de l'iteration
-                            if(attributCourant.getNodeName().equalsIgnoreCase("datedebutreelle"))
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("datedebutreelle"))
                                 try{
-                                    dateDebutReelle = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                    dateDebutReelle = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateDebutReelle");
                                 }
-                 
+                            
                             //Recuperation de la date de debut reelle de l'iteration
-                            if(attributCourant.getNodeName().equalsIgnoreCase("datefinprevue"))
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("datefinprevue"))
                                 try{
-                                    dateFinPrevue = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                    dateFinPrevue = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateFinPrevue");
                                 }
-                 
-                 
-                 
+                            
+                            
+                            
                             //Recuperation de la date de debut reelle de l'iteration
-                            if(attributCourant.getNodeName().equalsIgnoreCase("datefinreelle"))
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("datefinreelle"))
                                 try{
-                                    dateFinReelle = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                    dateFinReelle = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateFinReelle");
                                 }
-                 
-                 
+                            
+                            //Recuperation des indicateurs liées aux projets
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("indicateursiteration")){
+                                
+                                int totalChargesIte = 0;
+                                int tachesTermineesIte = 0;
+                                int dureeMoyenneTacheIte = 0;
+                                int nombreParticipantsIte = 0;
+                                int chargeMoyenneParticipants = 0;
+                                int nombreMoyenTachesParticipants = 0;
+                                
+                                NodeList attributsIndicateurIte = attributCourant.getChildNodes();
+                                
+                                for(int nbrIndicateursIte=0; nbrIndicateursIte<attributsIndicateurIte.getLength();nbrIndicateursIte++ ){
+                                    
+                                    Node indicateurActuelIte = attributsIndicateurIte.item(nbrIndicateursIte);
+                                    
+                                    //Recuperation du total des charges
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("totalcharges"))
+                                        totalChargesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                    
+                                    //Recuperation du nombre de taches terminees
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("tachesterminees"))
+                                        tachesTermineesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                    
+                                    //Recuperation du duree moyenne des taches
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("dureemoyennetache"))
+                                        dureeMoyenneTacheIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                    
+                                    //Recuperation du nombre de participants
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombreparticipants"))
+                                        nombreParticipantsIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                    
+                                    //Recuperation de la charge moyenne des participants
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("chargemoyenneparticipants"))
+                                        chargeMoyenneParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                    
+                                    //Recuperation de la charge moyenne des participants
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombremoyentachesparticipants "))
+                                        nombreMoyenTachesParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                   
+                                }
+                                indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);
+                            }
+                            
                             //Recuperation des taches
-                            if(attributCourant.getNodeName().equalsIgnoreCase("taches")){
-                 
-                                NodeList tacheNodeList = attributCourant.getChildNodes();
-                 
-                                int idTache;
-                                String nomTache = null;
-                                String descriptionTache = null;
-                                String etat = null;
-                                int chargePrevue = 0;
-                                int tempsPasse = 0;
-                                int resteAPasser = 0;
-                                Date dateDebutPrevueTache = null;
-                                Date dateDebutReelleTache = null;
-                                Date dateFinPrevueTache = null;
-                                Date dateFinReelleTache = null;
-                 
-                                for(int tailleTacheNodeList = 0 ; tailleTacheNodeList < iterationNodeList.getLength() ; tailleTacheNodeList++){
-                 
+                            if(attributIterationCourant.getNodeName().equalsIgnoreCase("taches")){
+                                
+                                NodeList tacheNodeList = attributIterationCourant.getChildNodes();
+                                
+                                
+                                for(int tailleTacheNodeList = 0 ; tailleTacheNodeList < tacheNodeList.getLength() ; tailleTacheNodeList++){
+                                    
+                                    int idTache;
+                                    String nomTache = null;
+                                    String descriptionTache = null;
+                                    String etat = null;
+                                    int chargePrevue = 0;
+                                    int tempsPasse = 0;
+                                    int resteAPasser = 0;
+                                    Date dateDebutPrevueTache = null;
+                                    Date dateDebutReelleTache = null;
+                                    Date dateFinPrevueTache = null;
+                                    Date dateFinReelleTache = null;
+                                    
+                                    Node attributTache = tacheNodeList.item(tailleTacheNodeList);
+                                    NodeList attributsTacheCourant = attributTache.getChildNodes();
+                                    
                                     //Recuperation des attributs de la tache
-                                    for(int l = 0 ; l < attributs.getLength() ; l++){
-                 
-                                        Node attributTacheCourant = attributs.item(l);
-                 
+                                    for(int l = 0 ; l < attributsTacheCourant.getLength() ; l++){
+                                        
+                                        Node attributTacheCourant = attributsTacheCourant.item(l);
+                                        
                                         //Recuperation de l'id de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("id"))
-                                            idTache = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
-                 
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("id"))
+                                            idTache = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                        
                                         //Recuperation du nom de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("nom"))
-                                            nomTache = attributCourant.getFirstChild().getNodeValue();
-                 
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("nom"))
+                                            nomTache = attributTacheCourant.getFirstChild().getNodeValue();
+                                        
                                         //Recuperation de la description de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("description"))
-                                            descriptionTache = attributCourant.getFirstChild().getNodeValue();
-                 
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("description"))
+                                            descriptionTache = attributTacheCourant.getFirstChild().getNodeValue();
+                                        
                                         //Recuperation de l'etat de la tache
                                         if(attributCourant.getNodeName().equalsIgnoreCase("etat"))
                                             etat = attributCourant.getFirstChild().getNodeValue();
-                 
+                                        
                                         //Recuperation de la charge prevue de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("chargeprevue"))
-                                            chargePrevue = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
-                 
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("chargeprevue"))
+                                            chargePrevue = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                        
                                         //Recuperation du temps passe de la tache
                                         if(attributCourant.getNodeName().equalsIgnoreCase("tempspasse"))
                                             tempsPasse = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
-                 
+                                        
                                         //Recuperation du reste a passer de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("resteapasser"))
-                                            resteAPasser = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
-                 
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("resteapasser"))
+                                            resteAPasser = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                        
                                         //Recuperation de la date de debut prevue de l'iteration
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
                                             try{
-                                                dateDebutPrevueTache = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                                dateDebutPrevueTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateDebutPrevue");}
-                 
-                 
+                                        
+                                        
                                         //Recuperation de la date de debut reelle de l'iteration
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("datedebutreelle"))
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("datedebutreelle"))
                                             try{
-                                                dateDebutReelleTache = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                                dateDebutReelleTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateDebutReelle");}
-                 
-                 
+                                        
+                                        
                                         //Recuperation de la date de debut reelle de l'iteration
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("datefinprevue"))
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("datefinprevue"))
                                             try{
-                                                dateFinPrevueTache = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                                dateFinPrevueTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateFinPrevue");}
-                 
+                                        
                                         //Recuperation de la date de debut reelle de l'iteration
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("datefinreelle"))
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("datefinreelle"))
                                             try{
-                                                dateFinReelleTache = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                                                dateFinReelleTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateFinReelle");
                                             }
-                 
+                                        
                                     }
                                     Tache tache = new Tache(nomTache, descriptionTache, etat, chargePrevue, tempsPasse, resteAPasser, dateDebutPrevueTache, dateDebutReelleTache, dateFinPrevueTache, dateFinReelleTache);
                                     tacheListe.add(tache);
                                 }
                             }
                         }
-                 
-                        Iteration iteration = new Iteration(numero, dateDebutPrevue, dateDebutReelle, dateFinPrevue, dateFinReelle, tacheListe);
+                        
+                        Iteration iteration = new Iteration(numero, dateDebutPrevue, dateDebutReelle, dateFinPrevue, dateFinReelle, tacheListe, indicateursIteration);
                         iterationList.add(iteration);
                     }
                 }
@@ -285,14 +374,11 @@ public class ParserXMLLog {
             }
             Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
             projetCourant.setListeIt(iterationList);
+            projetCourant.setIndicateursProjet(indicateursProjet);
             projets.add(projetCourant);
             
         }
         
-        Projet p = (Projet)projets.get(0);
-        Iteration i = (Iteration)p.getListeIt().get(0);
-        System.out.println(i.getNumero());
-        */
         return projets;
     }
     
