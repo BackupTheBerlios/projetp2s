@@ -96,6 +96,7 @@ public class Superviseur extends Utilisateur{
     public void setListeMessages(Vector listeMessages)
     {
         this.listeMessages = listeMessages;
+        
     }
     
 }
