@@ -210,6 +210,9 @@
                 <Component class="javax.swing.JTextArea" name="gnu">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Microsoft Sans Serif" size="11" style="0"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Project Supervisor System&#xa;&#xa;Copyright (C) 2004-2005 IUP ISI&#xa;&#xa;This program is free software; you can redistribute it and/or modify&#xa;it under the terms of the GNU General Public License as published by&#xa;the Free Software Foundation; either version 2 of the License, or&#xa;(at your option) any later version.&#xa;&#xa;This program is distributed in the hope that it will be useful,&#xa;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xa;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xa;GNU General Public License for more details."/>
                   </Properties>
                 </Component>

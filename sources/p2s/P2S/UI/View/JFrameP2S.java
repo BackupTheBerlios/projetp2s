@@ -214,6 +214,12 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuAide.setText("Aide");
         JMenuItemAProposDe.setText("A Propos de...");
+        JMenuItemAProposDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemAProposDeActionPerformed(evt);
+            }
+        });
+
         JMenuAide.add(JMenuItemAProposDe);
 
         JMenuBar.add(JMenuAide);
@@ -222,6 +228,10 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         setLocation(new java.awt.Point(0, 0));
     }//GEN-END:initComponents
+
+    private void JMenuItemAProposDeActionPerformed (java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemAProposDeActionPerformed
+	new JDialogAPropos(this, true).show() ;
+    }//GEN-LAST:event_JMenuItemAProposDeActionPerformed
     
     private void JMenuFichierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuFichierActionPerformed
         // TODO add your handling code here:
