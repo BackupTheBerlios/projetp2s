@@ -99,6 +99,16 @@ CREATE TABLE `indicateurs_projet` (
   CONSTRAINT `FK_indicateurs_projet_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `iteration_mesures`;
+CREATE TABLE `iteration_mesures` (
+  `iditeration` int(10) unsigned NOT NULL default '0',
+  `idmesure` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`iditeration`,`idmesure`),
+  KEY `FK_iteration_mesures_idmesure` (`idmesure`),
+  CONSTRAINT `FK_iteration_mesures_iditeration` FOREIGN KEY (`iditeration`) REFERENCES `iterations` (`iditeration`),
+  CONSTRAINT `FK_iteration_mesures_idmesure` FOREIGN KEY (`idmesure`) REFERENCES `mesures` (`idmesure`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `iterations`;
 CREATE TABLE `iterations` (
   `iditeration` int(10) unsigned NOT NULL auto_increment,
@@ -159,9 +169,13 @@ CREATE TABLE `mesures` (
   `idmesure` int(10) unsigned NOT NULL auto_increment,
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
-  `type` int(11) NOT NULL default '0',
+  `unite` varchar(45) NOT NULL default '',
   `valeur` varchar(45) NOT NULL default '',
-  PRIMARY KEY  (`idmesure`)
+  `commentaire` varchar(120) default NULL,
+  `idmembre` int(10) unsigned default NULL,
+  PRIMARY KEY  (`idmesure`),
+  KEY `FK_mesures_idmembre` (`idmembre`),
+  CONSTRAINT `FK_mesures_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `problemes`;

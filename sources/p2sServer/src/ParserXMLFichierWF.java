@@ -74,6 +74,7 @@ public class ParserXMLFichierWF {
         try{
             // Connexion a la base de donnees
             conn = DriverManager.getConnection(cheminBD);
+            conn.setAutoCommit(false);
         }catch(SQLException e){}
     }
     
@@ -95,6 +96,7 @@ public class ParserXMLFichierWF {
         // Mise a jour des liens
         majLiensMembres_TachesCollaboratives();
         majLiensMembres_Projets();
+        majLiensIteration_Mesures();
         majLiensArtefacts_Entrees_Taches();
         majLiensArtefacts_Sorties_Taches();
         majLiensArtefacts_Entrees_TachesCollaboratives();
@@ -104,6 +106,13 @@ public class ParserXMLFichierWF {
         // Mise a jour des indicateurs
         majIndicateurIteration();
         majIndicateurProjet();
+        
+        // On commit les modifications dans la base
+        try{
+            conn.commit();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     
     private String insertString(String s){
@@ -582,11 +591,12 @@ public class ParserXMLFichierWF {
         String id = null;
         String nom = null;
         String description = null;
+        String unite = null;
         String valeur = null;
-        String type = null;
+        String commentaire = null;
+        String idMembre = null;
         
-        
-        NodeList listeMesures = this.document.getElementsByTagName("eltMetrique");
+        NodeList listeMesures = this.document.getElementsByTagName("eltMetriques");
         NodeList listeNoeud;
         
         for(int i=0;i<listeMesures.getLength();i++){
@@ -594,8 +604,10 @@ public class ParserXMLFichierWF {
             id = null;
             nom = null;
             description = null;
+            unite = null;
             valeur = null;
-            type = null;
+            commentaire = null;
+            idMembre = null;
             
             listeNoeud = listeMesures.item(i).getChildNodes();
             
@@ -641,17 +653,34 @@ public class ParserXMLFichierWF {
                 throw new NullValueXMLException();
             }
             
-            // on recherche le type de la mesure
+            // on recherche l'unite de la mesure
             b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("type") != 0) {
+            while(listeNoeud.item(b).getNodeName().compareTo("unite") != 0) {
                 b++;
             }
             try{
-                type = listeNoeud.item(b).getFirstChild().getNodeValue();
+                unite = listeNoeud.item(b).getFirstChild().getNodeValue();
             }catch(NullPointerException e){
                 throw new NullValueXMLException();
             }
             
+            // on recherche le commentaire de la mesure
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("commentaire") != 0) {
+                b++;
+            }
+            try{
+                commentaire = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            // on recherche le membre qui a effectué la mesure
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("idMembre") != 0) {
+                b++;
+            }
+            try{
+                idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             try {
                 // Requete SQL
@@ -659,15 +688,17 @@ public class ParserXMLFichierWF {
                 ResultSet rsmesure = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsmesure.next()){
-                    prepState = conn.prepareStatement("insert into mesures values ("+id+","+insertString(nom)+","+insertString(description)+","+type+","+insertString(valeur)+")");
+                    prepState = conn.prepareStatement("insert into mesures values ("+id+","+insertString(nom)+","+insertString(description)+","+insertString(unite)+","+insertString(valeur)+","+insertString(commentaire)+","+idMembre+")");
                     prepState.execute(); // Execution de la requete
                 } else{
                     PreparedStatement updateMesure = conn.prepareStatement(
-                            "update mesures set nom=?, description=?, type=?, valeur=? where idmesure ="+id);
+                            "update mesures set nom=?, description=?, unite=?, valeur=?, commentaire=?, idmembre=? where idmesure ="+id);
                     updateMesure.setString(1,nom);
                     updateMesure.setString(2,description);
-                    updateMesure.setInt(3,updateInt(type));
+                    updateMesure.setString(3,unite);
                     updateMesure.setString(4,valeur);
+                    updateMesure.setString(5,commentaire);
+                    updateMesure.setInt(6,updateInt(idMembre));
                     
                     updateMesure.executeUpdate();
                 }
@@ -1641,14 +1672,8 @@ public class ParserXMLFichierWF {
         
         NodeList listeNoeudTemp = this.document.getElementsByTagName("MembreTacheCollaborative_Realise").item(0).getChildNodes();
         
-        if(listeNoeudTemp.getLength() != 1){
-            // on recherche le noeud listeMembre
-            int b = 0;
-            while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
-                b++;
-            }
-            listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
-            
+        if(listeNoeudTemp.getLength() != 1){            
+            int b = 0;            
             // on recherche les noeuds Membre
             for(int n=0;n<listeNoeudTemp.getLength();n++){
                 if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
@@ -1766,6 +1791,79 @@ public class ParserXMLFichierWF {
         }
         listeIdMembre.removeAllElements();
     }
+    
+    
+    public void majLiensIteration_Mesures() throws NullValueXMLException{
+        String idIteration = null;
+        Vector listeIdMesure = new Vector();
+        Vector listeIterationMesure = new Vector();
+        
+        NodeList listeNoeud;
+        NodeList listeNoeudIdRole;
+        
+        NodeList listeNoeudTemp = this.document.getElementsByTagName("listeIterationMetrique").item(0).getChildNodes();
+        if(listeNoeudTemp.getLength() != 1){            
+            int b = 0;                       
+            // on recherche les noeuds IterationMetrique
+            for(int n=0;n<listeNoeudTemp.getLength();n++){
+                if(listeNoeudTemp.item(n).getNodeName().compareTo("IterationMetrique") == 0){
+                    listeIterationMesure.add(listeNoeudTemp.item(n));
+                }
+            }
+            
+            // on parcourt tous les noeuds IterationMetrique
+            for(int i=0;i<listeIterationMesure.size();i++){
+                
+                idIteration = null;
+                
+                listeNoeud = ((Node)listeIterationMesure.get(i)).getChildNodes();
+                
+                // on recherche l'id de l'iteration
+                b = 0;
+                while(listeNoeud.item(b).getNodeName().compareTo("idIteration") != 0) {
+                    b++;
+                }
+                try{
+                    idIteration = listeNoeud.item(b).getFirstChild().getNodeValue();
+                }catch(NullPointerException e){
+                    throw new NullValueXMLException();
+                }
+                
+                // on recherche les Mesures
+                b = 0;
+                while(listeNoeud.item(b).getNodeName().compareTo("listeIdMetrique") != 0) {
+                    b++;
+                }
+                listeNoeudIdRole = listeNoeud.item(b).getChildNodes();
+                for(int j=0;j<listeNoeudIdRole.getLength();j++){
+                    if(listeNoeudIdRole.item(j).getNodeName().compareTo("id") == 0){
+                        listeIdMesure.add(listeNoeudIdRole.item(j).getFirstChild().getNodeValue());
+                    }
+                }
+                
+                for(int k=0;k<listeIdMesure.size();k++){
+                    try {
+                        // Requete SQL
+                        PreparedStatement prepState = conn.prepareStatement("Select * from iteration_mesures where iditeration="+idIteration+" and idmesure='"+listeIdMesure.get(k)+"'");
+                        ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                        
+                        if(!rs.next()){
+                            prepState = conn.prepareStatement("insert into iteration_mesures values ('"+idIteration+"',"+listeIdMesure.get(k)+")");
+                            prepState.execute(); // Execution de la requete
+                        }
+                        
+                    }catch (SQLException ex) { // Si une SQLException survient
+                        System.out.println("SQLException: " + ex.getMessage());
+                        System.out.println("SQLState: " + ex.getSQLState());
+                        System.out.println("VendorError: " + ex.getErrorCode());
+                        ex.printStackTrace();
+                    }
+                }
+                listeIdMesure.removeAllElements();
+            }
+        }
+    }
+    
     
     public void majLiensArtefacts_Entrees_Taches() throws NullValueXMLException{
         String idTache = null;
@@ -2081,14 +2179,8 @@ public class ParserXMLFichierWF {
         NodeList listeNoeudIdRole;
         
         NodeList listeNoeudTemp = this.document.getElementsByTagName("MembreRole").item(0).getChildNodes();
-        if(listeNoeudTemp.getLength() != 1){
-            // on recherche le noeud listeMembre
-            int b = 0;
-            while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
-                b++;
-            }
-            listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
-            
+        if(listeNoeudTemp.getLength() != 1){            
+            int b = 0;                       
             // on recherche les noeuds Membre
             for(int n=0;n<listeNoeudTemp.getLength();n++){
                 if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
