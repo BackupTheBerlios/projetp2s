@@ -20,6 +20,7 @@ public class Projet {
     private Vector listeMembres;
     private Vector listeRisques;
     private Vector listeProblemes;
+    private SeuilsFixes seuilFixes;
     
     
     //CONSTRUCTEURS
@@ -183,6 +184,14 @@ public class Projet {
     
     public void setIndicateursProjet(IndicateursProjet indicateursProjet){
         this.indicateursProjet = indicateursProjet;
+    }
+
+    public SeuilsFixes getSeuilFixes() {
+        return seuilFixes;
+    }
+
+    public void setSeuilFixes(SeuilsFixes seuilFixes) {
+        this.seuilFixes = seuilFixes;
     }
     
 }

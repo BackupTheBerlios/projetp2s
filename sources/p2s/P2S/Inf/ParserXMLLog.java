@@ -82,8 +82,7 @@ public class ParserXMLLog {
         }
     }
     
-    public Vector lireMessages()
-    {
+    public Vector lireMessages() {
         Vector messages = new Vector();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         NodeList listeMessages = this._document.getElementsByTagName("message");
@@ -99,7 +98,7 @@ public class ParserXMLLog {
             String message = null;
             
             //Récupération des attributs des messages
-             for(int j = 0 ; j < attributs.getLength() ; j++){
+            for(int j = 0 ; j < attributs.getLength() ; j++){
                 Node attributCourant = attributs.item(j);
                 
                 //Recuperation du sujet du message
@@ -114,14 +113,14 @@ public class ParserXMLLog {
                     } catch(ParseException e1){
                         System.out.println("Probleme pour parser la date du message");
                     } catch (NullPointerException e){}
-             
                 
-                 //Recuperation du corps du message
+                
+                //Recuperation du corps du message
                 if(attributCourant.getNodeName().equalsIgnoreCase("detail"))
                     message = attributCourant.getFirstChild().getNodeValue();
                 
                 
-             }
+            }
             Messages mess = new Messages(sujet,message,date);
             messages.add(mess);
         }
@@ -149,13 +148,14 @@ public class ParserXMLLog {
             Date dateFin = null;
             IndicateursProjet indicateursProjet = null;
             Vector iterationList = new Vector();
+            SeuilsFixes seuilsFixe = new SeuilsFixes();
             // plus
             Vector membresList = new Vector() ;
             Vector risquesList = new Vector() ;
-	    Vector problemesList = new Vector() ;
+            Vector problemesList = new Vector() ;
             
             //Recuperation des attributs du projet
-            for(int j = 0 ; j < attributs.getLength() ; j++){		
+            for(int j = 0 ; j < attributs.getLength() ; j++){
                 Node attributCourant = attributs.item(j);
                 
                 //Recuperation de l'id du projet
@@ -196,8 +196,8 @@ public class ParserXMLLog {
                     int dureeMoyenneTache = 0;
                     int nombreParticipants = 0;
                     float avancementProjet = 0;
-		    
-		    
+                    
+                    
                     NodeList attributsIndicateurProjet = attributCourant.getChildNodes();
                     
                     for(int nbrIndicateurs=0; nbrIndicateurs<attributsIndicateurProjet.getLength();nbrIndicateurs++ ){
@@ -232,8 +232,205 @@ public class ParserXMLLog {
                         
                         
                     }
-
+                    
                     indicateursProjet = new IndicateursProjet(totalCharges , tachesTerminees, dureeMoyenneTache, nombreParticipants, avancementProjet);
+                }
+                
+                //Recuperation des seuils fixe du projet liées aux projets
+                if(attributCourant.getNodeName().equalsIgnoreCase("seuilsprojet")){
+                    
+                    //Les seuils généraux
+                    Seuil totalChargesProjet = new Seuil();
+                    Seuil tachesTermineesProjet = new Seuil();
+                    Seuil dureeMoyenneTache = new Seuil();
+                    Seuil nombreParticipants = new Seuil();
+                    Seuil avancementProjet = new Seuil();
+                    
+                    //Les seuils par itération
+                    Seuil totalChargesIteration = new Seuil();
+                    Seuil tacheTermineesIteration = new Seuil();
+                    Seuil dureeMoyenneIteration = new Seuil();
+                    Seuil nombreParticipantIteration = new Seuil();
+                    Seuil chargeMoyenne = new Seuil();
+                    Seuil nombreTacheParticipant = new Seuil();
+                    
+                    int seuilInt = 0;
+                    float seuilFloat = 0;
+                    
+                    NodeList attributsSeuilFixe = attributCourant.getChildNodes();
+                    
+                    for(int nbrSeuil=0; nbrSeuil<attributsSeuilFixe.getLength();nbrSeuil++ ){
+                        
+                        Node seuilActuel = attributsSeuilFixe.item(nbrSeuil);
+                        
+                        //Recuperation du seuil min du total des charges du projet
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesProjetMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            totalChargesProjet.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max du total des charges du projet
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesProjetMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            totalChargesProjet.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min du total des taches terminees du projet
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("tachesTermineesProjetMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            tachesTermineesProjet.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max du total des taches terminees du projet
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("tachesTermineesProjetMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            tachesTermineesProjet.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min de la duree moyenne des taches
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneTacheMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            dureeMoyenneTache.setSeuilMin(seuilFloat);
+                            }
+                        
+                        //Recuperation du seuil max de la duree moyenne des taches
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneTacheMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            dureeMoyenneTache.setSeuilMax(seuilFloat);
+                            }
+                        
+                        //Recuperation du seuil min pour le nombre de participant
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantsMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            nombreParticipants.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max pour le nombre de participant
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantsMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            nombreParticipants.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min pour l'avancement du projet
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("avancementProjetMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            avancementProjet.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max pour l'avancement du projet
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("avancementProjetMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            avancementProjet.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min pour le total des charges dans l'itération
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesIterationMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            totalChargesIteration.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max pour le total des charges dans l'itération
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesIterationMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            totalChargesIteration.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min pour le total des taches terminees dans l'itération
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("tacheTermineesIterationMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            tacheTermineesIteration.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max pour le total des taches terminees dans l'itération
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("tacheTermineesIterationMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            tacheTermineesIteration.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min de la duree moyenne des taches dans l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneIterationMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            dureeMoyenneIteration.setSeuilMin(seuilFloat);
+                            }
+                        
+                        //Recuperation du seuil max de la duree moyenne des taches dans l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneIterationMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            dureeMoyenneIteration.setSeuilMax(seuilFloat);
+                            }
+                        
+                        //Recuperation du seuil min pour le nombre de participant dans l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantIterationMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            nombreParticipantIteration.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max pour le nombre de participant dans l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantIterationMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            nombreParticipantIteration.setSeuilMax(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil min de la charge moyenne des participants l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("chargeMoyenneMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            chargeMoyenne.setSeuilMin(seuilFloat);
+                            }
+                        
+                        //Recuperation du seuil max de la charge moyenne des participants l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("chargeMoyenneMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            chargeMoyenne.setSeuilMax(seuilFloat);
+                            }
+                        
+                        //Recuperation du seuil min pour le nombre de tache par participant dans l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("nombreTacheParticipantMin"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            nombreTacheParticipant.setSeuilMin(seuilInt);
+                            }
+                        
+                        //Recuperation du seuil max pour le nombre de tache par participant dans l'iteration
+                        if(seuilActuel.getNodeName().equalsIgnoreCase("nombreTacheParticipantMax"))
+                            if(seuilActuel.getFirstChild() != null){
+                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
+                            nombreTacheParticipant.setSeuilMax(seuilInt);
+                            }
+                        
+                    }
+                    
+                    seuilsFixe.setTotalChargesProjet(totalChargesProjet);
+                    seuilsFixe.setTachesTermineesProjet(tachesTermineesProjet);
+                    seuilsFixe.setAvancementProjet(avancementProjet);
+                    seuilsFixe.setChargeMoyenne(chargeMoyenne);
+                    seuilsFixe.setDureeMoyenneIteration(dureeMoyenneIteration);
+                    seuilsFixe.setDureeMoyenneTache(dureeMoyenneTache);
+                    seuilsFixe.setNombreParticipantIteration(nombreParticipantIteration);
+                    seuilsFixe.setNombreParticipants(nombreParticipants);
+                    seuilsFixe.setNombreTacheParticipant(nombreTacheParticipant);
+                    seuilsFixe.setTacheTermineesIteration(tacheTermineesIteration);
+                    seuilsFixe.setTotalChargesIteration(totalChargesIteration);
+                    
                 }
                 
                 //Recuperation des iterations
@@ -356,7 +553,7 @@ public class ParserXMLLog {
                                     
                                 }
                                 indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);
-             
+                                
                             }
                             
                             
@@ -463,7 +660,7 @@ public class ParserXMLLog {
                                         
                                     }
                                     
-                               
+                                    
                                     
                                     Tache tache = new Tache(nomTache, descriptionTache, etat, chargePrevue, tempsPasse, resteAPasser, dateDebutPrevueTache, dateDebutReelleTache, dateFinPrevueTache, dateFinReelleTache);
                                     tacheListe.add(tache);
@@ -534,8 +731,8 @@ public class ParserXMLLog {
                         risquesList.add(risque) ;
                     }
                 }
-		
-		//problemes
+                
+                //problemes
                 if(attributCourant.getNodeName().equalsIgnoreCase("problemes")){
                     NodeList problemeNodeList = attributCourant.getChildNodes();
                     
@@ -545,9 +742,9 @@ public class ParserXMLLog {
                         
                         String nomProbleme = null ;
                         String causeProbleme = null ;
-			Date debutProbleme = null ;
+                        Date debutProbleme = null ;
                         Date finProbleme = null ;
-			
+                        
                         
                         
                         Node problemeCourant = problemeNodeList.item(pbCounter);
@@ -572,32 +769,33 @@ public class ParserXMLLog {
                             //Recuperation de la date de debut
                             if(attributProblemeCourant.getNodeName().equalsIgnoreCase("dateDebut")) {
                                 try{
-                                   if(attributProblemeCourant.getFirstChild() != null)
-                                       debutProbleme = dateFormat.parse(attributProblemeCourant.getFirstChild().getNodeValue());
+                                    if(attributProblemeCourant.getFirstChild() != null)
+                                        debutProbleme = dateFormat.parse(attributProblemeCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
-                                   System.out.println("Probleme pour parser debut du probleme");}
+                                    System.out.println("Probleme pour parser debut du probleme");}
                             }
                             
                             //Recuperation de la date de fin
                             if(attributProblemeCourant.getNodeName().equalsIgnoreCase("dateFin")) {
                                 try{
-                                   if(attributProblemeCourant.getFirstChild() != null)
-                                       finProbleme = dateFormat.parse(attributProblemeCourant.getFirstChild().getNodeValue());				   
+                                    if(attributProblemeCourant.getFirstChild() != null)
+                                        finProbleme = dateFormat.parse(attributProblemeCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
-                                   System.out.println("Probleme pour parser fin du probleme");}
-                            }                            
+                                    System.out.println("Probleme pour parser fin du probleme");}
+                            }
                             
                         }
                         Probleme probleme = new Probleme(nomProbleme, causeProbleme, debutProbleme, finProbleme) ;
                         problemesList.add(probleme) ;
                     }
-                }		
+                }
             }
             Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
             projetCourant.setListeIt(iterationList);
             projetCourant.setIndicateursProjet(indicateursProjet);
             projetCourant.setListeRisques(risquesList) ;
-	    projetCourant.setListeProblemes(problemesList) ;
+            projetCourant.setListeProblemes(problemesList) ;
+            projetCourant.setSeuilFixes(seuilsFixe);
             projets.add(projetCourant);
             
         }

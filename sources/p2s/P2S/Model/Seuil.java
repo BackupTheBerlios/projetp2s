@@ -16,23 +16,26 @@ public class Seuil {
     private Object seuilMax;
     
     /** Creates a new instance of Seuil */
-        public Seuil(Object seuilMin, Object seuilMax) {
+    public Seuil() {
+    }
+    
+    public Seuil(Object seuilMin, Object seuilMax) {
         this.seuilMin = seuilMin;
         this.seuilMax = seuilMax;
     }
-
+    
     public Object getSeuilMin() {
         return seuilMin;
     }
-
+    
     public void setSeuilMin(Object seuilMin) {
         this.seuilMin = seuilMin;
     }
-
+    
     public Object getSeuilMax() {
         return seuilMax;
     }
-
+    
     public void setSeuilMax(Object seuilMax) {
         this.seuilMax = seuilMax;
     }

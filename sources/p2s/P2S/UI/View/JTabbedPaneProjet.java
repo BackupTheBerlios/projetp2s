@@ -11,6 +11,7 @@ import P2S.Model.Projet;
 import P2S.UI.View.JPanel.JPanelInfoGenProjet;
 import P2S.UI.View.JPanel.JPanelInfoProbleme;
 import P2S.UI.View.JPanel.JPanelInfoRisque;
+import P2S.UI.View.JPanel.JPanelInfoSeuil;
 import javax.swing.JTabbedPane;
 
 /**
@@ -29,6 +30,7 @@ public class JTabbedPaneProjet extends JTabbedPane {
         this.addTab(Bundle.getText("JTabbedPaneProjet_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoGenProjet(proj));
         this.addTab(Bundle.getText("JTabbedPaneProjet_TabRisques"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_risk.gif")),new JPanelInfoRisque(proj.getListeRisques()));
 	this.addTab(Bundle.getText("JTabbedPaneProjet_TabProblemes"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_problemes.gif")),new JPanelInfoProbleme(proj.getListeProblemes()));
+        this.addTab(Bundle.getText("JTabbedPaneProjet_TabSeuils"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/")),new JPanelInfoSeuil(proj));
     }
     
     /** This method is called from within the constructor to
