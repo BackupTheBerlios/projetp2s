@@ -13,6 +13,7 @@ import P2S.UI.View.JDialog.ModeleTableMesure;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.text.NumberFormat;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
@@ -70,9 +71,12 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
         {
             if (projets.get(i) instanceof IndicateursProjetMembre)
             {
+                NumberFormat nf = NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
+                
                 donnees2[i][0] = ((IndicateursProjetMembre)projets.get(i)).getNom();
-                donnees2[i][1] = new Float(((IndicateursProjetMembre)projets.get(i)).getCharges());
-                donnees2[i][2] = new Float(((IndicateursProjetMembre)projets.get(i)).getTempsTravail());
+                donnees2[i][1] = new Float(nf.format(new Float(((IndicateursProjetMembre)projets.get(i)).getCharges())).replace(',','.'));
+                donnees2[i][2] = new Float(nf.format(new Float(((IndicateursProjetMembre)projets.get(i)).getTempsTravail())).replace(',','.'));
             }
         }
         
