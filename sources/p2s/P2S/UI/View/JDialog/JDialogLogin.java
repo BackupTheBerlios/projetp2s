@@ -4,9 +4,9 @@ import P2S.Control.Bundle.*;
 import P2S.UI.View.*;
 import P2S.Model.*;
 import P2S.Inf.*;
-import java.awt.Toolkit;
 import java.net.*;
 import java.io.*;
+
 
 
 
@@ -129,7 +129,8 @@ public class JDialogLogin extends javax.swing.JDialog {
     
     private void JButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOKActionPerformed
         fermerApplication = false ;
-        try{            
+        try{     
+            
             // Envoie du login et du password a la servlet "LoginServlet" pour identifier l'utilisateur
             URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.JPasswordFieldMDP.getText()));
             
@@ -162,6 +163,7 @@ public class JDialogLogin extends javax.swing.JDialog {
                 }
             }
             in.close();
+            
         } catch(MalformedURLException e1){
 	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         } catch(IOException e2){
@@ -170,7 +172,7 @@ public class JDialogLogin extends javax.swing.JDialog {
             e3.printStackTrace();
 	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             e3.printStackTrace();
-        }
+        } 
         
         this.dispose();
     }//GEN-LAST:event_JButtonOKActionPerformed

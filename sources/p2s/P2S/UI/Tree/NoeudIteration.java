@@ -6,6 +6,7 @@
 
 package P2S.UI.Tree;
 
+import P2S.Control.Bundle.Bundle;
 import javax.swing.tree.*;
 import P2S.Model.*;
 
@@ -42,7 +43,7 @@ public class NoeudIteration extends DefaultMutableTreeNode{
      */
     public String toString()
     {
-        return "Iteration "+new Integer(iteration.getNumero()).toString();
+        return Bundle.getText("NoeudIterations")+new Integer(iteration.getNumero()).toString();
     }
     
 }

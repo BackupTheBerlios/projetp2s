@@ -172,7 +172,7 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
       {
          super (new JTextField()) ;
          this.owner = owner ;
-         
+         this.clickCountToStart = 1;
          editorComponent = new JButton(Bundle.getText("JTableTachesDetails")) ;
             ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(ActionEvent e) {

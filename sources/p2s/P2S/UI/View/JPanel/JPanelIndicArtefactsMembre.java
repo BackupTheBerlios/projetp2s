@@ -37,7 +37,10 @@ public class JPanelIndicArtefactsMembre extends javax.swing.JPanel {
             if (artefacts.get(i) instanceof IndicateursProduitMembre)
             {
                 donnees[i][0] = ((IndicateursProduitMembre)artefacts.get(i)).getNom() ;
-                donnees[i][1] = new Integer(((IndicateursProduitMembre)artefacts.get(i)).getEtat()) ;
+                if(((IndicateursProduitMembre)artefacts.get(i)).getEtat() != 0)
+                    donnees[i][1] = new Integer(((IndicateursProduitMembre)artefacts.get(i)).getEtat()) ;
+                else
+                    donnees[i][1] = "N/C";
             }
         }
         

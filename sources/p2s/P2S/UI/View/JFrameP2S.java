@@ -707,7 +707,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuItemCreerProjetLocal.setMnemonic(Bundle.getChar("JMenuItemCreerProjetLocal"));
         JMenuItemGererCDP.setText(Bundle.getText("JMenuItemGererCDP"));
         JMenuItemGererCDP.setMnemonic(Bundle.getChar("JMenuItemGererCDP"));
-        racine.setUserObject(Bundle.getText("NoeudSuperviseur")) ;
+        racine.setUserObject(utilisateur.getLogin());
         messages.setUserObject(Bundle.getText("NoeudMessages")) ;
         projets.setUserObject(Bundle.getText("NoeudProjets")) ;
         

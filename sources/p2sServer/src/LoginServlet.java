@@ -1110,8 +1110,8 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nom>");
                                     
                                     out.println("<etat>");
-                                    if(rsIndicArtefactMembre.getString("etat") != null)
-                                        out.println(rsIndicArtefactMembre.getString("etat"));
+                                    if(rsIndicArtefactMembre.getInt("etat") != -1)
+                                        out.println(rsIndicArtefactMembre.getInt("etat"));
                                     out.println("</etat>");
                                     
                                     out.println("</indicateurArtefact>");
