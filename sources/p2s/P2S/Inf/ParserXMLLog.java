@@ -174,7 +174,7 @@ public class ParserXMLLog {
                     telephone = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recupération du mail du membre
-                if(attributCourant.getNodeName().equalsIgnoreCase("mail"))
+                if(attributCourant.getNodeName().equalsIgnoreCase("email"))
                     email = attributCourant.getFirstChild().getNodeValue();
             }
             
