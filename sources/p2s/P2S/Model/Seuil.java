@@ -40,26 +40,32 @@ public class Seuil {
         this.seuilMax = seuilMax;
     }
     
-    public static boolean estHorsIntervalle(Float valeur,Float min,Float max){
+    public static int estHorsIntervalle(Float valeur,Float min,Float max){
         
         if(min.floatValue() == 0.0 && max.floatValue()==0.0)
-            return false;
+            return 0;
         
-        if(valeur.floatValue()<min.floatValue() || valeur.floatValue() > max.floatValue())
-            return true;
+        if(valeur.floatValue()<min.floatValue())
+            return 1;
         
-        return false;    
+        if(valeur.floatValue() > max.floatValue())
+            return 2;
+        
+        return 0;  
     }
     
-        public static boolean estHorsIntervalle(Integer valeur,Integer min,Integer max){
+        public static int estHorsIntervalle(Integer valeur,Integer min,Integer max){
         
-        if(min.floatValue() == 0.0 && max.floatValue()==0.0)
-            return false;
+        if(min.intValue() == 0 && max.intValue()==0)
+            return 0;
         
-        if(valeur.floatValue()<min.floatValue() || valeur.floatValue() > max.floatValue())
-            return true;
+        if(valeur.intValue()<min.intValue())
+            return 1;
         
-        return false;    
+        if(valeur.intValue() > max.intValue())
+            return 2;
+        
+        return 0;    
     }
     
 }
