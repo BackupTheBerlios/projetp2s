@@ -312,6 +312,10 @@ public class LoginServlet extends HttpServlet {
                                                 out.println(rsTaches.getString("tempspasse"));
                                                 out.println("</tempspasse>");
                                                 
+                                                out.println("<tempsrestant>");
+                                                out.println(rsTaches.getString("tempsrestant"));
+                                                out.println("</tempsrestant>");                                                
+                                                
                                                 out.println("<datedebutprevue>");
                                                 out.println(rsTaches.getString("datedebutprevue"));
                                                 out.println("</datedebutprevue>");
@@ -370,6 +374,10 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("<tempspasse>");
                                                 out.println(rsTachesCollaboratives.getString("tempspasse"));
                                                 out.println("</tempspasse>");
+                                                
+                                                out.println("<tempsrestant>");
+                                                out.println(rsTachesCollaboratives.getString("tempsrestant"));
+                                                out.println("</tempsrestant>");
                                                 
                                                 out.println("<datedebutprevue>");
                                                 out.println(rsTachesCollaboratives.getString("datedebutprevue"));
