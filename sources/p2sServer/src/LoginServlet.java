@@ -77,7 +77,12 @@ public class LoginServlet extends HttpServlet {
                     out.println("</fonction>");
                     
                     if(rsUser.getString("fonction").compareTo("sup")==0) {
+                        /************************************************************************************************
+                         *                                  SUPERVISEUR DE PROJET                                       *
+                         ************************************************************************************************/
+                        
                         //Dans le cas d'un superviseur : il faut récupérer toutes les informations relatives à ses projets
+                        
                         out.println("<projets>");
                         
                         //Récupération des identifiants de tous les projets du superviseur
@@ -94,6 +99,7 @@ public class LoginServlet extends HttpServlet {
                             if(rsProjets.next()){ //On se place sur le resultat de la requete (il n'y en a qu'un seul)
                                 
                                 /*********** RECUPERATION DES DONNEES DE BASES DU PROJET  ************/
+                                
                                 out.println("<id>");
                                 out.println(rsProjets.getString("idprojet"));
                                 out.println("</id>");
@@ -530,7 +536,7 @@ public class LoginServlet extends HttpServlet {
                                 
                                 //PAS DE MESURES POUR L INSTANT
                                 
-                                /******************** LES BALISES DE LIENS ************/
+                                /************************************* LES BALISES DE LIENS ***************************/
                                 
                                 
                                 /******************* MEMBRES & TACHES ***************/
@@ -582,6 +588,31 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</membresTachesCollaboratives>");
                                 }
                                 rsMembresTachesCollaboratives.close();
+                                
+                                /******************* RESPONSABLE & TACHES COLLABORATIVES ***************/
+                                prepState = conn.prepareStatement("Select idtache ,idresponsable from tachescollaboratives");
+                                ResultSet rsRespTachesC = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsRespTachesC.next()){
+                                    out.println("<responsablesTachesCollaboratives>");
+                                    
+                                    do{
+                                        out.println("<responsableTachCollaborative>");
+                                        
+                                        out.println("<idmembre>");
+                                        out.println(rsRespTachesC.getString("idresponsable"));
+                                        out.println("</idmembre>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsRespTachesC.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</responsableTacheCollaborative>");
+                                    }while(rsRespTachesC.next());
+                                    
+                                    out.println("</responsablesTachesCollaboratives>");
+                                }
+                                rsRespTachesC.close();
                                 
                                 /******************* MEMBRES & ARTEFACTS ***************/
                                 prepState = conn.prepareStatement("Select idartefact,idresponsable from artefacts");
@@ -737,7 +768,7 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<avancementProjet>");
                                     out.println(rsIndicateursProjet.getString("avancementProjet"));
                                     out.println("</avancementProjet>");
-                                                         
+                                    
                                     out.println("</indicateursProjet>");
                                     
                                 }
@@ -754,6 +785,11 @@ public class LoginServlet extends HttpServlet {
                     }
                     
                     if(rsUser.getString("fonction").compareTo("dir")==0) {
+                        
+                        /************************************************************************************************
+                         *                                  SUPERVISEUR DE PROJET                                       *
+                         ************************************************************************************************/
+                        
                         out.println("<membres>");
                         prepState = conn.prepareStatement("Select * from membres;");
                         ResultSet rsMembres = prepState.executeQuery(); // Execution de la requete
@@ -784,6 +820,34 @@ public class LoginServlet extends HttpServlet {
                             out.print("<email>");
                             out.print(rsMembres.getString("email"));
                             out.print("</email>");
+                            
+                            /********************* ROLES DU MEMBRE **************/
+                            
+                            prepState = conn.prepareStatement("Select r.idrole,r.nom,r.description from roles r, roles_membres rm where r.idrole = rm.idrole AND rm.idmembre = '"+ rsMembres.getString("idmembre") +"'");
+                            ResultSet rsRoles = prepState.executeQuery(); // Execution de la requete
+                            
+                            if(rsRoles.next()){
+                                //Si il y a des roles
+                                out.println("<roles>");
+                                do{
+                                    /********* CREATION DE CHAQUE ROLE DU MEMBRE *********/
+                                    out.println("<role>");
+                                    out.println("<id>");
+                                    out.println(rsRoles.getString("idrole"));
+                                    out.println("</id>");
+                                    
+                                    out.println("<designation>");
+                                    out.println(rsRoles.getString("nom"));
+                                    out.println("</designation>");
+                                    
+                                    out.println("<description>");
+                                    out.println(rsRoles.getString("description"));
+                                    out.println("</description>");
+                                    out.println("</role>");
+                                }while(rsRoles.next());
+                                
+                                out.print("</roles>");
+                            }
                             
                             out.println("</membre>");
                             

@@ -25,7 +25,7 @@ public class Tache {
     protected Date dateDebutReelle;
     protected Date dateFinPrevue;
     protected Date dateFinReelle;
-    private Membre realisateur;
+    protected Membre realisateur;
     protected Vector listeArtefactsEntrees;
     protected Vector listeArtefactsSorties;
     
