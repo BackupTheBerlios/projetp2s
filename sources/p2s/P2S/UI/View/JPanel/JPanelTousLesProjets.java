@@ -7,12 +7,27 @@
 package P2S.UI.View.JPanel;
 
 import P2S.Control.Bundle.*;
-import P2S.Model.Projet;
-import java.util.Vector;
+import P2S.Model.*;
 import javax.swing.*;
 import java.awt.*;
 import P2S.UI.View.JPanel.*;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagConstraints;
+import java.lang.*;
+import java.net.*;
+import java.io.*;
+import P2S.UI.View.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable ;
+import javax.swing.table.TableCellRenderer;
+import java.util.*;
+import P2S.UI.View.JFrameP2S;
+import P2S.UI.View.JDialog.ModeleTableMesure;
+import P2S.UI.View.JDialog.JDialogDetailProjet;
+import P2S.Model.Tache;  
 
 /**
  * JPanel affichant les informations sur l'ensemble des projets
@@ -24,40 +39,55 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
      * Creates new form PanelTousLesProjets
      * @param listeProjets liste des projets du superviseur
      */
+    
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable table;
+    
+    private String login;
+    private JLabel nomTache ;
+    private JButton boutonDetails ;
+    private JTable tableProjets ;
+    private String[] titresColonnes = {Bundle.getText("JPanelTousLesProjets_Projet"),
+                Bundle.getText("JPanelTousLesProjets_IndicateurAvancement"),
+                Bundle.getText("JPanelTousLesProjets_IndicateurParticipant"),
+                Bundle.getText("JPanelTousLesProjets_IndicateurTachesTerminees"),
+                Bundle.getText("JPanelTousLesProjets_IndicateurTotalCharges"),
+                Bundle.getText("JPanelTousLesProjetsDetail")};
+    private Object[][] donnees = null ;
+    private Vector projets ;
+    
     public JPanelTousLesProjets(Vector listeProjets) {
-        initComponents();
-               
-        java.awt.GridBagConstraints gridBagConstraints;
         
-        // On parcourt tous les projets et on les ajoute au panel
-        int i;
-        for(i=0;i<listeProjets.size();i++)
-        {
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = i;
-            gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-            gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-            add(new JTextField(((Projet)listeProjets.get(i)).getNom()), gridBagConstraints);
-            gridBagConstraints.gridx = 1;
-            gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
-            JButton detail = new JButton(Bundle.getText("JPanelTousLesProjetsDetail"));
-            final Projet p = (Projet)listeProjets.get(i);
-            
-            detail.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(ActionEvent e) {}});
-               add(detail,gridBagConstraints);
-           
-        }
+        this.projets = listeProjets ;
        
-        // On ajoute ce label vide pour mettre en forme le panel
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.weightx = 1;
-        gridBagConstraints.weighty = 1;
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = i;        
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        add(new JLabel(""), gridBagConstraints);
+        donnees = new Object[projets.size()][6] ;
+        for (int i = 0 ; i < donnees.length ; i++)
+        {
+            if (projets.get(i) instanceof Projet)
+            {
+                donnees[i][0] = ((Projet)projets.get(i)).getNom() ;
+                donnees[i][1] = new Float(((Projet)projets.get(i)).getIndicateursProjet().getAvancementProjet());
+                donnees[i][2] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getNombreParticipants());
+                donnees[i][3] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTachesTerminees());
+                donnees[i][4] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTotalCharges());
+                donnees[i][5] = new JButton(Bundle.getText("JPanelTousLesProjetsDetail")) ;
+            }
+        }
+         
+        ModeleTableTaches tableModel = new ModeleTableTaches(donnees, titresColonnes) ;
+        
+        setLayout(new java.awt.BorderLayout());
+        table = new JTable(tableModel) ;
+        table.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+	table.setDefaultRenderer(Float.class, new FloatRenderer()) ;
+        table.setDefaultRenderer(String.class, new StatusRenderer()) ;
+        table.setDefaultRenderer(JButton.class, new ButtonRenderer()) ;
+        table.setDefaultEditor(JButton.class, new ButtonEditor(this)) ;
+        table.getTableHeader().setReorderingAllowed(false) ;
+	
+	table.setPreferredScrollableViewportSize(new Dimension(500, 100)) ;
+	jScrollPane1 = new JScrollPane(table) ;
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }
     
     /** This method is called from within the constructor to
@@ -76,7 +106,135 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
         
     }
     
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
+
+     class ModeleTableTaches extends ModeleTableMesure
+    {
+        public ModeleTableTaches(Object donnees[][], String titres[]) {
+            super(donnees, titres) ;
+        }
+        
+        public boolean isCellEditable(int row, int col) {
+            return (col == 5) ;
+        }
+    }
+     
+     class NumericRenderer implements TableCellRenderer
+   {
+      private JFormattedTextField numericField = new JFormattedTextField() ;
+
+      public NumericRenderer()
+      {
+         numericField.setHorizontalAlignment(JTextField.RIGHT) ;
+         numericField.setBorder(BorderFactory.createEmptyBorder()) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+          numericField.setValue(value) ;
+         return numericField ;
+      }
+
+   } // fin de la classe NumericRenderer
+
+       class FloatRenderer implements TableCellRenderer
+   {
+      private JFormattedTextField numericField = new JFormattedTextField() ;
+
+      public FloatRenderer()
+      {
+         numericField.setHorizontalAlignment(JTextField.RIGHT) ;
+         numericField.setBorder(BorderFactory.createEmptyBorder()) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+          numericField.setValue(value + " " + "%") ;
+         return numericField ;
+      }
+
+   } // fin de la classe FloatRenderer
+       
+     class ButtonRenderer implements TableCellRenderer
+   {
+      private JButton details = null ;
+
+      public ButtonRenderer()
+      {
+         details = new JButton(Bundle.getText("JTableTachesDetails")) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+         details.setText(((JButton)value).getText()) ;
+         return details ;
+      }
+
+   } // fin de la classe ButtonRenderer
+     
+ 
+     
+      class StatusRenderer implements TableCellRenderer
+   {
+      private JFormattedTextField statusField = new JFormattedTextField() ;
+
+      public StatusRenderer()
+      {
+         statusField.setHorizontalAlignment(JTextField.LEFT) ;
+         statusField.setBorder(BorderFactory.createEmptyBorder()) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+          statusField.setValue(value) ;
+          // on le fait uniquement pour la colonne etat
+          if (column == 1)
+          {
+             statusField.setValue(Bundle.getText("Constante_tache"+value)) ;
+             if (((String)value).equals("1"))
+             {
+                 statusField.setForeground(new Color(20, 20, 250)) ;
+             }
+             if (((String)value).equals("3"))
+             {
+                 statusField.setForeground(new Color(250, 20, 20)) ;
+             }             
+          }
+          else
+          {
+              statusField.setForeground(new Color(0, 0, 0)) ;
+                       
+          }
+          return statusField ;
+      }
+
+   } // fin de la classe NumericRenderer
+      
+      class ButtonEditor extends DefaultCellEditor
+   {
+      private JButton details = null ;
+      private JPanelTousLesProjets owner;
+
+      public ButtonEditor(JPanelTousLesProjets owner)
+      {
+        super (new JTextField()) ;
+        this.owner = owner ;
+         this.clickCountToStart = 1;
+         editorComponent = new JButton(Bundle.getText("JTableTachesDetails")) ;
+            ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(ActionEvent e) {
+                 new JDialogDetailProjet(null, true, (Projet)projets.get(table.getSelectedRow()));
+               }
+           }) ;
+      }
+     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+         details.setText(((JButton)value).getText()) ;
+         return details ;
+      }
+
+   } // fin de la classe ButtonEditor
 }
