@@ -8,12 +8,18 @@ package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.Bundle;
 import P2S.Inf.ParserXMLCDP;
+import P2S.Inf.ParserXMLPreferences;
+import P2S.UI.View.JFrameP2S;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-import javax.swing.ListModel;
 
 /**
  *
@@ -31,7 +37,6 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         fluxXml = flux;
         initComponents();
         initText();
-        
         ParserXMLCDP parserCDP = new ParserXMLCDP(fluxXml);
         
         mapCdp = new HashMap();
@@ -147,6 +152,12 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         getContentPane().add(jButtonAjouter, gridBagConstraints);
 
         jButtonConfirmer.setText("Ok");
+        jButtonConfirmer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfirmerActionPerformed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -202,6 +213,76 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         setBounds((screenSize.width-389)/2, (screenSize.height-399)/2, 389, 399);
     }//GEN-END:initComponents
     
+    private void jButtonConfirmerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmerActionPerformed
+        
+        String flux = "";
+        
+        String nomCdp;
+        String nomProjet;
+        Vector listeProjets;
+        
+        Set lesCdp = mapCdp.keySet( ) ;
+        Iterator it = lesCdp.iterator( ) ;
+        flux += "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><assignationCDP>";
+        while ( it . hasNext( ) ) {
+            flux += "<CDP><nom>";
+            nomCdp = (String)it.next();
+            flux += nomCdp+"</nom>";
+            listeProjets = (Vector) mapCdp.get(nomCdp);
+            flux += "<projets>";
+            for (int i=0;i<listeProjets.size();i++){
+                nomProjet = (String)listeProjets.get(i);
+                flux += "<projet>"+nomProjet+"</projet>";
+            }
+            flux += "</projets></CDP>";
+            
+        }
+        flux += "</assignationCDP>";
+        
+        String loginUtilisateur = ((JFrameP2S)this.getParent()).utilisateur.getLogin();
+        int fluxMax = 50;
+        int longueurFlux = flux.length();
+        int longueurActuelle = 0 ;
+        URL url;
+        ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+        
+        try{
+            // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
+            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=0&flux=");
+            BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
+            // On lit le fichier
+            
+            int longueurReelle ;
+            while(longueurActuelle < longueurFlux){
+                if (longueurFlux-longueurActuelle>fluxMax) longueurReelle = fluxMax;
+                else longueurReelle = longueurFlux-longueurActuelle;
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=1&flux="+flux.substring(longueurActuelle,longueurActuelle+longueurReelle).replaceAll("\\s","%20"));
+                in = new BufferedReader(new InputStreamReader(url.openStream()));
+                longueurActuelle += fluxMax;
+            }
+            // On indique qu'on a fini de lire le fichier
+            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=2&flux=");
+            in = new BufferedReader(new InputStreamReader(url.openStream()));
+            
+            String reponse = new String("");
+            String inputLine;
+            while ((inputLine = in.readLine()) != null)
+                reponse += inputLine;
+            
+            if(reponse.compareTo("1") == 0) {
+                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorValeurNulle"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            }
+            
+        }catch(IOException e){
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        
+        System.out.println(flux);
+        this.dispose();
+        
+    }//GEN-LAST:event_jButtonConfirmerActionPerformed
+    
     private void jButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonAnnulerActionPerformed
@@ -219,12 +300,14 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
     
     private void jButtonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSupprimerActionPerformed
         //retire un projet a un chef de projet
+        
         String ancienProjet = (String) jListProjetSupervise.getSelectedValue();
         String cdp = (String)jComboBoxChoixCDP.getSelectedItem();
         Vector listeProjetActuel = (Vector)mapCdp.get(cdp);
         listeProjetActuel.remove(ancienProjet);
         listeProjetsLibres.add(ancienProjet);
         reactualiseListeProjet();
+        
     }//GEN-LAST:event_jButtonSupprimerActionPerformed
     
     private void jComboBoxChoixCDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxChoixCDPActionPerformed
