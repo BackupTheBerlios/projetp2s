@@ -81,7 +81,8 @@ public class CreerCDPServlet extends HttpServlet {
                  e.printStackTrace();
 
              }
-        }   
+        }
+        out.println("0");
         out.close(); 
     }
     
