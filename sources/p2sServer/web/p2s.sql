@@ -1,3 +1,5 @@
+-- Commande pour importer les tables : mysql -u login -ppassword nom_base < p2s.sql
+
 -- MySQL dump 10.9
 --
 -- Host: localhost    Database: p2s
@@ -64,6 +66,30 @@ UNLOCK TABLES;
 /*!40000 ALTER TABLE `artefacts_entrees_taches` ENABLE KEYS */;
 
 --
+-- Table structure for table `artefacts_entrees_tachescollaboratives`
+--
+
+DROP TABLE IF EXISTS `artefacts_entrees_tachescollaboratives`;
+CREATE TABLE `artefacts_entrees_tachescollaboratives` (
+  `idartefact` int(10) unsigned NOT NULL auto_increment,
+  `idtache` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`idartefact`,`idtache`),
+  KEY `FK_artefacts_entrees_tachescollaboratives_idtache` (`idtache`),
+  CONSTRAINT `FK_artefacts_entrees_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`),
+  CONSTRAINT `FK_artefacts_entrees_tachescollaboratives_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB';
+
+--
+-- Dumping data for table `artefacts_entrees_tachescollaboratives`
+--
+
+
+/*!40000 ALTER TABLE `artefacts_entrees_tachescollaboratives` DISABLE KEYS */;
+LOCK TABLES `artefacts_entrees_tachescollaboratives` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `artefacts_entrees_tachescollaboratives` ENABLE KEYS */;
+
+--
 -- Table structure for table `artefacts_sorties_taches`
 --
 
@@ -86,6 +112,131 @@ CREATE TABLE `artefacts_sorties_taches` (
 LOCK TABLES `artefacts_sorties_taches` WRITE;
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `artefacts_sorties_taches` ENABLE KEYS */;
+
+--
+-- Table structure for table `artefacts_sorties_tachescollaboratives`
+--
+
+DROP TABLE IF EXISTS `artefacts_sorties_tachescollaboratives`;
+CREATE TABLE `artefacts_sorties_tachescollaboratives` (
+  `idartefact` int(10) unsigned NOT NULL auto_increment,
+  `idtache` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`idartefact`,`idtache`),
+  KEY `FK_artefacts_sorties_tachescollaboratives_idtache` (`idtache`),
+  CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`),
+  CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `artefacts_sorties_tachescollaboratives`
+--
+
+
+/*!40000 ALTER TABLE `artefacts_sorties_tachescollaboratives` DISABLE KEYS */;
+LOCK TABLES `artefacts_sorties_tachescollaboratives` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `artefacts_sorties_tachescollaboratives` ENABLE KEYS */;
+
+--
+-- Table structure for table `indicateurs_iteration`
+--
+
+DROP TABLE IF EXISTS `indicateurs_iteration`;
+CREATE TABLE `indicateurs_iteration` (
+  `iditeration` int(10) unsigned NOT NULL auto_increment,
+  `totalcharges` int(10) unsigned default NULL,
+  `nombretachesterminees` int(10) unsigned default NULL,
+  `dureemoyennetache` int(10) unsigned default NULL,
+  `nombreparticipants` int(10) unsigned default NULL,
+  `chargemoyenneparticipants` int(10) unsigned default NULL,
+  `nombremoyentachesparticipants` int(10) unsigned default NULL,
+  PRIMARY KEY  (`iditeration`),
+  CONSTRAINT `FK_indicateurs_iteration_iditeration` FOREIGN KEY (`iditeration`) REFERENCES `iterations` (`iditeration`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `indicateurs_iteration`
+--
+
+
+/*!40000 ALTER TABLE `indicateurs_iteration` DISABLE KEYS */;
+LOCK TABLES `indicateurs_iteration` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `indicateurs_iteration` ENABLE KEYS */;
+
+--
+-- Table structure for table `indicateurs_projet`
+--
+
+DROP TABLE IF EXISTS `indicateurs_projet`;
+CREATE TABLE `indicateurs_projet` (
+  `idprojet` int(10) unsigned NOT NULL auto_increment,
+  `totalcharges` int(10) unsigned default NULL,
+  `tachesterminees` int(10) unsigned default NULL,
+  `dureemoyennetache` int(10) unsigned default NULL,
+  `nombreparticipants` int(10) unsigned default NULL,
+  `avancementprojet` float default NULL,
+  PRIMARY KEY  (`idprojet`),
+  CONSTRAINT `FK_indicateurs_projet_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `indicateurs_projet`
+--
+
+
+/*!40000 ALTER TABLE `indicateurs_projet` DISABLE KEYS */;
+LOCK TABLES `indicateurs_projet` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `indicateurs_projet` ENABLE KEYS */;
+
+--
+-- Table structure for table `indicateurs_tache`
+--
+
+DROP TABLE IF EXISTS `indicateurs_tache`;
+CREATE TABLE `indicateurs_tache` (
+  `idtache` int(10) unsigned NOT NULL auto_increment,
+  `nombretotal` int(10) unsigned default NULL,
+  `nombreterminees` int(10) unsigned default NULL,
+  `dureemoyenne` int(10) unsigned default NULL,
+  PRIMARY KEY  (`idtache`),
+  CONSTRAINT `FK_indicateurs_tache_idtache` FOREIGN KEY (`idtache`) REFERENCES `taches` (`idtache`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `indicateurs_tache`
+--
+
+
+/*!40000 ALTER TABLE `indicateurs_tache` DISABLE KEYS */;
+LOCK TABLES `indicateurs_tache` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `indicateurs_tache` ENABLE KEYS */;
+
+--
+-- Table structure for table `indicateurs_tachecollaborative`
+--
+
+DROP TABLE IF EXISTS `indicateurs_tachecollaborative`;
+CREATE TABLE `indicateurs_tachecollaborative` (
+  `idtache` int(10) unsigned NOT NULL auto_increment,
+  `nombretotal` int(10) unsigned default NULL,
+  `nombreterminees` int(10) unsigned default NULL,
+  `dureemoyenne` int(10) unsigned default NULL,
+  PRIMARY KEY  (`idtache`),
+  CONSTRAINT `FK_indicateurs_tachecollaborative_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `indicateurs_tachecollaborative`
+--
+
+
+/*!40000 ALTER TABLE `indicateurs_tachecollaborative` DISABLE KEYS */;
+LOCK TABLES `indicateurs_tachecollaborative` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `indicateurs_tachecollaborative` ENABLE KEYS */;
 
 --
 -- Table structure for table `iterations`
@@ -165,28 +316,28 @@ UNLOCK TABLES;
 /*!40000 ALTER TABLE `membres_projets` ENABLE KEYS */;
 
 --
--- Table structure for table `membres_tachescolaboratives`
+-- Table structure for table `membres_tachescollaboratives`
 --
 
-DROP TABLE IF EXISTS `membres_tachescolaboratives`;
-CREATE TABLE `membres_tachescolaboratives` (
+DROP TABLE IF EXISTS `membres_tachescollaboratives`;
+CREATE TABLE `membres_tachescollaboratives` (
   `idmembre` int(10) unsigned NOT NULL auto_increment,
   `idtache` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idmembre`,`idtache`),
   KEY `FK_membrestachescolaboratives_idtache` (`idtache`),
   CONSTRAINT `FK_membrestachescolaboratives_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`),
-  CONSTRAINT `FK_membrestachescolaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescolaboratives` (`idtache`)
+  CONSTRAINT `FK_membrestachescolaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `membres_tachescolaboratives`
+-- Dumping data for table `membres_tachescollaboratives`
 --
 
 
-/*!40000 ALTER TABLE `membres_tachescolaboratives` DISABLE KEYS */;
-LOCK TABLES `membres_tachescolaboratives` WRITE;
+/*!40000 ALTER TABLE `membres_tachescollaboratives` DISABLE KEYS */;
+LOCK TABLES `membres_tachescollaboratives` WRITE;
 UNLOCK TABLES;
-/*!40000 ALTER TABLE `membres_tachescolaboratives` ENABLE KEYS */;
+/*!40000 ALTER TABLE `membres_tachescollaboratives` ENABLE KEYS */;
 
 --
 -- Table structure for table `mesures`
@@ -372,11 +523,11 @@ UNLOCK TABLES;
 /*!40000 ALTER TABLE `taches` ENABLE KEYS */;
 
 --
--- Table structure for table `tachescolaboratives`
+-- Table structure for table `tachescollaboratives`
 --
 
-DROP TABLE IF EXISTS `tachescolaboratives`;
-CREATE TABLE `tachescolaboratives` (
+DROP TABLE IF EXISTS `tachescollaboratives`;
+CREATE TABLE `tachescollaboratives` (
   `idtache` int(10) unsigned NOT NULL default '0',
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
@@ -395,14 +546,14 @@ CREATE TABLE `tachescolaboratives` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB';
 
 --
--- Dumping data for table `tachescolaboratives`
+-- Dumping data for table `tachescollaboratives`
 --
 
 
-/*!40000 ALTER TABLE `tachescolaboratives` DISABLE KEYS */;
-LOCK TABLES `tachescolaboratives` WRITE;
+/*!40000 ALTER TABLE `tachescollaboratives` DISABLE KEYS */;
+LOCK TABLES `tachescollaboratives` WRITE;
 UNLOCK TABLES;
-/*!40000 ALTER TABLE `tachescolaboratives` ENABLE KEYS */;
+/*!40000 ALTER TABLE `tachescollaboratives` ENABLE KEYS */;
 
 --
 -- Table structure for table `utilisateurs`
