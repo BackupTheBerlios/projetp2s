@@ -14,7 +14,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import P2S.UI.View.*;
 
-import javax.swing.plaf.metal.MetalProgressBarUI;
+
+import javax.swing.ProgressMonitor;
 
 /**
  *
@@ -115,7 +116,6 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null)
                     reponse += inputLine;
-                
                 // Si le fichier est introuvable
                 if(reponse.compareTo("0") == 0) {
                     javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorFichierNotFound"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;

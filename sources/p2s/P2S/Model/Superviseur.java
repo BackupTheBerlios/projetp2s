@@ -93,7 +93,7 @@ public class Superviseur extends Utilisateur{
         return listeMessages;
     }
     
-    public Void setListeMessages(Vector listeMessages)
+    public void setListeMessages(Vector listeMessages)
     {
         this.listeMessages = listeMessages;
     }

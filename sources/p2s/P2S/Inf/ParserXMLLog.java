@@ -38,6 +38,7 @@ public class ParserXMLLog {
         try{
             DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
             DocumentBuilder constructeur = usine.newDocumentBuilder();
+            System.out.println("FLUX : " + Xml);
             /*
              ** Ce try catch permet d'attraper des exceptions dans le cas ou
              ** le mot de passe ou un autre champ dans le fichier xml est incorrect
@@ -365,12 +366,12 @@ public class ParserXMLLog {
                                                 chargePrevue = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation du temps passe de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("tempspasse"))
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("tempspasse"))
                                             if(attributTacheCourant.getFirstChild() != null)
-                                                tempsPasse = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
+                                                tempsPasse = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation du reste a passer de la tache
-                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("resteapasser"))
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("tempsrestant"))
                                             if(attributTacheCourant.getFirstChild() != null)
                                                 resteAPasser = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
                                         
@@ -410,6 +411,8 @@ public class ParserXMLLog {
                                             }
                                         
                                     }
+                                    
+                               
                                     Tache tache = new Tache(nomTache, descriptionTache, etat, chargePrevue, tempsPasse, resteAPasser, dateDebutPrevueTache, dateDebutReelleTache, dateFinPrevueTache, dateFinReelleTache);
                                     tacheListe.add(tache);
                                 }
