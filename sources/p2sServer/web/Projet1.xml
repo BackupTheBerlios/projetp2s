@@ -77,7 +77,7 @@
 	</liste_composant>
 	<liste_role>
 		<role>
-			<id>201</id>
+			<id>_201</id>
 			<nom>Analyste</nom>
 			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
 			<liste_responsabiliteProduit>
@@ -91,7 +91,7 @@
 			<elementPresentationId>_603</elementPresentationId>
 		</role>
 		<role>
-			<id>202</id>
+			<id>_202</id>
 			<nom>Comité exigences</nom>
 			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
 			<liste_responsabiliteProduit>
@@ -103,7 +103,7 @@
 			<elementPresentationId>_604</elementPresentationId>
 		</role>
 		<role>
-			<id>203</id>
+			<id>_203</id>
 			<nom>Equipier</nom>
 			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
 			<liste_responsabiliteProduit/>
@@ -113,7 +113,7 @@
 			<elementPresentationId>_605</elementPresentationId>
 		</role>
 		<role>
-			<id>204</id>
+			<id>_204</id>
 			<nom>Chef de projet</nom>
 			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
 			<liste_responsabiliteProduit>
@@ -940,9 +940,9 @@
 				<tempsPasse>0</tempsPasse>
 				<resteAPasser>10</resteAPasser>
 				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
-				<dateDebutReelle>null</dateDebutReelle>
+				<dateDebutReelle>2003-05-17</dateDebutReelle>
 				<dateFinPrevue>2003-06-02</dateFinPrevue>
-				<dateFinReelle>null</dateFinReelle>
+				<dateFinReelle>2003-06-03</dateFinReelle>
 			</eltTacheCollaborative>
 		</listeTacheCollaboratives>
 		
@@ -1596,35 +1596,35 @@
 				<Membre>
 					<id>1</id>
 					<listeRole>
-						<id>201</id>
-						<id>204</id>
+						<id>_201</id>
+						<id>_204</id>
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>2</id>
 					<listeRole>
-						<id>203</id>
-						<id>204</id>
+						<id>_203</id>
+						<id>_204</id>
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>3</id>
 					<listeRole>
-						<id>202</id>						
+						<id>_202</id>						
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>4</id>
 					<listeRole>
-						<id>202</id>
-						<id>204</id>
+						<id>_202</id>
+						<id>_204</id>
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>5</id>
 					<listeRole>
-						<id>201</id>
-						<id>202</id>
+						<id>_201</id>
+						<id>_202</id>
 					</listeRole>
 				</Membre>
 			</listeMembre>

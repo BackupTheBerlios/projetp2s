@@ -404,7 +404,7 @@ public class ParserXMLFichierWF {
     }
     
     public void majRoles() {
-        int id = -1;
+        String id = null;
         String nom = null;
         String description = "description role manquant dans dpe";
         
@@ -420,7 +420,7 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            id = listeNoeud.item(b).getFirstChild().getNodeValue();
             
             // on recherche le nom du role
             b = 0;
@@ -442,19 +442,19 @@ public class ParserXMLFichierWF {
                 //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
                 
                 // Requete SQL
-                PreparedStatement prepState = conn.prepareStatement("Select * from roles where idrole="+id);
-                ResultSet rsmembre = prepState.executeQuery(); // Execution de la requete
+                PreparedStatement prepState = conn.prepareStatement("Select * from roles where idrole='"+id+"'");
+                ResultSet rsRole = prepState.executeQuery(); // Execution de la requete
                 
-                if(!rsmembre.next()){
-                    prepState = conn.prepareStatement("insert into roles values ("+id+",'"+nom+"','"+description+"')");
+                if(!rsRole.next()){
+                    prepState = conn.prepareStatement("insert into roles values ('"+id+"','"+nom+"','"+description+"')");
                     prepState.execute(); // Execution de la requete
                 } else{
-                    PreparedStatement updateMembre = conn.prepareStatement(
-                            "update roles set nom=?, description=? where idrole ="+id);
-                    updateMembre.setString(1,nom);
-                    updateMembre.setString(2, description);
+                    PreparedStatement updateRole = conn.prepareStatement(
+                            "update roles set nom=?, description=? where idrole ='"+id+"'");
+                    updateRole.setString(1,nom);
+                    updateRole.setString(2, description);
                     
-                    updateMembre.executeUpdate();
+                    updateRole.executeUpdate();
                 }
                 
                 
@@ -1614,11 +1614,11 @@ public class ParserXMLFichierWF {
             for(int k=0;k<listeIdRole.size();k++){
                 try {
                     // Requete SQL
-                    PreparedStatement prepState = conn.prepareStatement("Select * from roles_membres where idmembre="+idMembre+" and idrole="+listeIdRole.get(k));
+                    PreparedStatement prepState = conn.prepareStatement("Select * from roles_membres where idmembre="+idMembre+" and idrole='"+listeIdRole.get(k)+"'");
                     ResultSet rs = prepState.executeQuery(); // Execution de la requete
                     
                     if(!rs.next()){
-                        prepState = conn.prepareStatement("insert into roles_membres values ("+listeIdRole.get(k)+","+idMembre+")");
+                        prepState = conn.prepareStatement("insert into roles_membres values ('"+listeIdRole.get(k)+"',"+idMembre+")");
                         prepState.execute(); // Execution de la requete
                     }
                     

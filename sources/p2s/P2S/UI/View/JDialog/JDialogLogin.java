@@ -181,9 +181,14 @@ public class JDialogLogin extends javax.swing.JDialog {
             //Recuperation du fluxXml envoye par la Servlet : LoginServlet contenant toutes les donnees de l'utilisateur
             String fluxXml = new String("");
             String inputLine;
-            while ((inputLine = in.readLine()) != null)
-                fluxXml += inputLine;
-                System.out.println("FLUX : " + fluxXml);
+            
+            while ((inputLine = in.readLine()) != null){
+                fluxXml += inputLine;                
+            }
+            System.out.println("FLUX : " + fluxXml);
+            
+            
+                            
             
             if(fluxXml.compareTo("") != 0) {
                 ParserXMLLog parser = new ParserXMLLog(fluxXml);

@@ -171,7 +171,7 @@ CREATE TABLE `risques` (
 
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
-  `idrole` int(10) unsigned NOT NULL auto_increment,
+  `idrole` varchar(45) NOT NULL default '',
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
   PRIMARY KEY  (`idrole`)
@@ -179,12 +179,12 @@ CREATE TABLE `roles` (
 
 DROP TABLE IF EXISTS `roles_membres`;
 CREATE TABLE `roles_membres` (
-  `idrole` int(10) unsigned NOT NULL auto_increment,
+  `idrole` varchar(45) NOT NULL default '',
   `idmembre` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idrole`,`idmembre`),
   KEY `FK_roles_membres_idmembre` (`idmembre`),
-  CONSTRAINT `FK_roles_membres_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`),
-  CONSTRAINT `FK_roles_membres_idrole` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`)
+  CONSTRAINT `FK_roles_membres_idrole` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`),
+  CONSTRAINT `FK_roles_membres_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `superviseur_projets`;
@@ -249,7 +249,8 @@ CREATE TABLE `utilisateurs` (
   PRIMARY KEY  (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 INSERT INTO `utilisateurs` (`login`,`password`,`fonction`) VALUES 
- ('directeur','902c77af765b79c19f2d71fa427008d0','dir');
+ ('directeur','902c77af765b79c19f2d71fa427008d0','dir'),
+ ('sup','2eeecd72c567401e6988624b179d0b14','sup');
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
