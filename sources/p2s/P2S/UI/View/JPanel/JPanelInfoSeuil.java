@@ -7,17 +7,10 @@
 package P2S.UI.View.JPanel;
 
 import P2S.Control.Bundle.Bundle;
-import P2S.Inf.Md5;
-import P2S.Inf.ParserXMLLog;
-import P2S.Model.ChefDeProjet;
-import P2S.Model.Directeur;
 import P2S.Model.Projet;
 import P2S.Model.SeuilsFixes;
-import P2S.Model.Superviseur;
 import P2S.UI.View.JFrameP2S;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -94,15 +87,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         totalChargesProjet.setText("Total des charges");
         add(totalChargesProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, -1));
 
-        totalChargesProjetSeuilMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalChargesProjetSeuilMinActionPerformed(evt);
-            }
-        });
+
         totalChargesProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                totalChargesProjetSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 totalChargesProjetSeuilMinFocusLost(evt);
             }
@@ -111,9 +97,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(totalChargesProjetSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 40, -1));
 
         totalChargesProjetSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                totalChargesProjetSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 totalChargesProjetSeuilMaxFocusLost(evt);
             }
@@ -125,9 +108,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(tacheTermineesProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, -1));
 
         tacheTermineesProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tacheTermineesProjetSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tacheTermineesProjetSeuilMinFocusLost(evt);
             }
@@ -136,9 +116,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(tacheTermineesProjetSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 40, -1));
 
         tacheTermineesProjetSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tacheTermineesProjetSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tacheTermineesProjetSeuilMaxFocusLost(evt);
             }
@@ -150,9 +127,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(dureeMoyenneProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 220, -1));
 
         dureeMoyenneProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dureeMoyenneProjetSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 dureeMoyenneProjetSeuilMinFocusLost(evt);
             }
@@ -161,9 +135,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(dureeMoyenneProjetSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 40, -1));
 
         dureeMoyenneProjetSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dureeMoyenneProjetSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 dureeMoyenneProjetSeuilMaxFocusLost(evt);
             }
@@ -174,15 +145,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         nombreParticipantProjet.setText("Nombre de participants");
         add(nombreParticipantProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, -1));
 
-        nombreParticipantProjetSeuilMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreParticipantProjetSeuilMinActionPerformed(evt);
-            }
-        });
+
         nombreParticipantProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreParticipantProjetSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreParticipantProjetSeuilMinFocusLost(evt);
             }
@@ -191,9 +155,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(nombreParticipantProjetSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 40, -1));
 
         nombreParticipantProjetSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreParticipantProjetSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreParticipantProjetSeuilMaxFocusLost(evt);
             }
@@ -207,15 +168,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         totalChargesIteration.setText("Total des charges");
         add(totalChargesIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, -1));
 
-        totalChargesIterationSeuilMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalChargesIterationSeuilMinActionPerformed(evt);
-            }
-        });
+
         totalChargesIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                totalChargesIterationSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 totalChargesIterationSeuilMinFocusLost(evt);
             }
@@ -224,9 +178,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(totalChargesIterationSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 40, -1));
 
         totalChargesIterationSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                totalChargesIterationSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 totalChargesIterationSeuilMaxFocusLost(evt);
             }
@@ -237,15 +188,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         tacheTermineesIteration.setText("Nombre de t\u00e2ches termin\u00e9es");
         add(tacheTermineesIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 220, -1));
 
-        tacheTermineesIterationSeuilMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tacheTermineesIterationSeuilMinActionPerformed(evt);
-            }
-        });
+
         tacheTermineesIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tacheTermineesIterationSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tacheTermineesIterationSeuilMinFocusLost(evt);
             }
@@ -254,9 +198,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(tacheTermineesIterationSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 40, -1));
 
         tacheTermineesIterationSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tacheTermineesIterationSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tacheTermineesIterationSeuilMaxFocusLost(evt);
             }
@@ -267,15 +208,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         dureeMoyenneIteration.setText("Dur\u00e9e moyenne des t\u00e2ches");
         add(dureeMoyenneIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 220, -1));
 
-        dureeMoyenneIterationSeuilMin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dureeMoyenneIterationSeuilMinActionPerformed(evt);
-            }
-        });
+
         dureeMoyenneIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dureeMoyenneIterationSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 dureeMoyenneIterationSeuilMinFocusLost(evt);
             }
@@ -284,9 +218,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(dureeMoyenneIterationSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 40, -1));
 
         dureeMoyenneIterationSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                dureeMoyenneIterationSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 dureeMoyenneIterationSeuilMaxFocusLost(evt);
             }
@@ -298,9 +229,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(nombreParticipantIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 230, -1));
 
         nombreParticipantIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreParticipantIterationSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreParticipantIterationSeuilMinFocusLost(evt);
             }
@@ -309,9 +237,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(nombreParticipantIterationSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 40, -1));
 
         nombreParticipantIterationSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreParticipantIterationSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreParticipantIterationSeuilMaxFocusLost(evt);
             }
@@ -323,9 +248,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(chargeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 210, -1));
 
         chargeMoyenneSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                chargeMoyenneSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 chargeMoyenneSeuilMinFocusLost(evt);
             }
@@ -334,9 +256,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(chargeMoyenneSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 40, -1));
 
         chargeMoyenneSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                chargeMoyenneSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 chargeMoyenneSeuilMaxFocusLost(evt);
             }
@@ -348,9 +267,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(nombreTacheParticipant, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 230, -1));
 
         nombreTacheParticipantSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreTacheParticipantSeuilMinFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreTacheParticipantSeuilMinFocusLost(evt);
             }
@@ -359,9 +275,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(nombreTacheParticipantSeuilMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 40, -1));
 
         nombreTacheParticipantSeuilMax.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreTacheParticipantSeuilMaxFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreTacheParticipantSeuilMaxFocusLost(evt);
             }
@@ -386,47 +299,153 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             String pass = ((JFrameP2S)this.getTopLevelAncestor()).utilisateur.getPassword();
             String nomProjet = projet.getNom().replaceAll("\\s","%20");
             
+            SeuilsFixes seuilsFixes = projet.getSeuilFixes();
+            
             // Envoie de tous les jtextfields qui seront insérés dans la servlet
-            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMin" +"&&value="+totalChargesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
-            url.openStream();
-            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMax" +"&value="+totalChargesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
-            url.openStream();
+            
+            
+            
+            
+               
+            
+            
+            
+            
+               
+                    
+            
+                
+            
+                     
+            
+             
+            
+            
+            
+            URL url;
+            
+            if(Integer.parseInt(seuilsFixes.getTotalChargesProjet().getSeuilMin().toString()) !=  Integer.parseInt(totalChargesProjetSeuilMin.getText())){
+                url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMin" +"&&value="+totalChargesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
+                url.openStream();
+                seuilsFixes.getTotalChargesProjet().setSeuilMin(Integer.parseInt(totalChargesProjetSeuilMin.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTotalChargesProjet().getSeuilMax().toString()) !=  Integer.parseInt(totalChargesProjetSeuilMax.getText())){
+                url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMax" +"&value="+totalChargesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
+                url.openStream();
+                seuilsFixes.getTotalChargesProjet().setSeuilMax(Integer.parseInt(totalChargesProjetSeuilMax.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTachesTermineesProjet().getSeuilMin().toString()) !=  Integer.parseInt(tacheTermineesProjetSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tachesTermineesProjetMin" +"&value="+tacheTermineesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getTachesTermineesProjet().setSeuilMin(Integer.parseInt(tacheTermineesProjetSeuilMin.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTachesTermineesProjet().getSeuilMax().toString()) !=  Integer.parseInt(tacheTermineesProjetSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tachesTermineesProjetMax" +"&value="+tacheTermineesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getTachesTermineesProjet().setSeuilMax(Integer.parseInt(tacheTermineesProjetSeuilMax.getText()));
+            }
+            if(Float.parseFloat(seuilsFixes.getDureeMoyenneTache().getSeuilMin().toString()) !=  Float.parseFloat(dureeMoyenneProjetSeuilMin.getText())){  
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneTacheMin" +"&value="+dureeMoyenneProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getDureeMoyenneTache().setSeuilMin(Float.parseFloat(dureeMoyenneProjetSeuilMin.getText()));
+            }
+            
+            if(Float.parseFloat(seuilsFixes.getDureeMoyenneTache().getSeuilMax().toString()) !=  Float.parseFloat(dureeMoyenneProjetSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneTacheMax" +"&value="+dureeMoyenneProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getDureeMoyenneTache().setSeuilMax(Float.parseFloat(dureeMoyenneProjetSeuilMax.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getNombreParticipants().getSeuilMin().toString()) !=  Integer.parseInt(nombreParticipantProjetSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantsMin" +"&value="+nombreParticipantProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getNombreParticipants().setSeuilMin(Integer.parseInt(nombreParticipantProjetSeuilMin.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getNombreParticipants().getSeuilMax().toString()) !=  Integer.parseInt(nombreParticipantProjetSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantsMax" +"&value="+nombreParticipantProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getNombreParticipants().setSeuilMax(Integer.parseInt(nombreParticipantProjetSeuilMax.getText()));
+            
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTotalChargesIteration().getSeuilMin().toString()) !=  Integer.parseInt(totalChargesIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesIterationMin" +"&value="+totalChargesIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getTotalChargesIteration().setSeuilMin(Integer.parseInt(totalChargesIterationSeuilMin.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTotalChargesIteration().getSeuilMax().toString()) !=  Integer.parseInt(totalChargesIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesIterationMax" +"&value="+totalChargesIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getTotalChargesIteration().setSeuilMax(Integer.parseInt(totalChargesIterationSeuilMax.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTacheTermineesIteration().getSeuilMin().toString()) !=  Integer.parseInt(tacheTermineesIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tacheTermineesIterationMin" +"&value="+tacheTermineesIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getTacheTermineesIteration().setSeuilMin(Integer.parseInt(tacheTermineesIterationSeuilMin.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getTacheTermineesIteration().getSeuilMax().toString()) !=  Integer.parseInt(tacheTermineesIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tacheTermineesIterationMax" +"&value="+tacheTermineesIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getTacheTermineesIteration().setSeuilMax(Integer.parseInt(tacheTermineesIterationSeuilMax.getText())); 
+            }
+            
+            if(Float.parseFloat(seuilsFixes.getDureeMoyenneIteration().getSeuilMin().toString()) !=  Float.parseFloat(dureeMoyenneIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneIterationMin" +"&value="+dureeMoyenneIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getDureeMoyenneIteration().setSeuilMin(Float.parseFloat(dureeMoyenneIterationSeuilMin.getText()));
+            
+            }
+            if(Float.parseFloat(seuilsFixes.getDureeMoyenneIteration().getSeuilMax().toString()) !=  Float.parseFloat(dureeMoyenneIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneIterationMax" +"&value="+dureeMoyenneIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getDureeMoyenneIteration().setSeuilMax(Float.parseFloat(dureeMoyenneIterationSeuilMax.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getNombreParticipantIteration().getSeuilMin().toString()) !=  Integer.parseInt(nombreParticipantIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantIterationMin" +"&value="+nombreParticipantIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getNombreParticipantIteration().setSeuilMin(Integer.parseInt(nombreParticipantIterationSeuilMin.getText()));
+            
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getNombreParticipantIteration().getSeuilMax().toString()) !=  Integer.parseInt(nombreParticipantIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantIterationMax" +"&value="+nombreParticipantIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getNombreParticipantIteration().setSeuilMax(Integer.parseInt(nombreParticipantIterationSeuilMax.getText()));
+            }
+            
+            if(Float.parseFloat(seuilsFixes.getChargeMoyenne().getSeuilMin().toString()) !=  Float.parseFloat(chargeMoyenneSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "chargeMoyenneMin" +"&value="+chargeMoyenneSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getChargeMoyenne().setSeuilMin(Float.parseFloat(chargeMoyenneSeuilMin.getText()));
+            
+            }
+            
+            if(Float.parseFloat(seuilsFixes.getChargeMoyenne().getSeuilMax().toString()) !=  Float.parseFloat(chargeMoyenneSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "chargeMoyenneMax" +"&value="+chargeMoyenneSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getChargeMoyenne().setSeuilMax(Float.parseFloat(chargeMoyenneSeuilMax.getText()));
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getNombreTacheParticipant().getSeuilMin().toString()) !=  Integer.parseInt(nombreTacheParticipantSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMin" +"&value="+nombreTacheParticipantSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getNombreTacheParticipant().setSeuilMin(Integer.parseInt(nombreTacheParticipantSeuilMin.getText()));
+            
+            }
+            
+            if(Integer.parseInt(seuilsFixes.getNombreTacheParticipant().getSeuilMax().toString()) !=  Integer.parseInt(nombreTacheParticipantSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMax" +"&value="+nombreTacheParticipantSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
+            seuilsFixes.getNombreTacheParticipant().setSeuilMax(Integer.parseInt(nombreTacheParticipantSeuilMax.getText()));
+            }
             
         } catch(MalformedURLException e1){
 	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
@@ -438,302 +457,209 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;            
         }        
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void nombreParticipantProjetSeuilMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreParticipantProjetSeuilMinActionPerformed
-
-    private void nombreTacheParticipantSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreTacheParticipantSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_nombreParticipantProjetSeuilMinActionPerformed
+    private void nombreTacheParticipantSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreParticipantProjetSeuilMinActionPerformed
+        try{//GEN-FIRST:event_nombreTacheParticipantSeuilMaxFocusLost
+            ancienneValeur2 = ancienneValeur;
             Integer.parseInt(nombreTacheParticipantSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreTacheParticipantSeuilMax.setText(ancienneValeur);
+            nombreTacheParticipantSeuilMax.setText(projet.getSeuilFixes().getNombreTacheParticipant().getSeuilMax().toString());
         }
     }//GEN-LAST:event_nombreTacheParticipantSeuilMaxFocusLost
-
-    private void nombreTacheParticipantSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreTacheParticipantSeuilMaxFocusGained
-         ancienneValeur = nombreTacheParticipantSeuilMax.getText();
-         System.out.println("Valeur : " + ancienneValeur);
-    }//GEN-LAST:event_nombreTacheParticipantSeuilMaxFocusGained
-
-    private void nombreTacheParticipantSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreTacheParticipantSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_nombreTacheParticipantSeuilMaxFocusGained
+    private void nombreTacheParticipantSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreTacheParticipantSeuilMaxFocusGained
+        try{//GEN-FIRST:event_nombreTacheParticipantSeuilMinFocusLost
+            ancienneValeur2 = ancienneValeur;
             Integer.parseInt(nombreTacheParticipantSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreTacheParticipantSeuilMin.setText(ancienneValeur);
+            nombreTacheParticipantSeuilMin.setText(projet.getSeuilFixes().getNombreTacheParticipant().getSeuilMin().toString());
         }
     }//GEN-LAST:event_nombreTacheParticipantSeuilMinFocusLost
-
-    private void nombreTacheParticipantSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreTacheParticipantSeuilMinFocusGained
-        ancienneValeur = nombreTacheParticipantSeuilMin.getText();
-    }//GEN-LAST:event_nombreTacheParticipantSeuilMinFocusGained
-
-    private void chargeMoyenneSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chargeMoyenneSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_nombreTacheParticipantSeuilMinFocusGained
+    private void chargeMoyenneSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreTacheParticipantSeuilMinFocusGained
+        try{//GEN-FIRST:event_chargeMoyenneSeuilMaxFocusLost
+            ancienneValeur2 = ancienneValeur;
             Float.parseFloat(chargeMoyenneSeuilMax.getText());
             chargeMoyenneSeuilMax.setText(new Float(Float.parseFloat(chargeMoyenneSeuilMax.getText())).toString());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            chargeMoyenneSeuilMax.setText(ancienneValeur);
+            chargeMoyenneSeuilMax.setText(projet.getSeuilFixes().getChargeMoyenne().getSeuilMax().toString());
         }
     }//GEN-LAST:event_chargeMoyenneSeuilMaxFocusLost
 
-    private void chargeMoyenneSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chargeMoyenneSeuilMaxFocusGained
-        ancienneValeur = chargeMoyenneSeuilMax.getText();
-    }//GEN-LAST:event_chargeMoyenneSeuilMaxFocusGained
-
+//GEN-FIRST:event_chargeMoyenneSeuilMaxFocusGained
+//GEN-LAST:event_chargeMoyenneSeuilMaxFocusGained
     private void chargeMoyenneSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chargeMoyenneSeuilMinFocusLost
         try{
             Float.parseFloat(chargeMoyenneSeuilMin.getText());
             chargeMoyenneSeuilMin.setText(new Float(Float.parseFloat(chargeMoyenneSeuilMin.getText())).toString());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            chargeMoyenneSeuilMin.setText(ancienneValeur);
+            chargeMoyenneSeuilMin.setText(projet.getSeuilFixes().getChargeMoyenne().getSeuilMin().toString());
         }
     }//GEN-LAST:event_chargeMoyenneSeuilMinFocusLost
 
-    private void chargeMoyenneSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_chargeMoyenneSeuilMinFocusGained
-        ancienneValeur = chargeMoyenneSeuilMin.getText();
-    }//GEN-LAST:event_chargeMoyenneSeuilMinFocusGained
-
+//GEN-FIRST:event_chargeMoyenneSeuilMinFocusGained
+//GEN-LAST:event_chargeMoyenneSeuilMinFocusGained
     private void nombreParticipantIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantIterationSeuilMaxFocusLost
         try{
             Integer.parseInt(nombreParticipantIterationSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreParticipantIterationSeuilMax.setText(ancienneValeur);
+            nombreParticipantIterationSeuilMax.setText(projet.getSeuilFixes().getNombreParticipantIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_nombreParticipantIterationSeuilMaxFocusLost
-
-    private void nombreParticipantIterationSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantIterationSeuilMaxFocusGained
-        ancienneValeur = nombreParticipantIterationSeuilMax.getText();
-    }//GEN-LAST:event_nombreParticipantIterationSeuilMaxFocusGained
-
-    private void nombreParticipantIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantIterationSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_nombreParticipantIterationSeuilMaxFocusGained
+    private void nombreParticipantIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreParticipantIterationSeuilMaxFocusGained
+        try{//GEN-FIRST:event_nombreParticipantIterationSeuilMinFocusLost
             Integer.parseInt(nombreParticipantIterationSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreParticipantIterationSeuilMin.setText(ancienneValeur);
+            nombreParticipantIterationSeuilMin.setText(projet.getSeuilFixes().getNombreParticipantIteration().getSeuilMin().toString());
         }
     }//GEN-LAST:event_nombreParticipantIterationSeuilMinFocusLost
-
-    private void nombreParticipantIterationSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantIterationSeuilMinFocusGained
-        ancienneValeur = nombreParticipantIterationSeuilMin.getText();
-    }//GEN-LAST:event_nombreParticipantIterationSeuilMinFocusGained
-
-    private void dureeMoyenneIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneIterationSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_nombreParticipantIterationSeuilMinFocusGained
+    private void dureeMoyenneIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreParticipantIterationSeuilMinFocusGained
+        try{//GEN-FIRST:event_dureeMoyenneIterationSeuilMaxFocusLost
             Float.parseFloat(dureeMoyenneIterationSeuilMax.getText());
             dureeMoyenneIterationSeuilMax.setText(new Float(Float.parseFloat(dureeMoyenneIterationSeuilMax.getText())).toString());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            dureeMoyenneIterationSeuilMax.setText(ancienneValeur);
+            dureeMoyenneIterationSeuilMax.setText(projet.getSeuilFixes().getDureeMoyenneIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_dureeMoyenneIterationSeuilMaxFocusLost
-
-    private void dureeMoyenneIterationSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneIterationSeuilMaxFocusGained
-        ancienneValeur = dureeMoyenneIterationSeuilMax.getText();
-    }//GEN-LAST:event_dureeMoyenneIterationSeuilMaxFocusGained
-
-    private void dureeMoyenneIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneIterationSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_dureeMoyenneIterationSeuilMaxFocusGained
+    private void dureeMoyenneIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_dureeMoyenneIterationSeuilMaxFocusGained
+        try{//GEN-FIRST:event_dureeMoyenneIterationSeuilMinFocusLost
             Float.parseFloat(dureeMoyenneIterationSeuilMin.getText());
             dureeMoyenneIterationSeuilMin.setText(new Float(Float.parseFloat(dureeMoyenneIterationSeuilMin.getText())).toString());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            dureeMoyenneIterationSeuilMin.setText(ancienneValeur);
+            dureeMoyenneIterationSeuilMin.setText(projet.getSeuilFixes().getDureeMoyenneIteration().getSeuilMin().toString());
         }
     }//GEN-LAST:event_dureeMoyenneIterationSeuilMinFocusLost
-
-    private void dureeMoyenneIterationSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneIterationSeuilMinFocusGained
-        ancienneValeur = dureeMoyenneIterationSeuilMin.getText();
-    }//GEN-LAST:event_dureeMoyenneIterationSeuilMinFocusGained
-    
-    private void tacheTermineesIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesIterationSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_dureeMoyenneIterationSeuilMinFocusGained
+    private void tacheTermineesIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_dureeMoyenneIterationSeuilMinFocusGained
+        try{//GEN-FIRST:event_tacheTermineesIterationSeuilMaxFocusLost
             Integer.parseInt(tacheTermineesIterationSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            tacheTermineesIterationSeuilMax.setText(ancienneValeur);
+            tacheTermineesIterationSeuilMax.setText(projet.getSeuilFixes().getTacheTermineesIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_tacheTermineesIterationSeuilMaxFocusLost
-    
-    private void tacheTermineesIterationSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesIterationSeuilMaxFocusGained
-        ancienneValeur = tacheTermineesIterationSeuilMax.getText();
-    }//GEN-LAST:event_tacheTermineesIterationSeuilMaxFocusGained
-    
-    private void tacheTermineesIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesIterationSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_tacheTermineesIterationSeuilMaxFocusGained
+    private void tacheTermineesIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_tacheTermineesIterationSeuilMaxFocusGained
+        try{//GEN-FIRST:event_tacheTermineesIterationSeuilMinFocusLost
             Integer.parseInt(tacheTermineesIterationSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            tacheTermineesIterationSeuilMin.setText(ancienneValeur);
+            tacheTermineesIterationSeuilMin.setText(projet.getSeuilFixes().getTacheTermineesIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_tacheTermineesIterationSeuilMinFocusLost
-    
-    private void tacheTermineesIterationSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesIterationSeuilMinFocusGained
-        ancienneValeur = tacheTermineesIterationSeuilMin.getText();
-    }//GEN-LAST:event_tacheTermineesIterationSeuilMinFocusGained
-    
-    private void totalChargesIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesIterationSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_tacheTermineesIterationSeuilMinFocusGained
+    private void totalChargesIterationSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_tacheTermineesIterationSeuilMinFocusGained
+        try{//GEN-FIRST:event_totalChargesIterationSeuilMaxFocusLost
+            ancienneValeur2 = ancienneValeur;
             Integer.parseInt(totalChargesIterationSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            totalChargesIterationSeuilMax.setText(ancienneValeur);
+            totalChargesIterationSeuilMax.setText(projet.getSeuilFixes().getTotalChargesIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_totalChargesIterationSeuilMaxFocusLost
-    
-    private void totalChargesIterationSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesIterationSeuilMaxFocusGained
-        ancienneValeur = totalChargesIterationSeuilMax.getText();
-    }//GEN-LAST:event_totalChargesIterationSeuilMaxFocusGained
-    
-    private void totalChargesIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesIterationSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_totalChargesIterationSeuilMaxFocusGained
+    private void totalChargesIterationSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_totalChargesIterationSeuilMaxFocusGained
+        try{//GEN-FIRST:event_totalChargesIterationSeuilMinFocusLost
             Integer.parseInt(totalChargesIterationSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            totalChargesIterationSeuilMin.setText(ancienneValeur);
+            totalChargesIterationSeuilMin.setText(projet.getSeuilFixes().getTotalChargesIteration().getSeuilMin().toString());
         }
     }//GEN-LAST:event_totalChargesIterationSeuilMinFocusLost
-    
-    private void totalChargesIterationSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesIterationSeuilMinFocusGained
-        ancienneValeur = totalChargesIterationSeuilMin.getText();
-    }//GEN-LAST:event_totalChargesIterationSeuilMinFocusGained
-    
-    private void nombreParticipantProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_totalChargesIterationSeuilMinFocusGained
+    private void nombreParticipantProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_totalChargesIterationSeuilMinFocusGained
+        try{//GEN-FIRST:event_nombreParticipantProjetSeuilMaxFocusLost
             Integer.parseInt(nombreParticipantProjetSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreParticipantProjetSeuilMax.setText(ancienneValeur);
+            nombreParticipantProjetSeuilMax.setText(projet.getSeuilFixes().getNombreParticipants().getSeuilMax().toString());
         }
     }//GEN-LAST:event_nombreParticipantProjetSeuilMaxFocusLost
-    
-    private void nombreParticipantProjetSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMaxFocusGained
-        ancienneValeur = nombreParticipantProjetSeuilMax.getText();
-    }//GEN-LAST:event_nombreParticipantProjetSeuilMaxFocusGained
-    
-    private void nombreParticipantProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_nombreParticipantProjetSeuilMaxFocusGained
+    private void nombreParticipantProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreParticipantProjetSeuilMaxFocusGained
+        try{//GEN-FIRST:event_nombreParticipantProjetSeuilMinFocusLost
             Integer.parseInt(nombreParticipantProjetSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreParticipantProjetSeuilMin.setText(ancienneValeur);
+            nombreParticipantProjetSeuilMin.setText(projet.getSeuilFixes().getNombreParticipants().getSeuilMin().toString());
         }
     }//GEN-LAST:event_nombreParticipantProjetSeuilMinFocusLost
-    
-    private void nombreParticipantProjetSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMinFocusGained
-        ancienneValeur = nombreParticipantIterationSeuilMin.getText();
-    }//GEN-LAST:event_nombreParticipantProjetSeuilMinFocusGained
-    
-    private void dureeMoyenneProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneProjetSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_nombreParticipantProjetSeuilMinFocusGained
+    private void dureeMoyenneProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreParticipantProjetSeuilMinFocusGained
+        try{//GEN-FIRST:event_dureeMoyenneProjetSeuilMaxFocusLost
             Float.parseFloat(dureeMoyenneProjetSeuilMax.getText());
             dureeMoyenneProjetSeuilMax.setText(new Float(Float.parseFloat(dureeMoyenneProjetSeuilMax.getText())).toString());
       
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            dureeMoyenneProjetSeuilMax.setText(ancienneValeur);
+            dureeMoyenneProjetSeuilMax.setText(projet.getSeuilFixes().getDureeMoyenneTache().getSeuilMax().toString());
         }
     }//GEN-LAST:event_dureeMoyenneProjetSeuilMaxFocusLost
-    
-    private void dureeMoyenneProjetSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneProjetSeuilMaxFocusGained
-        ancienneValeur = dureeMoyenneProjetSeuilMax.getText();
-    }//GEN-LAST:event_dureeMoyenneProjetSeuilMaxFocusGained
-    
-    private void dureeMoyenneProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneProjetSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_dureeMoyenneProjetSeuilMaxFocusGained
+    private void dureeMoyenneProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_dureeMoyenneProjetSeuilMaxFocusGained
+        try{//GEN-FIRST:event_dureeMoyenneProjetSeuilMinFocusLost
             Float.parseFloat(dureeMoyenneProjetSeuilMin.getText());
             dureeMoyenneProjetSeuilMin.setText(new Float(Float.parseFloat(dureeMoyenneProjetSeuilMin.getText())).toString());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            dureeMoyenneProjetSeuilMin.setText(ancienneValeur);
+            dureeMoyenneProjetSeuilMin.setText(projet.getSeuilFixes().getDureeMoyenneTache().getSeuilMin().toString());
         }
     }//GEN-LAST:event_dureeMoyenneProjetSeuilMinFocusLost
-    
-    private void dureeMoyenneProjetSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dureeMoyenneProjetSeuilMinFocusGained
-        ancienneValeur = dureeMoyenneProjetSeuilMin.getText();
-    }//GEN-LAST:event_dureeMoyenneProjetSeuilMinFocusGained
-    
-    private void tacheTermineesProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesProjetSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_dureeMoyenneProjetSeuilMinFocusGained
+    private void tacheTermineesProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_dureeMoyenneProjetSeuilMinFocusGained
+        try{//GEN-FIRST:event_tacheTermineesProjetSeuilMaxFocusLost
             Integer.parseInt(tacheTermineesProjetSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            tacheTermineesProjetSeuilMax.setText(ancienneValeur);
+            tacheTermineesProjetSeuilMax.setText(projet.getSeuilFixes().getTachesTermineesProjet().getSeuilMax().toString());
         }
     }//GEN-LAST:event_tacheTermineesProjetSeuilMaxFocusLost
-    
-    private void tacheTermineesProjetSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesProjetSeuilMaxFocusGained
-        ancienneValeur = tacheTermineesProjetSeuilMax.getText();
-    }//GEN-LAST:event_tacheTermineesProjetSeuilMaxFocusGained
-    
-    private void tacheTermineesProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesProjetSeuilMinFocusLost
-        try{
+//GEN-FIRST:event_tacheTermineesProjetSeuilMaxFocusGained
+    private void tacheTermineesProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_tacheTermineesProjetSeuilMaxFocusGained
+        try{//GEN-FIRST:event_tacheTermineesProjetSeuilMinFocusLost
             Integer.parseInt(tacheTermineesProjetSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            tacheTermineesProjetSeuilMin.setText(ancienneValeur);
+            tacheTermineesProjetSeuilMin.setText(projet.getSeuilFixes().getTachesTermineesProjet().getSeuilMin().toString());
         }
     }//GEN-LAST:event_tacheTermineesProjetSeuilMinFocusLost
-    
-    private void tacheTermineesProjetSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tacheTermineesProjetSeuilMinFocusGained
-        ancienneValeur = tacheTermineesProjetSeuilMin.getText();
-    }//GEN-LAST:event_tacheTermineesProjetSeuilMinFocusGained
-    
-    private void totalChargesProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesProjetSeuilMaxFocusLost
-        try{
+//GEN-FIRST:event_tacheTermineesProjetSeuilMinFocusGained
+    private void totalChargesProjetSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_tacheTermineesProjetSeuilMinFocusGained
+        try{//GEN-FIRST:event_totalChargesProjetSeuilMaxFocusLost
             Integer.parseInt(totalChargesProjetSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            totalChargesProjetSeuilMax.setText(ancienneValeur);
+            totalChargesProjetSeuilMax.setText(projet.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString());
         }
     }//GEN-LAST:event_totalChargesProjetSeuilMaxFocusLost
-    
-    private void totalChargesProjetSeuilMaxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesProjetSeuilMaxFocusGained
-        ancienneValeur = totalChargesProjetSeuilMax.getText();
-    }//GEN-LAST:event_totalChargesProjetSeuilMaxFocusGained
-    
-    private void totalChargesProjetSeuilMinFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesProjetSeuilMinFocusGained
-        ancienneValeur = totalChargesProjetSeuilMin.getText();
-    }//GEN-LAST:event_totalChargesProjetSeuilMinFocusGained
-    
-    private void totalChargesProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesProjetSeuilMinFocusLost
+                                                       
+     private void totalChargesProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_totalChargesProjetSeuilMinFocusLost
         try{
             Integer.parseInt(totalChargesProjetSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            totalChargesProjetSeuilMin.setText(ancienneValeur);
+            totalChargesProjetSeuilMin.setText(projet.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString());
         }
     }//GEN-LAST:event_totalChargesProjetSeuilMinFocusLost
-    
-    private void tacheTermineesIterationSeuilMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tacheTermineesIterationSeuilMinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tacheTermineesIterationSeuilMinActionPerformed
-    
-    private void totalChargesIterationSeuilMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalChargesIterationSeuilMinActionPerformed
-        
-    }//GEN-LAST:event_totalChargesIterationSeuilMinActionPerformed
-    
-    private void dureeMoyenneIterationSeuilMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dureeMoyenneIterationSeuilMinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dureeMoyenneIterationSeuilMinActionPerformed
-    
-    private void totalChargesProjetSeuilMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalChargesProjetSeuilMinActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalChargesProjetSeuilMinActionPerformed
-    
-    private void initSeuil(){
-        SeuilsFixes seuilFixe = projet.getSeuilFixes();
-        
-        //Mise en place des valeurs des seuils pour les indicateurs généraux.
-        totalChargesProjetSeuilMin.setText(((Integer)seuilFixe.getTotalChargesProjet().getSeuilMin()).toString());
-        totalChargesProjetSeuilMax.setText(((Integer)seuilFixe.getTotalChargesProjet().getSeuilMax()).toString());
-        tacheTermineesProjetSeuilMin.setText(((Integer)seuilFixe.getTachesTermineesProjet().getSeuilMin()).toString());
+//GEN-FIRST:event_totalChargesProjetSeuilMinActionPerformed
+    private void initSeuil(){//GEN-LAST:event_totalChargesProjetSeuilMinActionPerformed
+        SeuilsFixes seuilFixe = projet.getSeuilFixes();//GEN-FIRST:event_dureeMoyenneIterationSeuilMinActionPerformed
+//GEN-LAST:event_dureeMoyenneIterationSeuilMinActionPerformed
+        //Mise en place des valeurs des seuils pour les indicateurs généraux.//GEN-FIRST:event_totalChargesIterationSeuilMinActionPerformed
+        totalChargesProjetSeuilMin.setText(((Integer)seuilFixe.getTotalChargesProjet().getSeuilMin()).toString());//GEN-LAST:event_totalChargesIterationSeuilMinActionPerformed
+        totalChargesProjetSeuilMax.setText(((Integer)seuilFixe.getTotalChargesProjet().getSeuilMax()).toString());//GEN-FIRST:event_tacheTermineesIterationSeuilMinActionPerformed
+        tacheTermineesProjetSeuilMin.setText(((Integer)seuilFixe.getTachesTermineesProjet().getSeuilMin()).toString());//GEN-LAST:event_tacheTermineesIterationSeuilMinActionPerformed
         tacheTermineesProjetSeuilMax.setText(((Integer)seuilFixe.getTachesTermineesProjet().getSeuilMax()).toString());
         dureeMoyenneProjetSeuilMin.setText(((Float)seuilFixe.getDureeMoyenneTache().getSeuilMin()).toString());
         dureeMoyenneProjetSeuilMax.setText(((Float)seuilFixe.getDureeMoyenneTache().getSeuilMax()).toString());

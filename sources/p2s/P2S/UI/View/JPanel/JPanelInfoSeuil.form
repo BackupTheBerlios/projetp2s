@@ -52,7 +52,6 @@
     <Component class="javax.swing.JTextField" name="totalChargesProjetSeuilMin">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="totalChargesProjetSeuilMinActionPerformed"/>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesProjetSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesProjetSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -63,7 +62,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="totalChargesProjetSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesProjetSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesProjetSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -84,7 +82,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tacheTermineesProjetSeuilMin">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesProjetSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesProjetSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -95,7 +92,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tacheTermineesProjetSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesProjetSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesProjetSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -116,7 +112,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="dureeMoyenneProjetSeuilMin">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneProjetSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneProjetSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -127,7 +122,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="dureeMoyenneProjetSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneProjetSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneProjetSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -149,7 +143,6 @@
     <Component class="javax.swing.JTextField" name="nombreParticipantProjetSeuilMin">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreParticipantProjetSeuilMinActionPerformed"/>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantProjetSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantProjetSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -160,7 +153,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreParticipantProjetSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantProjetSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantProjetSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -192,7 +184,6 @@
     <Component class="javax.swing.JTextField" name="totalChargesIterationSeuilMin">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="totalChargesIterationSeuilMinActionPerformed"/>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesIterationSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -203,7 +194,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="totalChargesIterationSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesIterationSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesIterationSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -225,7 +215,6 @@
     <Component class="javax.swing.JTextField" name="tacheTermineesIterationSeuilMin">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tacheTermineesIterationSeuilMinActionPerformed"/>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesIterationSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -236,7 +225,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tacheTermineesIterationSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesIterationSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesIterationSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -258,7 +246,6 @@
     <Component class="javax.swing.JTextField" name="dureeMoyenneIterationSeuilMin">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dureeMoyenneIterationSeuilMinActionPerformed"/>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneIterationSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -269,7 +256,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="dureeMoyenneIterationSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneIterationSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneIterationSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -290,7 +276,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreParticipantIterationSeuilMin">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantIterationSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -301,7 +286,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreParticipantIterationSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantIterationSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantIterationSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -322,7 +306,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="chargeMoyenneSeuilMin">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="chargeMoyenneSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="chargeMoyenneSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -333,7 +316,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="chargeMoyenneSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="chargeMoyenneSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="chargeMoyenneSeuilMaxFocusLost"/>
       </Events>
       <Constraints>
@@ -354,7 +336,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreTacheParticipantSeuilMin">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreTacheParticipantSeuilMinFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreTacheParticipantSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -365,7 +346,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreTacheParticipantSeuilMax">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreTacheParticipantSeuilMaxFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreTacheParticipantSeuilMaxFocusLost"/>
       </Events>
       <Constraints>

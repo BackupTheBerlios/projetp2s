@@ -5,7 +5,10 @@
  */
 
 import java.io.*;
-import java.net.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -44,6 +47,19 @@ public class MAJBDSeuil extends HttpServlet {
         
         System.out.println(login + " " + pass + " " + nomChamp + " " + valeur + " " + nomProjet);
         
+        Connection conn;
+        try{
+        conn = DriverManager.getConnection("jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password"));
+        
+        // Requete SQL
+        System.out.println("UPDATE seuilsfixes_projet SET " + nomChamp +  "="+ valeur +" where login = '" + login + "'");
+        PreparedStatement prepState = conn.prepareStatement("UPDATE seuilsfixes_projet SET " + nomChamp +  "="+ valeur +" where login = '" + login + "'");
+        prepState.executeUpdate();
+        conn.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     
     /** Handles the HTTP <code>GET</code> method.
