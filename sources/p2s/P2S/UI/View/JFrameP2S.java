@@ -5,7 +5,8 @@ import P2S.UI.View.JDialog.*;
 import P2S.Control.*;
 import P2S.Model.*;
 import P2S.UI.Tree.*;
-import P2S.UI.View.JPanel.JPanelTousLesProjets;
+import P2S.UI.View.JPanel.*;
+import P2S.UI.View.JPanel.JPanelInfoIteration;
 import javax.swing.tree.*;
 import javax.swing.*;
 import java.awt.*;
@@ -243,7 +244,12 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // Ajout des projets du superviseur
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
-            NoeudProjet noeudProjet = new NoeudProjet(((Superviseur) utilisateur).getProjet(i));
+            Projet proj = ((Superviseur) utilisateur).getProjet(i);
+            NoeudProjet noeudProjet = new NoeudProjet(proj);
+            for(int j=0;j<proj.getListeIt().size();j++){
+                NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
+                noeudProjet.add(noeudIteration);
+            }
             racineProjet.add(noeudProjet);
         }
         racine.add(racineProjet);
@@ -258,6 +264,10 @@ public class JFrameP2S extends javax.swing.JFrame {
                 DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
                 if(d instanceof NoeudProjet) // si le noeud est un projet
                     afficherInfoProjet(((NoeudProjet)d).getProjet());
+                
+                else if(d instanceof NoeudIteration){//Si len noeud est une iteration
+                    afficherInfoIte(((NoeudIteration)d).getIteration());
+                }
                 // si c'est le noeud "projets"
                 else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0)
                 {
@@ -332,6 +342,13 @@ public class JFrameP2S extends javax.swing.JFrame {
         this.validate();        
     }
     
+    private void afficherInfoIte(Iteration ite)
+    {
+        JPanelInfoIteration Tab = new JPanelInfoIteration(ite);
+        PanelContenu.removeAll();
+        PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
+        this.validate();        
+    }
 
     private void afficherInfoMembre(Membre membre)
     {

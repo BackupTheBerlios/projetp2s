@@ -237,18 +237,20 @@ public class ParserXMLLog {
                                 int chargeMoyenneParticipants = 0;
                                 int nombreMoyenTachesParticipants = 0;
                                 
-                                NodeList attributsIndicateurIte = attributCourant.getChildNodes();
+                                NodeList attributsIndicateurIte = attributIterationCourant.getChildNodes();
                                 
                                 for(int nbrIndicateursIte=0; nbrIndicateursIte<attributsIndicateurIte.getLength();nbrIndicateursIte++ ){
                                     
                                     Node indicateurActuelIte = attributsIndicateurIte.item(nbrIndicateursIte);
-                                    
                                     //Recuperation du total des charges
-                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("totalcharges"))
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("totalcharges")){
                                         totalChargesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        
+                                        System.out.println(totalChargesIte);
+                                    }
                                     
                                     //Recuperation du nombre de taches terminees
-                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("tachesterminees"))
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombretachesterminees"))
                                         tachesTermineesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation du duree moyenne des taches
@@ -264,9 +266,9 @@ public class ParserXMLLog {
                                         chargeMoyenneParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation de la charge moyenne des participants
-                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombremoyentachesparticipants "))
+                                    if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombremoyentachesparticipants"))
                                         nombreMoyenTachesParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
-                                   
+                                    
                                 }
                                 indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);
                             }

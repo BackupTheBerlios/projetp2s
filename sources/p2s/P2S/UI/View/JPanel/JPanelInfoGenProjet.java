@@ -45,8 +45,6 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         this.LabelIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
         this.LabelIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
         this.LabelIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
-    
-        this.ComboChoixIte.addItem((Iteration)proj.getListeIt().get(0));
         
     }
     
@@ -76,13 +74,11 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         LabelStaticIndDureeMoyenneTache = new javax.swing.JLabel();
         LabelStaticIndNombreParticipants = new javax.swing.JLabel();
         LabelStaticIndAvancementProjet = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        ComboChoixIte = new javax.swing.JComboBox();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JButtonAlerte.setText("jButton1");
-        add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 490, -1, -1));
+        add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, -1, -1));
 
         LabelStaticNomProjet.setText("Nom du projet : ");
         add(LabelStaticNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 77, -1));
@@ -140,22 +136,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         LabelStaticIndAvancementProjet.setText("Avancement du projet :");
         add(LabelStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 140, -1));
 
-        jLabel1.setText("Indicateurs sur les it\u00e9rations :");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 160, -1));
-
-        ComboChoixIte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboChoixIteActionPerformed(evt);
-            }
-        });
-
-        add(ComboChoixIte, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 160, -1));
-
     }//GEN-END:initComponents
-
-    private void ComboChoixIteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboChoixIteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboChoixIteActionPerformed
     
     private void initText() {
         this.LabelStaticNomProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_NomProjet"));
@@ -172,7 +153,6 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox ComboChoixIte;
     private javax.swing.JButton JButtonAlerte;
     private javax.swing.JLabel LabelDateDebut;
     private javax.swing.JLabel LabelDateFin;
@@ -193,7 +173,6 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
     private javax.swing.JLabel LabelStaticIndicateursProjet;
     private javax.swing.JLabel LabelStaticNomProjet;
     private javax.swing.JTextArea TextAreaDescription;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
     
 }
