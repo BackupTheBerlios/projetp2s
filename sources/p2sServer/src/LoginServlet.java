@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
-        super.init(config);	
+        super.init(config);
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
@@ -39,6 +39,9 @@ public class LoginServlet extends HttpServlet {
     public void destroy() {
         
     }
+    
+    
+    
     
     /** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -403,7 +406,7 @@ public class LoginServlet extends HttpServlet {
                                             
                                             out.println("<totalcharges>");
                                             out.println(rsIndicateursIteration.getString("totalcharges"));
-                                            out.println("</totalcharges>");                                            
+                                            out.println("</totalcharges>");
                                             
                                             out.println("<nombreTachesTerminees>");
                                             out.println(rsIndicateursIteration.getString("nombreTachesTerminees"));
@@ -788,12 +791,15 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<description>");
                                     out.println(rsRoles.getString("description"));
                                     out.println("</description>");
+                                    
                                     out.println("</role>");
                                 }while(rsRoles.next());
                                 
                                 out.print("</roles>");
                             }
                             rsRoles.close();
+                            
+                            
                             /*********************************** INDICATEURS DE PROJETS DU MEMBRE *******************/
                             prepState = conn.prepareStatement("Select p.idprojet, p.nom from projets p, membres_projets mp where mp.idprojet = p.idprojet AND mp.idmembre = '"+ rsMembres.getString("idmembre") +"'");
                             ResultSet rsProjetsMembre = prepState.executeQuery(); // Execution de la requete
@@ -815,27 +821,53 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nom>");
                                     
                                     
+                                    //ResultSet correspondant au temps que le membre a passé sur les taches du projet
                                     prepState = conn.prepareStatement("Select sum(t.tempspasse) from iterations i, taches t where i.idprojet = '"+ rsProjetsMembre.getString("idprojet")+"' AND i.iditeration = t.iditeration AND t.idmembre = '"+ rsMembres.getString("idmembre") +"'");
-                                    ResultSet rsIndicChargesProjet = prepState.executeQuery(); // Execution de la requete
+                                    ResultSet rsIndicChargesTaches = prepState.executeQuery(); // Execution de la requete
                                     
-                                    
+                                    //ResultSet correspondant au temps total passé sur les taches du projet
                                     prepState = conn.prepareStatement("Select sum(t.tempspasse) from iterations i, taches t where i.idprojet = '"+ rsProjetsMembre.getString("idprojet")+"' AND i.iditeration = t.iditeration");
-                                    ResultSet rsIndicChargesTotaleProjet = prepState.executeQuery(); // Execution de la requete
+                                    ResultSet rsIndicChargesTotalesTaches = prepState.executeQuery(); // Execution de la requete
+                                    
+                                    //ResultSet correspondant au temps que le membre a passé sur les taches collaboratives du projet
+                                    prepState = conn.prepareStatement("Select t.tempspasse,t.idtache from iterations i, tachescollaboratives t, membres_tachescollaboratives mt where i.idprojet = '"+ rsProjetsMembre.getString("idprojet")+"' AND i.iditeration = t.iditeration AND mt.idtache = t.idtache AND mt.idmembre = '"+ rsMembres.getString("idmembre") +"'");
+                                    ResultSet rsIndicChargesCollaboratives = prepState.executeQuery(); // Execution de la requete
+                                    
+                                    //ResultSet correspondant au temps total passé sur les taches collaboratives du projet
+                                    prepState = conn.prepareStatement("Select sum(t.tempspasse) from iterations i, tachescollaboratives t where i.idprojet = '"+ rsProjetsMembre.getString("idprojet")+"' AND i.iditeration = t.iditeration");
+                                    ResultSet rsIndicChargesTotalesCollaboratives = prepState.executeQuery(); // Execution de la requete
+                                    
+                                    //Calcul sur les taches collaboratives pour le membre
+                                    int chargesCollaboratives = 0;
+                                    
+                                    if(rsIndicChargesCollaboratives.next()){
+                                        //Pour chaque tache collaborative, on regarde le nombre de participants
+                                        do{
+                                            prepState = conn.prepareStatement("Select count(*) from membres_tachescollaboratives mt where mt.idtache = '"+ rsIndicChargesCollaboratives.getString("idtache")+ "'");
+                                            ResultSet rsIndicNbMembre = prepState.executeQuery(); // Execution de la requete
+                                            
+                                            if(rsIndicNbMembre.next())
+                                                chargesCollaboratives += rsIndicChargesCollaboratives.getInt("tempspasse")/rsIndicNbMembre.getInt(1);
+                                            rsIndicNbMembre.close();
+                                        }while(rsIndicChargesCollaboratives.next());
+                                    }
                                     
                                     
                                     int chargesMembre = 0;
                                     int chargesTotale = 0;
                                     int tempsTravail = 0;
                                     
-                                    if(rsIndicChargesProjet.next())
-                                        chargesMembre = rsIndicChargesProjet.getInt(1);
+                                    //Charges du membre sur le projet = temps passé sur ses taches + SOMME DE (temps passé sur une tache collaborative / nombre de participants à cette tache collaborative)
+                                    if(rsIndicChargesTaches.next())
+                                        chargesMembre = rsIndicChargesTaches.getInt(1) + chargesCollaboratives;
                                     
-                                    if(rsIndicChargesTotaleProjet.next())
-                                        chargesTotale = rsIndicChargesTotaleProjet.getInt(1);
+                                    if(rsIndicChargesTotalesTaches.next() && rsIndicChargesTotalesCollaboratives.next())
+                                        chargesTotale = rsIndicChargesTotalesTaches.getInt(1) + rsIndicChargesTotalesCollaboratives.getInt(1);
                                     
+                                    
+                                    //Temps de travail du membre = (charges du membre sur lengthprojet / charges totales du projet) * 100
                                     if(chargesMembre != 0 && chargesTotale !=0)
                                         tempsTravail = (int) ((double) chargesMembre/ (double) chargesTotale *100);
-                                    
                                     
                                     
                                     out.println("<charges>");
@@ -846,8 +878,10 @@ public class LoginServlet extends HttpServlet {
                                     out.println(tempsTravail); //Charges sur le projet
                                     out.println("</tempsTravail>");
                                     
-                                    rsIndicChargesProjet.close();
-                                    rsIndicChargesTotaleProjet.close();
+                                    rsIndicChargesTaches.close();
+                                    rsIndicChargesTotalesTaches.close();
+                                    rsIndicChargesCollaboratives.close();
+                                    rsIndicChargesTotalesCollaboratives.close();
                                     
                                     
                                     out.println("</indicateurProjet>");
@@ -861,8 +895,12 @@ public class LoginServlet extends HttpServlet {
                             /*********************************** INDICATEURS DE TACHES DU MEMBRE *******************/
                             
                             //On récupère les noms et temps passé des taches du membre
-                            prepState = conn.prepareStatement("Select t.nom,t.tempspasse from taches t where t.idmembre = '"+ rsMembres.getString("idmembre") +"'");
+                            prepState = conn.prepareStatement("Select p.nom,t.nom,t.tempspasse from projets p,iterations i, taches t where t.idmembre = '"+ rsMembres.getString("idmembre") +"' AND t.iditeration = i.iditeration AND i.idprojet = p.idprojet");
                             ResultSet rsIndicTacheMembre = prepState.executeQuery(); // Execution de la requete
+                            
+                            prepState = conn.prepareStatement("Select p.nom,t.nom,t.tempspasse,t.idtache from projets p,iterations i, tachescollaboratives t,membres_tachescollaboratives mt where mt.idmembre = '"+ rsMembres.getString("idmembre") +"' AND t.idtache = mt.idtache AND t.iditeration = i.iditeration AND i.idprojet = p.idprojet");
+                            ResultSet rsIndicTacheCollaborativeMembre = prepState.executeQuery(); // Execution de la requete
+                            
                             
                             
                             if(rsIndicTacheMembre.next()){
@@ -870,63 +908,61 @@ public class LoginServlet extends HttpServlet {
                                 
                                 do{
                                     out.println("<indicateurTache>");
-                                    // TEST
+                                    
+                                    out.println("<nomProjet>");
+                                    out.println(rsIndicTacheMembre.getString(1));
+                                    out.println("</nomProjet>");
+                                    
                                     out.println("<nom>");
-                                    out.println(rsIndicTacheMembre.getString("nom"));
+                                    out.println(rsIndicTacheMembre.getString(2));
                                     out.println("</nom>");
                                     
-                                    out.println("<tempspasse>");
+                                    out.println("<charges>");
                                     out.println(rsIndicTacheMembre.getString("tempspasse"));
-                                    out.println("</tempspasse>");
-                                               /* out.println("<nom>");
-                                                out.println(rsIndicTacheMembre.getString("nom"));
-                                                out.println("</nom>");
-                                                
-                                                out.println("<description>");
-                                                out.println(rsIndicTacheMembre.getString("description"));
-                                                out.println("</description>");
-                                                
-                                                out.println("<etat>");
-                                                out.println(rsIndicTacheMembre.getString("etat"));
-                                                out.println("</etat>");
-                                                
-                                                out.println("<etat>");
-                                                out.println(rsIndicTacheMembre.getString("etat"));
-                                                out.println("</etat>");
-                                                
-                                                out.println("<chargeprevue>");
-                                                out.println(rsIndicTacheMembre.getString("chargeprevue"));
-                                                out.println("</chargeprevue>");
-                                                
-                                                out.println("<tempspasse>");
-                                                out.println(rsIndicTacheMembre.getString("tempspasse"));
-                                                out.println("</tempspasse>");
-                                                
-                                                out.println("<datedebutprevue>");
-                                                out.println(rsIndicTacheMembre.getString("datedebutprevue"));
-                                                out.println("</datedebutprevue>");
-                                                
-                                                out.println("<datedebutreelle>");
-                                                out.println(rsIndicTacheMembre.getString("datedebutreelle"));
-                                                out.println("</datedebutreelle>");
-                                                
-                                                out.println("<datefinprevue>");
-                                                out.println(rsIndicTacheMembre.getString("datefinprevue"));
-                                                out.println("</datefinprevue>");
-                                                
-                                                out.println("<datefinreelle>");
-                                                out.println(rsIndicTacheMembre.getString("datefinreelle"));
-                                                out.println("</datefinreelle>");*/
+                                    out.println("</charges>");
                                     
                                     out.println("</indicateurTache>");
                                 }while(rsIndicTacheMembre.next());
+                                
+                                if(rsIndicTacheCollaborativeMembre.next()){
+                                    do{
+                                        out.println("<indicateurTache>");
+                                        
+                                        out.println("<nomProjet>");
+                                        out.println(rsIndicTacheCollaborativeMembre.getString(1));
+                                        out.println("</nomProjet>");
+                                        
+                                        out.println("<nom>");
+                                        out.println(rsIndicTacheCollaborativeMembre.getString(2));
+                                        out.println("</nom>");
+                                        
+                                        //ResultSet permettant de savoir combien il y a de participants sur la tache collaborative
+                                        prepState = conn.prepareStatement("Select count(*) from membres_tachescollaboratives mt where mt.idtache = '"+ rsIndicTacheCollaborativeMembre.getString("idtache")+ "'");
+                                        ResultSet rsIndicNbMembreTC = prepState.executeQuery(); // Execution de la requete
+                                        
+                                        int charges = 0;
+                                        
+                                        if(rsIndicNbMembreTC.next())
+                                            charges = rsIndicTacheCollaborativeMembre.getInt("tempspasse") / rsIndicNbMembreTC.getInt(1);
+                                        
+                                        rsIndicNbMembreTC.close();
+                                        
+                                        out.println("<charges>");
+                                        out.println(charges);
+                                        out.println("</charges>");
+                                        
+                                        out.println("</indicateurTache>");
+                                    }while(rsIndicTacheCollaborativeMembre.next());
+                                }
                                 
                                 out.println("</indicateursTaches>");
                                 
                             }
                             rsIndicTacheMembre.close();
+                            rsIndicTacheCollaborativeMembre.close();
                             
                             /*********************************** INDICATEURS DES ARTEFACTS DU MEMBRE *******************/
+                            //A remonter dans les taches !!
                             
                             //On récupère les artefacts
                             prepState = conn.prepareStatement("Select a.nom,a.etat from artefacts a where a.idresponsable = '"+ rsMembres.getString("idmembre") +"'");
@@ -955,10 +991,10 @@ public class LoginServlet extends HttpServlet {
                                 
                             }
                             rsIndicArtefactMembre.close();
-
+                            
                             
                             out.println("</membre>");
-      
+                            
                         }
                         out.println("</membres>");
                         rsMembres.close();

@@ -31,7 +31,7 @@ public class P2S {
      */
     public static void main(String[] args) {
         P2S p = new P2S();
-        
+           
         // Recuperation et initialisation de la langue
         ControllerLocale = new LocaleController();
         ParserXMLPreferences parserPref = new ParserXMLPreferences(readFile("P2S/preferences.xml"));
