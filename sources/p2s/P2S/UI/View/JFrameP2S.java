@@ -597,9 +597,9 @@ public class JFrameP2S extends javax.swing.JFrame {
         this.validate();
     }
     
-    private void afficherInfoIte(Iteration ite) {
+    private void afficherInfoIte(Iteration ite, SeuilsFixes seuils) {
         //JPanelInfoIteration Tab = new JPanelInfoIteration(ite);
-        JTabbedPaneIteration Tab = new JTabbedPaneIteration(ite);
+        JTabbedPaneIteration Tab = new JTabbedPaneIteration(ite,seuils);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
         this.validate();
@@ -764,7 +764,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                     afficherInfoProjet(((NoeudProjet)d).getProjet());
                 
                 else if(d instanceof NoeudIteration){//Si len noeud est une iteration
-                    afficherInfoIte(((NoeudIteration)d).getIteration());
+                    afficherInfoIte(((NoeudIteration)d).getIteration(), ((NoeudProjet)((NoeudIteration)d).getParent()).getProjet().getSeuilFixes());
                 }
                 
                 else if(d instanceof NoeudMessage){//Si len noeud est un message
@@ -832,7 +832,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                     afficherInfoProjet(((NoeudProjet)d).getProjet());
                 
                 else if(d instanceof NoeudIteration){//Si len noeud est une iteration
-                    afficherInfoIte(((NoeudIteration)d).getIteration());
+                    afficherInfoIte(((NoeudIteration)d).getIteration(), ((NoeudProjet)((NoeudIteration)d).getParent()).getProjet().getSeuilFixes());
                 }
                 
                 else if(d instanceof NoeudMessage){//Si len noeud est un message

@@ -8,6 +8,9 @@ package P2S.UI.View.JPanel;
 
 import P2S.Model.IndicateursIteration;
 import P2S.Model.Iteration;
+import P2S.Model.Seuil;
+import P2S.Model.SeuilsFixes;
+import java.awt.Color;
 
 import java.text.NumberFormat;
 
@@ -18,23 +21,37 @@ import java.text.NumberFormat;
 public class JPanelInfoIteration extends javax.swing.JPanel {
     
     /** Creates new form JPanelInfoIteration */
-    public JPanelInfoIteration(Iteration ite) {
+    public JPanelInfoIteration(Iteration ite, SeuilsFixes seuils) {
         initComponents();
         
         IndicateursIteration ind = ite.getIndicateursIteration();
-
+        
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         
         this.textIndChargeMoyenne.setText(nf.format(new Float(ind.getChargeMoyenneParticipants())));
+        if(Seuil.estHorsIntervalle(new Float(ind.getChargeMoyenneParticipants()),new Float(seuils.getChargeMoyenne().getSeuilMin().toString()), new Float(seuils.getChargeMoyenne().getSeuilMax().toString())))
+            this.textIndChargeMoyenne.setBackground(new Color(240,200,100));
+        
         this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
+        if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(seuils.getTotalChargesIteration().getSeuilMin().toString()), new Integer(seuils.getTotalChargesIteration().getSeuilMax().toString())))
+            this.textIndChargesTotales.setBackground(new Color(240,200,100));
         
         this.textIndDureeMoyenne.setText(nf.format(new Float(ind.getDureeMoyenneTaches())));
+        if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTaches()),new Float(seuils.getDureeMoyenneIteration().getSeuilMin().toString()), new Float(seuils.getDureeMoyenneIteration().getSeuilMax().toString())))
+            this.textIndDureeMoyenne.setBackground(new Color(240,200,100));
         
         this.textIndMoyenneTache.setText(nf.format(new Float(ind.getNombreMoyenTachesParticipants())));
+        if(Seuil.estHorsIntervalle(new Float(ind.getNombreMoyenTachesParticipants()),new Float(seuils.getNombreTacheParticipant().getSeuilMin().toString()), new Float(seuils.getNombreTacheParticipant().getSeuilMax().toString())))
+            this.textIndMoyenneTache.setBackground(new Color(240,200,100));
         
         this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
+        if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(seuils.getNombreParticipantIteration().getSeuilMin().toString()), new Integer(seuils.getNombreParticipantIteration().getSeuilMax().toString())))
+            this.textIndNombreParticipants.setBackground(new Color(240,200,100));
+        
         this.textIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());
+        if(Seuil.estHorsIntervalle(new Integer(ind.getNombreTachesTerminees()),new Integer(seuils.getTacheTermineesIteration().getSeuilMin().toString()), new Integer(seuils.getTacheTermineesIteration().getSeuilMax().toString())))
+            this.textIndTachesTerminees.setBackground(new Color(240,200,100));
     }
     
     

@@ -8,6 +8,7 @@ package P2S.UI.View;
 
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.Iteration;
+import P2S.Model.SeuilsFixes;
 import P2S.UI.View.JPanel.JPanelInfoIteration;
 import P2S.UI.View.JPanel.JPanelInfoTaches;
 import javax.swing.JTabbedPane;
@@ -19,10 +20,10 @@ import javax.swing.JTabbedPane;
 public class JTabbedPaneIteration extends JTabbedPane {
     
     /** Creates new form BeanForm */
-    public JTabbedPaneIteration (Iteration iter) {
+    public JTabbedPaneIteration (Iteration iter, SeuilsFixes seuils) {
         initComponents ();
                 
-       addTab(Bundle.getText("JTabbedPaneIteration_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoIteration(iter)) ;
+       addTab(Bundle.getText("JTabbedPaneIteration_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoIteration(iter, seuils)) ;
        addTab(Bundle.getText("JTabbedPaneIteration_TabTaches"),new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_tasks.gif")), new JPanelInfoTaches(iter.getListeTache())) ;
     }
     
