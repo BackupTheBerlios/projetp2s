@@ -60,7 +60,7 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majBase() {        
+    public void majBase() {
         
         majProjet();
         majIterations();
@@ -82,7 +82,8 @@ public class ParserXMLFichierWF {
         majLiensMembres_Roles();
         
         // Mise a jour des indicateurs
-        //majIndicateurIteration();
+        majIndicateurIteration();
+        majIndicateurProjet();
     }
     
     
@@ -1288,55 +1289,6 @@ public class ParserXMLFichierWF {
             }
             listeIdTache.removeAllElements();
         }
-        /*int idMembre = -1;
-        Vector listeIdTache = new Vector();
-        
-        NodeList listeMembreTache = this.document.getElementsByTagName("MembreTacheCollaborative_Responsable");
-        NodeList listeNoeud;
-        NodeList listeNoeudIdTache;
-        
-        for(int i=0;i<listeMembreTache.getLength();i++){
-            listeNoeud = listeMembreTache.item(i).getChildNodes();
-            
-            // on recherche l'id du membre
-            int b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("idMembre") != 0) {
-                b++;
-            }
-            idMembre = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
-            
-            // on recherche les taches collaboratives dont il est responsable
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("listeTacheCollaborative") != 0) {
-                b++;
-            }
-            listeNoeudIdTache = listeNoeud.item(b).getChildNodes();
-            for(int j=0;j<listeNoeudIdTache.getLength();j++){
-                if(listeNoeudIdTache.item(j).getNodeName().compareTo("id") == 0){
-                    listeIdTache.add(listeNoeudIdTache.item(j).getFirstChild().getNodeValue());
-                }
-            }
-            
-            for(int k=0;k<listeIdTache.size();k++){
-                try {
-                    // Requete SQL
-                    PreparedStatement prepState = conn.prepareStatement("Select * from membres_tachescollaboratives where idmembre="+idMembre+" and idtache="+listeIdTache.get(k));
-                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
-                    
-                    if(!rs.next()){
-                        prepState = conn.prepareStatement("insert into membres_tachescollaboratives values ("+idMembre+","+listeIdTache.get(k)+")");
-                        prepState.execute(); // Execution de la requete
-                    }
-                    
-                }catch (SQLException ex) { // Si une SQLException survient
-                    System.out.println("SQLException: " + ex.getMessage());
-                    System.out.println("SQLState: " + ex.getSQLState());
-                    System.out.println("VendorError: " + ex.getErrorCode());
-                    ex.printStackTrace();
-                }
-            }
-            listeIdTache.removeAllElements();
-        }*/
     }
     
     
@@ -1662,26 +1614,69 @@ public class ParserXMLFichierWF {
     
     
     public void majIndicateurIteration(){
-        int nbIt = 0;
+        int idIt = 0;
+        int chargeTotal = 0;
+        int nbTachesTerminees = 0;
+        float dureeMoyTache = 0;
+        int nbParticipants = 0;
+        float chargeMoyMembre = 0;
+        float nbMoyTacheMembre = 0;
         
         try {
-            // On recupere le nombre d'iteration du projet
-            PreparedStatement prepState = conn.prepareStatement("select COUNT(*) from iterations where idprojet="+lireIdProjet());
+            // On recupere toutes les iterations du projet
+            PreparedStatement prepState = conn.prepareStatement("select * from iterations where idprojet="+lireIdProjet());
             ResultSet rs = prepState.executeQuery(); // Execution de la requete
-            if(rs.next()) {
-                nbIt = rs.getInt(1);
-            }
-            
-            for(int i=0;i<nbIt;i++){
+            while(rs.next()) {
+                // remise a 0 des indicateurs
+                chargeTotal = 0;
+                nbTachesTerminees = 0;
+                dureeMoyTache = 0;
+                nbParticipants = 0;
+                chargeMoyMembre = 0;
+                nbMoyTacheMembre = 0;
                 
-                prepState = conn.prepareStatement("select * from indicateurs_iteration where iditeration="+lireIdProjet());
-                rs = prepState.executeQuery(); // Execution de la requete
+                idIt = rs.getInt("iditeration");
+                // Charges Totales
+                chargeTotal = calculerChargesTotal_Iteration(idIt);
+                // Nombre de taches terminees
+                nbTachesTerminees = nbTachesTerminees_Iteration(idIt);
+                // Duree Moyenne des taches
+                if(nbTachesTerminees == 0)
+                    dureeMoyTache = 0;
+                else
+                    dureeMoyTache = (float)calculerChargesTotalTachesTerminees_Iteration(idIt)/(float)nbTachesTerminees;
+                // Nombre de participants
+                nbParticipants = nbParticipants_Iteration(idIt);
+                // Charge moyenne par membre
+                if(nbParticipants == 0)
+                    chargeMoyMembre = 0;
+                else
+                    chargeMoyMembre = (float)chargeTotal/(float)nbParticipants;
+                // Nombre moyen de tache par membre
+                if(nbParticipants == 0)
+                    nbMoyTacheMembre = 0;
+                else
+                    nbMoyTacheMembre = (float)nbTaches_Iteration(idIt)/(float)nbParticipants;
                 
-                if(!rs.next()){
-                    //prepState = conn.prepareStatement("insert into roles_membres values ("+listeIdRole.get(k)+","+idMembre+")");
-                    //prepState.execute(); // Execution de la requete
+                // Requete SQL
+                prepState = conn.prepareStatement("Select * from indicateurs_iteration where iditeration="+idIt);
+                ResultSet rsSelect = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rsSelect.next()){
+                    prepState = conn.prepareStatement("insert into indicateurs_iteration values ("+idIt+","+chargeTotal+","+nbTachesTerminees+","+dureeMoyTache+","+nbParticipants+","+chargeMoyMembre+","+nbMoyTacheMembre+")");
+                    prepState.execute(); // Execution de la requete
+                }else{
+                    PreparedStatement updateIndicateur = conn.prepareStatement(
+                            "update indicateurs_iteration set totalcharges=?, nombretachesterminees=?, dureemoyennetache=?, nombreparticipants=?, chargemoyenneparticipants=?, nombremoyentachesparticipants=? where iditeration ="+idIt);
+                    updateIndicateur.setInt(1,chargeTotal);
+                    updateIndicateur.setInt(2,nbTachesTerminees);
+                    updateIndicateur.setFloat(3,dureeMoyTache);
+                    updateIndicateur.setInt(4,nbParticipants);
+                    updateIndicateur.setFloat(5,chargeMoyMembre);
+                    updateIndicateur.setFloat(6,nbMoyTacheMembre);
+                    
+                    updateIndicateur.executeUpdate();
                 }
-                
             }
         }catch (SQLException ex) { // Si une SQLException survient
             System.out.println("SQLException: " + ex.getMessage());
@@ -1691,24 +1686,254 @@ public class ParserXMLFichierWF {
         }
     }
     
-    /*private int calculerChargesTotal_Iteration()
-    {
+    private int calculerChargesTotal_Iteration(int idIt) {
+        int Somme = 0;
+        
         try {
-            // Requete SQL
-            PreparedStatement prepState = conn.prepareStatement("select * from indicateurs_projet where idprojet="+lireIdProjet());
-            ResultSet rs = prepState.executeQuery(); // Execution de la requete
-     
-            if(!rs.next()){
-                //prepState = conn.prepareStatement("insert into roles_membres values ("+listeIdRole.get(k)+","+idMembre+")");
-                //prepState.execute(); // Execution de la requete
-            }
-     
+            // On recupere le total des charges pour les taches
+            PreparedStatement prepState = conn.prepareStatement("select SUM(tempspasse) from taches where iditeration="+idIt);
+            ResultSet rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+            // On recupere le total des charges pour les taches collaboratives
+            prepState = conn.prepareStatement("select SUM(tempspasse) from tachescollaboratives where iditeration="+idIt);
+            rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
         }catch (SQLException ex) { // Si une SQLException survient
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
             ex.printStackTrace();
         }
-    }*/
+        return Somme;
+    }
+    
+    
+    private int calculerChargesTotalTachesTerminees_Iteration(int idIt) {
+        int Somme = 0;
+        
+        try {
+            // On recupere le total des charges pour les taches terminees
+            PreparedStatement prepState = conn.prepareStatement("select SUM(tempspasse) from taches where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            ResultSet rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+            // On recupere le total des charges pour les taches collaboratives terminees
+            prepState = conn.prepareStatement("select SUM(tempspasse) from tachescollaboratives where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+        return Somme;
+    }
+    
+    private int nbTachesTerminees_Iteration(int idIt) {
+        int Somme = 0;
+        
+        try {
+            // On recupere le nombre de taches terminees
+            PreparedStatement prepState = conn.prepareStatement("select COUNT(*) from taches where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            ResultSet rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+            // On recupere le nombre de taches collaboratives terminees
+            prepState = conn.prepareStatement("select COUNT(*) from tachescollaboratives where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+        return Somme;
+    }
+    
+    private int nbTaches_Iteration(int idIt) {
+        int Somme = 0;
+        
+        try {
+            // On recupere le nombre de taches
+            PreparedStatement prepState = conn.prepareStatement("select COUNT(*) from taches where iditeration="+idIt);
+            ResultSet rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+            // On recupere le nombre de taches collaboratives
+            prepState = conn.prepareStatement("select COUNT(*) from tachescollaboratives where iditeration="+idIt);
+            rsSomme = prepState.executeQuery(); // Execution de la requete
+            if(rsSomme.next())
+                Somme += rsSomme.getInt(1);
+            
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+        return Somme;
+    }
+    
+    
+    
+    private int nbParticipants_Iteration(int idIt){
+        int nb = 0;
+        Vector idMembre = new Vector();
+        
+        try {
+            // On recupere le nombre de participants pour les taches
+            PreparedStatement prepState = conn.prepareStatement("select idmembre from taches where iditeration="+idIt);
+            ResultSet rs = prepState.executeQuery(); // Execution de la requete
+            while(rs.next()) {
+                if(!idMembre.contains(new Integer(rs.getInt(1)))){
+                    idMembre.add(new Integer(rs.getInt(1)));
+                    nb ++;
+                }
+            }
+            
+            // On recupere le nombre de participants pour les taches collaboratives
+            prepState = conn.prepareStatement("select idtache from tachescollaboratives where iditeration="+idIt);
+            rs = prepState.executeQuery(); // Execution de la requete
+            while(rs.next()){
+                prepState = conn.prepareStatement("select idmembre from membres_tachescollaboratives where idtache="+rs.getInt(1));
+                ResultSet rsMembre = prepState.executeQuery(); // Execution de la requete
+                while(rsMembre.next()) {
+                    if(!idMembre.contains(new Integer(rsMembre.getInt(1)))){
+                        idMembre.add(new Integer(rsMembre.getInt(1)));
+                        nb ++;
+                    }
+                }
+            }
+            
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+        return nb;
+    }
+    
+    
+    public void majIndicateurProjet(){
+        int idProjet = lireIdProjet();
+        int totalcharges = 0;
+        int tachesterminees = 0;
+        float dureemoyennetache = 0;
+        int nombreparticipants = 0;
+        float avancementprojet = 0;
+        
+        try {      
+            // On recupere le total des charges
+            PreparedStatement prepState = conn.prepareStatement("select SUM(ind.totalcharges) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
+            ResultSet rs = prepState.executeQuery(); // Execution de la requete
+            if(rs.next())
+                totalcharges = rs.getInt(1);
+            
+            // On recupere le nombre de taches terminees
+            prepState = conn.prepareStatement("select SUM(ind.nombretachesterminees) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
+            rs = prepState.executeQuery(); // Execution de la requete
+            if(rs.next())
+                tachesterminees = rs.getInt(1);
+            
+            // On recupere la duree moyenne des taches
+            prepState = conn.prepareStatement("select iditeration from iterations where idprojet="+idProjet);
+            rs = prepState.executeQuery(); // Execution de la requete
+            int nbtachesfinies = 0;
+            int chTotales = 0;
+            while(rs.next()){
+                chTotales += calculerChargesTotalTachesTerminees_Iteration(rs.getInt(1));
+                nbtachesfinies += nbTachesTerminees_Iteration(rs.getInt(1));
+            }
+            dureemoyennetache = (float)chTotales/(float)nbtachesfinies;
+            
+            // On recupere le nombre de participants
+            nombreparticipants = nbParticipants_Projet();
+            
+            // Avancement du projet
+            avancementprojet = 10.0f;
+            
+            // Requete SQL
+            prepState = conn.prepareStatement("Select * from indicateurs_projet where idprojet="+idProjet);
+            ResultSet rsSelect = prepState.executeQuery(); // Execution de la requete
+            
+            if(!rsSelect.next()){
+                prepState = conn.prepareStatement("insert into indicateurs_projet values ("+idProjet+","+totalcharges+","+tachesterminees+","+dureemoyennetache+","+nombreparticipants+","+avancementprojet+")");
+                prepState.execute(); // Execution de la requete
+            }else{
+                PreparedStatement updateIndicateur = conn.prepareStatement(
+                        "update indicateurs_projet set totalcharges=?, tachesterminees=?, dureemoyennetache=?, nombreparticipants=?, avancementprojet=? where idprojet ="+idProjet);
+                updateIndicateur.setInt(1,totalcharges);
+                updateIndicateur.setInt(2,tachesterminees);
+                updateIndicateur.setFloat(3,dureemoyennetache);
+                updateIndicateur.setInt(4,nombreparticipants);
+                updateIndicateur.setFloat(5,avancementprojet);
+                                
+                updateIndicateur.executeUpdate();
+            }              
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+    }
+    
+    
+    private int nbParticipants_Projet(){
+        int nb = 0;
+        Vector idMembre = new Vector();
+        
+        try {
+            PreparedStatement prepState = conn.prepareStatement("select iditeration from iterations where idprojet="+lireIdProjet());
+            ResultSet rsIt = prepState.executeQuery(); // Execution de la requete
+            while(rsIt.next()) {
+                // On recupere l'id de l'IT
+                int idIt = rsIt.getInt(1);
+                
+                // On recupere le nombre de participants
+                prepState = conn.prepareStatement("select idmembre from taches where iditeration="+idIt);
+                ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                while(rs.next()) {
+                    if(!idMembre.contains(new Integer(rs.getInt(1)))){
+                        idMembre.add(new Integer(rs.getInt(1)));
+                        nb ++;
+                    }
+                }
+                
+                // On recupere le nombre de participants pour les taches collaboratives
+                prepState = conn.prepareStatement("select idtache from tachescollaboratives where iditeration="+idIt);
+                rs = prepState.executeQuery(); // Execution de la requete
+                while(rs.next()){
+                    prepState = conn.prepareStatement("select idmembre from membres_tachescollaboratives where idtache="+rs.getInt(1));
+                    ResultSet rsMembre = prepState.executeQuery(); // Execution de la requete
+                    while(rsMembre.next()) {
+                        if(!idMembre.contains(new Integer(rsMembre.getInt(1)))){
+                            idMembre.add(new Integer(rsMembre.getInt(1)));
+                            nb ++;
+                        }
+                    }
+                }
+            }
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+        return nb;
+    }
 }
-
