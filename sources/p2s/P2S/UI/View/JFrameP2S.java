@@ -23,7 +23,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     public static JDialogCreerProjet FenCreerProjet;
     
     public Utilisateur utilisateur;
-        
+    
     DefaultMutableTreeNode racine;
     
     /** Creates new form JFrameP2S */
@@ -32,7 +32,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // Initialisation des attributs
         this.utilisateur = null;
-                
+        
         // Fenêtre plein écran
         this.setState(Frame.NORMAL);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -167,6 +167,10 @@ public class JFrameP2S extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_JMenuItemQuitterActionPerformed
     
+    private void JMenuItemCreerSupActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        new JDialogCreerSuperviseur(this,true).show();
+    }   
+    
     private void JMenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemPreferencesActionPerformed
         new JDialogPreferences(this,true).show();
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
@@ -233,7 +237,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         racine = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
         
         // Ajout des projets supervisés par l'utilisateur
-                
+        
         // Ajout du noeud "Tous les projets"
         DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudTousLesProjets"));
         
@@ -241,7 +245,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
             NoeudProjet noeudProjet = new NoeudProjet(((Superviseur) utilisateur).getProjet(i));
             
-            racineProjet.add(noeudProjet);            
+            racineProjet.add(noeudProjet);
         }
         racine.add(racineProjet);
         
@@ -253,15 +257,26 @@ public class JFrameP2S extends javax.swing.JFrame {
             public void valueChanged(TreeSelectionEvent e) {
                 DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
                 if(d instanceof NoeudProjet)
-                    afficherInfoProjet(((NoeudProjet)d).getProjet());                   
-            }            
+                    afficherInfoProjet(((NoeudProjet)d).getProjet());
+            }
         }
         );
         
     }
-       
+    
     
     private void creerEnvironnementDir() {
+        //On ajoute les options dans la barre d'outils
+        JMenuItem JMenuItemCreerSup = new javax.swing.JMenuItem();
+        JMenuItemCreerSup.setText("Creer superviseur");
+        JMenuItemCreerSup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemCreerSupActionPerformed(evt);
+            }
+        });
+        
+        JMenuOutils.add(JMenuItemCreerSup);
+        
         JMenuFichier.remove(JMenuItemCreerProjet);
         
         // Construction de l'arborescence
@@ -273,13 +288,13 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         //Ajout de la feuille "Tous les membres"
         DefaultMutableTreeNode racineMembre = new DefaultMutableTreeNode(Bundle.getText("NoeudTousLesMembres"));
-                
+        
         // Ajout des membres
         for(int i = 0 ; i < ((Directeur) utilisateur).nbMembres(); i++){
             NoeudMembre noeudMembre = new NoeudMembre(((Directeur) utilisateur).getMembre(i));
             racineMembre.add(noeudMembre);
         }
-        racine.add(racineMembre);        
+        racine.add(racineMembre);
         
         racine.add( new DefaultMutableTreeNode(Bundle.getText("NoeudProjetsEnCours")));
         
@@ -291,14 +306,13 @@ public class JFrameP2S extends javax.swing.JFrame {
             public void valueChanged(TreeSelectionEvent e) {
                 DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
                 if(d instanceof NoeudMembre)
-                    afficherInfoMembre(((NoeudMembre)d).getMembre());                   
-            }            
+                    afficherInfoMembre(((NoeudMembre)d).getMembre());
+            }
         }
         );
     }
     
-    private void afficherInfoProjet(Projet proj)
-    {
+    private void afficherInfoProjet(Projet proj) {
         java.awt.GridBagConstraints gridBagConstraints;
         
         // On supprime tous les composants du panel
@@ -330,50 +344,50 @@ public class JFrameP2S extends javax.swing.JFrame {
         TextAreaDescription.setEditable(false);
         
         // On place les jLabels sur le panel
-               
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         jPanelInfo.add(LabelStaticNomProjet, new java.awt.GridBagConstraints());
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         jPanelInfo.add(LabelNomProjet, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
         jPanelInfo.add(LabelStaticDateDebut, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
         jPanelInfo.add(LabelDateDebut, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
         jPanelInfo.add(LabelStaticDateFin, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         jPanelInfo.add(LabelDateFin, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         jPanelInfo.add(LabelStaticDescription, gridBagConstraints);
-
+        
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -386,8 +400,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     
-    private void afficherInfoMembre(Membre membre)
-    {
+    private void afficherInfoMembre(Membre membre) {
         java.awt.GridBagConstraints gridBagConstraints;
         
         // On supprime tous les composants du panel
@@ -405,7 +418,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         jPanelInfo.add(jButton1, gridBagConstraints);
         
-        // On crée les labels pour afficher les infos sur le jPanel        
+        // On crée les labels pour afficher les infos sur le jPanel
         JLabel LabelStaticNom = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
         JLabel LabelStaticPrenom = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
         JLabel LabelStaticAdresse = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
@@ -418,7 +431,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         JLabel LabelTelephone = new JLabel(membre.getTelephone());
         JLabel LabelEMail = new JLabel(membre.getEmail());
         
-        // On place les jLabels sur le panel               
+        // On place les jLabels sur le panel
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -426,33 +439,33 @@ public class JFrameP2S extends javax.swing.JFrame {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
         jPanelInfo.add(LabelStaticNom, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
         jPanelInfo.add(LabelNom, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
         jPanelInfo.add(LabelStaticPrenom, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         jPanelInfo.add(LabelPrenom, gridBagConstraints);
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         jPanelInfo.add(LabelStaticAdresse, gridBagConstraints);
-
+        
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -465,7 +478,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         jPanelInfo.add(LabelStaticTelephone, gridBagConstraints);
-
+        
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -478,7 +491,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         jPanelInfo.add(LabelStaticEMail, gridBagConstraints);
-
+        
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
