@@ -132,6 +132,12 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuOutils.setText("Outils");
         JMenuItemRafraichir.setText("Rafraichir");
+        JMenuItemRafraichir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemRafraichirActionPerformed(evt);
+            }
+        });
+
         JMenuOutils.add(JMenuItemRafraichir);
 
         JMenuItemPreferences.setText("Pr\u00e9f\u00e9rences...");
@@ -156,6 +162,11 @@ public class JFrameP2S extends javax.swing.JFrame {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-683)/2, (screenSize.height-523)/2, 683, 523);
     }//GEN-END:initComponents
+
+    private void JMenuItemRafraichirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemRafraichirActionPerformed
+        if(utilisateur instanceof Superviseur)
+            rafraichirContenuSuperviseur();
+    }//GEN-LAST:event_JMenuItemRafraichirActionPerformed
     
     private void JMenuItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemQuitterActionPerformed
         System.exit(0);
