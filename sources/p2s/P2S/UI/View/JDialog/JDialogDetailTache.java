@@ -5,18 +5,33 @@ import P2S.Model.*;
 import P2S.UI.View.*;
 import java.text.DateFormat;
 import java.util.Locale;
+import javax.swing.table.TableCellRenderer;
+import java.awt.Component;
+import java.util.Vector ;
+import P2S.UI.View.JDialog.ModeleTableMesure;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 /**
  *
  * @author  kassem
  */
 public class JDialogDetailTache extends javax.swing.JDialog {
+   /*private String[] titresColonnes = {Bundle.getText("JTableRisquesColonne1"),
+                Bundle.getText("JTableRisquesColonne2"),
+                Bundle.getText("JTableRisquesColonne3"),
+                Bundle.getText("JTableRisquesColonne4"),
+                Bundle.getText("JTableRisquesColonne5")} ; ;
+    private Object[][] donnees = null ;
+    private javax.swing.JTable table;
+    private javax.swing.JScrollPane tableScrollPane;*/
     
     /** Creates new form JDialogAjoutMesure */
     public JDialogDetailTache(java.awt.Frame parent, boolean modal, Tache tacheDetail) {
         super(parent, modal);
-        initComponents();
        
+        initComponents();
         this.initText();
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
         this.textIndNom.setText(tacheDetail.getNom());
@@ -29,8 +44,29 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         this.textIndDateDebutReelle.setText(dateFormat.format(tacheDetail.getDateDebutReelle()));
         this.textIndDateFinPrevue.setText(dateFormat.format(tacheDetail.getDateFinPrevue()));
         this.textIndDateFinReelle.setText(dateFormat.format(tacheDetail.getDateFinReelle()));
-        this.textIndEtat.setText(tacheDetail.getEtat()); 
+        this.textIndEtat.setText(tacheDetail.getEtat());
         
+        //recupération de la liste des artefacts en entrées
+        /*Vector artefactsEntrees = new Vector();
+        artefactsEntrees = tacheDetail.getListeArtefactsEntrees();
+        donnees = new Object[artefactsEntrees.size()][5] ;
+        for (int i = 0 ; i < donnees.length ; i++)
+        {
+            if (artefactsEntrees.get(i) instanceof Artefact)
+            {
+                donnees[i][0] = ((Artefact)artefactsEntrees.get(i)).getNom() ;
+                donnees[i][1] = ((Artefact)artefactsEntrees.get(i)).getDescription() ;
+                donnees[i][2] = ((Artefact)artefactsEntrees.get(i)).isLivrable() ;
+                donnees[i][3] = ((Artefact)artefactsEntrees.get(i)).getResponsable() ;
+                donnees[i][4] = ((Artefact)artefactsEntrees.get(i)).getEtat() ;
+            }
+        }
+        
+        /*ModeleTableMesure tableModel = new ModeleTableMesure(donnees, titresColonnes) ;
+        table = new JTable(tableModel) ;
+        tableScrollPane = new JScrollPane(table) ;
+        tableScrollPane.setViewportView(table);
+        this.getContentPane().add(tableScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 292, 410, 20));*/
         pack() ;
         show() ;
     }
@@ -63,6 +99,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndDateFinPrevue = new javax.swing.JTextField();
         labelStaticIndDateFinReelle = new javax.swing.JLabel();
         textIndDateFinReelle = new javax.swing.JTextField();
+        buttonOk = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -81,7 +118,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndEtat.setEditable(false);
         textIndEtat.setText("etat");
         textIndEtat.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndEtat, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 70, -1));
+        getContentPane().add(textIndEtat, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 170, -1));
 
         labelDescription.setText("Description :");
         getContentPane().add(labelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 100, -1));
@@ -104,7 +141,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndCharge.setEditable(false);
         textIndCharge.setText("charge");
         textIndCharge.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 70, -1));
+        getContentPane().add(textIndCharge, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 170, -1));
 
         labelStaticIndTpsPasse.setText("Temps pass\u00e9 :");
         getContentPane().add(labelStaticIndTpsPasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 100, -1));
@@ -112,7 +149,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndTempsPasse.setEditable(false);
         textIndTempsPasse.setText("temps pass\u00e9");
         textIndTempsPasse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndTempsPasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 70, -1));
+        getContentPane().add(textIndTempsPasse, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 170, -1));
 
         labelStaticIndTempsRestant.setText("Temps Restant :");
         getContentPane().add(labelStaticIndTempsRestant, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 100, -1));
@@ -120,7 +157,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndTempsRestant.setEditable(false);
         textIndTempsRestant.setText("restant");
         textIndTempsRestant.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndTempsRestant, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 70, -1));
+        getContentPane().add(textIndTempsRestant, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 170, -1));
 
         labelStaticIndDatePrevue.setText("Date d\u00e9but pr\u00e9vue :");
         getContentPane().add(labelStaticIndDatePrevue, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 100, -1));
@@ -128,7 +165,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndDateDebutPrevue.setEditable(false);
         textIndDateDebutPrevue.setText("date pr\u00e9vue");
         textIndDateDebutPrevue.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDateDebutPrevue, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 70, -1));
+        getContentPane().add(textIndDateDebutPrevue, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 170, -1));
 
         labelStaticIndDateDebutReelle.setText("Date d\u00e9but r\u00e9elle :");
         getContentPane().add(labelStaticIndDateDebutReelle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 100, -1));
@@ -136,7 +173,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndDateDebutReelle.setEditable(false);
         textIndDateDebutReelle.setText("date r\u00e9elle");
         textIndDateDebutReelle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDateDebutReelle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 70, -1));
+        getContentPane().add(textIndDateDebutReelle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 170, -1));
 
         labelStaticDateFinPrevue.setText("Date fin pr\u00e9vue :");
         getContentPane().add(labelStaticDateFinPrevue, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 100, -1));
@@ -144,7 +181,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndDateFinPrevue.setEditable(false);
         textIndDateFinPrevue.setText("date fin");
         textIndDateFinPrevue.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDateFinPrevue, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 70, -1));
+        getContentPane().add(textIndDateFinPrevue, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 170, -1));
 
         labelStaticIndDateFinReelle.setText("Date fin r\u00e9elle :");
         getContentPane().add(labelStaticIndDateFinReelle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 100, -1));
@@ -152,11 +189,24 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         textIndDateFinReelle.setEditable(false);
         textIndDateFinReelle.setText("date fin r\u00e9elle");
         textIndDateFinReelle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDateFinReelle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 70, -1));
+        getContentPane().add(textIndDateFinReelle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 170, -1));
+
+        buttonOk.setText("jButton1");
+        buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOkActionPerformed(evt);
+            }
+        });
+
+        getContentPane().add(buttonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, -1, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-400)/2, (screenSize.height-400)/2, 400, 400);
+        setBounds((screenSize.width-445)/2, (screenSize.height-445)/2, 445, 445);
     }//GEN-END:initComponents
+
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonOkActionPerformed
 
     public void initText()
     {
@@ -171,12 +221,14 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         labelStaticIndDateDebutReelle.setText(Bundle.getText("JDialogDetailTacheRealBeginningDate"));
         labelStaticDateFinPrevue.setText(Bundle.getText("JDialogDetailTachePredictedEndingDate"));
         labelStaticIndDateFinReelle.setText(Bundle.getText("JDialogDetailTacheRealEndingDate"));
-        labelStaticIndEtat.setText(Bundle.getText("JDialogDetailTacheStatus"));       
+        labelStaticIndEtat.setText(Bundle.getText("JDialogDetailTacheStatus"));
+        this.buttonOk.setText(Bundle.getText("JDialogDetailTacheButtonOk"));
     }
     
      
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonOk;
     private javax.swing.JLabel labelDescription;
     private javax.swing.JLabel labelStaticDateFinPrevue;
     private javax.swing.JLabel labelStaticIndChargePrevue;
