@@ -10,7 +10,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Cox
+ * @author LAFFARGUE
  */
 public class Artefact {
     

@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  *
- * @author Nicolas
+ * @author LAFFARGUE
  */
 public class Directeur extends Utilisateur{
     

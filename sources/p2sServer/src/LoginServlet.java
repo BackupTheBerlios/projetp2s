@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
         if ((login != null) && (password != null)){
             try {
                 ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
-                // Connexion a la base de donnees                                
+                // Connexion a la base de donnees
                 Connection conn = DriverManager.getConnection("jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword());
                 
                 // Requete SQL
@@ -321,13 +321,41 @@ public class LoginServlet extends HttpServlet {
                                                 out.println(rsTaches.getString("datefinreelle"));
                                                 out.println("</datefinreelle>");
                                                 
+                                                /*********************** INDICATEURS DE LA TACHE ****************/
+                                                prepState = conn.prepareStatement("Select * from indicateurs_tache where idtache = " + rsTaches.getString("idtache"));
+                                                ResultSet rsIndicateursTache = prepState.executeQuery(); // Execution de la requete
+                                                
+                                                if(rsIndicateursTache.next()){
+                                                    
+                                                    out.println("<indicateursTache>");
+                                                    
+                                                    
+                                                    out.println("<nombreTotal>");
+                                                    out.println(rsIndicateursTache.getString("nombreTotal"));
+                                                    out.println("</nombreTotal>");
+                                                    
+                                                    out.println("<nombreTerminees>");
+                                                    out.println(rsIndicateursTache.getString("nombreTerminees"));
+                                                    out.println("</nombreTerminees>");
+                                                    
+                                                    out.println("<dureeMoyenne>");
+                                                    out.println(rsIndicateursTache.getString("dureeMoyenne"));
+                                                    out.println("</dureeMoyenne>");
+                                                    
+                                                    
+                                                    out.println("</indicateursTache>");
+                                                    
+                                                    
+                                                }
+                                                rsIndicateursTache.close();
+                                                
                                                 out.println("</tache>");
                                             } while(rsTaches.next());
                                             rsTaches.close();
                                             out.println("</taches>");
                                         }
                                         /****************** Liste des taches collaboratives dans l'itération ***********/
-                                        prepState = conn.prepareStatement("Select * from tachescolaboratives where iditeration = " + rsIterations.getString("iditeration"));
+                                        prepState = conn.prepareStatement("Select * from tachescollaboratives where iditeration = " + rsIterations.getString("iditeration"));
                                         ResultSet rsTachesCollaboratives = prepState.executeQuery(); // Execution de la requete
                                         
                                         if(rsTachesCollaboratives.next()){
@@ -380,6 +408,35 @@ public class LoginServlet extends HttpServlet {
                                                 out.println(rsTachesCollaboratives.getString("datefinreelle"));
                                                 out.println("</datefinreelle>");
                                                 
+                                                /*********************** INDICATEURS DE LA TACHE COLLABORATIVE ****************/
+                                                prepState = conn.prepareStatement("Select * from indicateurs_tacheCollaborative where idtache = " + rsTachesCollaboratives.getString("idtache"));
+                                                ResultSet rsIndicateursTacheC = prepState.executeQuery(); // Execution de la requete
+                                                
+                                                if(rsIndicateursTacheC.next()){
+                                                    
+                                                    out.println("<indicateursTache>");
+                                                    
+                                                    
+                                                    out.println("<nombreTotal>");
+                                                    out.println(rsIndicateursTacheC.getString("nombreTotal"));
+                                                    out.println("</nombreTotal>");
+                                                    
+                                                    out.println("<nombreTerminees>");
+                                                    out.println(rsIndicateursTacheC.getString("nombreTerminees"));
+                                                    out.println("</nombreTerminees>");
+                                                    
+                                                    out.println("<dureeMoyenne>");
+                                                    out.println(rsIndicateursTacheC.getString("dureeMoyenne"));
+                                                    out.println("</dureeMoyenne>");
+                                                    
+                                                    
+                                                    out.println("</indicateursTache>");
+                                                    
+                                                    
+                                                }
+                                                rsIndicateursTacheC.close();
+                                                
+                                                
                                                 out.println("</tacheCollaborative>");
                                             } while(rsTachesCollaboratives.next());
                                             
@@ -390,6 +447,38 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</iteration>");
                                         
                                     }while(rsIterations.next());
+                                    
+                                    
+                                    /************************** INDICATEURS D'UNE ITERATION ***************/
+                                    prepState = conn.prepareStatement("Select * from indicateurs_iteration where iditeration = " + rsIterations.getString("iditeration"));
+                                    ResultSet rsIndicateursIteration = prepState.executeQuery(); // Execution de la requete
+                                    
+                                    if(rsIndicateursIteration.next()){
+                                        out.println("<indicateursIteration>");
+                                        
+                                        out.println("<nombreTachesTerminees>");
+                                        out.println(rsIndicateursIteration.getString("nombreTachesTerminees"));
+                                        out.println("</nombreTachesTerminees>");
+                                        
+                                        out.println("<dureeMoyenneTache>");
+                                        out.println(rsIndicateursIteration.getString("dureeMoyenneTache"));
+                                        out.println("</dureeMoyenneTache>");
+                                        
+                                        out.println("<nombreParticipants>");
+                                        out.println(rsIndicateursIteration.getString("nombreParticipants"));
+                                        out.println("</nombreParticipants>");
+                                        
+                                        out.println("<chargeMoyenneParticipants>");
+                                        out.println(rsIndicateursIteration.getString("chargeMoyenneParticipants"));
+                                        out.println("</chargeMoyenneParticipants>");
+                                        
+                                        out.println("<nombreMoyenTachesParticipants>");
+                                        out.println(rsIndicateursIteration.getString("nombreMoyenTachesParticipants"));
+                                        out.println("</nombreMoyenTachesParticipants>");
+                                        
+                                        out.println("</indicateursIteration>");
+                                    }
+                                    rsIndicateursIteration.close();
                                     
                                     rsIterations.close();
                                     out.println("</iterations>");
@@ -468,7 +557,7 @@ public class LoginServlet extends HttpServlet {
                                 rsMembresTaches.close();
                                 
                                 /******************* MEMBRES & TACHES COLLABORATIVES ***************/
-                                prepState = conn.prepareStatement("Select * from membres_tachescolaboratives");
+                                prepState = conn.prepareStatement("Select * from membres_tachescollaboratives");
                                 ResultSet rsMembresTachesCollaboratives = prepState.executeQuery(); // Execution de la requete
                                 
                                 if(rsMembresTachesCollaboratives.next()){
@@ -543,7 +632,7 @@ public class LoginServlet extends HttpServlet {
                                 rsTachesArtefactsE.close();
                                 
                                 /******************* TACHES & ARTEFACTS SORTIES ***************/
-                                prepState = conn.prepareStatement("Select idartefact,idtache from artefacts_entrees_taches");
+                                prepState = conn.prepareStatement("Select idartefact,idtache from artefacts_sorties_taches");
                                 ResultSet rsTachesArtefactsS = prepState.executeQuery(); // Execution de la requete
                                 
                                 if(rsTachesArtefactsS.next()){
@@ -565,7 +654,99 @@ public class LoginServlet extends HttpServlet {
                                     
                                     out.println("</tachesArtefactsSorties>");
                                 }
-                                rsTachesArtefactsS.close();                                                                                                                               
+                                rsTachesArtefactsS.close();
+                                
+                                
+                                /******************* TACHES COLLABORATIVES & ARTEFACTS ENTREES ***************/
+                                prepState = conn.prepareStatement("Select idartefact,idtache from artefacts_entrees_tachescollaboratives");
+                                ResultSet rsTachesCArtefactsE = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsTachesCArtefactsE.next()){
+                                    out.println("<tachesCollaborativesArtefactsEntrees>");
+                                    
+                                    do{
+                                        out.println("<tacheCollaborativeArtefactEntree>");
+                                        
+                                        out.println("<idartefact>");
+                                        out.println(rsTachesCArtefactsE.getString("idartefact"));
+                                        out.println("</idartefact>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsTachesCArtefactsE.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</tacheCollaborativeArtefactEntree>");
+                                    }while(rsTachesCArtefactsE.next());
+                                    
+                                    out.println("</tachesCollaborativesArtefactsEntrees>");
+                                }
+                                rsTachesCArtefactsE.close();
+                                
+                                /******************* TACHES & ARTEFACTS SORTIES ***************/
+                                prepState = conn.prepareStatement("Select idartefact,idtache from artefacts_sorties_tachescollaboratives");
+                                ResultSet rsTachesCArtefactsS = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsTachesCArtefactsS.next()){
+                                    out.println("<tachesCollaborativesArtefactsSorties>");
+                                    
+                                    do{
+                                        out.println("<tacheCollaborativeArtefactSortie>");
+                                        
+                                        out.println("<idartefact>");
+                                        out.println(rsTachesCArtefactsS.getString("idartefact"));
+                                        out.println("</idartefact>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsTachesCArtefactsS.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</tacheCollaborativeArtefactSortie>");
+                                    }while(rsTachesCArtefactsS.next());
+                                    
+                                    out.println("</tachesCollaborativesArtefactsSorties>");
+                                }
+                                rsTachesCArtefactsS.close();
+                                
+                                /****************************** LES INDICATEURS D'UN PROJET *************************/
+                                
+                                prepState = conn.prepareStatement("Select * from indicateurs_projet where idprojet = " + rsIdProjets.getString("idprojet"));
+                                ResultSet rsIndicateursProjet = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsIndicateursProjet.next()){
+                                    
+                                    out.println("<indicateursProjet>");
+                                    
+                                    out.println("<totalCharges>");
+                                    out.println(rsIndicateursProjet.getString("totalcharges"));
+                                    out.println("</totalCharges>");
+                                    
+                                    out.println("<tachesTerminees>");
+                                    out.println(rsIndicateursProjet.getString("tachesTerminees"));
+                                    out.println("</tachesTerminees>");
+                                    
+                                    out.println("<dureeMoyenneTache>");
+                                    out.println(rsIndicateursProjet.getString("dureeMoyenneTache"));
+                                    out.println("</dureeMoyenneTache>");
+                                    
+                                    out.println("<nombreParticipants>");
+                                    out.println(rsIndicateursProjet.getString("nombreParticipants"));
+                                    out.println("</nombreParticipants>");
+                                    
+                                    out.println("<avancementProjet>");
+                                    out.println(rsIndicateursProjet.getString("avancementProjet"));
+                                    out.println("</avancementProjet>");
+                                    
+                                    out.println("<indicateursProjet>");
+                                    out.println(rsIndicateursProjet.getString("indicateursProjet"));
+                                    out.println("</indicateursProjet>");
+                                    
+                                    
+                                    out.println("</indicateursProjet>");
+                                    
+                                }
+                                
+                                rsIndicateursProjet.close();
+                                
                                 
                                 out.println("</projet>");
                             }

@@ -11,7 +11,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Nicolas
+ * @author LAFFARGUE
  *Cette classe hérite de Tache mais n'hérite pas de l'attribut 'réalisateur' car une tache
  *collaborative est réalisé par plusieurs personnes,ainsi l'attribut a été mis en privé
  *donc non visible dans cette classe.

@@ -8,7 +8,7 @@ package P2S.Model;
 
 /**
  *
- * @author Cox
+ * @author LAFFARGUE
  */
 public class Role {
     private String designation;
