@@ -97,7 +97,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
             }
         });
 
-        add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, -1, -1));
+        add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         LabelStaticNomProjet.setText("Nom du projet : ");
         add(LabelStaticNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 77, -1));
