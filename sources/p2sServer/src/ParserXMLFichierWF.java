@@ -55,7 +55,7 @@ public class ParserXMLFichierWF {
             }
         } else{ // C'est un fichier local donc un flux xml
             try{
-                this.local = "true";
+                this.local = "true";                
                 DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
                 DocumentBuilder constructeur = usine.newDocumentBuilder();
                 

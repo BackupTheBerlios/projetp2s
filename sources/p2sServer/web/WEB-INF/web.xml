@@ -17,20 +17,24 @@
     <servlet-class>CreerSuperviseurServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>CreerMessageServlet</servlet-name>
-    <servlet-class>CreerMessageServlet</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>CreerCDPServlet</servlet-name>
     <servlet-class>CreerCDPServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MAJBDFicLocalServlet</servlet-name>
+    <servlet-class>MAJBDFicLocalServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CreerMessageServlet</servlet-name>
+    <servlet-class>CreerMessageServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>GestionCDPServlet</servlet-name>
     <servlet-class>GestionCDPServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>MAJBDFicLocalServlet</servlet-name>
-    <servlet-class>MAJBDFicLocalServlet</servlet-class>
+    <servlet-name>MAJFichierServlet</servlet-name>
+    <servlet-class>MAJFichierServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -53,12 +57,16 @@
     <url-pattern>/CreerCDPServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>MAJBDFicLocalServlet</servlet-name>
+    <url-pattern>/MAJBDFicLocalServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>GestionCDPServlet</servlet-name>
     <url-pattern>/GestionCDPServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>MAJBDFicLocalServlet</servlet-name>
-    <url-pattern>/MAJBDFicLocalServlet</url-pattern>
+    <servlet-name>MAJFichierServlet</servlet-name>
+    <url-pattern>/MAJFichierServlet</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>

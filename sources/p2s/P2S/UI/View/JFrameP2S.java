@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -55,9 +56,9 @@ public class JFrameP2S extends javax.swing.JFrame {
         }
         
         initComponents();
-	
-	// renderer pour l'arbre
-	jTree1.setCellRenderer(new P2STreeRenderer());
+        
+        // renderer pour l'arbre
+        jTree1.setCellRenderer(new P2STreeRenderer());
         
         // taille des scrollpanes
         jScrollPane1.setPreferredSize(new Dimension(200, 200)) ;
@@ -71,14 +72,14 @@ public class JFrameP2S extends javax.swing.JFrame {
         this.setState(Frame.NORMAL);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
-        Dimension position = toolkit.getScreenSize() ;        
+        Dimension position = toolkit.getScreenSize() ;
         
         if (dimension.width > 800) {dimension.width = 800 ;}
         if (dimension.height > 600) {dimension.height = 600 ;}
         this.setSize(dimension);
         
         this.setLocation(position.width/2 - dimension.width/2, position.height/2 - dimension.height/2);
-               
+        
         
         // Affichage de la bo?te de dialogue pour se logger
         JDialogLogin JDialogLog = new JDialogLogin(this,true);
@@ -94,19 +95,19 @@ public class JFrameP2S extends javax.swing.JFrame {
                 initTexte();
                 
                 if (utilisateur != null) {
-                       if (utilisateur instanceof Superviseur || utilisateur instanceof ChefDeProjet) {
-                            construireEnvironnementSuperviseur() ;
-                            PanelContenu.removeAll() ;
-                            validate() ;
-                        }
+                    if (utilisateur instanceof Superviseur || utilisateur instanceof ChefDeProjet) {
+                        construireEnvironnementSuperviseur() ;
+                        PanelContenu.removeAll() ;
+                        validate() ;
+                    }
                     if (utilisateur instanceof Directeur) {
                         construireEnvironnementDirecteur() ;
                         PanelContenu.removeAll() ;
                         validate() ;
                     }
                 }
-	    }
-        });     
+            }
+        });
     }
     
     /** This method is called from within the constructor to
@@ -225,8 +226,90 @@ public class JFrameP2S extends javax.swing.JFrame {
     }//GEN-LAST:event_JMenuOutilsActionPerformed
     
     private void JMenuItemRafraichirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemRafraichirActionPerformed
-        if(utilisateur instanceof Superviseur)
+        if(utilisateur instanceof Superviseur){
+            try{
+                int flag = 1;
+                
+                ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+                
+                URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJFichierServlet?login="+utilisateur.getLogin()) ;
+                BufferedReader  out = new BufferedReader(new InputStreamReader(url.openStream()));
+                
+                String output;
+                while ((output = out.readLine()) != null){
+                    if(output.compareTo("distant") == 0){
+                        output = out.readLine();
+                        flag = 1;
+                        try{
+                            
+                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDServlet?login="+utilisateur.getLogin()+"&url="+output);
+                            
+                            // Buffer qui va recuperer la reponse de la servlet
+                            BufferedReader  in = new BufferedReader(
+                                    new InputStreamReader(
+                                    url.openStream()));
+                            
+                            //Recuperation de la reponse envoye par la Servlet
+                            flag = 2;
+                            String reponse = new String("");
+                            String inputLine;
+                            while ((inputLine = in.readLine()) != null)
+                                reponse += inputLine;
+                            
+                            // Si le fichier est introuvable
+                            if(reponse.compareTo("0") == 0) {
+                                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorFichierNotFound"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                            }
+                            // Si une valeur qui doit etre non null est nulle dans le fichier
+                            else if(reponse.compareTo("1") == 0) {
+                                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorValeurNulle"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                            }
+                            in.close();
+                        } catch(MalformedURLException e1){
+                            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionMalformedURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                        } catch(IOException e2){
+                            if(flag == 1)
+                                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
+                            else
+                                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                        }
+                    } else if(output.compareTo("local") == 0){
+                        output = out.readLine();
+                        
+                        char Flux[] = new char[500];
+                        int nblu;
+                        try{
+                            // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
+                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+output.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
+                            BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
+                            // On lit le fichier
+                            BufferedReader buffer = new BufferedReader(new FileReader(output));
+                            while((nblu = buffer.read(Flux,0,500)) != -1){
+                                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+output.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20"));
+                                in = new BufferedReader(new InputStreamReader(url.openStream()));
+                            }
+                            // On indique qu'on a fini de lire le fichier
+                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+output.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
+                            in = new BufferedReader(new InputStreamReader(url.openStream()));
+                            
+                            String reponse = new String("");
+                            String inputLine;
+                            while ((inputLine = in.readLine()) != null)
+                                reponse += inputLine;
+                            
+                            if(reponse.compareTo("1") == 0) {
+                                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorValeurNulle"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                            }
+                        }catch(FileNotFoundException e){
+                            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorFichierNotFound"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
             rafraichirContenuSuperviseur();
+        }
     }//GEN-LAST:event_JMenuItemRafraichirActionPerformed
     
     private void JMenuItemQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemQuitterActionPerformed
@@ -246,7 +329,9 @@ public class JFrameP2S extends javax.swing.JFrame {
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
     
     private void JMenuItemCreerProjetLocalActionPerformed(java.awt.event.ActionEvent evt) {
-                
+        
+        javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("AjoutProjetLocalLocation"), Bundle.getText("AjoutProjetLocalLocationTitle"), javax.swing.JOptionPane.WARNING_MESSAGE) ;
+        
         JFileChooser fc = new JFileChooser();
         
         // instalation d'un filtre pour fichier pgm
@@ -289,7 +374,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                 
             }catch(IOException e){
                 e.printStackTrace();
-                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);                
+                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -373,15 +458,15 @@ public class JFrameP2S extends javax.swing.JFrame {
             if(this.utilisateur != null) {
                 loginOK = true;
                 // si c'est un superviseur, on cr?e son environnement
-		/*
-		 ** ATTENTION : on ne distingue pas le CDP du SUP car c'est la servlet qui s'en occupe
-		 */
-		
-		
+                /*
+                 ** ATTENTION : on ne distingue pas le CDP du SUP car c'est la servlet qui s'en occupe
+                 */
+                
+                
                 if(utilisateur instanceof Directeur){
                     creerEnvironnementDir();
                 }else{
-                        creerEnvironnementSup();
+                    creerEnvironnementSup();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
@@ -398,7 +483,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // On ajoute le menu "Ajouter projet distant" au menu Outils
         JMenuItemCreerProjetDistant = new JMenuItem();
-	JMenuItemCreerProjetDistant.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_addremoteproject.gif")));
+        JMenuItemCreerProjetDistant.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_addremoteproject.gif")));
         JMenuItemCreerProjetDistant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerProjetDistantActionPerformed(evt);
@@ -418,7 +503,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // On ajoute le menu "Ajouter projet local" au menu Outils
         JMenuItemCreerProjetLocal = new JMenuItem();
-	JMenuItemCreerProjetLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_addlocalproject.gif")));
+        JMenuItemCreerProjetLocal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_addlocalproject.gif")));
         JMenuItemCreerProjetLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerProjetLocalActionPerformed(evt);
@@ -431,7 +516,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Premier noeud
         racine = new DefaultMutableTreeNode();
         
-        construireEnvironnementSuperviseur() ;        
+        construireEnvironnementSuperviseur() ;
         
     }
     
@@ -461,7 +546,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         
     }
     
-      
+    
     
     private void afficherInfoProjet(Projet proj) {
         JTabbedPaneProjet Tab = new JTabbedPaneProjet(proj);
@@ -542,14 +627,10 @@ public class JFrameP2S extends javax.swing.JFrame {
      *@see LoginServlet
      */
     public void rafraichirContenuSuperviseur() {
-        /*
-         ** PRINCIPE : Appel a la servlet LoginServlet mais seuls
-         * les projets sont traites car le superviseur est le meme
-         */
         
         try {
-            
             ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            
             URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
             
             // Buffer qui va recuperer la reponse de la servlet
@@ -563,9 +644,9 @@ public class JFrameP2S extends javax.swing.JFrame {
             while ((inputLine = in.readLine()) != null) {
                 fluxXml += inputLine;
             }
-                       
+            
             if(fluxXml.compareTo("") != 0) {
-                ParserXMLLog parser = new ParserXMLLog(fluxXml);                
+                ParserXMLLog parser = new ParserXMLLog(fluxXml);
                 ((Superviseur)utilisateur).setListeProjets(parser.lireProjets()) ;
             }
             in.close();
@@ -689,59 +770,54 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     
     // classe interne pour la representation de l'arborescence
-    class P2STreeRenderer extends DefaultTreeCellRenderer
-    {
-	public P2STreeRenderer()
-	{
-	    
-	}
-	
-	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
-                            boolean leaf, int row,  boolean hasFocus) {
-	    super.getTreeCellRendererComponent(
-                            tree, value, sel,
-                            expanded, leaf, row,
-                            hasFocus);	    
-	    
-	    // cas ou c'est des membres	    
-	    if (value instanceof NoeudMembre)
-	    {
-		// noeud terminal
-		/*if (leaf)
-		{
-		    System.out.println("Membre terminal") ;
-		}
-		// non terminal
-		else
-		{
-		    System.out.println("Membre non terminal") ;
-		}*/
-		setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_members.gif")));
-	    }
-	    
-	    // cas ou c'est des projets
-	    else if (value instanceof NoeudProjet)
-	    {
-		setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_projects.gif")));
-	    }
-	    
-	    else if (value instanceof NoeudIteration)
-	    {
-		setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_iteration.gif")));
-	    }
-	    
-	    else // valeur par defaut
-	    {
-		setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general.gif")));
-		setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general_open.gif")));
-		setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general_open.gif")));
-	    }
-	    
-	    
-	    return this ;
-	}
+    class P2STreeRenderer extends DefaultTreeCellRenderer {
+        public P2STreeRenderer() {
+            
+        }
+        
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
+                boolean leaf, int row,  boolean hasFocus) {
+            super.getTreeCellRendererComponent(
+                    tree, value, sel,
+                    expanded, leaf, row,
+                    hasFocus);
+            
+            // cas ou c'est des membres
+            if (value instanceof NoeudMembre) {
+                // noeud terminal
+                /*if (leaf)
+                {
+                    System.out.println("Membre terminal") ;
+                }
+                // non terminal
+                else
+                {
+                    System.out.println("Membre non terminal") ;
+                }*/
+                setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_members.gif")));
+            }
+            
+            // cas ou c'est des projets
+            else if (value instanceof NoeudProjet) {
+                setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_projects.gif")));
+            }
+            
+            else if (value instanceof NoeudIteration) {
+                setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_iteration.gif")));
+            }
+            
+            else // valeur par defaut
+            {
+                setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general.gif")));
+                setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general_open.gif")));
+                setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general_open.gif")));
+            }
+            
+            
+            return this ;
+        }
     }
-
+    
     
     private JMenuItem JMenuItemCreerProjetDistant ;
     private JMenuItem JMenuItemCreerProjetLocal ;
