@@ -67,6 +67,7 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
         table.setDefaultRenderer(String.class, new StatusRenderer()) ;
         table.setDefaultRenderer(JButton.class, new ButtonRenderer()) ;
         table.setDefaultEditor(JButton.class, new ButtonEditor(this)) ;
+        table.setDragEnabled(false);
 
     }    
 
