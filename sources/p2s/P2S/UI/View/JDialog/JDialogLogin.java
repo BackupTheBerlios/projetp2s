@@ -70,7 +70,7 @@ public class JDialogLogin extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        getContentPane().add(JButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         JButtonAnnuler.setText("Annuler");
         JButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +79,7 @@ public class JDialogLogin extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, -1, -1));
+        getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
 
         JPasswordFieldMDP.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -98,7 +98,7 @@ public class JDialogLogin extends javax.swing.JDialog {
         getContentPane().add(JPasswordFieldMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, 20));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-280)/2, (screenSize.height-181)/2, 280, 181);
+        setBounds((screenSize.width-263)/2, (screenSize.height-174)/2, 263, 174);
     }//GEN-END:initComponents
 
     private void formWindowClosed (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

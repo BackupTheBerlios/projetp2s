@@ -50,7 +50,7 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+        getContentPane().add(JButtonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 
         JButtonAnnuler.setText("Annuler");
         JButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -59,14 +59,14 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, -1, -1));
+        getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
 
         jLabelLogin.setText("Login : ");
         jLabelLogin.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        getContentPane().add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 45, -1, -1));
+        getContentPane().add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jLabelPassword.setText("Password :");
-        getContentPane().add(jLabelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 95, -1, -1));
+        jLabelPassword.setText("Mot de passe :");
+        getContentPane().add(jLabelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         jPasswordMDP.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 11));
         jPasswordMDP.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -83,12 +83,12 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(jPasswordMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 130, -1));
+        getContentPane().add(jPasswordMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, -1));
 
-        getContentPane().add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 130, -1));
+        getContentPane().add(jTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-292)/2, (screenSize.height-201)/2, 292, 201);
+        setBounds((screenSize.width-264)/2, (screenSize.height-174)/2, 264, 174);
     }//GEN-END:initComponents
 
     private void jPasswordMDPKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordMDPKeyPressed
