@@ -487,8 +487,8 @@ public class LoginServlet extends HttpServlet {
                                             out.println("</nombreTachesTerminees>");
                                             
                                             out.println("<dureeMoyenneTache>");
-                                            if(rsIndicateursIteration.getInt("dureeMoyenneTache") != -1)
-                                                out.println(rsIndicateursIteration.getInt("dureeMoyenneTache"));
+                                            if(rsIndicateursIteration.getFloat("dureeMoyenneTache") != -1)
+                                                out.println(rsIndicateursIteration.getFloat("dureeMoyenneTache"));
                                             out.println("</dureeMoyenneTache>");
                                             
                                             out.println("<nombreParticipants>");
