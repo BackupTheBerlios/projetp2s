@@ -16,7 +16,7 @@ public class Projet {
     private Date dateFin;
     private Vector listeMesures;
     private Vector listeIt;
-    private Vector listeMembres;    
+    private Vector listeMembres;
     private Vector listeRisques;
     
     
