@@ -9,16 +9,21 @@ import javax.swing.*;
 import P2S.UI.View.JDialog.JDialogCreerSuperviseur;
 
 /**
- *
- * @author  Fabien
+ * jdialog qui permet a un directeur de creer un superviseur
+ * @author Fabien
  */
 public class JDialogCreerSuperviseur extends javax.swing.JDialog {
     
-    /** Creates new form JDialogAjoutMesure */
+    /**
+     * Creates new form JDialogAjoutMesure
+     * @param parent frame parent de la jdialog
+     * @param modal indique si la jdialog est modal ou pas
+     */
     public JDialogCreerSuperviseur(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
+        // Initialisation du texte des labels
         this.initText();
     }
     
@@ -71,11 +76,13 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
         setBounds((screenSize.width-292)/2, (screenSize.height-201)/2, 292, 201);
     }//GEN-END:initComponents
     
-    public void initText() {
+    private void initText() {
         this.setTitle(Bundle.getText("JDialogCreerSuperviseur_TitreFenetre"));
         
         jLabelLogin.setText(Bundle.getText("JDialogCreerSuperviseur_JLabel_Login"));
         jLabelPassword.setText(Bundle.getText("JDialogCreerSuperviseur_JLabel_MDP"));
+        JButtonOk.setText(Bundle.getText("JDialogCreerSuperviseur_JButton_Ok"));
+        JButtonAnnuler.setText(Bundle.getText("JDialogCreerSuperviseur_JButton_Annuler"));
     }
     
     
@@ -87,24 +94,30 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
     private void JButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOkActionPerformed
         
         try{
+            // Envoie du login et du password à la servlet "CreerSuperviseurServlet" pour l'ajouter à la BD
             URL url = new URL("http://localhost:8084/p2sserver/CreerSuperviseurServlet?login="+this.jTextFieldLogin.getText()+"&password="+this.jPasswordMDP.getText());
+            
+            // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
                     url.openStream()));
-            String inputLine;
-            inputLine = in.readLine();
-            System.out.println(inputLine);
-            if(inputLine.equalsIgnoreCase("nok")){
-                this.dispose();
+            
+            // On recupere la reponse
+            String inputLine = in.readLine();
+            
+            if(inputLine.equalsIgnoreCase("nok")){ // Si la servlet repond que ce n'est pas Ok
+                this.setVisible(false); // on cache la fenetre
+                // On affiche un message d'erreur
                 JOptionPane.showMessageDialog(this, new String("Ce login existe déjà."),new String("Création impossible") , JOptionPane.WARNING_MESSAGE);
+                // On remet à vide le login et le password
                 this.jTextFieldLogin.setText("");
                 this.jPasswordMDP.setText("");
-                this.show();
+                this.show(); // on reaffiche la jdialog
             }
             else{
-               this.dispose();
-               JOptionPane.showMessageDialog(this, new String("Le superviseur a bien été ajouté"),new String("Création effectuée") , JOptionPane.INFORMATION_MESSAGE);
-                 
+               this.dispose(); // on ferme la fenetre
+               // On avertit le directeur que le superviseur a ete cree
+               JOptionPane.showMessageDialog(this, new String("Le superviseur a bien été ajouté"),new String("Création effectuée") , JOptionPane.INFORMATION_MESSAGE);                 
             }
             in.close();
         } catch(MalformedURLException e1){

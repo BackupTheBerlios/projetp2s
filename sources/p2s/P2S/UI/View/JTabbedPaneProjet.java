@@ -12,12 +12,15 @@ import P2S.UI.View.JPanel.JPanelInfoGenProjet;
 import javax.swing.JTabbedPane;
 
 /**
- *
- * @author  Fabien
+ * jtabbedpane pour un projet permettant de naviguer entre les differentes informations d'un projet
+ * @author Fabien
  */
 public class JTabbedPaneProjet extends JTabbedPane {
     
-    /** Creates new form BeanForm */
+    /**
+     * Creates new form BeanForm
+     * @param proj proj à afficher
+     */
     public JTabbedPaneProjet(Projet proj) {
         initComponents();
         

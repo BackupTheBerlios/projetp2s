@@ -3,20 +3,20 @@
 <Form version="1.0" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="JMenuBar">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="d8" green="e9" red="ec" type="rgb"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="JMenuFichier">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="d8" green="e9" red="ec" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Fichier"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="JMenuItemCreerProjet">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Créer un projet..."/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JMenuItemCreerProjetActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="JMenuItemQuitter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quitter"/>
@@ -24,11 +24,17 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JMenuItemQuitterActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JMenuItemQuitter.setBackground(Color.WHITE);"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="JMenuOutils">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="d8" green="e9" red="ec" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Outils"/>
           </Properties>
           <SubComponents>
@@ -49,6 +55,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="JMenuAide">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="d8" green="e9" red="ec" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Aide"/>
           </Properties>
           <SubComponents>

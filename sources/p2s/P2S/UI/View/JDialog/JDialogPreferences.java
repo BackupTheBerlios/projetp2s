@@ -21,6 +21,7 @@ public class JDialogPreferences extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        // initialise le texte
         initTexte();
         
         P2S.P2S.ControllerLocale.addLocaleListener(new LocaleListener(){
@@ -99,15 +100,16 @@ public class JDialogPreferences extends javax.swing.JDialog {
     }
     
     private void BoutonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonOkActionPerformed
+        // On regarde la langue choisie et on change la Locale
         if(this.ComboBoxLangue.getSelectedItem().toString().compareTo(Bundle.getText("JDialogPreferences_ComboBoxLangue_Francais")) == 0)
         {
             Bundle.setCurrentLocale(Locale.FRENCH);
-            P2S.P2S.ControllerLocale.fireLocaleChanged();
+            P2S.P2S.ControllerLocale.fireLocaleChanged(); // genere un evenement changement de langue
         }
         else if(this.ComboBoxLangue.getSelectedItem().toString().compareTo(Bundle.getText("JDialogPreferences_ComboBoxLangue_Anglais")) == 0)
         {
             Bundle.setCurrentLocale(Locale.ENGLISH);
-            P2S.P2S.ControllerLocale.fireLocaleChanged();
+            P2S.P2S.ControllerLocale.fireLocaleChanged(); // genere un evenement changement de langue
         }
         
         this.dispose();

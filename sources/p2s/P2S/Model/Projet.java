@@ -16,6 +16,7 @@ public class Projet {
     private Date dateDebut;
     private Date dateFin;
     private Vector listeMesures;
+    private Vector listeIt;
     
     
     //CONSTRUCTEURS
@@ -29,6 +30,7 @@ public class Projet {
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = listeMesures;
+        this.listeIt = new Vector();
     }
     
     public Projet(int idProjet, String nom, String description) {
@@ -38,6 +40,7 @@ public class Projet {
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = new Vector();
+        this.listeIt = new Vector();
     }
     
     public Projet(int idProjet,String nom, String description, Vector listeMesure) {
@@ -47,23 +50,26 @@ public class Projet {
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = new Vector(listeMesure);
+        this.listeIt = new Vector();
     }
     
-    public Projet(int idProjet,String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {
+    public Projet(int idProjet,String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt) {
         this.idProjet = idProjet;
         this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.listeMesures = listeMesure;        
+        this.listeMesures = listeMesure;
+        this.listeIt = listeIt;
     }
     
-    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {        
+    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {
         this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.listeMesures = listeMesure;        
+        this.listeMesures = listeMesure;
+        this.listeIt = new Vector();
     }
     
     public void ajouterMesure(Mesure mesure) {
@@ -135,5 +141,13 @@ public class Projet {
     
     public void setIdProjet(int idProjet) {
         this.idProjet = idProjet;
-    }   
+    }
+
+    public Vector getListeIt() {
+        return listeIt;
+    }
+
+    public void setListeIt(Vector listeIt) {
+        this.listeIt = listeIt;
+    }
 }

@@ -5,6 +5,7 @@ import P2S.UI.View.JDialog.*;
 import P2S.Control.*;
 import P2S.Model.*;
 import P2S.UI.Tree.*;
+import P2S.UI.View.JPanel.JPanelTousLesProjets;
 import javax.swing.tree.*;
 import javax.swing.*;
 import java.awt.*;
@@ -14,20 +15,29 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import javax.swing.event.*;
 
 
 /**
- *
- * @author  Fabien
+ * JFrame representant la fenetre principale de P2S
+ * @author Fabien
  */
 public class JFrameP2S extends javax.swing.JFrame {
     
+    /**
+     * jdialog pour se logger au depart du programme
+     */
     public JDialogLogin JDialogLog;
+    /**
+     * jdialog pour creer un projet
+     */
     public static JDialogCreerProjet FenCreerProjet;
     
+    /**
+     * utilisateur en cours
+     */
     public Utilisateur utilisateur;
     
     DefaultMutableTreeNode racine;
@@ -57,7 +67,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         JDialogLogin JDialogLog = new JDialogLogin(this,true);
         JDialogLog.show();
         
-        verifierLogin();
+        verifierLogin(); // Verification du login
         
         // Initialise le texte de l'application dans la Locale actuelle
         initTexte();
@@ -80,7 +90,6 @@ public class JFrameP2S extends javax.swing.JFrame {
         PanelContenu = new javax.swing.JPanel();
         JMenuBar = new javax.swing.JMenuBar();
         JMenuFichier = new javax.swing.JMenu();
-        JMenuItemCreerProjet = new javax.swing.JMenuItem();
         JMenuItemQuitter = new javax.swing.JMenuItem();
         JMenuOutils = new javax.swing.JMenu();
         JMenuItemRafraichir = new javax.swing.JMenuItem();
@@ -102,17 +111,11 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         getContentPane().add(PanelContenu, java.awt.BorderLayout.CENTER);
 
+        JMenuBar.setBackground(new java.awt.Color(236, 233, 216));
+        JMenuFichier.setBackground(new java.awt.Color(236, 233, 216));
         JMenuFichier.setText("Fichier");
-        JMenuItemCreerProjet.setText("Cr\u00e9er un projet...");
-        JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMenuItemCreerProjetActionPerformed(evt);
-            }
-        });
-
-        JMenuFichier.add(JMenuItemCreerProjet);
-
         JMenuItemQuitter.setText("Quitter");
+        JMenuItemQuitter.setBackground(Color.WHITE);
         JMenuItemQuitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemQuitterActionPerformed(evt);
@@ -123,6 +126,7 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuBar.add(JMenuFichier);
 
+        JMenuOutils.setBackground(new java.awt.Color(236, 233, 216));
         JMenuOutils.setText("Outils");
         JMenuItemRafraichir.setText("Rafraichir");
         JMenuOutils.add(JMenuItemRafraichir);
@@ -138,6 +142,7 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuBar.add(JMenuOutils);
 
+        JMenuAide.setBackground(new java.awt.Color(236, 233, 216));
         JMenuAide.setText("Aide");
         JMenuItemAProposDe.setText("A Propos de...");
         JMenuAide.add(JMenuItemAProposDe);
@@ -162,11 +167,11 @@ public class JFrameP2S extends javax.swing.JFrame {
         new JDialogPreferences(this,true).show();
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
     
-    private void JMenuItemCreerProjetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemCreerProjetActionPerformed
+    private void JMenuItemCreerProjetActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         FenCreerProjet = new JDialogCreerProjet(this,true);
         FenCreerProjet.show();
-    }//GEN-LAST:event_JMenuItemCreerProjetActionPerformed
-        
+    }
+    
     /** Exit the Application */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
@@ -179,7 +184,6 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuAide.setText(Bundle.getText("JMenuAide"));
         
         //Initialisation des labels du menu "Fichier"
-        JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
         JMenuItemQuitter.setText(Bundle.getText("JMenuItemQuitter"));
         
         //Initialisation des labels du menu "Outils"
@@ -214,20 +218,31 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     
     private void creerEnvironnementSup() {
+        
+        // On ajoute le menu "Creer projet" au menu Outils
+        JMenuItem JMenuItemCreerProjet = new JMenuItem();
+        JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
+        JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemCreerProjetActionPerformed(evt);                
+            }
+        });
+        JMenuOutils.add(JMenuItemCreerProjet,0);
+        
+        
         // Construction de l'arborescence
         
         // Premier noeud
-        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
+        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudSuperviseur"));
         
         // Ajout des projets supervisés par l'utilisateur
         
-        // Ajout du noeud "Tous les projets"
-        DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudTousLesProjets"));
+        // Ajout du noeud "Projets"
+        DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
         
         // Ajout des projets du superviseur
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
             NoeudProjet noeudProjet = new NoeudProjet(((Superviseur) utilisateur).getProjet(i));
-            
             racineProjet.add(noeudProjet);
         }
         racine.add(racineProjet);
@@ -238,9 +253,23 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Ajout du listener pour la selection d'un projet
         jTree1.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
+                // On recupere le noeud sur lequel on a clique
                 DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
-                if(d instanceof NoeudProjet)
+                if(d instanceof NoeudProjet) // si le noeud est un projet
                     afficherInfoProjet(((NoeudProjet)d).getProjet());
+                // si c'est le noeud "projets"
+                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0)
+                {
+                    Vector listeProjets = new Vector();
+                    for(int i=0;i<d.getChildCount();i++)
+                    {
+                        listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
+                    }
+                    
+                    PanelContenu.removeAll(); // On supprime tout ce qu'il y a dans le panel contenu
+                    PanelContenu.add(new JPanelTousLesProjets(listeProjets));
+                    validate();
+                }
             }
         }
         );        
@@ -248,9 +277,9 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     
     private void creerEnvironnementDir() {
-        //On ajoute les options dans la barre d'outils
+        //On ajoute le menu "Creer superviseur" dans la barre d'outils
         JMenuItem JMenuItemCreerSup = new javax.swing.JMenuItem();
-        JMenuItemCreerSup.setText("Creer superviseur");
+        JMenuItemCreerSup.setText(Bundle.getText("JMenuItemCreerSuperviseur"));
         JMenuItemCreerSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerSupActionPerformed(evt);
@@ -258,9 +287,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         });
         
         JMenuOutils.add(JMenuItemCreerSup);
-        
-        JMenuFichier.remove(JMenuItemCreerProjet);
-        
+                        
         // Construction de l'arborescence
         
         // Premier noeud
@@ -286,8 +313,9 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Ajout du listener pour la selection d'un membre
         jTree1.addTreeSelectionListener(new TreeSelectionListener() {
             public void valueChanged(TreeSelectionEvent e) {
+                // on recupere le noeud sur lequel on clique
                 DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
-                if(d instanceof NoeudMembre)
+                if(d instanceof NoeudMembre) // si le noeud est un membre
                     afficherInfoMembre(((NoeudMembre)d).getMembre());
             }
         }
@@ -312,6 +340,10 @@ public class JFrameP2S extends javax.swing.JFrame {
         this.validate();        
     }
     
+    /**
+     * ajoute un projet au superviseur
+     * @param projet projet a ajouter
+     */
     public void ajouterProjet(Projet projet) {
         // Ajout du projet dans la base de donnees
         try{
@@ -319,9 +351,11 @@ public class JFrameP2S extends javax.swing.JFrame {
             Calendar calendarFin = new GregorianCalendar();
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
-                                   
+                     
+            // Envoie des infos sur lengthprojet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
             URL url = new URL("http://localhost:8084/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR));
             
+            // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
                     url.openStream()));
@@ -346,7 +380,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         ((Superviseur)this.utilisateur).ajouterProjet(projet);
         
         DefaultMutableTreeNode noeud = this.racine.getNextNode();
-        while(noeud.toString().compareTo(Bundle.getText("NoeudTousLesProjets")) != 0)
+        while(noeud.toString().compareTo(Bundle.getText("NoeudProjets")) != 0)
             noeud = noeud.getNextNode();
         
         noeud.add( new NoeudProjet(projet));
@@ -360,7 +394,6 @@ public class JFrameP2S extends javax.swing.JFrame {
     private javax.swing.JMenuBar JMenuBar;
     private javax.swing.JMenu JMenuFichier;
     private javax.swing.JMenuItem JMenuItemAProposDe;
-    private javax.swing.JMenuItem JMenuItemCreerProjet;
     private javax.swing.JMenuItem JMenuItemPreferences;
     private javax.swing.JMenuItem JMenuItemQuitter;
     private javax.swing.JMenuItem JMenuItemRafraichir;

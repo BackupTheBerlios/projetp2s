@@ -10,15 +10,19 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author  Fabien
+ * jdialog permettant de créer un projet pour le superviseur courant
+ * @author Fabien
  */
 public class JDialogCreerProjet extends javax.swing.JDialog {
         
     private Vector listeMesures;
     private String[] titreColonnes;
     
-    /** Creates new form JDialogCreerProjet */
+    /**
+     * Creates new form JDialogCreerProjet
+     * @param parent frame parent de la jdialog
+     * @param modal indique si la jdialog est modal ou pas
+     */
     public JDialogCreerProjet(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -34,8 +38,8 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
                              
         this.jTableMesures.setModel(new ModeleTableMesure(donnees,titreColonnes));
         
+        // Initialisation du texte des labels
         this.initText();
-
     }
     
     /** This method is called from within the constructor to
@@ -152,7 +156,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         setBounds((screenSize.width-514)/2, (screenSize.height-425)/2, 514, 425);
     }//GEN-END:initComponents
 
-    public void initText()
+    private void initText()
     {
         this.setTitle(Bundle.getText("JDialogCreerProjet_TitreFenetre"));
         
@@ -181,17 +185,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
     }//GEN-LAST:event_JButtonAnnulerActionPerformed
 
     private void JButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOkActionPerformed
-        if(this.JTextFieldNom.getText().compareTo("") != 0)
-            /*&&  this.JTextFieldDateDebutJour.getText().compareTo("") != 0 && this.JTextFieldDateDebutJour.getText().compareTo(Bundle.getText("JDialogCreerProjet_JTextField_DateDebutJour")) != 0
-            &&  this.JTextFieldDateDebutMois.getText().compareTo("") != 0 && this.JTextFieldDateDebutMois.getText().compareTo(Bundle.getText("JDialogCreerProjet_JTextField_DateDebutMois")) != 0
-            &&  this.JTextFieldDateDebutAnnee.getText().compareTo("") != 0 && this.JTextFieldDateDebutAnnee.getText().compareTo(Bundle.getText("JDialogCreerProjet_JTextField_DateDebutAnnee")) != 0
-            &&  this.JTextFieldDateFinJour.getText().compareTo("") != 0 && this.JTextFieldDateFinJour.getText().compareTo(Bundle.getText("JDialogCreerProjet_JTextField_DateFinJour")) != 0
-            &&  this.JTextFieldDateFinMois.getText().compareTo("") != 0 && this.JTextFieldDateFinMois.getText().compareTo(Bundle.getText("JDialogCreerProjet_JTextField_DateFinMois")) != 0
-            &&  this.JTextFieldDateFinAnnee.getText().compareTo("") != 0 && this.JTextFieldDateFinAnnee.getText().compareTo(Bundle.getText("JDialogCreerProjet_JTextField_DateFinAnnee")) != 0)*/
-        {
-           // Date dateDebut = new Date(new Integer(this.JTextFieldDateDebutAnnee.getText()).intValue(),new Integer(this.JTextFieldDateDebutMois.getText()).intValue(),new Integer(this.JTextFieldDateDebutJour.getText()).intValue());
-            //Date dateFin = new Date(new Integer(this.JTextFieldDateFinAnnee.getText()).intValue(),new Integer(this.JTextFieldDateFinMois.getText()).intValue(),new Integer(this.JTextFieldDateFinJour.getText()).intValue());
-            
+        if(this.JTextFieldNom.getText().compareTo("") != 0){
             // format de la date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             
@@ -211,20 +205,28 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
                 System.out.println("Problème pour parser dateFin");
             }
             
+            // On ajoute le projet
             ((JFrameP2S)this.getParent()).ajouterProjet(new Projet(this.JTextFieldNom.getText(),this.JTextAreaDescription.getText(),dateDebut,dateFin,this.listeMesures));
             this.dispose();
         }
-        else
+        else // Un nom de projet n'a pas était entre
             JOptionPane.showMessageDialog(this, new String("Veuillez entrer un nom de projet"),new String("Problème Création Projet") , JOptionPane.WARNING_MESSAGE);
         
         
     }//GEN-LAST:event_JButtonOkActionPerformed
     
+    /**
+     * permet d'ajouter une mesure au projet
+     * @param mesure Mesure à ajouter
+     */
     public void ajouterMesure(Mesure mesure)
     {
         listeMesures.add(mesure);
     }
     
+    /**
+     * Rafraichit l'affichage des mesures
+     */
     public void rafarichirMesures()
     {
         Object donnees[][] = new Object[listeMesures.size()][3];
