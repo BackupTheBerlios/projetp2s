@@ -8,6 +8,8 @@ package P2S.UI.View.JPanel;
 
 import P2S.Model.IndicateursIteration;
 import P2S.Model.Iteration;
+import P2S.Model.Tache;
+import java.util.Vector ;
 
 /**
  *
@@ -20,23 +22,13 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         initComponents();
         
         IndicateursIteration ind = ite.getIndicateursIteration();
-        //Affichage des indicateurs de l'itération
-        /*this.LabelIndChargeMoyenne.setText(new Integer(ind.getChargeMoyenneParticipants()).toString());
-        this.LabelIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
-        this.LabelIndDureeMoyenne.setText(new Integer(ind.getDureeMoyenneTaches()).toString());
-        this.LabelIndMoyenneTache.setText(new Integer(ind.getNombreMoyenTachesParticipants()).toString());
-        this.LabelIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
-        this.LabelIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());*/
-        
+
         this.textIndChargeMoyenne.setText(new Integer(ind.getChargeMoyenneParticipants()).toString());
         this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
         this.textIndDureeMoyenne.setText(new Integer(ind.getDureeMoyenneTaches()).toString());
         this.textIndMoyenneTache.setText(new Integer(ind.getNombreMoyenTachesParticipants()).toString());
         this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
         this.textIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());
-        
-        
-        
     }
     
     

@@ -870,7 +870,7 @@ public class LoginServlet extends HttpServlet {
                                 
                                 do{
                                     out.println("<indicateurTache>");
-                                    
+                                    // TEST
                                     out.println("<nom>");
                                     out.println(rsIndicTacheMembre.getString("nom"));
                                     out.println("</nom>");
@@ -878,6 +878,45 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<tempspasse>");
                                     out.println(rsIndicTacheMembre.getString("tempspasse"));
                                     out.println("</tempspasse>");
+                                               /* out.println("<nom>");
+                                                out.println(rsIndicTacheMembre.getString("nom"));
+                                                out.println("</nom>");
+                                                
+                                                out.println("<description>");
+                                                out.println(rsIndicTacheMembre.getString("description"));
+                                                out.println("</description>");
+                                                
+                                                out.println("<etat>");
+                                                out.println(rsIndicTacheMembre.getString("etat"));
+                                                out.println("</etat>");
+                                                
+                                                out.println("<etat>");
+                                                out.println(rsIndicTacheMembre.getString("etat"));
+                                                out.println("</etat>");
+                                                
+                                                out.println("<chargeprevue>");
+                                                out.println(rsIndicTacheMembre.getString("chargeprevue"));
+                                                out.println("</chargeprevue>");
+                                                
+                                                out.println("<tempspasse>");
+                                                out.println(rsIndicTacheMembre.getString("tempspasse"));
+                                                out.println("</tempspasse>");
+                                                
+                                                out.println("<datedebutprevue>");
+                                                out.println(rsIndicTacheMembre.getString("datedebutprevue"));
+                                                out.println("</datedebutprevue>");
+                                                
+                                                out.println("<datedebutreelle>");
+                                                out.println(rsIndicTacheMembre.getString("datedebutreelle"));
+                                                out.println("</datedebutreelle>");
+                                                
+                                                out.println("<datefinprevue>");
+                                                out.println(rsIndicTacheMembre.getString("datefinprevue"));
+                                                out.println("</datefinprevue>");
+                                                
+                                                out.println("<datefinreelle>");
+                                                out.println(rsIndicTacheMembre.getString("datefinreelle"));
+                                                out.println("</datefinreelle>");*/
                                     
                                     out.println("</indicateurTache>");
                                 }while(rsIndicTacheMembre.next());

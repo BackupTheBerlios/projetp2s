@@ -421,10 +421,10 @@ public class JFrameP2S extends javax.swing.JFrame {
             }
             in.close();
         } catch(MalformedURLException e1){
-            e1.printStackTrace();
+            //e1.printStackTrace();
             return ;
         } catch(IOException e2){
-            e2.printStackTrace();
+            //e2.printStackTrace();
             return ;
         }
 	
