@@ -1,37 +1,34 @@
 /*
- * MAJBDServlet.java
+ * MAJBDFicLocalServlet.java
  *
- * Created on 26 janvier 2005, 23:28
+ * Created on 5 mars 2005, 15:11
  */
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.io.*;
-import java.net.*;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
  *
- * @author Fabien       
+ * @author Fabien
  * @version
  */
-public class MAJBDServlet extends HttpServlet {
+public class MAJBDFicLocalServlet extends HttpServlet {
+    
+    private String FluxTotal;
     
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        
-        try { 
-            Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-        } catch (Exception ex) { 
+        this.FluxTotal = "";
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }        
+        }
+        
     }
     
     /** Destroys the servlet.
@@ -49,27 +46,37 @@ public class MAJBDServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        int type = 1; // Fichier distant
-                
-        String login = request.getParameter("login");
-        String urlfichier = request.getParameter("url");
+        int type = 0; // Fichier local
         
-        String cheminBD;
-        ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
-        cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
-                
-        try{
-            ParserXMLFichierWF parserFic = new ParserXMLFichierWF(urlfichier,cheminBD,login, type);        
-            parserFic.majBase();
-        }catch(FileNotFoundException e){
-            out.print("0");
-        }catch(NullValueXMLException e){
-            e.printStackTrace();
-            out.print("1");            
-        }catch(NullPointerException e){            
-            e.printStackTrace();
-        }catch(IncorrectFileException e){
-            out.print("0");
+        String login = request.getParameter("login");
+        String lecture = request.getParameter("lecture");
+        String flux = request.getParameter("flux");
+        
+        // On efface le buffer lorsqu'on commence à lire un nouveau fichier
+        if(lecture.compareTo("0") == 0)
+            this.FluxTotal = "";
+        
+        this.FluxTotal = this.FluxTotal + flux;
+        //System.out.println("Flux : "+this.FluxTotal);
+        
+        if(lecture.compareTo("2") == 0){
+            String cheminBD;
+            ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
+            cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
+            
+            try{
+                ParserXMLFichierWF parserFic = new ParserXMLFichierWF(this.FluxTotal,cheminBD,login, type);
+                parserFic.majBase();
+            }catch(FileNotFoundException e){
+                out.print("0");
+            }catch(NullValueXMLException e){
+                e.printStackTrace();
+                out.print("1");
+            }catch(NullPointerException e){
+                e.printStackTrace();
+            }catch(IncorrectFileException e){
+                out.print("0");
+            }
         }
         out.close();
     }

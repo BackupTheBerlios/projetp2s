@@ -11,6 +11,8 @@ import javax.swing.tree.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -202,10 +204,60 @@ public class JFrameP2S extends javax.swing.JFrame {
         new JDialogPreferences(this,true).show();
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
     
-    private void JMenuItemCreerProjetActionPerformed(java.awt.event.ActionEvent evt) {
-        //FenCreerProjet = new JDialogCreerProjet(this,true);
-        //FenCreerProjet.show();
+    private void JMenuItemCreerProjetDistantActionPerformed(java.awt.event.ActionEvent evt) {
         new JDialogAjouterProjet(this,true).show();
+        // on rafraichit apres avoir ajoute
+        rafraichirContenuSuperviseur() ;
+    }
+    
+    private void JMenuItemCreerProjetLocalActionPerformed(java.awt.event.ActionEvent evt) {
+                
+        JFileChooser fc = new JFileChooser();
+        
+        // instalation d'un filtre pour fichier pgm
+        FiltreFichier filtre = new FiltreFichier(new String[]{"xml"},"fichier projet");
+        fc.removeChoosableFileFilter(fc.getAcceptAllFileFilter());
+        fc.addChoosableFileFilter(filtre);
+        
+        int returnVal = fc.showOpenDialog(this);
+        
+        if (returnVal == JFileChooser.APPROVE_OPTION) { //Si un fichier est sélectionné
+            String Fic = ((File)fc.getSelectedFile()).getAbsolutePath(); // On récupère le fichier
+            
+            char Flux[] = new char[500];
+            int nblu;
+            URL url;
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            
+            try{
+                // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&flux=");
+                BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
+                // On lit le fichier
+                BufferedReader buffer = new BufferedReader(new FileReader(Fic));
+                while((nblu = buffer.read(Flux,0,500)) != -1){
+                    url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20"));
+                    in = new BufferedReader(new InputStreamReader(url.openStream()));
+                }
+                // On indique qu'on a fini de lire le fichier
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&flux=");
+                in = new BufferedReader(new InputStreamReader(url.openStream()));
+                
+                String reponse = new String("");
+                String inputLine;
+                while ((inputLine = in.readLine()) != null)
+                    reponse += inputLine;
+                
+                if(reponse.compareTo("1") == 0) {
+                    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorValeurNulle"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                }
+                
+            }catch(IOException e){
+                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);                
+            }
+        }
+        
+        
         // on rafraichit apres avoir ajoute
         rafraichirContenuSuperviseur() ;
     }
@@ -277,15 +329,23 @@ public class JFrameP2S extends javax.swing.JFrame {
      **/
     private void creerEnvironnementSup() {
         
-        // On ajoute le menu "Creer projet" au menu Outils
-        JMenuItemCreerProjet = new JMenuItem();
-        JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
+        // On ajoute le menu "Ajouter projet distant" au menu Outils
+        JMenuItemCreerProjetDistant = new JMenuItem();
+        JMenuItemCreerProjetDistant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMenuItemCreerProjetActionPerformed(evt);
+                JMenuItemCreerProjetDistantActionPerformed(evt);
             }
         });
-        JMenuOutils.add(JMenuItemCreerProjet,0);
+        JMenuOutils.add(JMenuItemCreerProjetDistant,0);
         
+        // On ajoute le menu "Ajouter projet local" au menu Outils
+        JMenuItemCreerProjetLocal = new JMenuItem();
+        JMenuItemCreerProjetLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemCreerProjetLocalActionPerformed(evt);
+            }
+        });
+        JMenuOutils.add(JMenuItemCreerProjetLocal,0);
         
         // Construction de l'arborescence
         
@@ -432,12 +492,9 @@ public class JFrameP2S extends javax.swing.JFrame {
             while ((inputLine = in.readLine()) != null) {
                 fluxXml += inputLine;
             }
-            
-            System.out.println("FLUX : " + fluxXml);
-            
+                       
             if(fluxXml.compareTo("") != 0) {
-                ParserXMLLog parser = new ParserXMLLog(fluxXml);
-                
+                ParserXMLLog parser = new ParserXMLLog(fluxXml);                
                 ((Superviseur)utilisateur).setListeProjets(parser.lireProjets()) ;
             }
             in.close();
@@ -462,8 +519,10 @@ public class JFrameP2S extends javax.swing.JFrame {
      *@version 1.0
      */
     private void construireEnvironnementSuperviseur() {
-        JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
-        JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
+        JMenuItemCreerProjetDistant.setText(Bundle.getText("JMenuItemCreerProjetDistant"));
+        JMenuItemCreerProjetDistant.setMnemonic(Bundle.getChar("JMenuItemCreerProjetDistant"));
+        JMenuItemCreerProjetLocal.setText(Bundle.getText("JMenuItemCreerProjetLocal"));
+        JMenuItemCreerProjetLocal.setMnemonic(Bundle.getChar("JMenuItemCreerProjetLocal"));
         racine.setUserObject(Bundle.getText("NoeudProjets")) ;
         // on efface tout
         racine.removeAllChildren() ;
@@ -610,7 +669,8 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     
-    private JMenuItem JMenuItemCreerProjet ;
+    private JMenuItem JMenuItemCreerProjetDistant ;
+    private JMenuItem JMenuItemCreerProjetLocal ;
     private JMenuItem JMenuItemCreerCDP ;
     private JMenuItem JMenuItemCreerSup ;
     // Variables declaration - do not modify//GEN-BEGIN:variables

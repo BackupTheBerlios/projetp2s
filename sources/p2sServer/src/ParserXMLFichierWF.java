@@ -35,20 +35,38 @@ public class ParserXMLFichierWF {
     private String login;
     
     /** Creates a new instance of ParserXMLFichierWF */
-    public ParserXMLFichierWF(String Xml, String cheminBD, String _login) throws FileNotFoundException{
+    public ParserXMLFichierWF(String Xml, String cheminBD, String _login, int type) throws FileNotFoundException{
+        
         this.fichier = Xml;
         this.login = _login;
         
-        try{
-            DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
-            DocumentBuilder constructeur = usine.newDocumentBuilder();
-            
-            this.document = constructeur.parse(Xml);
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-            throw e;
-        }catch(Exception e){
-            e.printStackTrace();
+        // Si c'est un fichier distant
+        if(type == 1){
+            try{
+                DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
+                DocumentBuilder constructeur = usine.newDocumentBuilder();
+                
+                this.document = constructeur.parse(Xml);
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+                throw e;
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        } else{ // C'est un fichier local donc un flux xml
+            try{
+                DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
+                DocumentBuilder constructeur = usine.newDocumentBuilder();
+                try {
+                    this.document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));
+                } catch (Exception e) {
+                    e.printStackTrace() ;
+                }
+                
+                //this._document = constructeur.parse(new InputStream(Xml));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         
         try {
@@ -137,92 +155,92 @@ public class ParserXMLFichierWF {
             throw new IncorrectFileException();
         }
         
-            int b = 0;
-            // on recherche l'id du projet
-            try{
-                id = lireIdProjet();
-            }catch(NullPointerException e){
-                throw new NullValueXMLException();
-            }
+        int b = 0;
+        // on recherche l'id du projet
+        try{
+            id = lireIdProjet();
+        }catch(NullPointerException e){
+            throw new NullValueXMLException();
+        }
+        
+        // on recherche le nom du projet
+        b = 0;
+        while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
+            b++;
+        }
+        try{
+            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){
+            throw new NullValueXMLException();
+        }
+        
+        // on recherche la date de debut du projet
+        b = 0;
+        while(listeNoeud.item(b).getNodeName().compareTo("dateDebut") != 0) {
+            b++;
+        }
+        try{
+            dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}
+        
+        
+        // on recherche la date de fin du projet
+        b = 0;
+        while(listeNoeud.item(b).getNodeName().compareTo("dateFin") != 0) {
+            b++;
+        }
+        try{
+            dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}
+        
+        // on recherche la description
+        b = 0;
+        while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
+            b++;
+        }
+        try{
+            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}
+        
+        // on recherche le budget du projet
+        b = 0;
+        while(listeNoeud.item(b).getNodeName().compareTo("budget") != 0) {
+            b++;
+        }
+        try{
+            budget = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}
+        
+        
+        
+        try {
+            // Requete SQL
+            PreparedStatement prepState = conn.prepareStatement("Select * from projets where idprojet="+id);
+            ResultSet rsp = prepState.executeQuery(); // Execution de la requete
             
-            // on recherche le nom du projet
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
-                b++;
-            }
-            try{
-                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){
-                throw new NullValueXMLException();
-            }
-            
-            // on recherche la date de debut du projet
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("dateDebut") != 0) {
-                b++;
-            }
-            try{
-                dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){}
-            
-            
-            // on recherche la date de fin du projet
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("dateFin") != 0) {
-                b++;
-            }
-            try{
-                dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){}
-            
-            // on recherche la description
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
-                b++;
-            }
-            try{
-                description = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){}
-            
-            // on recherche le budget du projet
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("budget") != 0) {
-                b++;
-            }
-            try{
-                budget = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){}
-            
-            
-            
-            try {
-                // Requete SQL
-                PreparedStatement prepState = conn.prepareStatement("Select * from projets where idprojet="+id);
-                ResultSet rsp = prepState.executeQuery(); // Execution de la requete
+            if(!rsp.next()){
+                prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+")");
+                prepState.execute(); // Execution de la requete
                 
-                if(!rsp.next()){
-                    prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+")");
-                    prepState.execute(); // Execution de la requete
-                    
-                }else{
-                    PreparedStatement updateProjet = conn.prepareStatement(
-                            "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=? where idprojet ="+id);
-                    updateProjet.setString(1,nom);
-                    updateProjet.setString(2,dateDebut);
-                    updateProjet.setString(3,dateFin);
-                    updateProjet.setString(4,description);
-                    updateProjet.setInt(5,updateInt(budget));
-                    
-                    updateProjet.executeUpdate();
-                }
+            }else{
+                PreparedStatement updateProjet = conn.prepareStatement(
+                        "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=? where idprojet ="+id);
+                updateProjet.setString(1,nom);
+                updateProjet.setString(2,dateDebut);
+                updateProjet.setString(3,dateFin);
+                updateProjet.setString(4,description);
+                updateProjet.setInt(5,updateInt(budget));
                 
-                
-            }catch (SQLException ex) { // Si une SQLException survient
-                System.out.println("SQLException: " + ex.getMessage());
-                System.out.println("SQLState: " + ex.getSQLState());
-                System.out.println("VendorError: " + ex.getErrorCode());
-                ex.printStackTrace();
+                updateProjet.executeUpdate();
             }
+            
+            
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
         
     }
     
@@ -232,7 +250,7 @@ public class ParserXMLFichierWF {
             PreparedStatement prepState = conn.prepareStatement("Select * from superviseur_projets where login='"+this.login+"' and idprojet="+lireIdProjet());
             ResultSet rs = prepState.executeQuery(); // Execution de la requete
             
-            if(!rs.next()){
+            if(!rs.next()){                
                 prepState = conn.prepareStatement("insert into superviseur_projets values ('"+login+"',"+lireIdProjet()+")");
                 prepState.execute(); // Execution de la requete
             }
@@ -1954,13 +1972,13 @@ public class ParserXMLFichierWF {
         
         try {
             // On recupere le total des charges pour les taches terminees
-            PreparedStatement prepState = conn.prepareStatement("select SUM(tempspasse) from taches where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            PreparedStatement prepState = conn.prepareStatement("select SUM(tempspasse) from taches where iditeration="+idIt+" and datefinreelle!=null");
             ResultSet rsSomme = prepState.executeQuery(); // Execution de la requete
             if(rsSomme.next())
                 Somme += rsSomme.getInt(1);
             
             // On recupere le total des charges pour les taches collaboratives terminees
-            prepState = conn.prepareStatement("select SUM(tempspasse) from tachescollaboratives where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            prepState = conn.prepareStatement("select SUM(tempspasse) from tachescollaboratives where iditeration="+idIt+" and datefinreelle!=null");
             rsSomme = prepState.executeQuery(); // Execution de la requete
             if(rsSomme.next())
                 Somme += rsSomme.getInt(1);
@@ -1979,13 +1997,13 @@ public class ParserXMLFichierWF {
         
         try {
             // On recupere le nombre de taches terminees
-            PreparedStatement prepState = conn.prepareStatement("select COUNT(*) from taches where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            PreparedStatement prepState = conn.prepareStatement("select COUNT(*) from taches where iditeration="+idIt+" and datefinreelle!=null");
             ResultSet rsSomme = prepState.executeQuery(); // Execution de la requete
             if(rsSomme.next())
                 Somme += rsSomme.getInt(1);
             
             // On recupere le nombre de taches collaboratives terminees
-            prepState = conn.prepareStatement("select COUNT(*) from tachescollaboratives where iditeration="+idIt+" and datefinreelle!='0001-01-01'");
+            prepState = conn.prepareStatement("select COUNT(*) from tachescollaboratives where iditeration="+idIt+" and datefinreelle!=null");
             rsSomme = prepState.executeQuery(); // Execution de la requete
             if(rsSomme.next())
                 Somme += rsSomme.getInt(1);
