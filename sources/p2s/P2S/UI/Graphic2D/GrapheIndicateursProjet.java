@@ -10,14 +10,16 @@ import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursIteration;
 import P2S.Model.Iteration;
 import P2S.Model.Projet;
+import P2S.Model.Seuil;
+import P2S.Model.SeuilsFixes;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Vector;
 import javax.swing.JPanel;
 import java.awt.geom.*;
+import java.text.NumberFormat;
 
 
 
@@ -27,29 +29,37 @@ import java.awt.geom.*;
  */
 public class GrapheIndicateursProjet extends JPanel {
     private int chargesMax = 0 ;
-    private int moyenneChargesMax = 0 ;
+    private float moyenneChargesMax = 0 ;
     private int participantsMax = 0 ;
     private int tachesTermineesMax = 0 ;
     private float tachesParticipantsMax = 0 ;
+    private float dureeMoyenneTacheMax = 0 ;
+    
     private int nbIt = 0 ;
+    private SeuilsFixes seuils = null ;
     
     private static final int RECT_DIM1 = 10 ;
     private static final int RECT_DIM2 = 100 ;
-    private static final int ITERATION_WIDTH = 150 ;
+    private static final int ITERATION_WIDTH = 180 ;
     
-    private final Color color1 = new Color(200, 0, 50) ;
+    /*private final Color color1 = new Color(200, 0, 50) ;
     private final Color color2 = new Color(200, 200, 50) ;
     private final Color color3 = new Color(0, 50, 200) ;
     private final Color color4 = new Color(0, 200, 100) ;
-    private final Color color5 = new Color(100, 0, 100) ;
+    private final Color color5 = new Color(100, 0, 100) ;*/
+    private final Color color1 = new Color(0, 200, 50) ;
+    private final Color color2 = new Color(0, 180, 70) ;
+    private final Color color3 = new Color(0, 160, 90) ;
+    private final Color color4 = new Color(0, 140, 110) ;
+    private final Color color5 = new Color(0, 120, 130) ;
+    private final Color color6 = new Color(0, 110, 150) ;
     
     
     private Vector iterations ;
     
     /** Creates a new instance of GrapheIndicateursProjet */
     public GrapheIndicateursProjet (Projet p) {
-        // NOTES : pour chaque iteration seront affichees 5 mesures : total des charges, 
-        // moyenne des charges par participant, nombre de participants, taches/participants ..
+        seuils = p.getSeuilFixes() ;
         
         // pour l'echelle, on determine les mesures max de toutes les iterations
         
@@ -68,13 +78,14 @@ public class GrapheIndicateursProjet extends JPanel {
                 tempIndIt = tempIt.getIndicateursIteration() ;
                 // charges
                 if (tempIndIt.getTotalCharges() > chargesMax) { chargesMax = tempIndIt.getTotalCharges() ; }
-		if (tempIndIt.getDureeMoyenneTaches() > moyenneChargesMax) { moyenneChargesMax = tempIndIt.getDureeMoyenneTaches() ; }
+		if (tempIndIt.getChargeMoyenneParticipants() > moyenneChargesMax) { moyenneChargesMax = tempIndIt.getChargeMoyenneParticipants() ; }
 		if (tempIndIt.getNombreParticipants() > participantsMax) { participantsMax = tempIndIt.getNombreParticipants() ; }
 		if (tempIndIt.getNombreTachesTerminees() > tachesTermineesMax) { tachesTermineesMax = tempIndIt.getNombreTachesTerminees() ; }
 		if (tempIndIt.getNombreMoyenTachesParticipants() > tachesParticipantsMax) { tachesParticipantsMax = tempIndIt.getNombreMoyenTachesParticipants() ; }
+		if (tempIndIt.getDureeMoyenneTaches() > dureeMoyenneTacheMax) { dureeMoyenneTacheMax = tempIndIt.getDureeMoyenneTaches() ; }
             }
         }
-        setPreferredSize(new Dimension(ITERATION_WIDTH * nbIt,400));
+        setPreferredSize(new Dimension(ITERATION_WIDTH * nbIt,440));
 	//setBorder(new TitledBorder(new EtchedBorder(), "toto", 5, TitledBorder.ABOVE_TOP)) ;
     }
     
@@ -82,18 +93,19 @@ public class GrapheIndicateursProjet extends JPanel {
     {
 	super.paintComponent(g) ;
 	Graphics2D g2d = (Graphics2D)g ;
-	Rectangle2D.Double ligne1 = new Rectangle2D.Double(5.0, 300.0, RECT_DIM2, RECT_DIM1) ;
-	Rectangle2D.Double ligne2 = new Rectangle2D.Double(5.0, 315.0, RECT_DIM2, RECT_DIM1) ;
-	Rectangle2D.Double ligne3 = new Rectangle2D.Double(5.0, 330.0, RECT_DIM2, RECT_DIM1) ;
-	Rectangle2D.Double ligne4 = new Rectangle2D.Double(5.0, 345.0, RECT_DIM2, RECT_DIM1) ;
-	Rectangle2D.Double ligne5 = new Rectangle2D.Double(5.0, 360.0, RECT_DIM2, RECT_DIM1) ;
-	Line2D.Double axeX = new Line2D.Double(0.0, 230.0, new Double(ITERATION_WIDTH * nbIt).doubleValue(), 230.0) ;
-	Line2D.Double axeY = new Line2D.Double(0.0, 230.0, 0.0, 0.0) ;
-	Line2D.Double underline = new Line2D.Double() ;
-	Line2D.Double limit = new Line2D.Double() ;
+	Rectangle2D.Float ligne1 = new Rectangle2D.Float((float)5.0, (float)300.0, RECT_DIM2, RECT_DIM1) ;
+	Rectangle2D.Float ligne2 = new Rectangle2D.Float((float)5.0, (float)315.0, RECT_DIM2, RECT_DIM1) ;
+	Rectangle2D.Float ligne3 = new Rectangle2D.Float((float)5.0, (float)330.0, RECT_DIM2, RECT_DIM1) ;
+	Rectangle2D.Float ligne4 = new Rectangle2D.Float((float)5.0, (float)345.0, RECT_DIM2, RECT_DIM1) ;
+	Rectangle2D.Float ligne5 = new Rectangle2D.Float((float)5.0, (float)360.0, RECT_DIM2, RECT_DIM1) ;
+	Rectangle2D.Float ligne6 = new Rectangle2D.Float((float)5.0, (float)375.0, RECT_DIM2, RECT_DIM1) ;
+	Line2D.Float axeX = new Line2D.Float((float)0.0, (float)230.0, new Float(ITERATION_WIDTH * nbIt).floatValue(), (float)230.0) ;
+	Line2D.Float axeY = new Line2D.Float((float)0.0, (float)230.0, (float)0.0, (float)0.0) ;
+	Line2D.Float underline = new Line2D.Float() ;
+	Line2D.Float limit = new Line2D.Float() ;
 	
-	g2d.setPaint(new Color(240, 240, 240)) ;
-	g2d.fill(new Rectangle2D.Double(0.0, 0.0, new Double(ITERATION_WIDTH * nbIt).doubleValue(), 230.0)) ;
+	g2d.setPaint(new Color(255, 255, 255)) ;
+	g2d.fill(new Rectangle2D.Float((float)0.0, (float)0.0, new Float(ITERATION_WIDTH * nbIt).floatValue(), (float)230.0)) ;
 	
 	g2d.setPaint(Color.black) ;
 	g2d.draw(axeX) ;
@@ -101,7 +113,7 @@ public class GrapheIndicateursProjet extends JPanel {
 	
 	// legende		
 	g2d.setPaint(new Color(220, 220, 220)) ;
-	g2d.fill(new Rectangle2D.Double(0.0, 270.0, 300.0, 110.0)) ;	
+	g2d.fill(new Rectangle2D.Float((float)0.0, (float)270.0, (float)300.0, (float)160.0)) ;	
 	g2d.setPaint(color1) ;
 	g2d.fill(ligne1) ;
 	g2d.setPaint(color2) ;
@@ -112,45 +124,90 @@ public class GrapheIndicateursProjet extends JPanel {
 	g2d.fill(ligne4) ;
 	g2d.setPaint(color5) ;
 	g2d.fill(ligne5) ;
-	g2d.setPaint(Color.blue) ;
-	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_Legende"), 5, 290) ;	
+	g2d.setPaint(color6) ;
+	g2d.fill(ligne6) ;
+	g2d.setPaint(Color.red) ;
+	g2d.fill(new Rectangle2D.Float((float)5.0, (float)400.0, RECT_DIM2, RECT_DIM1)) ;
+	g2d.setPaint(new Color(150, 150, 150)) ;
+	g2d.fill(new Rectangle2D.Float((float)5.0, (float)415.0, RECT_DIM2, RECT_DIM1)) ;
 	g2d.setPaint(Color.black) ;
+	
+	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_Legende"), 5, 290) ;
 	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_L1"), 115, 310) ;
 	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_L2"), 115, 325) ;
 	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_L3"), 115, 340) ;
 	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_L4"), 115, 355) ;
 	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_L5"), 115, 370) ;
+	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_L6"), 115, 385) ;
+	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_C1"), 115, 410) ;
+	g2d.drawString(Bundle.getText("GrapheIndicateursProjet_C2"), 115, 425) ;
 	g2d.draw(ligne1) ;
 	g2d.draw(ligne2) ;
 	g2d.draw(ligne3) ;
 	g2d.draw(ligne4) ;
 	g2d.draw(ligne5) ;
-	g2d.draw(new Rectangle2D.Double(0.0, 270.0, 300.0, 110.0)) ;
+	g2d.draw(ligne6) ;
+	g2d.draw(new Rectangle2D.Float((float)5.0, (float)400.0, RECT_DIM2, RECT_DIM1)) ;
+	g2d.draw(new Rectangle2D.Float((float)5.0, (float)415.0, RECT_DIM2, RECT_DIM1)) ;
+	g2d.draw(new Rectangle2D.Float((float)0.0, (float)270.0, (float)300.0, (float)160.0)) ;
 	
 	
 	// graphe pour chaque iteration
 	Iteration tempIt = null ;
         IndicateursIteration tempIndIt = null ;
+	
+	NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+	
         for (int i =  0 ; i < nbIt ; i++)
         {
             if (iterations.get(i) instanceof Iteration)
             {
                  tempIt = (Iteration)iterations.get(i) ;
 		 tempIndIt = tempIt.getIndicateursIteration() ;
+		 Seuil seuil ;
 		 		 
 		 
 		 // affichage de la premiere colonne : total des charges
 		 int charges = tempIndIt.getTotalCharges() ;
 		 if (charges > 0)
-		 {
-		    Double y1Height = new Double((new Double(charges).doubleValue()/new Double(chargesMax).doubleValue())*200.0) ; // longueur de la barre
-		    Double y1Pos = new Double(230.0 - y1Height.doubleValue()) ; // position de la barre
-		    ligne1.setRect(new Double(ITERATION_WIDTH * i + 5).doubleValue(), y1Pos.doubleValue(), RECT_DIM1, y1Height.doubleValue()) ;
+		 {		    
+		    float y1Height = ((float)charges/(float)chargesMax)*200 ; // longueur de la barre
+		    float y1Pos = (float)230.0 - y1Height ; // position de la barre	    
+		  
+		    seuil = seuils.getTotalChargesIteration() ;
+		    // si les seuils ne sont pas atteints
+		    if (((Integer)seuil.getSeuilMin()).intValue() > charges && ((Integer)seuil.getSeuilMin()).intValue() != 0)
+		    {
+			float minusHeight = ((float)((Integer)seuil.getSeuilMin()).intValue()/(float)chargesMax)*200 ;
+			float minusPos = 230 - minusHeight ;
+			ligne1.setRect((float)(ITERATION_WIDTH * i + 10), minusPos, RECT_DIM1, minusHeight) ;
+			g2d.setPaint(new Color(150, 150, 150)) ;
+			g2d.fill(ligne1) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne1) ;
+		    }
+		    
+		    
+		    // si les seuils sont depasses
+		    if (((Integer)seuil.getSeuilMax()).intValue() < charges && ((Integer)seuil.getSeuilMax()).intValue() != 0)
+		    {
+			float plusHeight = ((float)((Integer)seuil.getSeuilMax()).intValue()/(float)chargesMax)*200 ;
+			float plusPos = 230 - plusHeight ;
+			ligne1.setRect((float)(ITERATION_WIDTH * i + 10), plusPos, RECT_DIM1, plusHeight) ;
+			g2d.setPaint(Color.red) ;
+			g2d.fill(ligne1) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne1) ;
+		    }		    
+		    
+		    
+		    ligne1.setRect((float)(ITERATION_WIDTH * i + 5), y1Pos, RECT_DIM1, y1Height) ;
 		    g2d.setPaint(color1) ;
 		    g2d.fill(ligne1) ;
 		    g2d.setPaint(Color.black) ;
-		    g2d.draw(ligne1) ;
-		    g2d.drawString((new Integer(charges)).toString(), ITERATION_WIDTH * i + 5, y1Pos.intValue() - 10) ;
+		    g2d.draw(ligne1) ;		    
+		    g2d.drawString((new Integer(charges)).toString(), ITERATION_WIDTH * i + 5, y1Pos - 10) ;
 		 }
 		 
 		 
@@ -158,29 +215,86 @@ public class GrapheIndicateursProjet extends JPanel {
 		 int participants = tempIndIt.getNombreParticipants() ;
 		 if (participants > 0)
 		 {
-		    Double y2Height = new Double((new Double(participants).doubleValue()/new Double(participantsMax).doubleValue())*200.0) ; // longueur de la barre
-		    Double y2Pos = new Double(230.0 - y2Height.doubleValue()) ; // position de la barre
-		    ligne2.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 20).doubleValue(), y2Pos.doubleValue(), RECT_DIM1, y2Height.doubleValue()) ;
+		    float y2Height = ((float)participants/(float)participantsMax)*200 ; // longueur de la barre
+		    float y2Pos = 230 - y2Height ; // position de la barre
+		    
+		    
+		    seuil = seuils.getNombreParticipantIteration() ;
+		    // si les seuils ne sont pas atteints
+		    if (((Integer)seuil.getSeuilMin()).intValue() > participants && ((Integer)seuil.getSeuilMin()).intValue() != 0)
+		    {
+			float minusHeight = ((float)((Integer)seuil.getSeuilMin()).intValue()/(float)participantsMax)*200 ;
+			float minusPos = 230 - minusHeight ;
+			ligne2.setRect((float)(ITERATION_WIDTH * i + 25 + RECT_DIM1), minusPos, RECT_DIM1, minusHeight) ;
+			g2d.setPaint(new Color(150, 150, 150)) ;
+			g2d.fill(ligne2) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne2) ;
+		    }
+		    
+		    
+		    // si les seuils sont depasses
+		    if (((Integer)seuil.getSeuilMax()).intValue() < participants && ((Integer)seuil.getSeuilMax()).intValue() != 0)
+		    {
+			float plusHeight = ((float)((Integer)seuil.getSeuilMax()).intValue()/(float)participantsMax)*200 ;
+			float plusPos = 230 - plusHeight ;
+			ligne2.setRect((float)(ITERATION_WIDTH * i + 25 + RECT_DIM1), plusPos, RECT_DIM1, plusHeight) ;
+			g2d.setPaint(Color.red) ;
+			g2d.fill(ligne2) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne2) ;
+		    }
+		    
+		    
+		    ligne2.setRect((float)(ITERATION_WIDTH * i + RECT_DIM1 + 20), y2Pos, RECT_DIM1, y2Height) ;
 		    g2d.setPaint(color2) ;
 		    g2d.fill(ligne2) ;
 		    g2d.setPaint(Color.black) ;
 		    g2d.draw(ligne2) ;
-		    g2d.drawString((new Integer(participants)).toString(), ITERATION_WIDTH * i + 20 + RECT_DIM1, y2Pos.intValue() - 10) ;
+		    g2d.drawString((new Integer(participants)).toString(), ITERATION_WIDTH * i + 20 + RECT_DIM1, y2Pos - 10) ;
 		 }
 		 
 		 
 		 // affichage de la troisieme colonne : moyenne charge/participant
-		 int moyenneCharges = tempIndIt.getDureeMoyenneTaches() ;
+		 float moyenneCharges = tempIndIt.getChargeMoyenneParticipants() ;		 
 		 if (moyenneCharges > 0)
 		 {
-		    Double y3Height = new Double((new Double(moyenneCharges).doubleValue()/new Double(moyenneChargesMax).doubleValue())*200.0) ; // longueur de la barre
-		    Double y3Pos = new Double(230.0 - y3Height.doubleValue()) ; // position de la barre
-		    ligne3.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 45).doubleValue(), y3Pos.doubleValue(), RECT_DIM1, y3Height.doubleValue()) ;
+		    float y3Height = (moyenneCharges/moyenneChargesMax)*200 ; // longueur de la barre
+		    float y3Pos = 230 - y3Height ; // position de la barre
+		    
+		    seuil = seuils.getChargeMoyenne() ;
+		    // si les seuils ne sont pas atteints
+		    if (((Float)seuil.getSeuilMin()).intValue() > moyenneCharges && ((Float)seuil.getSeuilMin()).intValue() != 0)
+		    {
+			float minusHeight = (((Float)seuil.getSeuilMin()).floatValue()/moyenneChargesMax)*200 ;
+			float minusPos = 230 - minusHeight ;
+			ligne3.setRect((float)(ITERATION_WIDTH * i + 50 + RECT_DIM1), minusPos, RECT_DIM1, minusHeight) ;
+			g2d.setPaint(new Color(150, 150, 150)) ;
+			g2d.fill(ligne3) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne3) ;
+		    }
+		    
+		    
+		    // si les seuils sont depasses
+		    if (((Float)seuil.getSeuilMax()).intValue() < moyenneCharges && ((Float)seuil.getSeuilMax()).intValue() != 0)
+		    {
+			float plusHeight = (((Float)seuil.getSeuilMax()).intValue()/moyenneChargesMax)*200 ;
+			float plusPos = 230 - plusHeight ;
+			ligne3.setRect((float)(ITERATION_WIDTH * i + 50 + RECT_DIM1), plusPos, RECT_DIM1, plusHeight) ;
+			g2d.setPaint(Color.red) ;
+			g2d.fill(ligne3) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne3) ;
+		    }
+		    
+		    
+		    ligne3.setRect((float)(ITERATION_WIDTH * i + RECT_DIM1 + 45), y3Pos, RECT_DIM1, y3Height) ;
 		    g2d.setPaint(color3) ;
 		    g2d.fill(ligne3) ;
 		    g2d.setPaint(Color.black) ;
 		    g2d.draw(ligne3) ;
-		    g2d.drawString((new Integer(moyenneCharges)).toString(), ITERATION_WIDTH * i + 45+ RECT_DIM1, y3Pos.intValue() - 10) ;
+		    g2d.drawString(nf.format(moyenneCharges), ITERATION_WIDTH * i + 45+ RECT_DIM1, y3Pos - 10) ;
 		 }
 		 
 		 
@@ -188,37 +302,137 @@ public class GrapheIndicateursProjet extends JPanel {
 		 int tachesTerminees = tempIndIt.getNombreTachesTerminees() ;
 		 if (tachesTerminees > 0)
 		 {
-		    Double y4Height = new Double((new Double(tachesTerminees).doubleValue()/new Double(tachesTermineesMax).doubleValue())*200.0) ; // longueur de la barre
-		    Double y4Pos = new Double(230.0 - y4Height.doubleValue()) ; // position de la barre
-		    ligne4.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 70).doubleValue(), y4Pos.doubleValue(), RECT_DIM1, y4Height.doubleValue()) ;
+		    float y4Height = ((float)tachesTerminees/(float)tachesTermineesMax)*200 ; // longueur de la barre
+		    float y4Pos = 230 - y4Height ; // position de la barre
+		    
+		    seuil = seuils.getTacheTermineesIteration() ;
+		    // si les seuils ne sont pas atteints
+		    if (((Integer)seuil.getSeuilMin()).intValue() > tachesTerminees && ((Integer)seuil.getSeuilMin()).intValue() != 0)
+		    {
+			float minusHeight = ((float)((Integer)seuil.getSeuilMin()).intValue()/(float)tachesTermineesMax)*200 ;
+			float minusPos = 230 - minusHeight ;
+			ligne4.setRect((float)(ITERATION_WIDTH * i + 75 + RECT_DIM1), minusPos, RECT_DIM1, minusHeight) ;
+			g2d.setPaint(new Color(150, 150, 150)) ;
+			g2d.fill(ligne4) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne4) ;
+		    }
+		    
+		    
+		    // si les seuils sont depasses
+		    if (((Integer)seuil.getSeuilMax()).intValue() < tachesTerminees && ((Integer)seuil.getSeuilMax()).intValue() != 0)
+		    {
+			float plusHeight = ((float)((Integer)seuil.getSeuilMax()).intValue()/(float)tachesTermineesMax)*200 ;
+			float plusPos = 230 - plusHeight ;
+			ligne4.setRect((float)(ITERATION_WIDTH * i + 75 + RECT_DIM1), plusPos, RECT_DIM1, plusHeight) ;
+			g2d.setPaint(Color.red) ;
+			g2d.fill(ligne4) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne4) ;
+		    }
+		    
+		    ligne4.setRect((float)(ITERATION_WIDTH * i + RECT_DIM1 + 70), y4Pos, RECT_DIM1, y4Height) ;
 		    g2d.setPaint(color4) ;
 		    g2d.fill(ligne4) ;
 		    g2d.setPaint(Color.black) ;
 		    g2d.draw(ligne4) ;
-		    g2d.drawString((new Integer(tachesTerminees)).toString(), ITERATION_WIDTH * i + 70+ RECT_DIM1, y4Pos.intValue() - 10) ;
+		    g2d.drawString((new Integer(tachesTerminees)).toString(), ITERATION_WIDTH * i + 70+ RECT_DIM1, y4Pos - 10) ;
 		 }
 		 
 		 
-		 // affichage de la quatrieme colonne : taches par participant
+		 // affichage de la cinquieme colonne : taches par participant
 		 float tachesParticipants = tempIndIt.getNombreMoyenTachesParticipants() ;
 		 if (tachesParticipants > 0)
 		 {
-		    Double y5Height = new Double((new Double(tachesParticipants).doubleValue()/new Double(tachesParticipantsMax).doubleValue())*200.0) ; // longueur de la barre
-		    Double y5Pos = new Double(230.0 - y5Height.doubleValue()) ; // position de la barre
-		    ligne5.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 95).doubleValue(), y5Pos.doubleValue(), RECT_DIM1, y5Height.doubleValue()) ;
+		    float y5Height = ((float)tachesParticipants/(float)tachesParticipantsMax)*200 ; // longueur de la barre
+		    float y5Pos = 230 - y5Height ; // position de la barre
+		    
+		    seuil = seuils.getNombreTacheParticipant() ;
+		    // si les seuils ne sont pas atteints
+		    if (((Float)seuil.getSeuilMin()).intValue() > tachesParticipants && ((Float)seuil.getSeuilMin()).intValue() != 0)
+		    {
+			float minusHeight = (((Float)seuil.getSeuilMin()).intValue()/(float)tachesParticipantsMax)*200 ;
+			float minusPos = 230 - minusHeight ;
+			ligne5.setRect((float)(ITERATION_WIDTH * i + 100 + RECT_DIM1), minusPos, RECT_DIM1, minusHeight) ;
+			g2d.setPaint(new Color(150, 150, 150)) ;
+			g2d.fill(ligne5) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne5) ;
+		    }
+		    
+		    
+		    // si les seuils sont depasses
+		    if (((Float)seuil.getSeuilMax()).intValue() < tachesParticipants && ((Float)seuil.getSeuilMax()).intValue() != 0)
+		    {
+			float plusHeight = (((Float)seuil.getSeuilMax()).intValue()/(float)tachesParticipantsMax)*200 ;
+			float plusPos = 230 - plusHeight ;
+			ligne5.setRect((float)(ITERATION_WIDTH * i + 100 + RECT_DIM1), plusPos, RECT_DIM1, plusHeight) ;
+			g2d.setPaint(Color.red) ;
+			g2d.fill(ligne5) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne5) ;
+		    }
+		    
+		    
+		    ligne5.setRect((float)(ITERATION_WIDTH * i + RECT_DIM1 + 95), y5Pos, RECT_DIM1, y5Height) ;
 		    g2d.setPaint(color5) ;
 		    g2d.fill(ligne5) ;
 		    g2d.setPaint(Color.black) ;
 		    g2d.draw(ligne5) ;
-		    g2d.drawString((new Float(tachesParticipants)).toString(), ITERATION_WIDTH * i + 95+ RECT_DIM1, y5Pos.intValue() - 10) ;
+		    g2d.setPaint(new Color(50, 50, 50)) ;
+		    g2d.drawString(nf.format(tachesParticipants), ITERATION_WIDTH * i + 95+ RECT_DIM1, y5Pos - 10) ;
 		 }
 		 
+		 
+		 // affichage de la sixieme colonne : duree moyenne des taches
+		 float dureeMoyenneTache = tempIndIt.getDureeMoyenneTaches() ;
+		 if (dureeMoyenneTache > 0)
+		 {
+		    float y6Height = ((float)dureeMoyenneTache/(float)dureeMoyenneTacheMax)*200 ; // longueur de la barre
+		    float y6Pos = 230 - y6Height ; // position de la barre
+		    
+		    seuil = seuils.getDureeMoyenneIteration() ;
+		    // si les seuils ne sont pas atteints
+		    if (((Float)seuil.getSeuilMin()).intValue() > dureeMoyenneTache && ((Float)seuil.getSeuilMin()).intValue() != 0)
+		    {
+			float minusHeight = (((Float)seuil.getSeuilMin()).intValue()/(float)dureeMoyenneTacheMax)*200 ;
+			float minusPos = 230 - minusHeight ;
+			ligne6.setRect((float)(ITERATION_WIDTH * i + 125 + RECT_DIM1), minusPos, RECT_DIM1, minusHeight) ;
+			g2d.setPaint(new Color(150, 150, 150)) ;
+			g2d.fill(ligne6) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne6) ;
+		    }
+		    
+		    
+		    // si les seuils sont depasses
+		    if (((Float)seuil.getSeuilMax()).intValue() < dureeMoyenneTache && ((Float)seuil.getSeuilMax()).intValue() != 0)
+		    {
+			float plusHeight = (((Float)seuil.getSeuilMax()).intValue()/(float)dureeMoyenneTacheMax)*200 ;
+			float plusPos = 230 - plusHeight ;
+			ligne6.setRect((float)(ITERATION_WIDTH * i + 125 + RECT_DIM1), plusPos, RECT_DIM1, plusHeight) ;
+			g2d.setPaint(Color.red) ;
+			g2d.fill(ligne6) ;
+			g2d.setPaint(Color.black) ;
+			g2d.draw(ligne6) ;
+		    }
+		    
+		    
+		    ligne6.setRect((float)(ITERATION_WIDTH * i + RECT_DIM1 + 120), y6Pos, RECT_DIM1, y6Height) ;
+		    g2d.setPaint(color6) ;
+		    g2d.fill(ligne6) ;
+		    g2d.setPaint(Color.black) ;
+		    g2d.draw(ligne6) ;
+		    g2d.drawString(nf.format(dureeMoyenneTache), ITERATION_WIDTH * i + 120+ RECT_DIM1, y6Pos - 10) ;
+		 }
+		 
+		 
 		 // lignes du bas pour delimiter l'iteration
-		 underline.setLine(new Double(ITERATION_WIDTH * i + 5).doubleValue(), 250.0, new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).doubleValue(), 250.0) ;
+		 underline.setLine(new Float(ITERATION_WIDTH * i + 5).floatValue(), 250.0, new Float(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).floatValue(), 250.0) ;
 		 g2d.draw(underline) ;
-		 limit.setLine(new Double(ITERATION_WIDTH * i + 5).doubleValue(), 250.0, new Double(5 + ITERATION_WIDTH * i).doubleValue(), 240.0) ;
+		 limit.setLine(new Float(ITERATION_WIDTH * i + 5).floatValue(), 250.0, new Float(5 + ITERATION_WIDTH * i).floatValue(), 240.0) ;
 		 g2d.draw(limit) ;
-		 limit.setLine(new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).doubleValue(), 250.0, new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).doubleValue(), 240.0) ;
+		 limit.setLine(new Float(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).floatValue(), 250.0, new Float(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).floatValue(), 240.0) ;
 		 g2d.draw(limit) ;
 		 g2d.drawString("Iteration "+tempIt.getNumero(), ITERATION_WIDTH * i + 20, 245) ;
             }
