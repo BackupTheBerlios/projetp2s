@@ -249,7 +249,7 @@ CREATE TABLE `utilisateurs` (
   PRIMARY KEY  (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 INSERT INTO `utilisateurs` (`login`,`password`,`fonction`) VALUES 
- ('directeur','directeurpass','dir');
+ ('directeur','902c77af765b79c19f2d71fa427008d0','dir');
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

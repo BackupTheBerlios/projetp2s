@@ -90,7 +90,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         getContentPane().add(JLabelMesures, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         JScrollPaneMesures.setBackground(new java.awt.Color(255, 255, 255));
-        JScrollPaneMesures.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JScrollPaneMesures.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jTableMesures.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

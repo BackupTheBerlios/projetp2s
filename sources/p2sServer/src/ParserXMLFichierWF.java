@@ -33,15 +33,18 @@ public class ParserXMLFichierWF {
      */
     private Document document;
     private Connection conn;
+    private String login;
     
     /** Creates a new instance of ParserXMLFichierWF */
-    public ParserXMLFichierWF(String Xml, String cheminBD) {
+    public ParserXMLFichierWF(String Xml, String cheminBD, String _login) {
         this.fichier = Xml;
+        this.login = _login;
         
         try{
             DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
             DocumentBuilder constructeur = usine.newDocumentBuilder();
-            this.document = constructeur.parse(new FileInputStream(new File(this.fichier)));
+            
+            this.document = constructeur.parse(Xml);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -63,6 +66,7 @@ public class ParserXMLFichierWF {
     public void majBase() {
         
         majProjet();
+        majLienSuperviseurProjet();
         majIterations();
         majMembres();
         majRoles();
@@ -187,8 +191,25 @@ public class ParserXMLFichierWF {
             System.out.println("VendorError: " + ex.getErrorCode());
             ex.printStackTrace();
         }
-        
-        
+    }
+    
+    public void majLienSuperviseurProjet() {
+        try {
+            // Requete SQL
+            PreparedStatement prepState = conn.prepareStatement("Select * from superviseur_projets where login='"+this.login+"' and idprojet="+lireIdProjet());
+            ResultSet rs = prepState.executeQuery(); // Execution de la requete
+            
+            if(!rs.next()){
+                prepState = conn.prepareStatement("insert into superviseur_projets values ('"+login+"',"+lireIdProjet()+")");
+                prepState.execute(); // Execution de la requete
+            }
+            
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
         
     }
     
@@ -1836,7 +1857,7 @@ public class ParserXMLFichierWF {
         int nombreparticipants = 0;
         float avancementprojet = 0;
         
-        try {      
+        try {
             // On recupere le total des charges
             PreparedStatement prepState = conn.prepareStatement("select SUM(ind.totalcharges) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
             ResultSet rs = prepState.executeQuery(); // Execution de la requete
@@ -1881,9 +1902,9 @@ public class ParserXMLFichierWF {
                 updateIndicateur.setFloat(3,dureemoyennetache);
                 updateIndicateur.setInt(4,nombreparticipants);
                 updateIndicateur.setFloat(5,avancementprojet);
-                                
+                
                 updateIndicateur.executeUpdate();
-            }              
+            }
         }catch (SQLException ex) { // Si une SQLException survient
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

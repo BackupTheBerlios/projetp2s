@@ -167,8 +167,10 @@ public class JFrameP2S extends javax.swing.JFrame {
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
     
     private void JMenuItemCreerProjetActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        FenCreerProjet = new JDialogCreerProjet(this,true);
-        FenCreerProjet.show();
+        //FenCreerProjet = new JDialogCreerProjet(this,true);
+        //FenCreerProjet.show();
+        new JDialogAjouterProjet(this,true).show();
+        
     }
     
     /** Exit the Application */
@@ -351,7 +353,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
                      
-            // Envoie des infos sur lengthprojet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
+            // Envoie des infos sur le projet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
             URL url = new URL("http://localhost:8084/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
             
             // Buffer qui va recuperer la reponse de la servlet
