@@ -21,12 +21,21 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         
         IndicateursIteration ind = ite.getIndicateursIteration();
         //Affichage des indicateurs de l'itération
-        this.LabelIndChargeMoyenne.setText(new Integer(ind.getChargeMoyenneParticipants()).toString());
+        /*this.LabelIndChargeMoyenne.setText(new Integer(ind.getChargeMoyenneParticipants()).toString());
         this.LabelIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
         this.LabelIndDureeMoyenne.setText(new Integer(ind.getDureeMoyenneTaches()).toString());
         this.LabelIndMoyenneTache.setText(new Integer(ind.getNombreMoyenTachesParticipants()).toString());
         this.LabelIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
-        this.LabelIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());
+        this.LabelIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());*/
+        
+        this.textIndChargeMoyenne.setText(new Integer(ind.getChargeMoyenneParticipants()).toString());
+        this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
+        this.textIndDureeMoyenne.setText(new Integer(ind.getDureeMoyenneTaches()).toString());
+        this.textIndMoyenneTache.setText(new Integer(ind.getNombreMoyenTachesParticipants()).toString());
+        this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
+        this.textIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());
+        
+        
         
     }
     
@@ -43,12 +52,12 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        LabelIndChargesTotales = new javax.swing.JLabel();
-        LabelIndTachesTerminees = new javax.swing.JLabel();
-        LabelIndDureeMoyenne = new javax.swing.JLabel();
-        LabelIndNombreParticipants = new javax.swing.JLabel();
-        LabelIndChargeMoyenne = new javax.swing.JLabel();
-        LabelIndMoyenneTache = new javax.swing.JLabel();
+        textIndMoyenneTache = new javax.swing.JTextField();
+        textIndChargeMoyenne = new javax.swing.JTextField();
+        textIndNombreParticipants = new javax.swing.JTextField();
+        textIndDureeMoyenne = new javax.swing.JTextField();
+        textIndTachesTerminees = new javax.swing.JTextField();
+        textIndChargesTotales = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -70,40 +79,58 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         jLabel6.setText("Nombre moyen de taches par participants :");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 210, -1));
 
-        LabelIndChargesTotales.setText("chargesTotales");
-        add(LabelIndChargesTotales, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+        textIndMoyenneTache.setBackground(new java.awt.Color(255, 255, 255));
+        textIndMoyenneTache.setEditable(false);
+        textIndMoyenneTache.setText("jTextField1");
+        textIndMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textIndMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 40, -1));
 
-        LabelIndTachesTerminees.setText("tachesTermin\u00e9es");
-        add(LabelIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 100, -1));
+        textIndChargeMoyenne.setBackground(new java.awt.Color(255, 255, 255));
+        textIndChargeMoyenne.setEditable(false);
+        textIndChargeMoyenne.setText("jTextField2");
+        textIndChargeMoyenne.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textIndChargeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 40, -1));
 
-        LabelIndDureeMoyenne.setText("DureeMoyenne");
-        add(LabelIndDureeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 100, -1));
+        textIndNombreParticipants.setBackground(new java.awt.Color(255, 255, 255));
+        textIndNombreParticipants.setEditable(false);
+        textIndNombreParticipants.setText("jTextField3");
+        textIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 40, -1));
 
-        LabelIndNombreParticipants.setText("nombreParticipant");
-        add(LabelIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, -1, -1));
+        textIndDureeMoyenne.setBackground(new java.awt.Color(255, 255, 255));
+        textIndDureeMoyenne.setEditable(false);
+        textIndDureeMoyenne.setText("jTextField4");
+        textIndDureeMoyenne.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textIndDureeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 40, -1));
 
-        LabelIndChargeMoyenne.setText("chargeMoyenne");
-        add(LabelIndChargeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 100, -1));
+        textIndTachesTerminees.setBackground(new java.awt.Color(255, 255, 255));
+        textIndTachesTerminees.setEditable(false);
+        textIndTachesTerminees.setText("jTextField5");
+        textIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 40, -1));
 
-        LabelIndMoyenneTache.setText("moyenneTache");
-        add(LabelIndMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 90, -1));
+        textIndChargesTotales.setBackground(new java.awt.Color(255, 255, 255));
+        textIndChargesTotales.setEditable(false);
+        textIndChargesTotales.setText("jTextField6");
+        textIndChargesTotales.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textIndChargesTotales, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, -1));
 
     }//GEN-END:initComponents
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelIndChargeMoyenne;
-    private javax.swing.JLabel LabelIndChargesTotales;
-    private javax.swing.JLabel LabelIndDureeMoyenne;
-    private javax.swing.JLabel LabelIndMoyenneTache;
-    private javax.swing.JLabel LabelIndNombreParticipants;
-    private javax.swing.JLabel LabelIndTachesTerminees;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField textIndChargeMoyenne;
+    private javax.swing.JTextField textIndChargesTotales;
+    private javax.swing.JTextField textIndDureeMoyenne;
+    private javax.swing.JTextField textIndMoyenneTache;
+    private javax.swing.JTextField textIndNombreParticipants;
+    private javax.swing.JTextField textIndTachesTerminees;
     // End of variables declaration//GEN-END:variables
     
 }
