@@ -148,7 +148,7 @@ public class ParserXMLLog {
                 Node attributCourant = attributs.item(j);
                 
                 //Recuperation de l'id du membre
-                if(attributCourant.getNodeName().equalsIgnoreCase("idMembre"))
+                if(attributCourant.getNodeName().equalsIgnoreCase("id"))
                     idMembre = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
                 
                 //Recuperation du nom du membre
