@@ -280,16 +280,16 @@ public class JFrameP2S extends javax.swing.JFrame {
                         int nblu;
                         try{
                             // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+output.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
+                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+output.replaceAll("\\s","%20")+"&flux=");
                             BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
                             // On lit le fichier
                             BufferedReader buffer = new BufferedReader(new FileReader(output));
                             while((nblu = buffer.read(Flux,0,500)) != -1){
-                                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+output.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20"));
+                                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+output.replaceAll("\\s","%20"));
                                 in = new BufferedReader(new InputStreamReader(url.openStream()));
                             }
                             // On indique qu'on a fini de lire le fichier
-                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+output.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
+                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+output.replaceAll("\\s","%20")+"&flux=");
                             in = new BufferedReader(new InputStreamReader(url.openStream()));
                             
                             String reponse = new String("");
@@ -351,16 +351,16 @@ public class JFrameP2S extends javax.swing.JFrame {
             
             try{
                 // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+Fic.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20")+"&flux=");
                 BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
                 // On lit le fichier
                 BufferedReader buffer = new BufferedReader(new FileReader(Fic));
                 while((nblu = buffer.read(Flux,0,500)) != -1){
-                    url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+Fic.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20"));
+                    url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20"));
                     in = new BufferedReader(new InputStreamReader(url.openStream()));
                 }
                 // On indique qu'on a fini de lire le fichier
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+Fic.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20")+"&flux=");
                 in = new BufferedReader(new InputStreamReader(url.openStream()));
                 
                 String reponse = new String("");

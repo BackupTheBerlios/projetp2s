@@ -205,7 +205,6 @@ public class ParserXMLFichierWF {
             budget = listeNoeud.item(b).getFirstChild().getNodeValue();
         }catch(NullPointerException e){}
         
-        
         try {
             // Requete SQL
             PreparedStatement prepState = conn.prepareStatement("Select * from projets where idprojet="+id);

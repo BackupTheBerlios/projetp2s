@@ -1,12 +1,20 @@
 /*
  * ParserXMLPreferences.java
- * 
+ *
  */
 
 package P2S.Inf;
 
+import java.io.File;
 import java.io.InputStream;
 import javax.xml.parsers.*;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 
 
@@ -19,11 +27,11 @@ public class ParserXMLPreferences {
     
     /**
      * Fichier Xml
-     */    
+     */
     private InputStream _fichierPreferences;
     /**
      * Document contenant le fichier Xml
-     */    
+     */
     private Document _document;
     
     /**
@@ -40,53 +48,35 @@ public class ParserXMLPreferences {
             this._document = constructeur.parse(this._fichierPreferences);
         }catch(Exception e){
             e.printStackTrace();
-        }       
+        }
     }
     
     
     /**
      * Renvoie la langue de P2S
      * @return la langue
-     */    
-    public String lireLangue()
-    {
-        Node langue = this._document.getElementsByTagName("langue").item(0);                
-        return langue.getFirstChild().getNodeValue();   
+     */
+    public String lireLangue() {
+        Node langue = this._document.getElementsByTagName("langue").item(0);
+        return langue.getFirstChild().getNodeValue();
     }
     
     public String lirePortServeur(){
-        Node port = this._document.getElementsByTagName("port").item(0);                
+        Node port = this._document.getElementsByTagName("port").item(0);
         return port.getFirstChild().getNodeValue();
     }
     
     public String lireAdresseServeur(){
-        Node adresse = this._document.getElementsByTagName("adresse").item(0);                
+        Node adresse = this._document.getElementsByTagName("adresse").item(0);
         return adresse.getFirstChild().getNodeValue();
     }
     
-    public void changerLangue()
-    {
-    /*    Element root = this._document.addElement( "bibliotheque" );
-    Element livre = null;
-    try {
-      livre = root.addElement("livre");
-      livre.addElement("titre").addText("titre 1");
-      livre.addElement("auteur").addText("auteur 1");
-      livre.addElement("editeur").addText("editeur 1");
-      livre = root.addElement("livre");
-      livre.addElement("titre").addText("titre 2");
-      livre.addElement("auteur").addText("auteur 2");
-      livre.addElement("editeur").addText("editeur 2");
-      livre = root.addElement("livre");
-      livre.addElement("titre").addText("titre 3");
-      livre.addElement("auteur").addText("auteur 3");
-      livre.addElement("editeur").addText("editeur 3");
-      OutputFormat format = OutputFormat.createPrettyPrint(); 
-      XMLWriter writer = new XMLWriter( System.out, format ); 
-      writer.write( document ); 
-    } catch (Exception e){
-      e.printStackTrace();
-    }*/
-
+    public void changerLangue(String l) {
+        Node langue = this._document.getElementsByTagName("langue").item(0);
+        langue.setNodeValue(l);
+    }
+    
+    public void editerFichier(){
+        P2S.P2S.getRessource("/P2S/preferences.xml");       
     }
 }

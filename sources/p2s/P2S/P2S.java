@@ -5,6 +5,7 @@ import P2S.Control.Bundle.Bundle;
 import P2S.Inf.ParserXMLPreferences;
 import P2S.UI.View.JFrameP2S;
 import java.io.*;
+import java.net.URL;
 
 import java.util.Locale;
 
@@ -47,6 +48,10 @@ public class P2S {
     public static InputStream readFile(String filename) {
         DataInputStream dis = new DataInputStream(ClassLoader.getSystemResourceAsStream(filename));
         return dis;      
+    }
+    
+    public static URL getRessource(String path){
+        return ClassLoader.getSystemResource(path);
     }
     
 }

@@ -2,8 +2,7 @@ package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.*;
 import P2S.Control.*;
-
-import javax.swing.*;
+import P2S.Inf.ParserXMLPreferences;
 import java.util.*;
 
 /**
@@ -45,47 +44,23 @@ public class JDialogPreferences extends javax.swing.JDialog {
         TextFieldHost = new javax.swing.JTextField();
         ButtonCancel = new javax.swing.JButton();
         ButtonOK = new javax.swing.JButton();
+        LabelConnexionServeur = new javax.swing.JLabel();
+        LabelPort = new javax.swing.JLabel();
+        TextFieldPort = new javax.swing.JTextField();
 
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         LabelLangue.setText("Langue");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 20, 0, 0);
-        getContentPane().add(LabelLangue, gridBagConstraints);
+        getContentPane().add(LabelLangue, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         ComboBoxLangue.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Bundle.getText("JDialogPreferences_ComboBoxLangue_Francais"), Bundle.getText("JDialogPreferences_ComboBoxLangue_Anglais") }));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 56;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 14, 0, 0);
-        getContentPane().add(ComboBoxLangue, gridBagConstraints);
+        getContentPane().add(ComboBoxLangue, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 130, -1));
 
         LabelHost.setText("Host");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 20, 0, 0);
-        getContentPane().add(LabelHost, gridBagConstraints);
+        getContentPane().add(LabelHost, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 99;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 14, 0, 43);
-        getContentPane().add(TextFieldHost, gridBagConstraints);
+        getContentPane().add(TextFieldHost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 140, -1));
 
         ButtonCancel.setText("Annuler");
         ButtonCancel.setMaximumSize(new java.awt.Dimension(100, 23));
@@ -95,14 +70,7 @@ public class JDialogPreferences extends javax.swing.JDialog {
             }
         });
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.ipadx = -1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 10, 24, 43);
-        getContentPane().add(ButtonCancel, gridBagConstraints);
+        getContentPane().add(ButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 70, -1));
 
         ButtonOK.setText("OK");
         ButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -111,17 +79,18 @@ public class JDialogPreferences extends javax.swing.JDialog {
             }
         });
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 8, 24, 0);
-        getContentPane().add(ButtonOK, gridBagConstraints);
+        getContentPane().add(ButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 50, -1));
+
+        LabelConnexionServeur.setText("Connexion au serveur");
+        getContentPane().add(LabelConnexionServeur, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        LabelPort.setText("Port");
+        getContentPane().add(LabelPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        getContentPane().add(TextFieldPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 140, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-231)/2, (screenSize.height-181)/2, 231, 181);
+        setBounds((screenSize.width-289)/2, (screenSize.height-227)/2, 289, 227);
     }//GEN-END:initComponents
 
     private void ButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelActionPerformed
@@ -129,17 +98,21 @@ public class JDialogPreferences extends javax.swing.JDialog {
     }//GEN-LAST:event_ButtonCancelActionPerformed
 
     private void ButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOKActionPerformed
+        ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
         // On regarde la langue choisie et on change la Locale
         if(this.ComboBoxLangue.getSelectedItem().toString().compareTo(Bundle.getText("JDialogPreferences_ComboBoxLangue_Francais")) == 0)
         {
             Bundle.setCurrentLocale(Locale.FRENCH);
             P2S.P2S.ControllerLocale.fireLocaleChanged(); // genere un evenement changement de langue
+            parserPref.changerLangue("fr");
         }
         else if(this.ComboBoxLangue.getSelectedItem().toString().compareTo(Bundle.getText("JDialogPreferences_ComboBoxLangue_Anglais")) == 0)
         {
             Bundle.setCurrentLocale(Locale.ENGLISH);
             P2S.P2S.ControllerLocale.fireLocaleChanged(); // genere un evenement changement de langue
-        }
+            parserPref.changerLangue("en");
+        }   
+        parserPref.editerFichier(); // Sauvegarde dans le fichier préférence
         
         this.dispose();
     }//GEN-LAST:event_ButtonOKActionPerformed
@@ -155,9 +128,16 @@ public class JDialogPreferences extends javax.swing.JDialog {
         else if(Locale.getDefault().toString().compareTo("en") == 0)
             this.ComboBoxLangue.setSelectedItem(Bundle.getText("JDialogPreferences_ComboBoxLangue_Anglais"));
         
+        this.LabelConnexionServeur.setText(Bundle.getText("JDialogPreferences_JLabel_ConnexionServeur"));
         this.LabelHost.setText(Bundle.getText("JDialogPreferences_JLabel_Host"));
+        this.LabelPort.setText(Bundle.getText("JDialogPreferences_JLabel_Port"));
         this.ButtonOK.setText(Bundle.getText("JDialogPreferences_JButton_Ok"));
         this.ButtonCancel.setText(Bundle.getText("JDialogPreferences_JButton_Annuler"));
+        
+        ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+        
+        this.TextFieldHost.setText(parserPref.lireAdresseServeur());
+        this.TextFieldPort.setText(parserPref.lirePortServeur());
     }
         
        
@@ -165,9 +145,12 @@ public class JDialogPreferences extends javax.swing.JDialog {
     private javax.swing.JButton ButtonCancel;
     private javax.swing.JButton ButtonOK;
     private javax.swing.JComboBox ComboBoxLangue;
+    private javax.swing.JLabel LabelConnexionServeur;
     private javax.swing.JLabel LabelHost;
     private javax.swing.JLabel LabelLangue;
+    private javax.swing.JLabel LabelPort;
     private javax.swing.JTextField TextFieldHost;
+    private javax.swing.JTextField TextFieldPort;
     // End of variables declaration//GEN-END:variables
     
 }
