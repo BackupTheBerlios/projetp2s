@@ -137,16 +137,19 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         textNomProjet.setBackground(new java.awt.Color(255, 255, 255));
         textNomProjet.setEditable(false);
         textNomProjet.setText("jTextField1");
+        textNomProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 340, -1));
 
         textDateDebut.setBackground(new java.awt.Color(255, 255, 255));
         textDateDebut.setEditable(false);
         textDateDebut.setText("jTextField1");
+        textDateDebut.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 340, -1));
 
         textDateFin.setBackground(new java.awt.Color(255, 255, 255));
         textDateFin.setEditable(false);
         textDateFin.setText("jTextField1");
+        textDateFin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 340, -1));
 
     }//GEN-END:initComponents
