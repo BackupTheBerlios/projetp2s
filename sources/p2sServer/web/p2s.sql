@@ -229,8 +229,7 @@ CREATE TABLE `seuilsfixes_projet` (
   `chargeMoyenneMax` int(10) unsigned default 0,
   `nombreTacheParticipantMin` int(10) unsigned default 0,
   `nombreTacheParticipantMax` int(10) unsigned default 0,
-  PRIMARY KEY  (`idprojet`),
-  KEY `FK_superviseurprojets_idprojet` (`idprojet`),
+  PRIMARY KEY  (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 4096 kB';
 
 
