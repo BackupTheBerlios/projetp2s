@@ -130,7 +130,7 @@ public class ParserXMLLog {
                             dateDebut = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
                     } catch(ParseException e1){
                         System.out.println("Probleme pour parser dateDebut");
-                    }
+                    } catch (NullPointerException e){}
                 
                 //Recuperation de la date de fin du projet
                 if(attributCourant.getNodeName().equalsIgnoreCase("datefin"))
@@ -178,10 +178,13 @@ public class ParserXMLLog {
                         
                         //Recuperation du taux d'avancement
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("avancementprojet"))
+
                             if(indicateurActuel.getFirstChild() != null)
                                 avancementProjet = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
+
                         
                     }
+                    System.out.println("nit  nit");
                     indicateursProjet = new IndicateursProjet(totalCharges , tachesTerminees, dureeMoyenneTache, nombreParticipants, avancementProjet);
                 }
                 
@@ -240,8 +243,6 @@ public class ParserXMLLog {
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateFinPrevue");
                                 }
-                            
-                            
                             
                             //Recuperation de la date de debut reelle de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("datefinreelle"))

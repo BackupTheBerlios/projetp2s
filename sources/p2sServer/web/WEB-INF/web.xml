@@ -25,6 +25,10 @@
     <servlet-class>CreerCDPServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>GestionCDPServlet</servlet-name>
+    <servlet-class>GestionCDPServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>MAJBDFicLocalServlet</servlet-name>
     <servlet-class>MAJBDFicLocalServlet</servlet-class>
   </servlet>
@@ -47,6 +51,10 @@
   <servlet-mapping>
     <servlet-name>CreerCDPServlet</servlet-name>
     <url-pattern>/CreerCDPServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GestionCDPServlet</servlet-name>
+    <url-pattern>/GestionCDPServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MAJBDFicLocalServlet</servlet-name>

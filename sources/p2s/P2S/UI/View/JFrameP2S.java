@@ -155,6 +155,12 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuBar.setBorder(null);
         JMenuFichier.setText("Fichier");
+        JMenuFichier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuFichierActionPerformed(evt);
+            }
+        });
+
         JMenuItemQuitter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
         JMenuItemQuitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/file_quit.gif")));
         JMenuItemQuitter.setText("Quitter");
@@ -170,6 +176,12 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuBar.add(JMenuFichier);
 
         JMenuOutils.setText("Outils");
+        JMenuOutils.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuOutilsActionPerformed(evt);
+            }
+        });
+
         JMenuItemRafraichir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         JMenuItemRafraichir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_refresh.gif")));
         JMenuItemRafraichir.setText("Rafraichir");
@@ -204,6 +216,14 @@ public class JFrameP2S extends javax.swing.JFrame {
         setLocation(new java.awt.Point(0, 0));
     }//GEN-END:initComponents
     
+    private void JMenuFichierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuFichierActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JMenuFichierActionPerformed
+    
+    private void JMenuOutilsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuOutilsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JMenuOutilsActionPerformed
+    
     private void JMenuItemRafraichirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemRafraichirActionPerformed
         if(utilisateur instanceof Superviseur)
             rafraichirContenuSuperviseur();
@@ -224,12 +244,6 @@ public class JFrameP2S extends javax.swing.JFrame {
     private void JMenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemPreferencesActionPerformed
         new JDialogPreferences(this,true).show();
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
-    
-    private void JMenuItemCreerProjetDistantActionPerformed(java.awt.event.ActionEvent evt) {
-        new JDialogAjouterProjet(this,true).show();
-        // on rafraichit apres avoir ajoute
-        rafraichirContenuSuperviseur() ;
-    }
     
     private void JMenuItemCreerProjetLocalActionPerformed(java.awt.event.ActionEvent evt) {
                 
@@ -282,6 +296,44 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // on rafraichit apres avoir ajoute
         rafraichirContenuSuperviseur() ;
+    }
+    
+    private void JMenuItemCreerProjetDistantActionPerformed(java.awt.event.ActionEvent evt) {
+        new JDialogAjouterProjet(this,true).show();
+        // on rafraichit apres avoir ajoute
+        rafraichirContenuSuperviseur() ;
+    }
+    
+    private void JMenuItemGererCDPActionPerformed(java.awt.event.ActionEvent evt) {
+        try{
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            // Envoie du login et du password a la servlet "GestionCDPServlet" pour recevoir tous sur les chefs de projet
+            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/GestionCDPServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword());
+            
+            // Buffer qui va recuperer la reponse de la servlet
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                    url.openStream()));
+            
+            //Recuperation du fluxXml envoye par la Servlet : GestionCDPServlet
+            String fluxXml = new String("");
+            String inputLine;
+            
+            while ((inputLine = in.readLine()) != null){
+                fluxXml += inputLine;
+            }
+            System.out.println("FLUX CDP : " + fluxXml);
+            in.close();
+            
+            new JDialogGestionCDP(this,true,fluxXml).show();
+            
+        } catch(MalformedURLException e1){
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IOException e2){
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IllegalArgumentException e3){
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        }
     }
     
     /** Exit the Application */
@@ -352,7 +404,17 @@ public class JFrameP2S extends javax.swing.JFrame {
                 JMenuItemCreerProjetDistantActionPerformed(evt);
             }
         });
+        
+        // On ajoute le menu "Gérer chef de projet" au menu Outils
+        JMenuItemGererCDP = new JMenuItem();
+        JMenuItemGererCDP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemGererCDPActionPerformed(evt);
+            }
+        });
+        
         JMenuOutils.add(JMenuItemCreerProjetDistant,0);
+        JMenuOutils.add(JMenuItemGererCDP,1);
         
         // On ajoute le menu "Ajouter projet local" au menu Outils
         JMenuItemCreerProjetLocal = new JMenuItem();
@@ -532,6 +594,8 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuItemCreerProjetDistant.setMnemonic(Bundle.getChar("JMenuItemCreerProjetDistant"));
         JMenuItemCreerProjetLocal.setText(Bundle.getText("JMenuItemCreerProjetLocal"));
         JMenuItemCreerProjetLocal.setMnemonic(Bundle.getChar("JMenuItemCreerProjetLocal"));
+        JMenuItemGererCDP.setText(Bundle.getText("JMenuItemGererCDP"));
+        JMenuItemGererCDP.setMnemonic(Bundle.getChar("JMenuItemGererCDP"));
         racine.setUserObject(Bundle.getText("NoeudProjets")) ;
         // on efface tout
         racine.removeAllChildren() ;
@@ -682,6 +746,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     private JMenuItem JMenuItemCreerProjetDistant ;
     private JMenuItem JMenuItemCreerProjetLocal ;
     private JMenuItem JMenuItemCreerCDP ;
+    private JMenuItem JMenuItemGererCDP ;
     private JMenuItem JMenuItemCreerSup ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMenuAide;
