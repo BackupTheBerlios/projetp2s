@@ -77,6 +77,22 @@ public class JFrameP2S extends javax.swing.JFrame {
         P2S.P2S.ControllerLocale.addLocaleListener(new LocaleListener(){
             public void localeChanged() {
                 initTexte();
+                
+                if (utilisateur != null)
+                {
+                    if (utilisateur instanceof Superviseur)
+                    {
+                        construireEnvironnementSuperviseur() ;
+                        PanelContenu.removeAll() ;
+                        validate() ;
+                    }
+                    if (utilisateur instanceof Directeur)
+                    {
+                        construireEnvironnementDirecteur() ;
+                        PanelContenu.removeAll() ;
+                        validate() ;
+                    } 
+                }
             }
         });       
         
@@ -250,9 +266,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     private void creerEnvironnementSup() {
         
         // On ajoute le menu "Creer projet" au menu Outils
-        JMenuItem JMenuItemCreerProjet = new JMenuItem();        
-        JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
-        JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
+        JMenuItemCreerProjet = new JMenuItem();
         JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerProjetActionPerformed(evt);                
@@ -264,7 +278,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Construction de l'arborescence
         
         // Premier noeud
-        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));        
+        racine = new DefaultMutableTreeNode();        
        
         construireEnvironnementSuperviseur() ;
         
@@ -274,8 +288,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     private void creerEnvironnementDir() {
         //On ajoute le menu "Creer superviseur" dans la barre d'outils
-        JMenuItem JMenuItemCreerSup = new javax.swing.JMenuItem();
-        JMenuItemCreerSup.setText(Bundle.getText("JMenuItemCreerSuperviseur"));
+        JMenuItemCreerSup = new javax.swing.JMenuItem();        
         JMenuItemCreerSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerSupActionPerformed(evt);
@@ -284,38 +297,11 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         JMenuOutils.add(JMenuItemCreerSup);
                         
-        // Construction de l'arborescence
+        racine = new DefaultMutableTreeNode() ;
         
-        // Premier noeud
-        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudRessources"));
+        construireEnvironnementDirecteur() ;
         
-        // Ajout de toutes les ressources
         
-        //Ajout de la feuille "Tous les membres"
-        DefaultMutableTreeNode racineMembre = new DefaultMutableTreeNode(Bundle.getText("NoeudTousLesMembres"));
-        
-        // Ajout des membres
-        for(int i = 0 ; i < ((Directeur) utilisateur).nbMembres(); i++){
-            NoeudMembre noeudMembre = new NoeudMembre(((Directeur) utilisateur).getMembre(i));
-            racineMembre.add(noeudMembre);
-        }
-        racine.add(racineMembre);
-        
-        racine.add( new DefaultMutableTreeNode(Bundle.getText("NoeudProjetsEnCours")));
-        
-        // Met ? jour l'arborescence
-        jTree1.setModel(new DefaultTreeModel(racine));
-        
-        // Ajout du listener pour la selection d'un membre
-        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent e) {
-                // on recupere le noeud sur lequel on clique
-                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
-                if(d instanceof NoeudMembre) // si le noeud est un membre
-                    afficherInfoMembre(((NoeudMembre)d).getMembre());
-            }
-        }
-        );
     }
     
 
@@ -453,6 +439,9 @@ public class JFrameP2S extends javax.swing.JFrame {
      */
     private void construireEnvironnementSuperviseur () {
         // on efface tout
+        JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
+        JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
+        racine.setUserObject(Bundle.getText("NoeudProjets")) ;
         racine.removeAllChildren() ;
         // Ajout des projets du superviseur
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
@@ -503,6 +492,50 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     
+    /**
+     * Dessine/ajoute les composants graphiques dans la fenetre pour le directeur
+     *@author Conde Mike K.
+     *@version 1.0
+     */
+    private void construireEnvironnementDirecteur () {
+        JMenuItemCreerSup.setText(Bundle.getText("JMenuItemCreerSuperviseur"));
+        
+        // Premier noeud
+        racine.setUserObject(Bundle.getText("NoeudRessources"));
+        racine.removeAllChildren() ;
+        
+        // Ajout de toutes les ressources
+        
+        //Ajout de la feuille "Tous les membres"
+        DefaultMutableTreeNode racineMembre = new DefaultMutableTreeNode(Bundle.getText("NoeudTousLesMembres"));
+        
+        // Ajout des membres
+        for(int i = 0 ; i < ((Directeur) utilisateur).nbMembres(); i++){
+            NoeudMembre noeudMembre = new NoeudMembre(((Directeur) utilisateur).getMembre(i));
+            racineMembre.add(noeudMembre);
+        }
+        racine.add(racineMembre);
+        
+        racine.add( new DefaultMutableTreeNode(Bundle.getText("NoeudProjetsEnCours")));
+        
+        // Met ? jour l'arborescence
+        jTree1.setModel(new DefaultTreeModel(racine));
+        
+        // Ajout du listener pour la selection d'un membre
+        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
+                // on recupere le noeud sur lequel on clique
+                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
+                if(d instanceof NoeudMembre) // si le noeud est un membre
+                    afficherInfoMembre(((NoeudMembre)d).getMembre());
+            }
+        }
+        );
+    }
+    
+    
+    private JMenuItem JMenuItemCreerProjet ;
+    private JMenuItem JMenuItemCreerSup ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMenuAide;
     private javax.swing.JMenuBar JMenuBar;
