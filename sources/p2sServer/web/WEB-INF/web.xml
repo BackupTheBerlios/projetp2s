@@ -17,6 +17,10 @@
     <servlet-class>CreerSuperviseurServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>CreerMessageServlet</servlet-name>
+    <servlet-class>CreerMessageServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>CreerCDPServlet</servlet-name>
     <servlet-class>CreerCDPServlet</servlet-class>
   </servlet>
