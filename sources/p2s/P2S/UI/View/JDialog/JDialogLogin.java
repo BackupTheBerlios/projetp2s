@@ -40,9 +40,9 @@ public class JDialogLogin extends javax.swing.JDialog {
         JLabelLogin = new javax.swing.JLabel();
         JLabelMDP = new javax.swing.JLabel();
         JTextFieldLogin = new javax.swing.JTextField();
-        JTextFieldMDP = new javax.swing.JTextField();
         JButtonOK = new javax.swing.JButton();
         JButtonAnnuler = new javax.swing.JButton();
+        JPasswordFieldMDP = new javax.swing.JPasswordField();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -54,8 +54,6 @@ public class JDialogLogin extends javax.swing.JDialog {
         getContentPane().add(JLabelMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
         getContentPane().add(JTextFieldLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 130, -1));
-
-        getContentPane().add(JTextFieldMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 130, -1));
 
         JButtonOK.setText("OK");
         JButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +73,21 @@ public class JDialogLogin extends javax.swing.JDialog {
 
         getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
 
+        JPasswordFieldMDP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JPasswordFieldMDPActionPerformed(evt);
+            }
+        });
+
+        getContentPane().add(JPasswordFieldMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 130, 20));
+
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-305)/2, (screenSize.height-153)/2, 305, 153);
     }//GEN-END:initComponents
+
+    private void JPasswordFieldMDPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JPasswordFieldMDPActionPerformed
     
     private void JButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAnnulerActionPerformed
         /*this.OK = false;
@@ -89,7 +99,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     private void JButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOKActionPerformed
         
         try{
-            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+this.JTextFieldMDP.getText());
+            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+this.JPasswordFieldMDP.getText());
             
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
@@ -136,8 +146,8 @@ public class JDialogLogin extends javax.swing.JDialog {
     private javax.swing.JButton JButtonOK;
     private javax.swing.JLabel JLabelLogin;
     private javax.swing.JLabel JLabelMDP;
+    private javax.swing.JPasswordField JPasswordFieldMDP;
     private javax.swing.JTextField JTextFieldLogin;
-    private javax.swing.JTextField JTextFieldMDP;
     // End of variables declaration//GEN-END:variables
     
 }
