@@ -89,7 +89,7 @@ public class ParserXMLLog {
                 Node attributCourant = attributs.item(j);
                 
                 //Recuperation de l'id du projet
-                if(attributCourant.getNodeName().equalsIgnoreCase("idProjet"))
+                if(attributCourant.getNodeName().equalsIgnoreCase("id"))
                     idProjet = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
                 
                 //Recuperation du nom du projet
