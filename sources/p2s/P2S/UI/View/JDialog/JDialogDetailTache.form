@@ -30,9 +30,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndNom">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="nom"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -59,9 +56,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndEtat">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="etat"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -113,9 +107,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndRealisateur">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="reallisateur"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -142,9 +133,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndCharge">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="charge"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -171,9 +159,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndTempsPasse">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="temps passé"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -200,9 +185,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndTempsRestant">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="restant"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -229,9 +211,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndDateDebutPrevue">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="date prévue"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -258,9 +237,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndDateDebutReelle">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="date réelle"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -287,9 +263,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndDateFinPrevue">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="date fin"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -316,9 +289,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textIndDateFinReelle">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="date fin réelle"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
