@@ -125,7 +125,10 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
 
       public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
-         numericField.setValue(value + " " +Bundle.getText("Constante_heures")) ;
+         if(column != 2)
+            numericField.setValue(value + " " +Bundle.getText("Constante_heures")) ;
+         else
+            numericField.setValue(value + " " +Bundle.getText("%")) ;
          return numericField ;
       }
 
