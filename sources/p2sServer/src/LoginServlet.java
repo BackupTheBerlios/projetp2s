@@ -552,6 +552,50 @@ public class LoginServlet extends HttpServlet {
                                     
                                 }
                                 rsRisques.close();
+				
+				
+				/**************** LES PROBLEMES **************/
+                                prepState = conn.prepareStatement("Select * from problemes where idprojet = " + rsIdProjets.getString("idprojet"));
+                                ResultSet rsProblemes = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsProblemes.next()){
+                                    out.print("<problemes>");
+                                    
+                                    do{
+                                        out.println("<probleme>");
+                                        
+                                        out.println("<id>");
+                                        out.println(rsProblemes.getString("idprobleme"));
+                                        out.println("</id>");
+                                        
+                                        out.println("<nom>");
+                                        out.println(rsProblemes.getString("nom"));
+                                        out.println("</nom>");
+                                        
+                                        out.println("<cause>");
+                                        out.println(rsProblemes.getString("cause"));
+                                        out.println("</cause>");
+                                        
+                                        
+                                        
+                                        out.println("<dateDebut>");
+                                        if(rsProblemes.getString("debut") != null)
+                                            out.println(rsProblemes.getString("debut"));
+                                        out.println("</dateDebut>");
+					
+					out.println("<dateFin>");
+                                        if(rsProblemes.getString("fin") != null)
+                                            out.println(rsProblemes.getString("fin"));
+                                        out.println("</dateFin>");                                       
+                                        
+                                        
+                                        out.println("</probleme>");
+                                    }while(rsProblemes.next());
+                                    
+                                    out.print("</problemes>");
+                                    
+                                }
+                                rsProblemes.close();
                                 
                                 //PAS DE MESURES POUR L INSTANT
                                 
