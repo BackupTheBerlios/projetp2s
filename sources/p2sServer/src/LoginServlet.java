@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 /**
  *
  * @author Fabien
@@ -26,8 +25,7 @@ public class LoginServlet extends HttpServlet {
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        
+        super.init(config);	
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
@@ -64,9 +62,7 @@ public class LoginServlet extends HttpServlet {
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from utilisateurs where login = '" + login + "' and password ='"+ password + "'");
                 ResultSet rsUser = prepState.executeQuery(); // Execution de la requete
-                
                 if(rsUser.next()){
-                    
                     out.println("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
                     
                     out.println("<utilisateur>"); // debut flux
