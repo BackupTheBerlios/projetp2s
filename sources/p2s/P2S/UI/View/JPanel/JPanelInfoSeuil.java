@@ -73,6 +73,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         nombreTacheParticipantSeuilMin = new javax.swing.JTextField();
         nombreTacheParticipantSeuilMax = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -286,6 +287,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         });
 
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
+
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 420, -1));
 
     }//GEN-END:initComponents
 
@@ -671,6 +674,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     private javax.swing.JLabel indicateursGeneraux;
     private javax.swing.JLabel indicateursIterations;
     private javax.swing.JButton jButton1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nombreParticipantIteration;
     private javax.swing.JTextField nombreParticipantIterationSeuilMax;
     private javax.swing.JTextField nombreParticipantIterationSeuilMin;

@@ -44,8 +44,11 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(javax.swing.UIManager.getDefaults().getColor("nb.output.selectionBackground"));
+        setResizable(false);
+        jLabelStaticURLProjet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/url.gif")));
         jLabelStaticURLProjet.setText("URL du fichier Projet : ");
-        getContentPane().add(jLabelStaticURLProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        getContentPane().add(jLabelStaticURLProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         jButtonOK.setText("jButton1");
         jButtonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -54,7 +57,7 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
+        getContentPane().add(jButtonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
         jButtonCancel.setText("jButton2");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +66,7 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, -1, -1));
+        getContentPane().add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
 
         jTextFieldURL.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -76,10 +79,10 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(jTextFieldURL, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 200, -1));
+        getContentPane().add(jTextFieldURL, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 200, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-345)/2, (screenSize.height-195)/2, 345, 195);
+        setBounds((screenSize.width-371)/2, (screenSize.height-154)/2, 371, 154);
     }//GEN-END:initComponents
     
     private void jTextFieldURLKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldURLKeyPressed
