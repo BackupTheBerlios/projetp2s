@@ -42,6 +42,12 @@ public class JPanelMessages extends JPanel{
     
     /** Creates new form BeanForm */
     public JPanelMessages(Vector messages) {
+        /*this.messages = messages;
+        for (int i = 0; i < messages.size(); i++)
+        {
+            System.out.println("mess");
+        }*/
+        
         this.messages = messages ;
        
         donnees = new Object[messages.size()][4] ;
@@ -50,17 +56,16 @@ public class JPanelMessages extends JPanel{
             if (messages.get(i) instanceof Messages)
             {
                 donnees[i][0] = ((Messages)messages.get(i)).getDate() ;
-                donnees[i][1] = ((Messages)messages.get(i)).getDate() ;
+                donnees[i][1] = ((Messages)messages.get(i)).getSujet() ;
                 donnees[i][2] = new JButton(Bundle.getText("JTableMessagesColonne3")) ;
                 donnees[i][3] = new JButton(Bundle.getText("JTableMessagesColonne4")) ;
             }
         }
-                
+         
         ModeleTableTaches tableModel = new ModeleTableTaches(donnees, titresColonnes) ;
         
         setLayout(new java.awt.BorderLayout());
         initComponents ();
-        
         table = new JTable(tableModel) ;
         table.setDefaultRenderer(JButton.class, new ButtonRenderer()) ;
         table.setDefaultEditor(JButton.class, new ButtonEditor(this)) ;
@@ -87,7 +92,7 @@ public class JPanelMessages extends JPanel{
         }
         
         public boolean isCellEditable(int row, int col) {
-            return ((col == 3)||(col == 2)) ;
+            return (col==2)  ;
         }
     }
       
@@ -132,15 +137,14 @@ public class JPanelMessages extends JPanel{
          super (new JTextField()) ;
          this.owner = owner ;
          
-         if (table.getSelectedColumn()==2)
-         {
+         
             editorComponent = new JButton(Bundle.getText("")) ;
             ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(ActionEvent e) {
                   new JDialogLireMessages(null, true, (Messages)messages.get(table.getSelectedRow())) ;
                }
            }) ;
-         }
+         
          
          if (table.getSelectedColumn()==3)
          {
@@ -184,16 +188,16 @@ public class JPanelMessages extends JPanel{
 
       public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
-          if (column == 2)
-         {
+         /* if (column == 2)
+         {*/
             details.setText(((JButton)value).getText()) ;
             return details ;
-         }
-         else
+        // }
+         /*else
          {
              supprimer.setText(((JButton)value).getText()) ;
              return supprimer;
-         }
+         }*/
       }
 
    } // fin de la classe ButtonEditor
