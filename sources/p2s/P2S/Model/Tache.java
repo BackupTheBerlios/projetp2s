@@ -7,6 +7,7 @@
 package P2S.Model;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  *
@@ -24,10 +25,14 @@ public class Tache {
     private Date dateDebutPrevue;
     private Date dateDebutReelle;
     private Date dateFinPrevue;
-    private Date dateFinReelle;    
+    private Date dateFinReelle;
+    private Membre realisateur;
+    private Vector listeArtefactsEntrees;
+    private Vector listeArtefactsSorties;
+    
     
     /** Creates a new instance of Tache */
-    public Tache(String _nom, String _description, String _etat,int _chargePrevue, int _tempsPasse, int _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle ) {
+    public Tache(String _nom, String _description, String _etat,int _chargePrevue, int _tempsPasse, int _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle,Membre _realisateur,Vector _listeArtefactsEntrees,Vector _listeArtefactsSorties ) {
         this.setNom(_nom);
         this.setDescription(_description);
         this.setEtat(_etat);
@@ -38,6 +43,9 @@ public class Tache {
         this.setDateFinPrevue(_dateFinPrevue);
         this.setDateFinReelle(_dateFinReelle);
         this.setTempsPasse(_tempsPasse);
+        this.setRealisateur(_realisateur);
+        this.setListeArtefactsEntrees(_listeArtefactsEntrees);
+        this.setListeArtefactsSorties(_listeArtefactsSorties);
     }
 
     public int getId() {
@@ -126,6 +134,30 @@ public class Tache {
 
     public void setDateFinReelle(Date dateFinReelle) {
         this.dateFinReelle = dateFinReelle;
+    }
+
+    public Membre getRealisateur() {
+        return realisateur;
+    }
+
+    public void setRealisateur(Membre realisateur) {
+        this.realisateur = realisateur;
+    }
+
+    public Vector getListeArtefactsEntrees() {
+        return listeArtefactsEntrees;
+    }
+
+    public void setListeArtefactsEntrees(Vector listeArtefactsEntrees) {
+        this.listeArtefactsEntrees = listeArtefactsEntrees;
+    }
+
+    public Vector getListeArtefactsSorties() {
+        return listeArtefactsSorties;
+    }
+
+    public void setListeArtefactsSorties(Vector listeArtefactsSorties) {
+        this.listeArtefactsSorties = listeArtefactsSorties;
     }
     
 }
