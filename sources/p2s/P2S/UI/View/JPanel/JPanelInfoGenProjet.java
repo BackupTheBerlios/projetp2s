@@ -134,14 +134,20 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         LabelStaticIndAvancementProjet.setText("Avancement du projet :");
         add(LabelStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 140, -1));
 
+        textNomProjet.setBackground(new java.awt.Color(255, 255, 255));
+        textNomProjet.setEditable(false);
         textNomProjet.setText("jTextField1");
-        add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+        add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 340, -1));
 
+        textDateDebut.setBackground(new java.awt.Color(255, 255, 255));
+        textDateDebut.setEditable(false);
         textDateDebut.setText("jTextField1");
-        add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
+        add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 340, -1));
 
+        textDateFin.setBackground(new java.awt.Color(255, 255, 255));
+        textDateFin.setEditable(false);
         textDateFin.setText("jTextField1");
-        add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
+        add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 340, -1));
 
     }//GEN-END:initComponents
     
