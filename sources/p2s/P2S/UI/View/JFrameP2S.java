@@ -112,10 +112,11 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         PanelContenu.setLayout(new java.awt.BorderLayout());
 
+        PanelContenu.setBackground(new java.awt.Color(246, 244, 249));
+        PanelContenu.setBorder(new javax.swing.border.EtchedBorder());
         getContentPane().add(PanelContenu, java.awt.BorderLayout.CENTER);
 
         JMenuBar.setBorder(new javax.swing.border.EtchedBorder());
-        JMenuFichier.setBackground(new java.awt.Color(236, 233, 216));
         JMenuFichier.setText("Fichier");
         JMenuItemQuitter.setText("Quitter");
         JMenuItemQuitter.setBackground(Color.WHITE);
@@ -129,7 +130,6 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuBar.add(JMenuFichier);
 
-        JMenuOutils.setBackground(new java.awt.Color(236, 233, 216));
         JMenuOutils.setText("Outils");
         JMenuItemRafraichir.setText("Rafraichir");
         JMenuOutils.add(JMenuItemRafraichir);
@@ -145,7 +145,6 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         JMenuBar.add(JMenuOutils);
 
-        JMenuAide.setBackground(new java.awt.Color(236, 233, 216));
         JMenuAide.setText("Aide");
         JMenuItemAProposDe.setText("A Propos de...");
         JMenuAide.add(JMenuItemAProposDe);
@@ -234,6 +233,8 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // On ajoute le menu "Creer projet" au menu Outils
         JMenuItem JMenuItemCreerProjet = new JMenuItem();
+        JMenuItemCreerProjet.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        JMenuItemCreerProjet.setBackground(new Color(245, 244, 249));
         JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
         JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
         JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
@@ -389,7 +390,7 @@ public class JFrameP2S extends javax.swing.JFrame {
 	
 	try {
                 
-            URL url = new URL("http://localhost:8084/p2sserver/RecupererInfosSuperviseur?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
+            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
 	
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
