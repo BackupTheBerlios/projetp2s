@@ -70,7 +70,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="labelDescription">
       <Properties>
         <Property name="text" type="java.lang.String" value="Description :"/>
       </Properties>
@@ -95,7 +95,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="labelStaticIndRealisateur">
       <Properties>
         <Property name="text" type="java.lang.String" value="Réalisateur :"/>
       </Properties>
@@ -121,7 +121,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="labelStaticIndChargePrevue">
       <Properties>
         <Property name="text" type="java.lang.String" value="Charge prévue :"/>
       </Properties>
@@ -173,7 +173,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
+    <Component class="javax.swing.JLabel" name="labelStaticIndTempsRestant">
       <Properties>
         <Property name="text" type="java.lang.String" value="Temps Restant :"/>
       </Properties>
@@ -251,7 +251,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="labelStaticDateFinPrevue">
       <Properties>
         <Property name="text" type="java.lang.String" value="Date fin prévue :"/>
       </Properties>
