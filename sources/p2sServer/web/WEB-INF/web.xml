@@ -16,6 +16,10 @@
     <servlet-name>CreerSuperviseurServlet</servlet-name>
     <servlet-class>CreerSuperviseurServlet</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>CreerCDPServlet</servlet-name>
+    <servlet-class>CreerCDPServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -33,6 +37,11 @@
     <servlet-name>CreerSuperviseurServlet</servlet-name>
     <url-pattern>/CreerSuperviseurServlet</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>CreerCDPServlet</servlet-name>
+    <url-pattern>/CreerCDPServlet</url-pattern>
+  </servlet-mapping>
+
 
   <session-config>
     <session-timeout>

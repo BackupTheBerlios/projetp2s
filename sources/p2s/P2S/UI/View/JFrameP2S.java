@@ -6,7 +6,6 @@ import P2S.Control.*;
 import P2S.Model.*;
 import P2S.UI.Tree.*;
 import P2S.UI.View.JPanel.*;
-import P2S.UI.View.JPanel.JPanelInfoIteration;
 import P2S.Inf.*;
 import javax.swing.tree.*;
 import javax.swing.*;
@@ -78,23 +77,26 @@ public class JFrameP2S extends javax.swing.JFrame {
             public void localeChanged() {
                 initTexte();
                 
-                if (utilisateur != null)
-                {
-                    if (utilisateur instanceof Superviseur)
-                    {
-                        construireEnvironnementSuperviseur() ;
+                if (utilisateur != null) {
+                    if (utilisateur instanceof ChefDeProjet) {
+                        construireEnvironnementCDP() ;
                         PanelContenu.removeAll() ;
                         validate() ;
+                    }else{
+                        if (utilisateur instanceof Superviseur) {
+                            construireEnvironnementSuperviseur() ;
+                            PanelContenu.removeAll() ;
+                            validate() ;
+                        }
                     }
-                    if (utilisateur instanceof Directeur)
-                    {
+                    if (utilisateur instanceof Directeur) {
                         construireEnvironnementDirecteur() ;
                         PanelContenu.removeAll() ;
                         validate() ;
-                    } 
+                    }
                 }
             }
-        });       
+        });
         
     }
     
@@ -178,7 +180,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-683)/2, (screenSize.height-523)/2, 683, 523);
     }//GEN-END:initComponents
-
+    
     private void JMenuItemRafraichirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemRafraichirActionPerformed
         if(utilisateur instanceof Superviseur)
             rafraichirContenuSuperviseur();
@@ -188,15 +190,19 @@ public class JFrameP2S extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_JMenuItemQuitterActionPerformed
     
-    private void JMenuItemCreerSupActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void JMenuItemCreerSupActionPerformed(java.awt.event.ActionEvent evt) {
         new JDialogCreerSuperviseur(this,true).show();
-    }   
+    }
+    
+    private void JMenuItemCreerCDPActionPerformed(java.awt.event.ActionEvent evt) {
+        new JDialogCreerCDP(this,true).show();
+    }
     
     private void JMenuItemPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemPreferencesActionPerformed
         new JDialogPreferences(this,true).show();
     }//GEN-LAST:event_JMenuItemPreferencesActionPerformed
     
-    private void JMenuItemCreerProjetActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+    private void JMenuItemCreerProjetActionPerformed(java.awt.event.ActionEvent evt) {
         //FenCreerProjet = new JDialogCreerProjet(this,true);
         //FenCreerProjet.show();
         new JDialogAjouterProjet(this,true).show();
@@ -248,11 +254,15 @@ public class JFrameP2S extends javax.swing.JFrame {
             if(this.utilisateur != null) {
                 loginOK = true;
                 // si c'est un superviseur, on cr?e son environnement
-                if(this.utilisateur instanceof Superviseur) {
-                    creerEnvironnementSup();
-                } else // sinon c'est un directeur
-                {
-                    creerEnvironnementDir();
+                if(utilisateur instanceof ChefDeProjet){
+                    creerEnvironnementCDP();
+                }else{
+                    if(this.utilisateur instanceof Superviseur) {
+                        creerEnvironnementSup();
+                    } else // sinon c'est un directeur
+                    {
+                        creerEnvironnementDir();
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
@@ -262,14 +272,16 @@ public class JFrameP2S extends javax.swing.JFrame {
         }while(!loginOK);
     }
     
-    
+    /**
+     * @author : Laffargue Nicolas
+     **/
     private void creerEnvironnementSup() {
         
         // On ajoute le menu "Creer projet" au menu Outils
         JMenuItemCreerProjet = new JMenuItem();
         JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMenuItemCreerProjetActionPerformed(evt);                
+                JMenuItemCreerProjetActionPerformed(evt);
             }
         });
         JMenuOutils.add(JMenuItemCreerProjet,0);
@@ -278,25 +290,32 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Construction de l'arborescence
         
         // Premier noeud
-        racine = new DefaultMutableTreeNode();        
-       
+        racine = new DefaultMutableTreeNode();
+        
         construireEnvironnementSuperviseur() ;
         
-              
+        
     }
     
     
     private void creerEnvironnementDir() {
-        //On ajoute le menu "Creer superviseur" dans la barre d'outils
-        JMenuItemCreerSup = new javax.swing.JMenuItem();        
+        //On ajoute le menu "Creer superviseur" et "Creer chef de projet" dans la barre d'outils
+        JMenuItemCreerSup = new javax.swing.JMenuItem();
+        JMenuItemCreerCDP = new JMenuItem();
         JMenuItemCreerSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerSupActionPerformed(evt);
             }
         });
         
+        JMenuItemCreerCDP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemCreerCDPActionPerformed(evt);
+            }
+        });
         JMenuOutils.add(JMenuItemCreerSup);
-                        
+        JMenuOutils.add(JMenuItemCreerCDP);
+        
         racine = new DefaultMutableTreeNode() ;
         
         construireEnvironnementDirecteur() ;
@@ -304,30 +323,35 @@ public class JFrameP2S extends javax.swing.JFrame {
         
     }
     
-
-    private void afficherInfoProjet(Projet proj)
-    {
+    private void creerEnvironnementCDP() {
+        racine = new DefaultMutableTreeNode() ;
+        
+        construireEnvironnementCDP() ;
+        
+        
+    }
+    
+    
+    private void afficherInfoProjet(Projet proj) {
         JTabbedPaneProjet Tab = new JTabbedPaneProjet(proj);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
-        this.validate();        
+        this.validate();
     }
     
-    private void afficherInfoIte(Iteration ite)
-    {
+    private void afficherInfoIte(Iteration ite) {
         //JPanelInfoIteration Tab = new JPanelInfoIteration(ite);
         JTabbedPaneIteration Tab = new JTabbedPaneIteration(ite);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
-        this.validate();        
+        this.validate();
     }
-
-    private void afficherInfoMembre(Membre membre)
-    {
+    
+    private void afficherInfoMembre(Membre membre) {
         JTabbedPaneMembre Tab = new JTabbedPaneMembre(membre);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
-        this.validate();        
+        this.validate();
     }
     
     /**
@@ -341,7 +365,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             Calendar calendarFin = new GregorianCalendar();
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
-                     
+            
             ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie des infos sur le projet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
             URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
@@ -358,7 +382,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                 reponse += inputLine;
             
             if(reponse.compareTo("erreur") == 0) {
-                System.out.println("Probleme lors de l'ajout du projet dans la BD");                                
+                System.out.println("Probleme lors de l'ajout du projet dans la BD");
             }
             in.close();
         } catch(MalformedURLException e1){
@@ -380,41 +404,41 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     
-    /** 
+    /**
      * rafraichit les projets du superviseur
      *@author Conde Mike K.
      *@version 1.0
      *@see LoginServlet
      */
     public void rafraichirContenuSuperviseur() {
-	/*
-	 ** PRINCIPE : Appel a la servlet LoginServlet mais seuls
+        /*
+         ** PRINCIPE : Appel a la servlet LoginServlet mais seuls
          * les projets sont traites car le superviseur est le meme
-	 */
-	
-	try {
-                
+         */
+        
+        try {
+            
             ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
-	
+            
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                url.openStream()));
-
+                    new InputStreamReader(
+                    url.openStream()));
+            
             //Recuperation du fluxXml envoye par la Servlet : LoginServlet contenant toutes les donnees de l'utilisateur
             String fluxXml = new String("");
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 fluxXml += inputLine;
             }
-
+            
             System.out.println("FLUX : " + fluxXml);
-
+            
             if(fluxXml.compareTo("") != 0) {
                 ParserXMLLog parser = new ParserXMLLog(fluxXml);
-
-                ((Superviseur)utilisateur).setListeProjets(parser.lireProjets()) ;                
+                
+                ((Superviseur)utilisateur).setListeProjets(parser.lireProjets()) ;
             }
             in.close();
         } catch(MalformedURLException e1){
@@ -424,24 +448,79 @@ public class JFrameP2S extends javax.swing.JFrame {
             //e2.printStackTrace();
             return ;
         }
-	
-	
-	/*
-	 * ETAPE 2 : a ce point tout semble correct, appel de la fonction qui construit l'ihm
-	 */	
+        
+        
+        /*
+         * ETAPE 2 : a ce point tout semble correct, appel de la fonction qui construit l'ihm
+         */
         construireEnvironnementSuperviseur() ;
     }
-
+    
     /**
      * Dessine/ajoute les composants graphiques dans la fenetre
      *@author Conde Mike K.
      *@version 1.0
      */
-    private void construireEnvironnementSuperviseur () {
-        // on efface tout
+    private void construireEnvironnementSuperviseur() {
         JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
         JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
         racine.setUserObject(Bundle.getText("NoeudProjets")) ;
+        // on efface tout
+        racine.removeAllChildren() ;
+        // Ajout des projets du chef de projet
+        for(int i = 0 ; i < ((ChefDeProjet) utilisateur).nbProjets(); i++){
+            Projet proj = ((ChefDeProjet) utilisateur).getProjet(i);
+            NoeudProjet noeudProjet = new NoeudProjet(proj);
+            
+            // liste des iterations pour le projet
+            for(int j=0;j<proj.getListeIt().size();j++){
+                NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
+                noeudProjet.add(noeudIteration);
+            }
+            
+            racine.add(noeudProjet);
+        }
+        // racine.add(racineProjet);
+        
+        // Met à jour l'arborescence
+        jTree1.setModel(new DefaultTreeModel(racine));
+        
+        
+        // Ajout du listener pour la selection d'un projet
+        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
+                // On recupere le noeud sur lequel on a clique
+                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
+                if(d instanceof NoeudProjet) // si le noeud est un projet
+                    afficherInfoProjet(((NoeudProjet)d).getProjet());
+                
+                else if(d instanceof NoeudIteration){//Si len noeud est une iteration
+                    afficherInfoIte(((NoeudIteration)d).getIteration());
+                }
+                // si c'est le noeud "projets"
+                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0) {
+                    Vector listeProjets = new Vector();
+                    for(int i=0;i<d.getChildCount();i++) {
+                        listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
+                    }
+                    
+                    PanelContenu.removeAll(); // On supprime tout ce qu'il y a dans le panel contenu
+                    PanelContenu.add(new JPanelTousLesProjets(listeProjets));
+                    validate();
+                }
+            }
+        }
+        );
+    }
+    
+    /**
+     * Dessine/ajoute les composants graphiques dans la fenetre
+     *@author Laffargue Nicolas
+     *@version 1.0
+     */
+    private void construireEnvironnementCDP() {
+        racine.setUserObject(Bundle.getText("NoeudProjets")) ;
+        // on efface tout
         racine.removeAllChildren() ;
         // Ajout des projets du superviseur
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
@@ -456,7 +535,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             
             racine.add(noeudProjet);
         }
-       // racine.add(racineProjet);
+        // racine.add(racineProjet);
         
         // Met ? jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
@@ -474,11 +553,9 @@ public class JFrameP2S extends javax.swing.JFrame {
                     afficherInfoIte(((NoeudIteration)d).getIteration());
                 }
                 // si c'est le noeud "projets"
-                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0)
-                {
+                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0) {
                     Vector listeProjets = new Vector();
-                    for(int i=0;i<d.getChildCount();i++)
-                    {
+                    for(int i=0;i<d.getChildCount();i++) {
                         listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
                     }
                     
@@ -488,18 +565,17 @@ public class JFrameP2S extends javax.swing.JFrame {
                 }
             }
         }
-        ); 
+        );
     }
-    
     
     /**
      * Dessine/ajoute les composants graphiques dans la fenetre pour le directeur
      *@author Conde Mike K.
      *@version 1.0
      */
-    private void construireEnvironnementDirecteur () {
+    private void construireEnvironnementDirecteur() {
         JMenuItemCreerSup.setText(Bundle.getText("JMenuItemCreerSuperviseur"));
-        
+        JMenuItemCreerCDP.setText(Bundle.getText("JMenuItemCreerCDP"));
         // Premier noeud
         racine.setUserObject(Bundle.getText("NoeudRessources"));
         racine.removeAllChildren() ;
@@ -535,6 +611,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     
     private JMenuItem JMenuItemCreerProjet ;
+    private JMenuItem JMenuItemCreerCDP ;
     private JMenuItem JMenuItemCreerSup ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu JMenuAide;

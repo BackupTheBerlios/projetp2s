@@ -79,15 +79,24 @@ public class LoginServlet extends HttpServlet {
                     
                     if(rsUser.getString("fonction").compareTo("sup")==0 || rsUser.getString("fonction").compareTo("cdp")==0) {
                         /************************************************************************************************
-                         *                                  SUPERVISEUR DE PROJET                                       *
+                         *                                  SUPERVISEUR OU CHEF DE PROJET                               *
                          ************************************************************************************************/
                         
-                        //Dans le cas d'un superviseur : il faut récupérer toutes les informations relatives à ses projets
+                        //Nom de la table où aller chercher les données : Superviseur ou chef de projet
+                        String nomTable;
+                        
+                        //On choisit la table par rapport à la fonction de l'utilisateur
+                        if(rsUser.getString("fonction").compareTo("sup")==0)
+                            nomTable = "superviseur_projets";
+                        else
+                            nomTable = "chefprojet_projets";
+                        
+                        //Dans le cas d'un superviseur ou d'un chef de projet : il faut récupérer toutes les informations relatives à ses projets
                         
                         out.println("<projets>");
                                                                         
                         //Récupération des identifiants de tous les projets du superviseur
-                        prepState = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + rsUser.getString("login")+"'");
+                        prepState = conn.prepareStatement("Select idprojet from " + nomTable + " where login = '" + rsUser.getString("login")+"'");
                         ResultSet rsIdProjets = prepState.executeQuery(); // Execution de la requete
                         
                         while(rsIdProjets.next()) {

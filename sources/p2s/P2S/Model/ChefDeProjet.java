@@ -5,15 +5,13 @@
  */
 
 package P2S.Model;
-import P2S.Model.Utilisateur;
+import java.util.Vector;
 /**
  *
  * @author Cox
  */
-public class ChefDeProjet extends Utilisateur {
+public class ChefDeProjet extends Superviseur {
     
-    //ATTRRIBUTS
-    private Projet projet;
     
     //CONSTRUCTEURS
     public ChefDeProjet(String login) {
@@ -25,14 +23,12 @@ public class ChefDeProjet extends Utilisateur {
     }
     
     
-    public ChefDeProjet(String login, Projet _projet) {
-        super(login);
-        setProjet(_projet);
+    public ChefDeProjet(String login, Vector _projets) {
+        super(login,_projets);
     }
     
-    public ChefDeProjet(String login, String pass, Projet _projet) {
-        super(login, pass);
-        setProjet(_projet);
+    public ChefDeProjet(String login, String pass, Vector _projets) {
+        super(login, pass, _projets);
     }
     
     public ChefDeProjet(String login, String nom, String prenom) {
@@ -42,27 +38,15 @@ public class ChefDeProjet extends Utilisateur {
     public ChefDeProjet(String login, String pass, String nom, String prenom) {
         super(login, pass, nom, prenom);
     }
-    
+   
+    public ChefDeProjet(String login, String nom, String prenom, Vector _projets) {
+        super(login,nom,prenom,_projets);
+    }
+      
     //Constructeur complet
-    public ChefDeProjet(String login, String nom, String prenom, Projet _projet) {
-        super(login,nom,prenom);
-        setProjet(_projet);
-    }
-    
-    public ChefDeProjet(String login, String pass, String nom, String prenom, Projet _projet) {
-        super(login, pass, nom, prenom);
-        setProjet(_projet);
+    public ChefDeProjet(String login, String pass, String nom, String prenom, Vector _projets) {
+        super(login, pass, nom, prenom, _projets);
     }
 
-    
-    //GETTEURS ET SETTEURS
-    public Projet getProjet() {
-        return projet;
-    }
-
-    public void setProjet(Projet projet) {
-        this.projet = projet;
-    }
-    
-    
+       
 }
