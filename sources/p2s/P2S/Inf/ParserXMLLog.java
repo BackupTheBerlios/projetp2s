@@ -70,7 +70,9 @@ public class ParserXMLLog {
     
     public Vector lireProjets(){
         Vector projets = new Vector();
+        /*
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
         NodeList listeProjets = this._document.getElementsByTagName("projet");
         
         //Recuperation des projets un par un
@@ -290,7 +292,7 @@ public class ParserXMLLog {
         Projet p = (Projet)projets.get(0);
         Iteration i = (Iteration)p.getListeIt().get(0);
         System.out.println(i.getNumero());
-        
+        */
         return projets;
     }
     

@@ -67,6 +67,8 @@ public class LoginServlet extends HttpServlet {
                 
                 if(rsUser.next()){
                     
+                    out.println("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
+                    
                     out.println("<utilisateur>"); // debut flux
                     out.println("<login>"); // login
                     out.println(rsUser.getString("login"));
@@ -597,7 +599,7 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<responsablesTachesCollaboratives>");
                                     
                                     do{
-                                        out.println("<responsableTachCollaborative>");
+                                        out.println("<responsableTacheCollaborative>");
                                         
                                         out.println("<idmembre>");
                                         out.println(rsRespTachesC.getString("idresponsable"));
