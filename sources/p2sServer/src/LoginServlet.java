@@ -77,7 +77,7 @@ public class LoginServlet extends HttpServlet {
                     out.println(rsUser.getString("fonction"));
                     out.println("</fonction>");
                     
-                    if(rsUser.getString("fonction").compareTo("sup")==0) {
+                    if(rsUser.getString("fonction").compareTo("sup")==0 || rsUser.getString("fonction").compareTo("cdp")==0) {
                         /************************************************************************************************
                          *                                  SUPERVISEUR DE PROJET                                       *
                          ************************************************************************************************/
@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
                         //Dans le cas d'un superviseur : il faut récupérer toutes les informations relatives à ses projets
                         
                         out.println("<projets>");
-                        
+                                                                        
                         //Récupération des identifiants de tous les projets du superviseur
                         prepState = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + rsUser.getString("login")+"'");
                         ResultSet rsIdProjets = prepState.executeQuery(); // Execution de la requete

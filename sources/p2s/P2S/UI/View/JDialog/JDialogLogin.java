@@ -197,6 +197,8 @@ public class JDialogLogin extends javax.swing.JDialog {
                     ((JFrameP2S)this.getParent()).utilisateur = new Superviseur(this.JTextFieldLogin.getText(), Md5.getEncodedPassword(this.JPasswordFieldMDP.getText()), parser.lireProjets());
                 } else if(parser.lireFonction().compareTo("dir") == 0) {
                     ((JFrameP2S)this.getParent()).utilisateur = new Directeur(this.JTextFieldLogin.getText(),parser.lireMembres());
+                }else if(parser.lireFonction().compareTo("dir") == 0) {
+                    ((JFrameP2S)this.getParent()).utilisateur = new ChefDeProjet(this.JTextFieldLogin.getText(),null);
                 }
             }
             in.close();
