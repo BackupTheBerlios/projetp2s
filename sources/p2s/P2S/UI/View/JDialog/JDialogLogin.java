@@ -48,6 +48,12 @@ public class JDialogLogin extends javax.swing.JDialog {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+
         JLabelLogin.setText("Login :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -108,6 +114,9 @@ public class JDialogLogin extends javax.swing.JDialog {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 JPasswordFieldMDPFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                JPasswordFieldMDPFocusLost(evt);
+            }
         });
         JPasswordFieldMDP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -129,6 +138,14 @@ public class JDialogLogin extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-305)/2, (screenSize.height-153)/2, 305, 153);
     }//GEN-END:initComponents
+
+    private void formWindowClosed (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.exit(0) ;
+    }//GEN-LAST:event_formWindowClosed
+
+    private void JPasswordFieldMDPFocusLost (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPFocusLost
+        JButtonOK.setSelected(false) ;
+    }//GEN-LAST:event_JPasswordFieldMDPFocusLost
 
     private void JPasswordFieldMDPFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPFocusGained
         JButtonOK.setSelected(true) ;
