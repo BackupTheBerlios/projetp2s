@@ -82,6 +82,51 @@ public class ParserXMLLog {
         }
     }
     
+    public Vector lireMessages()
+    {
+        Vector messages = new Vector();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        NodeList listeMessages = this._document.getElementsByTagName("message");
+        
+        //Recupération des messages un par un
+        for(int i = 0 ; i < listeMessages.getLength() ; i++){
+            Node messageXML = listeMessages.item(i);
+            NodeList attributs = messageXML.getChildNodes();
+            
+            //Attributs que l'on va récuperer
+            String sujet = null;
+            Date date = null;
+            String message = null;
+            
+            //Récupération des attributs des messages
+             for(int j = 0 ; j < attributs.getLength() ; j++){
+                Node attributCourant = attributs.item(j);
+                
+                //Recuperation du sujet du message
+                if(attributCourant.getNodeName().equalsIgnoreCase("sujet"))
+                    sujet = attributCourant.getFirstChild().getNodeValue();
+                
+                //Récupération de la date du message
+                if(attributCourant.getNodeName().equalsIgnoreCase("date"))
+                    try{
+                        if(attributCourant.getFirstChild() != null)
+                            date = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                    } catch(ParseException e1){
+                        System.out.println("Probleme pour parser la date du message");
+                    } catch (NullPointerException e){}
+             
+                
+                 //Recuperation du corps du message
+                if(attributCourant.getNodeName().equalsIgnoreCase("detail"))
+                    message = attributCourant.getFirstChild().getNodeValue();
+                
+                Messages mess = new Messages(sujet,message,date);
+                messages.add(mess);
+             }
+        }
+        return messages;
+    }
+    
     public Vector lireProjets(){
         Vector projets = new Vector();
         

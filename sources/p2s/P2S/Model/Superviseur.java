@@ -43,6 +43,12 @@ public class Superviseur extends Utilisateur{
         this.setListeProjets(new Vector(listeProjets));
     }
     
+     public Superviseur(String login, String pass, Vector listeProjets, Vector listeMessages) {
+        super(login, pass);
+        this.setListeProjets(new Vector(listeProjets));
+        this.setListeMessages(new Vector(listeMessages));
+    }
+    
     public Superviseur(String login, String nom, String prenom) {
         super(login,nom,prenom);
         this.setListeProjets(new Vector());
@@ -62,6 +68,18 @@ public class Superviseur extends Utilisateur{
     public Superviseur(String login, String pass, String nom, String prenom, Vector listeProjets) {
         super(login, pass, nom, prenom);
         this.setListeProjets(new Vector(listeProjets));
+    }
+    
+    public Superviseur(String login, String nom, String prenom, Vector listeProjets, Vector listeMessages) {
+        super(login,nom,prenom);
+        this.setListeProjets(new Vector(listeProjets));
+        this.setListeMessages(new Vector(listeMessages));
+    }
+    
+     public Superviseur(String login, String pass, String nom, String prenom, Vector listeProjets, Vector listeMessages) {
+        super(login, pass, nom, prenom);
+        this.setListeProjets(new Vector(listeProjets));
+        this.setListeMessages(new Vector(listeMessages));
     }
     
     //METHODES

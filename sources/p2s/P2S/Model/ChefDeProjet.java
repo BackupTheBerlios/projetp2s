@@ -31,6 +31,10 @@ public class ChefDeProjet extends Superviseur {
         super(login, pass, _projets);
     }
     
+    public ChefDeProjet(String login, String pass, Vector _projets, Vector _messages) {
+        super(login, pass, _projets, _messages);
+    }
+    
     public ChefDeProjet(String login, String nom, String prenom) {
         super(login,nom,prenom);
     }
