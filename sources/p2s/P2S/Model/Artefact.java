@@ -6,6 +6,8 @@
 
 package P2S.Model;
 
+import java.util.Vector;
+
 /**
  *
  * @author Cox
@@ -18,15 +20,19 @@ public class Artefact {
     private boolean livrable;
     private String etat;
     private Membre responsable;
+    private Vector listeTachesEntrees;
+    private Vector listeTachesSorties;
     
     /** Creates a new instance of Artefact */
-    public Artefact( int id, String nom,String description,boolean livrable,String etat,Membre responsable) {
-        this.id = id;
-        this.nom = nom;
-        this.description = description;
-        this.livrable = livrable;
-        this.etat = etat;
+    public Artefact( int id, String nom,String description,boolean livrable,String etat,Membre responsable,Vector _listeTachesEntrees,Vector _listeTachesSorties) {
+        this.setId(id);
+        this.setNom(nom);
+        this.setDescription(description);
+        this.setLivrable(livrable);
+        this.setEtat(etat);
         this.setResponsable(responsable);
+        this.setListeTachesEntrees(_listeTachesEntrees);
+        this.setListeTachesSorties(_listeTachesSorties);
     }
 
     public int getId() {
@@ -75,6 +81,22 @@ public class Artefact {
 
     public void setResponsable(Membre responsable) {
         this.responsable = responsable;
+    }
+
+    public Vector getListeTachesEntrees() {
+        return listeTachesEntrees;
+    }
+
+    public void setListeTachesEntrees(Vector listeTachesEntrees) {
+        this.listeTachesEntrees = listeTachesEntrees;
+    }
+
+    public Vector getListeTachesSorties() {
+        return listeTachesSorties;
+    }
+
+    public void setListeTachesSorties(Vector listeTachesSorties) {
+        this.listeTachesSorties = listeTachesSorties;
     }
     
 }

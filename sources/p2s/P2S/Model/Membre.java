@@ -6,6 +6,8 @@
 
 package P2S.Model;
 
+import java.util.Vector;
+
 /**
  *
  * @author Cox
@@ -20,18 +22,22 @@ public class Membre {
     private String adresse;
     private String telephone;
     private String email;
+    private Vector listeTaches;
+    private Vector listeArtefacts;
     
     //CONSTRUCTEURS
     
     public Membre() {}
 
-    public Membre(int _idMembre,String _nom,String _prenom,String _adresse,String _telephone,String _email) {
+    public Membre(int _idMembre,String _nom,String _prenom,String _adresse,String _telephone,String _email,Vector _listeTaches,Vector _listeArtefacts) {
         idMembre = _idMembre;
         nom = _nom;
         prenom = _prenom;        
         adresse = _adresse;
         telephone = _telephone;
         email = _email;
+        setListeTaches(_listeTaches);
+        listeArtefacts = _listeArtefacts;
     }
     
     
@@ -84,6 +90,22 @@ public class Membre {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Vector getListeTaches() {
+        return listeTaches;
+    }
+
+    public void setListeTaches(Vector listeTaches) {
+        this.listeTaches = listeTaches;
+    }
+
+    public Vector getListeArtefacts() {
+        return listeArtefacts;
+    }
+
+    public void setListeArtefacts(Vector listeArtefacts) {
+        this.listeArtefacts = listeArtefacts;
     }
     
 }
