@@ -10,7 +10,7 @@ import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
 import P2S.Model.Projet;
 import P2S.UI.Graphic2D.GrapheIndicateursProjet;
-import P2S.UI.View.JDialog.JDialogMail;
+import P2S.UI.View.JDialog.JDialogAlerte;
 import java.text.DateFormat;
 import java.util.Locale;
 import java.awt.Color;
@@ -202,7 +202,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
     }//GEN-END:initComponents
 
     private void JButtonAlerteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlerteActionPerformed
-        new JDialogMail((java.awt.Frame)this.getRootPane().getParent(),true).show();
+        new JDialogAlerte((java.awt.Frame)this.getRootPane().getParent(),true).show();
     }//GEN-LAST:event_JButtonAlerteActionPerformed
     
     private void initText() {
