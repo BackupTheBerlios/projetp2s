@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
                     if(rsUser.getString("fonction").compareTo("sup")==0)
                     {
                         out.println("<projets>");
-                        prepState = conn.prepareStatement("Select idprojet from superviseurprojets where login = '" + rsUser.getString("login")+"'");
+                        prepState = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + rsUser.getString("login")+"'");
                         ResultSet rsIdProjet = prepState.executeQuery(); // Execution de la requete
                         
                         while(rsIdProjet.next())
