@@ -65,7 +65,7 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
                 donnees[i][2] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getNombreParticipants());
                 donnees[i][3] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTachesTerminees());
                 donnees[i][4] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTotalCharges());
-                donnees[i][5] = new JButton(Bundle.getText("JTableTachesDetails")) ;
+                donnees[i][5] = new JButton(Bundle.getText("JPanelTousLesProjetsDetail")) ;
             }
         }
          
@@ -227,9 +227,7 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
       }
      public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
-         
          details.setText(((JButton)value).getText()) ;
-         
          return details ;
       }
 
