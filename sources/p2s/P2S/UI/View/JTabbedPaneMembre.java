@@ -9,6 +9,7 @@ package P2S.UI.View;
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.Membre;
 import P2S.UI.View.JPanel.JPanelInfoGenMembre;
+import P2S.UI.View.JPanel.JPanelInfoTaches;
 import javax.swing.JTabbedPane;
 
 /**
@@ -25,6 +26,8 @@ public class JTabbedPaneMembre extends JTabbedPane {
         initComponents();
         
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoGen"),new JPanelInfoGenMembre(membre));
+        this.addTab("Tâches", new JPanelInfoTaches(membre.getListeTaches()));
+        
     }
     
     /** This method is called from within the constructor to
