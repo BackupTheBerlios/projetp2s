@@ -19,8 +19,8 @@ public class Tache {
     protected String description;
     protected String etat;
     protected int chargePrevue;
-    protected int tempsPasse;
-    protected int resteAPasser;
+    protected float tempsPasse;
+    protected float resteAPasser;
     protected Date dateDebutPrevue;
     protected Date dateDebutReelle;
     protected Date dateFinPrevue;
@@ -38,7 +38,7 @@ public class Tache {
     }
     
     //Constructeur sans listes et sans realisateur (cf Constructeur pour la classe tacheCollaborative)
-    public Tache(String _nom, String _description, String _etat,int _chargePrevue, int _tempsPasse, int _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle) {
+    public Tache(String _nom, String _description, String _etat,int _chargePrevue, float _tempsPasse, float _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle) {
         this.setNom(_nom);
         this.setDescription(_description);
         this.setEtat(_etat);
@@ -55,7 +55,7 @@ public class Tache {
     }
     
     //Constructeur sans listes
-    public Tache(String _nom, String _description, String _etat,int _chargePrevue, int _tempsPasse, int _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle,Membre _realisateur) {
+    public Tache(String _nom, String _description, String _etat,int _chargePrevue, float _tempsPasse, float _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle,Membre _realisateur) {
         this.setNom(_nom);
         this.setDescription(_description);
         this.setEtat(_etat);
@@ -72,7 +72,7 @@ public class Tache {
     }
     
     //Constructeur complet
-    public Tache(String _nom, String _description, String _etat,int _chargePrevue, int _tempsPasse, int _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle,Membre _realisateur,Vector _listeArtefactsEntrees,Vector _listeArtefactsSorties ) {
+    public Tache(String _nom, String _description, String _etat,int _chargePrevue, float _tempsPasse, float _resteAPasser, Date _dateDebutPrevue, Date _dateDebutReelle,Date _dateFinPrevue,Date _dateFinReelle,Membre _realisateur,Vector _listeArtefactsEntrees,Vector _listeArtefactsSorties ) {
         this.setNom(_nom);
         this.setDescription(_description);
         this.setEtat(_etat);
@@ -122,19 +122,19 @@ public class Tache {
         this.chargePrevue = chargePrevue;
     }
     
-    public int getTempsPasse() {
+    public float getTempsPasse() {
         return tempsPasse;
     }
     
-    public void setTempsPasse(int tempsPasse) {
+    public void setTempsPasse(float tempsPasse) {
         this.tempsPasse = tempsPasse;
     }
     
-    public int getResteAPasser() {
+    public float getResteAPasser() {
         return resteAPasser;
     }
     
-    public void setResteAPasser(int resteAPasser) {
+    public void setResteAPasser(float resteAPasser) {
         this.resteAPasser = resteAPasser;
     }
     

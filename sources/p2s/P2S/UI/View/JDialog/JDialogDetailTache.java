@@ -32,7 +32,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
     /** Creates new form JDialogAjoutMesure */
     public JDialogDetailTache(java.awt.Frame parent, boolean modal, Tache tacheDetail) {
         super(parent, modal);
-       
+        
         initComponents();
         this.initText();
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
@@ -43,31 +43,54 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         this.textDescription.setText(tacheDetail.getDescription());
         this.textIndCharge.setText(new Integer(tacheDetail.getChargePrevue()).toString());
         this.textIndCharge.setBackground(new Color(255,255,255));
-        this.textIndTempsPasse.setText(new Integer(tacheDetail.getTempsPasse()).toString());
+        this.textIndTempsPasse.setText(new Float(tacheDetail.getTempsPasse()).toString());
         this.textIndTempsPasse.setBackground(new Color(255,255,255));
-        this.textIndTempsRestant.setText(new Integer(tacheDetail.getResteAPasser()).toString());
+        this.textIndTempsRestant.setText(new Float(tacheDetail.getResteAPasser()).toString());
         this.textIndTempsRestant.setBackground(new Color(255,255,255));
-        this.textIndDateDebutPrevue.setText(dateFormat.format(tacheDetail.getDateDebutPrevue()));
+        
+        if(tacheDetail.getDateDebutPrevue() != null){
+            this.textIndDateDebutPrevue.setText(dateFormat.format(tacheDetail.getDateDebutPrevue()));
+        }else{
+            this.textIndDateDebutPrevue.setText("N/C");          
+        }
         this.textIndDateDebutPrevue.setBackground(new Color(255,255,255));
-        this.textIndDateDebutReelle.setText(dateFormat.format(tacheDetail.getDateDebutReelle()));
+        
+        
+        if(tacheDetail.getDateDebutReelle() != null){
+            this.textIndDateDebutReelle.setText(dateFormat.format(tacheDetail.getDateDebutReelle()));
+        }else{
+            this.textIndDateDebutReelle.setText("N/C");
+            
+        }
         this.textIndDateDebutReelle.setBackground(new Color(255,255,255));
-        this.textIndDateFinPrevue.setText(dateFormat.format(tacheDetail.getDateFinPrevue()));
+        
+        
+        if(tacheDetail.getDateFinPrevue() != null){
+            this.textIndDateFinPrevue.setText(dateFormat.format(tacheDetail.getDateFinPrevue()));
+        }else{
+            this.textIndDateFinPrevue.setText("N/C");
+        }
         this.textIndDateFinPrevue.setBackground(new Color(255,255,255));
-        this.textIndDateFinReelle.setText(dateFormat.format(tacheDetail.getDateFinReelle()));
+        
+        
+        if(tacheDetail.getDateFinReelle() != null){
+            this.textIndDateFinReelle.setText(dateFormat.format(tacheDetail.getDateFinReelle()));
+        }else{
+            this.textIndDateFinReelle.setText("N/C");
+        }
         this.textIndDateFinReelle.setBackground(new Color(255,255,255));
+        
         
         //affichage de l'état
         Object value = tacheDetail.getEtat();
         this.textIndEtat.setText(Bundle.getText("Constante_tache"+value)) ;
-             if (((String)value).equals("1"))
-             {
-                 textIndEtat.setForeground(new Color(20, 20, 250)) ;
-             }
-            if (((String)value).equals("3"))
-             {
-                 textIndEtat.setForeground(new Color(250, 20, 20)) ;
-             }
-            
+        if (((String)value).equals("1")) {
+            textIndEtat.setForeground(new Color(20, 20, 250)) ;
+        }
+        if (((String)value).equals("3")) {
+            textIndEtat.setForeground(new Color(250, 20, 20)) ;
+        }
+        
         this.textIndEtat.setBackground(new Color(255,255,255));
         System.out.println(value);
         //recupération de la liste des artefacts en entrées
@@ -85,7 +108,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
                 donnees[i][4] = ((Artefact)artefactsEntrees.get(i)).getEtat() ;
             }
         }
-        
+         
         /*ModeleTableMesure tableModel = new ModeleTableMesure(donnees, titresColonnes) ;
         table = new JTable(tableModel) ;
         tableScrollPane = new JScrollPane(table) ;
@@ -226,13 +249,12 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-445)/2, (screenSize.height-445)/2, 445, 445);
     }//GEN-END:initComponents
-
+    
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         this.dispose();
     }//GEN-LAST:event_buttonOkActionPerformed
-
-    public void initText()
-    {
+    
+    public void initText() {
         this.setTitle(Bundle.getText("JDialogDetailTacheTitle"));
         labelStaticIndNom.setText(Bundle.getText("JDialogDetailTacheName"));
         labelStaticIndRealisateur.setText(Bundle.getText("JDialogDetailTacheRealisator"));
@@ -248,7 +270,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         this.buttonOk.setText(Bundle.getText("JDialogDetailTacheButtonOk"));
     }
     
-     
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonOk;

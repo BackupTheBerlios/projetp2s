@@ -42,7 +42,7 @@ public class JPanelIndicTachesMembre extends javax.swing.JPanel {
             if (indicateursTache.get(i) instanceof IndicateursTacheMembre)
             {
                 donnees[i][0] = ((IndicateursTacheMembre)indicateursTache.get(i)).getNom() ;
-                donnees[i][1] = new Integer(((IndicateursTacheMembre)indicateursTache.get(i)).getCharges()) ;
+                donnees[i][1] = new Float(((IndicateursTacheMembre)indicateursTache.get(i)).getCharges()) ;
                 donnees[i][2] = ((IndicateursTacheMembre)indicateursTache.get(i)).getNomProjet();
             }
         }

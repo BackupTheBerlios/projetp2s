@@ -266,7 +266,7 @@ public class ParserXMLLog {
                                 int tachesTermineesIte = 0;
                                 int dureeMoyenneTacheIte = 0;
                                 int nombreParticipantsIte = 0;
-                                int chargeMoyenneParticipants = 0;
+                                float chargeMoyenneParticipants = 0;
                                 int nombreMoyenTachesParticipants = 0;
                                 
                                 NodeList attributsIndicateurIte = attributIterationCourant.getChildNodes();
@@ -300,7 +300,7 @@ public class ParserXMLLog {
                                     //Recuperation de la charge moyenne des participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("chargemoyenneparticipants"))
                                         if(indicateurActuelIte.getFirstChild() != null)
-                                            chargeMoyenneParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                            chargeMoyenneParticipants = Float.parseFloat(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation de la charge moyenne des participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombremoyentachesparticipants"))
@@ -309,7 +309,9 @@ public class ParserXMLLog {
                                     
                                 }
                                 indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);
+             
                             }
+                            
                             
                             
                             
@@ -327,8 +329,8 @@ public class ParserXMLLog {
                                     String descriptionTache = null;
                                     String etat = null;
                                     int chargePrevue = 0;
-                                    int tempsPasse = 0;
-                                    int resteAPasser = 0;
+                                    float tempsPasse = 0;
+                                    float resteAPasser = 0;
                                     Date dateDebutPrevueTache = null;
                                     Date dateDebutReelleTache = null;
                                     Date dateFinPrevueTache = null;
@@ -370,12 +372,12 @@ public class ParserXMLLog {
                                         //Recuperation du temps passe de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("tempspasse"))
                                             if(attributTacheCourant.getFirstChild() != null)
-                                                tempsPasse = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                                tempsPasse = Float.parseFloat(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation du reste a passer de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("tempsrestant"))
                                             if(attributTacheCourant.getFirstChild() != null)
-                                                resteAPasser = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                                resteAPasser = Float.parseFloat(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation de la date de debut prevue de l'iteration
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
@@ -415,6 +417,7 @@ public class ParserXMLLog {
                                     }
                                     
                                
+                                    
                                     Tache tache = new Tache(nomTache, descriptionTache, etat, chargePrevue, tempsPasse, resteAPasser, dateDebutPrevueTache, dateDebutReelleTache, dateFinPrevueTache, dateFinReelleTache);
                                     tacheListe.add(tache);
                                 }
@@ -588,8 +591,8 @@ public class ParserXMLLog {
                 if(attributCourant.getNodeName().equalsIgnoreCase("indicateursProjets")){
                     
                     String nomProjet = null;
-                    int charge = -1;
-                    int tempsTravail = -1;
+                    float charge = -1;
+                    float tempsTravail = -1;
                     
                     NodeList listeIndicateursProjetsMembre = attributCourant.getChildNodes();
                     
@@ -610,12 +613,12 @@ public class ParserXMLLog {
                             //Recuperation des charges dans ce projet
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("charges"))
                                 if(indicateurActuel.getFirstChild() != null)
-                                    charge = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                    charge = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
                             
                             //Recuperation du temps de travail dans ce projet
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("tempstravail"))
                                 if(indicateurActuel.getFirstChild() != null)
-                                    tempsTravail = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                    tempsTravail = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
                             
                         }
                         
@@ -631,7 +634,7 @@ public class ParserXMLLog {
                     
                     String nomTache = null;
                     String nomProjet = null;
-                    int charges = -1;
+                    float charges = -1;
                     
                     NodeList listeIndicateursTachesMembre = attributCourant.getChildNodes();
                     
@@ -657,7 +660,7 @@ public class ParserXMLLog {
                             //Recuperation des charges dans cette tache
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("charges"))
                                 if(indicateurActuel.getFirstChild() != null)
-                                    charges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                    charges = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
                             
                         }
                         listeIndicateursTache.add(new IndicateursTacheMembre(nomTache,nomProjet,charges));

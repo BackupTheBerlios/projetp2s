@@ -65,9 +65,9 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
         {
             if (projets.get(i) instanceof IndicateursProjetMembre)
             {
-                donnees2[i][0] = ((IndicateursProjetMembre)projets.get(i)).getNom() ;
-                donnees2[i][1] = new Integer(((IndicateursProjetMembre)projets.get(i)).getCharges()) ;
-                donnees2[i][2] = new Integer(((IndicateursProjetMembre)projets.get(i)).getTempsTravail()) ;
+                donnees2[i][0] = ((IndicateursProjetMembre)projets.get(i)).getNom();
+                donnees2[i][1] = new Float(((IndicateursProjetMembre)projets.get(i)).getCharges());
+                donnees2[i][2] = new Float(((IndicateursProjetMembre)projets.get(i)).getTempsTravail());
             }
         }
         

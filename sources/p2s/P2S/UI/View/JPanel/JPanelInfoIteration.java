@@ -23,7 +23,7 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         
         IndicateursIteration ind = ite.getIndicateursIteration();
 
-        this.textIndChargeMoyenne.setText(new Integer(ind.getChargeMoyenneParticipants()).toString());
+        this.textIndChargeMoyenne.setText(new Float(ind.getChargeMoyenneParticipants()).toString());
         this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
         this.textIndDureeMoyenne.setText(new Integer(ind.getDureeMoyenneTaches()).toString());
         this.textIndMoyenneTache.setText(new Integer(ind.getNombreMoyenTachesParticipants()).toString());

@@ -56,8 +56,8 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
                 donnees[i][0] = ((Tache)taches.get(i)).getNom() ;
                 donnees[i][1] = ((Tache)taches.get(i)).getEtat() ;
                 donnees[i][2] = new Integer(((Tache)taches.get(i)).getChargePrevue()) ;
-                donnees[i][3] = new Integer(((Tache)taches.get(i)).getTempsPasse()) ;
-                donnees[i][4] = new Integer(((Tache)taches.get(i)).getResteAPasser()) ;
+                donnees[i][3] = new Float(((Tache)taches.get(i)).getTempsPasse()) ;
+                donnees[i][4] = new Float(((Tache)taches.get(i)).getResteAPasser()) ;
                 donnees[i][5] = new JButton(Bundle.getText("JTableTachesDetails")) ;
             }
         }

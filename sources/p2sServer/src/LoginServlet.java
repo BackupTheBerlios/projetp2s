@@ -880,7 +880,8 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<indicateurProjet>");
                                     
                                     out.println("<nom>");
-                                    out.println(rsProjetsMembre.getString("nom")); //Nom du projet ou participe le membre
+                                    if(rsProjetsMembre.getString("nom") != null)
+                                        out.println(rsProjetsMembre.getString("nom")); //Nom du projet ou participe le membre
                                     out.println("</nom>");
                                     
                                     
@@ -916,9 +917,9 @@ public class LoginServlet extends HttpServlet {
                                     }
                                     
                                     
-                                    int chargesMembre = 0;
-                                    int chargesTotale = 0;
-                                    int tempsTravail = 0;
+                                    float chargesMembre = 0;
+                                    float chargesTotale = 0;
+                                    float tempsTravail = 0;
                                     
                                     //Charges du membre sur le projet = temps passé sur ses taches + SOMME DE (temps passé sur une tache collaborative / nombre de participants à cette tache collaborative)
                                     if(rsIndicChargesTaches.next())
@@ -930,7 +931,7 @@ public class LoginServlet extends HttpServlet {
                                     
                                     //Temps de travail du membre = (charges du membre sur lengthprojet / charges totales du projet) * 100
                                     if(chargesMembre != 0 && chargesTotale !=0)
-                                        tempsTravail = (int) ((double) chargesMembre/ (double) chargesTotale *100);
+                                        tempsTravail = (float) ((double) chargesMembre/ (double) chargesTotale *100);
                                     
                                     
                                     out.println("<charges>");
@@ -973,15 +974,17 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<indicateurTache>");
                                     
                                     out.println("<nomProjet>");
-                                    out.println(rsIndicTacheMembre.getString(1));
+                                    if(rsIndicTacheMembre.getString(1) != null)
+                                        out.println(rsIndicTacheMembre.getString(1));
                                     out.println("</nomProjet>");
                                     
                                     out.println("<nom>");
-                                    out.println(rsIndicTacheMembre.getString(2));
+                                    if(rsIndicTacheMembre.getString(2) != null)
+                                        out.println(rsIndicTacheMembre.getString(2));
                                     out.println("</nom>");
                                     
                                     out.println("<charges>");
-                                    out.println(rsIndicTacheMembre.getFloat("tempspasse"));
+                                        out.println(rsIndicTacheMembre.getFloat("tempspasse"));
                                     out.println("</charges>");
                                     
                                     out.println("</indicateurTache>");
@@ -996,7 +999,8 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</nomProjet>");
                                         
                                         out.println("<nom>");
-                                        out.println(rsIndicTacheCollaborativeMembre.getString(2));
+                                        if(rsIndicTacheCollaborativeMembre.getString(2) != null)
+                                            out.println(rsIndicTacheCollaborativeMembre.getString(2));
                                         out.println("</nom>");
                                         
                                         //ResultSet permettant de savoir combien il y a de participants sur la tache collaborative
@@ -1044,7 +1048,8 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nom>");
                                     
                                     out.println("<etat>");
-                                    out.println(rsIndicArtefactMembre.getString("etat"));
+                                    if(rsIndicArtefactMembre.getString("etat") != null)
+                                        out.println(rsIndicArtefactMembre.getString("etat"));
                                     out.println("</etat>");
                                     
                                     out.println("</indicateurArtefact>");

@@ -13,14 +13,14 @@ package P2S.Model;
 public class IndicateursProjetMembre {
     
     private String nom;
-    private int charges;
-    private int tempsTravail;
+    private float charges;
+    private float tempsTravail;
     
     /** Creates a new instance of IndicateursProjetMembre */
     public IndicateursProjetMembre() {
     }
 
-    public IndicateursProjetMembre(String _nom, int _charges, int _tempsTravail) {
+    public IndicateursProjetMembre(String _nom, float _charges, float _tempsTravail) {
         nom = _nom;
         charges = _charges;
         tempsTravail = _tempsTravail;
@@ -34,19 +34,19 @@ public class IndicateursProjetMembre {
         this.nom = nom;
     }
 
-    public int getCharges() {
+    public float getCharges() {
         return charges;
     }
 
-    public void setCharges(int charges) {
+    public void setCharges(float charges) {
         this.charges = charges;
     }
 
-    public int getTempsTravail() {
+    public float getTempsTravail() {
         return tempsTravail;
     }
 
-    public void setTempsTravail(int tempsTravail) {
+    public void setTempsTravail(float tempsTravail) {
         this.tempsTravail = tempsTravail;
     }
     

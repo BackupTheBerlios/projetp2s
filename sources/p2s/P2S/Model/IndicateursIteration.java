@@ -18,7 +18,7 @@ public class IndicateursIteration {
     private int nombreTachesTerminees;
     private int dureeMoyenneTaches;
     private int nombreParticipants;
-    private int chargeMoyenneParticipants;
+    private float chargeMoyenneParticipants;
     private int nombreMoyenTachesParticipants;
 
     
@@ -29,7 +29,7 @@ public class IndicateursIteration {
     }
     
     //Constructeur complet
-    public IndicateursIteration(int _totalCharges,int _nombreTachesTerminees,int _dureeMoyenneTaches,int _nombreParticipants,int _chargeMoyenneParticipants,int _nombreMoyenTachesParticipants){
+    public IndicateursIteration(int _totalCharges,int _nombreTachesTerminees,int _dureeMoyenneTaches,int _nombreParticipants,float _chargeMoyenneParticipants,int _nombreMoyenTachesParticipants){
         this.totalCharges = _totalCharges;
         this.nombreTachesTerminees = _nombreTachesTerminees;
         this.dureeMoyenneTaches = _dureeMoyenneTaches;
@@ -73,11 +73,11 @@ public class IndicateursIteration {
         this.nombreParticipants = nombreParticipants;
     }
 
-    public int getChargeMoyenneParticipants() {
+    public float getChargeMoyenneParticipants() {
         return chargeMoyenneParticipants;
     }
 
-    public void setChargeMoyenneParticipants(int chargeMoyenneParticipants) {
+    public void setChargeMoyenneParticipants(float chargeMoyenneParticipants) {
         this.chargeMoyenneParticipants = chargeMoyenneParticipants;
     }
 

@@ -14,13 +14,13 @@ public class IndicateursTacheMembre {
     
     private String nom;
     private String nomProjet;
-    private int charges;
+    private float charges;
     
     /** Creates a new instance of IndicateursTacheMembre */
     public IndicateursTacheMembre() {
     }
     
-    public IndicateursTacheMembre(String _nom, String _nomProjet, int _charges) {
+    public IndicateursTacheMembre(String _nom, String _nomProjet, float _charges) {
         nom = _nom;
         nomProjet = _nomProjet;
         charges = _charges;
@@ -34,11 +34,11 @@ public class IndicateursTacheMembre {
         this.nom = nom;
     }
 
-    public int getCharges() {
+    public float getCharges() {
         return charges;
     }
 
-    public void setCharges(int charges) {
+    public void setCharges(float charges) {
         this.charges = charges;
     }
 
