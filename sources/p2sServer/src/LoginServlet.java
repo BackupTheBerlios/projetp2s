@@ -12,7 +12,7 @@ import javax.servlet.http.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.DriverManager; 
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -28,9 +28,9 @@ public class LoginServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         
-        try { 
-            Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-        } catch (Exception ex) { 
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         
         // On verifie que le login et que le mot de passe sont non nul
-        if ((login != null) && (password != null)){                        
+        if ((login != null) && (password != null)){
             try {
                 ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
                 // Connexion a la base de donnees                                
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
                 ResultSet rsUser = prepState.executeQuery(); // Execution de la requete
                 
                 if(rsUser.next()){
-                                              
+                    
                     out.println("<utilisateur>"); // debut flux
                     out.println("<login>"); // login
                     out.println(rsUser.getString("login"));
@@ -76,58 +76,513 @@ public class LoginServlet extends HttpServlet {
                     out.println(rsUser.getString("fonction"));
                     out.println("</fonction>");
                     
-                    if(rsUser.getString("fonction").compareTo("sup")==0)
-                    {
+                    if(rsUser.getString("fonction").compareTo("sup")==0) {
+                        //Dans le cas d'un superviseur : il faut récupérer toutes les informations relatives à ses projets
                         out.println("<projets>");
-                        prepState = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + rsUser.getString("login")+"'");
-                        ResultSet rsIdProjet = prepState.executeQuery(); // Execution de la requete
                         
-                        while(rsIdProjet.next())
-                        {
+                        //Récupération des identifiants de tous les projets du superviseur
+                        prepState = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + rsUser.getString("login")+"'");
+                        ResultSet rsIdProjets = prepState.executeQuery(); // Execution de la requete
+                        
+                        while(rsIdProjets.next()) {
+                            //Pour chaque projet,on crée des balises <projet></projet>
                             out.println("<projet>");
-                            prepState = conn.prepareStatement("Select * from projets where idprojet = '" + rsIdProjet.getString("idProjet")+"'");
-                            ResultSet rsProjet = prepState.executeQuery(); // Execution de la requete
                             
-                            rsProjet.next();
+                            prepState = conn.prepareStatement("Select * from projets where idprojet = '" + rsIdProjets.getString("idprojet") + "'");
+                            ResultSet rsProjets = prepState.executeQuery(); // Execution de la requete
                             
-                            out.println("<idProjet>");
-                            out.println(rsProjet.getString("idprojet"));
-                            out.println("</idProjet>");
-                            
-                            out.println("<nom>");
-                            out.println(rsProjet.getString("nom"));
-                            out.println("</nom>");
-                            
-                            out.println("<description>");
-                            out.println(rsProjet.getString("description"));
-                            out.println("</description>");
-                            
-                            out.println("<datedebut>");
-                            out.println(rsProjet.getString("datedebut"));
-                            out.println("</datedebut>");
-                            
-                            out.println("<datefin>");
-                            out.println(rsProjet.getString("datefin"));
-                            out.println("</datefin>");
-                            
-                            out.println("</projet>");
-                            
-                            rsProjet.close();
+                            if(rsProjets.next()){ //On se place sur le resultat de la requete (il n'y en a qu'un seul)
+                                
+                                /*********** RECUPERATION DES DONNEES DE BASES DU PROJET  ************/
+                                out.println("<id>");
+                                out.println(rsProjets.getString("idprojet"));
+                                out.println("</id>");
+                                
+                                out.println("<nom>");
+                                out.println(rsProjets.getString("nom"));
+                                out.println("</nom>");
+                                
+                                out.println("<description>");
+                                out.println(rsProjets.getString("description"));
+                                out.println("</description>");
+                                
+                                out.println("<dateDebut>");
+                                out.println(rsProjets.getString("datedebut"));
+                                out.println("</dateDebut>");
+                                
+                                out.println("<dateFin>");
+                                out.println(rsProjets.getString("datefin"));
+                                out.println("</dateFin>");
+                                
+                                out.println("<budget>");
+                                out.println(rsProjets.getString("budget"));
+                                out.println("</budget>");
+                                
+                                /*********** RECUPERATION DES MEMBRES DU PROJET  ************/
+                                prepState = conn.prepareStatement("Select m.idmembre,m.nom,m.prenom,m.adresse,m.telephone,m.email from membres m, membres_projets mp where m.idmembre = mp.idmembre AND mp.idprojet = '"+ rsIdProjets.getString("idprojet") +"'");
+                                ResultSet rsMembres = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsMembres.next()){
+                                    out.println("<membres>");
+                                    do{
+                                        out.println("<membre>");
+                                        //Pour chaque membre, on récupère ses informations personnelles
+                                        
+                                        /************** INFORMATIONS PERSONNELLES DU MEMBRE *********/
+                                        out.println("<id>");
+                                        out.println(rsMembres.getString("idmembre"));
+                                        out.println("</id>");
+                                        
+                                        out.println("<nom>");
+                                        out.println(rsMembres.getString("nom"));
+                                        out.println("</nom>");
+                                        
+                                        out.println("<prenom>");
+                                        out.println(rsMembres.getString("prenom"));
+                                        out.println("</prenom>");
+                                        
+                                        out.println("<adresse>");
+                                        out.println(rsMembres.getString("adresse"));
+                                        out.println("</adresse>");
+                                        
+                                        out.println("<telephone>");
+                                        out.println(rsMembres.getString("telephone"));
+                                        out.println("</telephone>");
+                                        
+                                        out.println("<email>");
+                                        out.println(rsMembres.getString("email"));
+                                        out.println("</email>");
+                                        
+                                        /********************* ROLES DU MEMBRE **************/
+                                        
+                                        prepState = conn.prepareStatement("Select r.idrole,r.nom,r.description from roles r, roles_membres rm where r.idrole = rm.idrole AND rm.idmembre = '"+ rsMembres.getString("idmembre") +"'");
+                                        ResultSet rsRoles = prepState.executeQuery(); // Execution de la requete
+                                        
+                                        if(rsRoles.next()){
+                                            //Si il y a des roles
+                                            out.println("<roles>");
+                                            do{
+                                                /********* CREATION DE CHAQUE ROLE DU MEMBRE *********/
+                                                out.println("<role>");
+                                                out.println("<id>");
+                                                out.println(rsRoles.getString("idrole"));
+                                                out.println("</id>");
+                                                
+                                                out.println("<designation>");
+                                                out.println(rsRoles.getString("nom"));
+                                                out.println("</designation>");
+                                                
+                                                out.println("<description>");
+                                                out.println(rsRoles.getString("description"));
+                                                out.println("</description>");
+                                                out.println("</role>");
+                                            }while(rsRoles.next());
+                                            
+                                            out.print("</roles>");
+                                        }
+                                        
+                                        out.print("</membre>");
+                                        
+                                    }
+                                    while(rsMembres.next());
+                                    
+                                    out.println("</membres>");
+                                    rsMembres.close();
+                                }
+                                
+                                /***************** ARTEFACTS PRESENTS DANS LE PROJETS *************/
+                                prepState = conn.prepareStatement("Select * from artefacts");
+                                ResultSet rsArtefacts = prepState.executeQuery(); // Execution de la requete
+                                if(rsArtefacts.next()){
+                                    out.println("<artefacts>");
+                                    
+                                    do{
+                                        out.println("<artefact>");
+                                        
+                                        out.println("<id>");
+                                        out.println(rsArtefacts.getString("idartefact"));
+                                        out.println("</id>");
+                                        
+                                        out.println("<livrable>");
+                                        out.println(rsArtefacts.getString("livrable"));
+                                        out.println("</livrable>");
+                                        
+                                        out.println("<etat>");
+                                        out.println(rsArtefacts.getString("etat"));
+                                        out.println("</etat>");
+                                        
+                                        out.println("<nom>");
+                                        out.println(rsArtefacts.getString("nom"));
+                                        out.println("</nom>");
+                                        
+                                        out.println("<description>");
+                                        out.println(rsArtefacts.getString("description"));
+                                        out.println("</description>");
+                                        
+                                        out.println("<description>");
+                                        out.println(rsArtefacts.getString("description"));
+                                        out.println("</description>");
+                                        
+                                        out.println("<idresponsable>");
+                                        out.println(rsArtefacts.getString("idresponsable"));
+                                        out.println("</idresponsable>");
+                                        
+                                        out.println("</artefact>");
+                                    }while(rsArtefacts.next());
+                                    
+                                    out.println("</artefacts>");
+                                    rsArtefacts.close();
+                                }
+                                
+                                /********************* CREATION DES ITERATIONS *******************/
+                                prepState = conn.prepareStatement("Select * from iterations");
+                                ResultSet rsIterations = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsIterations.next()){
+                                    out.println("<iterations>");
+                                    do{
+                                        out.println("<iteration>");
+                                        
+                                        out.println("<id>");
+                                        out.println(rsIterations.getString("iditeration"));
+                                        out.println("</id>");
+                                        
+                                        out.println("<numero>");
+                                        out.println(rsIterations.getString("numero"));
+                                        out.println("</numero>");
+                                        
+                                        out.println("<datedebutprevue>");
+                                        out.println(rsIterations.getString("datedebutprevue"));
+                                        out.println("</datedebutprevue>");
+                                        
+                                        out.println("<datedebutreelle>");
+                                        out.println(rsIterations.getString("datedebutreelle"));
+                                        out.println("</datedebutreelle>");
+                                        
+                                        out.println("<datefinprevue>");
+                                        out.println(rsIterations.getString("datefinprevue"));
+                                        out.println("</datefinprevue>");
+                                        
+                                        out.println("<datefinreelle>");
+                                        out.println(rsIterations.getString("datefinreelle"));
+                                        out.println("</datefinreelle>");
+                                        
+                                        /****************** Liste des taches dans l'itération ***********/
+                                        prepState = conn.prepareStatement("Select * from taches where iditeration = " + rsIterations.getString("iditeration"));
+                                        ResultSet rsTaches = prepState.executeQuery(); // Execution de la requete
+                                        
+                                        if(rsTaches.next()){
+                                            out.println("<taches>");
+                                            
+                                            do{
+                                                out.println("<tache>");
+                                                
+                                                out.println("<id>");
+                                                out.println(rsTaches.getString("idtache"));
+                                                out.println("</id>");
+                                                
+                                                out.println("<nom>");
+                                                out.println(rsTaches.getString("nom"));
+                                                out.println("</nom>");
+                                                
+                                                out.println("<description>");
+                                                out.println(rsTaches.getString("description"));
+                                                out.println("</description>");
+                                                
+                                                out.println("<etat>");
+                                                out.println(rsTaches.getString("etat"));
+                                                out.println("</etat>");
+                                                
+                                                out.println("<etat>");
+                                                out.println(rsTaches.getString("etat"));
+                                                out.println("</etat>");
+                                                
+                                                out.println("<chargeprevue>");
+                                                out.println(rsTaches.getString("chargeprevue"));
+                                                out.println("</chargeprevue>");
+                                                
+                                                out.println("<tempspasse>");
+                                                out.println(rsTaches.getString("tempspasse"));
+                                                out.println("</tempspasse>");
+                                                
+                                                out.println("<datedebutprevue>");
+                                                out.println(rsTaches.getString("datedebutprevue"));
+                                                out.println("</datedebutprevue>");
+                                                
+                                                out.println("<datedebutreelle>");
+                                                out.println(rsTaches.getString("datedebutreelle"));
+                                                out.println("</datedebutreelle>");
+                                                
+                                                out.println("<datefinprevue>");
+                                                out.println(rsTaches.getString("datefinprevue"));
+                                                out.println("</datefinprevue>");
+                                                
+                                                out.println("<datefinreelle>");
+                                                out.println(rsTaches.getString("datefinreelle"));
+                                                out.println("</datefinreelle>");
+                                                
+                                                out.println("</tache>");
+                                            } while(rsTaches.next());
+                                            rsTaches.close();
+                                            out.println("</taches>");
+                                        }
+                                        /****************** Liste des taches collaboratives dans l'itération ***********/
+                                        prepState = conn.prepareStatement("Select * from tachescolaboratives where iditeration = " + rsIterations.getString("iditeration"));
+                                        ResultSet rsTachesCollaboratives = prepState.executeQuery(); // Execution de la requete
+                                        
+                                        if(rsTachesCollaboratives.next()){
+                                            out.println("<tachesCollaboratives>");
+                                            
+                                            do{
+                                                out.println("<tacheCollaborative>");
+                                                
+                                                out.println("<id>");
+                                                out.println(rsTachesCollaboratives.getString("idtache"));
+                                                out.println("</id>");
+                                                
+                                                out.println("<nom>");
+                                                out.println(rsTachesCollaboratives.getString("nom"));
+                                                out.println("</nom>");
+                                                
+                                                out.println("<description>");
+                                                out.println(rsTachesCollaboratives.getString("description"));
+                                                out.println("</description>");
+                                                
+                                                out.println("<etat>");
+                                                out.println(rsTachesCollaboratives.getString("etat"));
+                                                out.println("</etat>");
+                                                
+                                                out.println("<etat>");
+                                                out.println(rsTachesCollaboratives.getString("etat"));
+                                                out.println("</etat>");
+                                                
+                                                out.println("<chargeprevue>");
+                                                out.println(rsTachesCollaboratives.getString("chargeprevue"));
+                                                out.println("</chargeprevue>");
+                                                
+                                                out.println("<tempspasse>");
+                                                out.println(rsTachesCollaboratives.getString("tempspasse"));
+                                                out.println("</tempspasse>");
+                                                
+                                                out.println("<datedebutprevue>");
+                                                out.println(rsTachesCollaboratives.getString("datedebutprevue"));
+                                                out.println("</datedebutprevue>");
+                                                
+                                                out.println("<datedebutreelle>");
+                                                out.println(rsTachesCollaboratives.getString("datedebutreelle"));
+                                                out.println("</datedebutreelle>");
+                                                
+                                                out.println("<datefinprevue>");
+                                                out.println(rsTachesCollaboratives.getString("datefinprevue"));
+                                                out.println("</datefinprevue>");
+                                                
+                                                out.println("<datefinreelle>");
+                                                out.println(rsTachesCollaboratives.getString("datefinreelle"));
+                                                out.println("</datefinreelle>");
+                                                
+                                                out.println("</tacheCollaborative>");
+                                            } while(rsTachesCollaboratives.next());
+                                            
+                                            rsTachesCollaboratives.close();
+                                            out.println("</tachesCollaboratives>");
+                                            
+                                        }
+                                        out.println("</iteration>");
+                                        
+                                    }while(rsIterations.next());
+                                    
+                                    rsIterations.close();
+                                    out.println("</iterations>");
+                                }
+                                
+                                /**************** LES RISQUES **************/
+                                prepState = conn.prepareStatement("Select * from risques where idprojet = " + rsIdProjets.getString("idprojet"));
+                                ResultSet rsRisques = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsRisques.next()){
+                                    out.print("<risques>");
+                                    
+                                    do{
+                                        out.println("<risque>");
+                                        
+                                        out.println("<id>");
+                                        out.println(rsRisques.getString("idrisque"));
+                                        out.println("</id>");
+                                        
+                                        out.println("<nom>");
+                                        out.println(rsRisques.getString("nom"));
+                                        out.println("</nom>");
+                                        
+                                        out.println("<priorite>");
+                                        out.println(rsRisques.getString("priorite"));
+                                        out.println("</priorite>");
+                                        
+                                        out.println("<impact>");
+                                        out.println(rsRisques.getString("impact"));
+                                        out.println("</impact>");
+                                        
+                                        out.println("<etat>");
+                                        out.println(rsRisques.getString("etat"));
+                                        out.println("</etat>");
+                                        
+                                        out.println("<description>");
+                                        out.println(rsRisques.getString("description"));
+                                        out.println("</description>");
+                                        
+                                        out.println("</risque>");
+                                    }while(rsRisques.next());
+                                    
+                                    out.print("</risques>");
+                                    
+                                }
+                                rsRisques.close();
+                                
+                                //PAS DE MESURES POUR L INSTANT
+                                
+                                /******************** LES BALISES DE LIENS ************/
+                                
+                                
+                                /******************* MEMBRES & TACHES ***************/
+                                prepState = conn.prepareStatement("Select idtache ,idmembre from taches");
+                                ResultSet rsMembresTaches = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsMembresTaches.next()){
+                                    out.println("<membresTaches>");
+                                    
+                                    do{
+                                        out.println("<membreTache>");
+                                        
+                                        out.println("<idmembre>");
+                                        out.println(rsMembresTaches.getString("idmembre"));
+                                        out.println("</idmembre>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsMembresTaches.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</membreTache>");
+                                    }while(rsMembresTaches.next());
+                                    
+                                    out.println("</membresTaches>");
+                                }
+                                rsMembresTaches.close();
+                                
+                                /******************* MEMBRES & TACHES COLLABORATIVES ***************/
+                                prepState = conn.prepareStatement("Select * from membres_tachescolaboratives");
+                                ResultSet rsMembresTachesCollaboratives = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsMembresTachesCollaboratives.next()){
+                                    out.println("<membresTachesCollaboratives>");
+                                    
+                                    do{
+                                        out.println("<membreTacheCollaborative>");
+                                        
+                                        out.println("<idmembre>");
+                                        out.println(rsMembresTachesCollaboratives.getString("idmembre"));
+                                        out.println("</idmembre>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsMembresTachesCollaboratives.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</membreTacheCollaborative>");
+                                    }while(rsMembresTachesCollaboratives.next());
+                                    
+                                    out.println("</membresTachesCollaboratives>");
+                                }
+                                rsMembresTachesCollaboratives.close();
+                                
+                                /******************* MEMBRES & ARTEFACTS ***************/
+                                prepState = conn.prepareStatement("Select idartefact,idresponsable from artefacts");
+                                ResultSet rsMembresArtefacts = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsMembresArtefacts.next()){
+                                    out.println("<membresArtefacts>");
+                                    
+                                    do{
+                                        out.println("<membreArtefact>");
+                                        
+                                        out.println("<idmembre>");
+                                        out.println(rsMembresArtefacts.getString("idresponsable"));
+                                        out.println("</idmembre>");
+                                        
+                                        out.println("<idartefact>");
+                                        out.println(rsMembresArtefacts.getString("idartefact"));
+                                        out.println("</idartefact>");
+                                        
+                                        out.println("</membreArtefact>");
+                                    }while(rsMembresArtefacts.next());
+                                    
+                                    out.println("</membresArtefacts>");
+                                }
+                                rsMembresArtefacts.close();
+                                
+                                /******************* TACHES & ARTEFACTS ENTREES ***************/
+                                prepState = conn.prepareStatement("Select idartefact,idtache from artefacts_entrees_taches");
+                                ResultSet rsTachesArtefactsE = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsTachesArtefactsE.next()){
+                                    out.println("<tachesArtefactsEntrees>");
+                                    
+                                    do{
+                                        out.println("<tacheArtefactEntree>");
+                                        
+                                        out.println("<idartefact>");
+                                        out.println(rsTachesArtefactsE.getString("idartefact"));
+                                        out.println("</idartefact>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsTachesArtefactsE.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</tacheArtefactEntree>");
+                                    }while(rsTachesArtefactsE.next());
+                                    
+                                    out.println("</tachesArtefactsEntrees>");
+                                }
+                                rsTachesArtefactsE.close();
+                                
+                                /******************* TACHES & ARTEFACTS SORTIES ***************/
+                                prepState = conn.prepareStatement("Select idartefact,idtache from artefacts_entrees_taches");
+                                ResultSet rsTachesArtefactsS = prepState.executeQuery(); // Execution de la requete
+                                
+                                if(rsTachesArtefactsS.next()){
+                                    out.println("<tachesArtefactsSorties>");
+                                    
+                                    do{
+                                        out.println("<tacheArtefactSortie>");
+                                        
+                                        out.println("<idartefact>");
+                                        out.println(rsTachesArtefactsS.getString("idartefact"));
+                                        out.println("</idartefact>");
+                                        
+                                        out.println("<idtache>");
+                                        out.println(rsTachesArtefactsS.getString("idtache"));
+                                        out.println("</idtache>");
+                                        
+                                        out.println("</tacheArtefactSortie>");
+                                    }while(rsTachesArtefactsS.next());
+                                    
+                                    out.println("</tachesArtefactsSorties>");
+                                }
+                                rsTachesArtefactsS.close();                                                                                                                               
+                                
+                                out.println("</projet>");
+                            }
+                            rsProjets.close();
                         }
                         out.println("</projets>");
-                        rsIdProjet.close();                        
+                        rsIdProjets.close();
                     }
                     
-                    if(rsUser.getString("fonction").compareTo("dir")==0)
-                    {
+                    if(rsUser.getString("fonction").compareTo("dir")==0) {
                         out.println("<membres>");
                         prepState = conn.prepareStatement("Select * from membres;");
                         ResultSet rsMembres = prepState.executeQuery(); // Execution de la requete
                         
-                        while(rsMembres.next())
-                        {
+                        while(rsMembres.next()) {
                             out.println("<membre>");
-                                                        
+                            
                             out.println("<idMembre>");
                             out.println(rsMembres.getString("idmembre"));
                             out.println("</idMembre>");
@@ -139,7 +594,7 @@ public class LoginServlet extends HttpServlet {
                             out.print("<prenom>");
                             out.print(rsMembres.getString("prenom"));
                             out.print("</prenom>");
-                                                                                    
+                            
                             out.print("<adresse>");
                             out.print(rsMembres.getString("adresse"));
                             out.print("</adresse>");
@@ -151,25 +606,25 @@ public class LoginServlet extends HttpServlet {
                             out.print("<email>");
                             out.print(rsMembres.getString("email"));
                             out.print("</email>");
-                                                                                   
+                            
                             out.println("</membre>");
                             
                             
                         }
-                        out.print("</membres>");
-                        rsMembres.close();                        
+                        out.println("</membres>");
+                        rsMembres.close();
                     }
                     
                     out.println("</utilisateur>");
                     
                 }
                 // Fermeture du ResultSet
-                rsUser.close();                
+                rsUser.close();
                 prepState.close(); // Fermeture de la requete
                 conn.close(); // Fermeture de la connexion
-        }catch (SQLException ex) { // Si une SQLException survient
-                System.out.println("SQLException: " + ex.getMessage()); 
-                System.out.println("SQLState: " + ex.getSQLState()); 
+            }catch (SQLException ex) { // Si une SQLException survient
+                out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
                 ex.printStackTrace();
             }
