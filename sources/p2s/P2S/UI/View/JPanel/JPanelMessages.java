@@ -6,6 +6,7 @@
 
 package P2S.UI.View.JPanel;
 
+import java.lang.*;
 import P2S.Model.*;
 import javax.swing.* ;
 import java.net.*;
@@ -100,26 +101,24 @@ public class JPanelMessages extends JPanel{
        class ButtonRenderer implements TableCellRenderer
    {
       private JButton details = null ;
-      private JButton supprimer = null;
 
       public ButtonRenderer()
       {
-         details = new JButton(Bundle.getText("JTableMessagesColonne3")) ;
-         supprimer = new JButton(Bundle.getText("JTableMessagesColonne4"));
+         details = new JButton() ;
+         
       }
 
       public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
          if (column == 2)
          {
-            details.setText(((JButton)value).getText()) ;
-            return details ;
+            details.setText(Bundle.getText("JTableMessagesColonne3")) ;           
          }
          else
          {
-             supprimer.setText(((JButton)value).getText()) ;
-             return supprimer;
+             details.setText(Bundle.getText("JTableMessagesColonne4")) ;         
          }
+         return details;
       }
 
    } // fin de la classe ButtonRenderer
@@ -136,10 +135,11 @@ public class JPanelMessages extends JPanel{
          
          super (new JTextField()) ;
          this.owner = owner ;
-         editorComponent = new JButton(Bundle.getText("")) ;
+         editorComponent = new JButton(Bundle.getText("")) ;        
          if (table.getSelectedColumn()==2)
          {
-            ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
+           
+             ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(ActionEvent e) {
                   new JDialogLireMessages(null, true, (Messages)messages.get(table.getSelectedRow())) ;
                }
@@ -187,16 +187,15 @@ public class JPanelMessages extends JPanel{
 
       public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
-          if (column == 2)
+         if (column == 2)
          {
-            details.setText(((JButton)value).getText()) ;
-            return details ;
+            details.setText(Bundle.getText("JTableMessagesColonne3")) ;           
          }
          else
          {
-             supprimer.setText(((JButton)value).getText()) ;
-             return supprimer;
+             details.setText(Bundle.getText("JTableMessagesColonne4")) ;         
          }
+         return details;
       }
 
    } // fin de la classe ButtonEditor
