@@ -119,7 +119,7 @@ public class ParserXMLLog {
             
             //IL FAUT REGARDER COMMENT CA SE PASSE POUR LES MESURES !!
             
-            Projet projetCourant = new Projet(nom,description, dateDebut, dateFin, null);
+            Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
             projets.add(projetCourant);
         }
         
@@ -172,7 +172,7 @@ public class ParserXMLLog {
                     email = attributCourant.getFirstChild().getNodeValue();
             }
             
-            Membre membreCourant = new Membre(idMembre,nom,prenom,adresse,telephone,email);
+            Membre membreCourant = new Membre(nom,prenom,adresse,telephone,email);
             membres.add(membreCourant);
         }
         return membres;

@@ -90,7 +90,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         getContentPane().add(JLabelMesures, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         JScrollPaneMesures.setBackground(new java.awt.Color(255, 255, 255));
-        JScrollPaneMesures.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JScrollPaneMesures.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jTableMesures.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -206,7 +206,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             }
             
             // On ajoute le projet
-            ((JFrameP2S)this.getParent()).ajouterProjet(new Projet(this.JTextFieldNom.getText(),this.JTextAreaDescription.getText(),dateDebut,dateFin,this.listeMesures));
+            ((JFrameP2S)this.getParent()).ajouterProjet(new Projet(this.JTextFieldNom.getText(),this.JTextAreaDescription.getText(),dateDebut,dateFin/*,this.listeMesures*/));
             this.dispose();
         }
         else // Un nom de projet n'a pas ?tait entre
@@ -229,6 +229,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
      */
     public void rafarichirMesures()
     {
+        /*
         Object donnees[][] = new Object[listeMesures.size()][3];
         
         for(int i=0;i<listeMesures.size();i++)
@@ -238,6 +239,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             donnees[i][2] = new Integer(((Mesure)(listeMesures.get(i))).get_limiteSup());
         }
         this.jTableMesures.setModel(new ModeleTableMesure(donnees,titreColonnes));
+        */
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,22 +22,10 @@ public class Projet {
     
     //CONSTRUCTEURS
     
-    /** Creates a new instance of Projet */
-    
+    //Constructeur seulement avec le nom
     public Projet(String nom, Vector listeMesures) {        
         this.nom = nom;
         this.description = new String("");
-        this.dateDebut = new Date();
-        this.dateFin = new Date();
-        this.listeMesures = listeMesures;
-        this.listeIt = new Vector();
-        this.listeMembres = new Vector();        
-        this.listeRisques = new Vector();
-    }
-    
-    public Projet(String nom, String description) {        
-        this.nom = nom;
-        this.description = description;
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = new Vector();
@@ -46,16 +34,17 @@ public class Projet {
         this.listeRisques = new Vector();
     }
     
-    public Projet(String nom, String description, Vector listeMesure) {        
+    //Constructeur sans listes
+    public Projet(String nom, String description, Date dateDebut, Date dateFin) {        
         this.nom = nom;
         this.description = description;
-        this.dateDebut = new Date();
-        this.dateFin = new Date();
-        this.listeMesures = new Vector(listeMesure);
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.listeMesures = new Vector();
         this.listeIt = new Vector();
         this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
-    }
+    }   
     
     public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres) {        
         this.nom = nom;
@@ -67,18 +56,9 @@ public class Projet {
         this.listeMembres = new Vector(listeMembres);    
         this.listeRisques = new Vector();
     }
+       
     
-    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {
-        this.nom = nom;
-        this.description = description;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.listeMesures = new Vector(listeMesure);
-        this.listeIt = new Vector();
-        this.listeMembres = new Vector();        
-        this.listeRisques = new Vector();
-    }
-        
+    //METHODES
     
     public void ajouterMesure(Mesure mesure) {
         this.listeMesures.add(mesure);

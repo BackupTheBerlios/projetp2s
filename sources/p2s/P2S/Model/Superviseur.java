@@ -14,41 +14,56 @@ import java.util.*;
  */
 public class Superviseur extends Utilisateur{
     
+    //ATTRIBUTS
+    
     private Vector listeProjets;
     
-    /** Creates a new instance of Superviseur */
+    //CONSTRUCTEURS
     
+    //Constructeur avec le login uniquement
     public Superviseur(String login) {
-        super(login);        
+        super(login);
+        this.setListeProjets(new Vector());
     }
     
     public Superviseur(String login, Vector listeProjets) {
         super(login);
-        this.listeProjets = new Vector(listeProjets);
+        this.setListeProjets(new Vector(listeProjets));
     }
     
     public Superviseur(String login, String nom, String prenom) {
-        super(login,nom,prenom);        
+        super(login,nom,prenom);
+        this.setListeProjets(new Vector());
     }
     
+    //Constructeur complet
     public Superviseur(String login, String nom, String prenom, Vector listeProjets) {
-        super(login,nom,prenom);        
-        this.listeProjets = new Vector(listeProjets);        
-    }
-                   
-    public int nbProjets()
-    {
-        return this.listeProjets.size();
+        super(login,nom,prenom);
+        this.setListeProjets(new Vector(listeProjets));
     }
     
-    public Projet getProjet(int position)
-    {
-        return (Projet)this.listeProjets.get(position);
+    //METHODES
+    
+    public int nbProjets() {
+        return this.getListeProjets().size();
     }
     
-    public void ajouterProjet(Projet projet)
-    {
-        this.listeProjets.add(projet);
+    public Projet getProjet(int position) {
+        return (Projet)this.getListeProjets().get(position);
+    }
+    
+    public void ajouterProjet(Projet projet) {
+        this.getListeProjets().add(projet);
+    }
+    
+    //SETTEURS ET GETTEURS
+    
+    public Vector getListeProjets() {
+        return listeProjets;
+    }
+    
+    public void setListeProjets(Vector listeProjets) {
+        this.listeProjets = listeProjets;
     }
     
 }

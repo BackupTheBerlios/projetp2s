@@ -12,13 +12,20 @@ package P2S.Model;
  */
 public class Risque {
     
+    //ATTRIBUTS
+    
     private String nom;
     private String description;
     private int priorite;
     private int impact;
     private int etat;
     
-    /** Creates a new instance of Risque */
+    //CONSTRUCTEUR
+    
+    //Constructeur sans parametres
+    public Risque(){}
+    
+    //Constructeur complet
     public Risque(String _nom, String _description, int _priorite, int _impact, int _etat) {
         this.setNom(_nom);
         this.setDescription(_description);
@@ -27,6 +34,8 @@ public class Risque {
         this.setEtat(_etat);
     }
 
+    //GETTEURS ET SETTEURS
+    
     public String getNom() {
         return nom;
     }

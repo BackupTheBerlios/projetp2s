@@ -6,12 +6,18 @@ package P2S.Model;
  */
 public class Mesure {
     
+    //ATTRIBUTS
+    
     private String nom;
     private int type;
     private String valeur;
     private String description;
     
-    /** Creates a new instance of Mesure */
+    //CONSTRUCTEURS
+    
+    //Constructeur sans parametres
+    public Mesure(){}
+    
     public Mesure(String _nom, int _type, String _valeur, String _description) {
         this.setNom(_nom);
         this.setType(_type);
@@ -19,6 +25,8 @@ public class Mesure {
         this.setDescription(_description);
     }
 
+    //GETTEURS ET SETTEURS
+    
     public String getNom() {
         return nom;
     }

@@ -10,16 +10,20 @@ import java.util.*;
 
 /**
  *
- * @author Cox
+ * @author Nicolas
  */
 public class Directeur extends Utilisateur{
     
+    //ATTRIBUTS
+    
     private Vector listeMembres;
     
-    /** Creates a new instance of Directeur */
+    
+    //CONSTRUCTEURS
     
     public Directeur(String login) {
         super(login);
+        listeMembres = new Vector();
     }
     
     public Directeur(String login, Vector listeMembres) {
@@ -29,6 +33,7 @@ public class Directeur extends Utilisateur{
     
     public Directeur(String login, String nom, String prenom) {
         super(login,nom,prenom);
+        listeMembres = new Vector();
     }
     
     public Directeur(String nom, String prenom, String login, Vector listeMembres) {
@@ -37,9 +42,13 @@ public class Directeur extends Utilisateur{
         this.listeMembres = new Vector(listeMembres);
     }
     
+    //METHODES
+    
     public int nbMembres() {
         return this.listeMembres.size();
     }
+    
+    //GETTEURS ET SETTEURS
     
     public Membre getMembre(int position) {
         return (Membre)this.listeMembres.get(position);

@@ -12,11 +12,13 @@ package P2S.Model;
  */
 public class Utilisateur {
     
+    //ATTRIBUTS
+    
     protected String login;
     protected String nom;
     protected String prenom;
     
-    /** Creates a new instance of Utilisateur */
+    //CONSTRUCTEURS
     
     public Utilisateur(String log) {
         this.login = log;        
@@ -27,6 +29,8 @@ public class Utilisateur {
         this.nom = nom;
         this.prenom = prenom;
     }
+    
+    //GETTEURS ET SETTEURS
     
     public String getNom() {
         return this.nom;

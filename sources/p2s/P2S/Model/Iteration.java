@@ -15,6 +15,8 @@ import java.util.Vector;
  */
 public class Iteration {
     
+    //ATTRIBUTS
+    
     private int numero;
     private Date dateDebutPrevue;
     private Date dateDebutReelle;
@@ -22,15 +24,32 @@ public class Iteration {
     private Date dateFinReelle;
     private Vector listeTache;
     
-    /** Creates a new instance of Iteration */
-    public Iteration(int num, Date _dateDebutPrevue, Date _dateDebutReelle, Date _dateFinPrevue, Date _dateFinReelle, Vector _listeTache) {
-        this.setNumero(num);
+    //CONSTRUCTEURS
+    
+    //Constructeur sans parametres
+    public Iteration(){}
+    
+    //Constructeur sans liste
+    public Iteration(int _numero, Date _dateDebutPrevue, Date _dateDebutReelle, Date _dateFinPrevue, Date _dateFinReelle){
+        this.setNumero(_numero);
+        this.setDateDebutPrevue(_dateDebutPrevue);
+        this.setDateDebutReelle(_dateDebutReelle);
+        this.setDateFinPrevue(_dateFinPrevue);
+        this.setDateFinReelle(_dateFinReelle);
+        this.listeTache = new Vector();
+    }
+            
+    //Constructeur complet
+    public Iteration(int _numero, Date _dateDebutPrevue, Date _dateDebutReelle, Date _dateFinPrevue, Date _dateFinReelle, Vector _listeTache) {
+        this.setNumero(_numero);
         this.setDateDebutPrevue(_dateDebutPrevue);
         this.setDateDebutReelle(_dateDebutReelle);
         this.setDateFinPrevue(_dateFinPrevue);
         this.setDateFinReelle(_dateFinReelle);
         this.setListeTache(new Vector(_listeTache));
     }
+    
+    //GETTEURS ET SETTEURS
 
     public int getNumero() {
         return numero;
