@@ -35,7 +35,7 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         graphe = new GrapheIndicateursProjet(proj) ;
-        add(new GrapheIndicateursProjet(proj), new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+        getContentPane().add(new GrapheIndicateursProjet(proj), new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
         
         
         // Initialisation du texte des labels
@@ -133,7 +133,7 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
         textStaticIndNombreParticipants = new javax.swing.JTextField();
         textStaticIndAvancementProjet = new javax.swing.JTextField();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JButtonAlerte.setText("jButton1");
         JButtonAlerte.addActionListener(new java.awt.event.ActionListener() {
@@ -142,90 +142,90 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
             }
         });
 
-        add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        getContentPane().add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         LabelStaticNomProjet.setText("Nom du projet : ");
-        add(LabelStaticNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 77, -1));
+        getContentPane().add(LabelStaticNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 77, -1));
 
         LabelStaticDateDebut.setText("Date de d\u00e9but : ");
-        add(LabelStaticDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
+        getContentPane().add(LabelStaticDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
 
         LabelStaticDateFin.setText("Date de fin : ");
-        add(LabelStaticDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 77, -1));
+        getContentPane().add(LabelStaticDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 77, -1));
 
         LabelStaticDescription.setText("Description : ");
-        add(LabelStaticDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 77, -1));
+        getContentPane().add(LabelStaticDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 77, -1));
 
         LabelStaticIndicateursProjet.setText("Indicateurs sur le projet :");
-        add(LabelStaticIndicateursProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
+        getContentPane().add(LabelStaticIndicateursProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
         TextAreaDescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(TextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 340, 90));
+        getContentPane().add(TextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 340, 90));
 
         textNomProjet.setEditable(false);
         textNomProjet.setText("nomProjet");
         textNomProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 340, -1));
+        getContentPane().add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 340, -1));
 
         textDateDebut.setEditable(false);
         textDateDebut.setText("dateDebut");
         textDateDebut.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 340, -1));
+        getContentPane().add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 340, -1));
 
         textDateFin.setEditable(false);
         textDateFin.setText("dateFin");
         textDateFin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 340, -1));
+        getContentPane().add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 340, -1));
 
         textIndTotalCharges.setEditable(false);
         textIndTotalCharges.setText("totalCharges");
         textIndTotalCharges.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 60, -1));
+        getContentPane().add(textIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 60, -1));
 
         textIndTachesTerminees.setEditable(false);
         textIndTachesTerminees.setText("tachesTerminees");
         textIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 60, -1));
+        getContentPane().add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 60, -1));
 
         textIndDureeMoyenneTache.setEditable(false);
         textIndDureeMoyenneTache.setText("dureeMoyenneTache");
         textIndDureeMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 60, -1));
+        getContentPane().add(textIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 60, -1));
 
         textIndNombreParticipants.setEditable(false);
         textIndNombreParticipants.setText("nombreParticipants");
         textIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 60, -1));
+        getContentPane().add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 60, -1));
 
         textIndAvancementProjet.setEditable(false);
         textIndAvancementProjet.setText("avancemantProjet");
         textIndAvancementProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 60, -1));
+        getContentPane().add(textIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 60, -1));
 
         textStaticIndTotalCharges.setEditable(false);
         textStaticIndTotalCharges.setText("Total des charges :");
         textStaticIndTotalCharges.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 270, -1));
+        getContentPane().add(textStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 270, -1));
 
         textStaticIndTachesTerminees.setEditable(false);
         textStaticIndTachesTerminees.setText("Nombre de t\u00e2ches termin\u00e9es :");
         textStaticIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 270, -1));
+        getContentPane().add(textStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 270, -1));
 
         textStaticIndDureeMoyenneTache.setEditable(false);
         textStaticIndDureeMoyenneTache.setText("Dur\u00e9e moyenne des t\u00e2ches :");
         textStaticIndDureeMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 270, -1));
+        getContentPane().add(textStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 270, -1));
 
         textStaticIndNombreParticipants.setEditable(false);
         textStaticIndNombreParticipants.setText("Nombre de participants :");
         textStaticIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 270, -1));
+        getContentPane().add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 270, -1));
 
         textStaticIndAvancementProjet.setEditable(false);
         textStaticIndAvancementProjet.setText("Avancement du projet :");
         textStaticIndAvancementProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 270, -1));
+        getContentPane().add(textStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 270, -1));
 
     }//GEN-END:initComponents
     

@@ -107,6 +107,9 @@ public class ParserXMLFichierWF {
         majIndicateurIteration();
         majIndicateurProjet();
         
+        // Maj des seuils
+        majSeuils();
+        
         // On commit les modifications dans la base
         try{
             conn.commit();
@@ -2566,5 +2569,21 @@ public class ParserXMLFichierWF {
             ex.printStackTrace();
         }
         return nb;
+    }
+    
+    private void majSeuils(){
+        try {
+            PreparedStatement prepState = conn.prepareStatement("select * from seuilsfixes_projet where idprojet="+lireIdProjet());
+            ResultSet rs = prepState.executeQuery(); // Execution de la requete
+            if(!rs.next()) {
+                prepState = conn.prepareStatement("insert into seuilsfixes_projet values ("+lireIdProjet()+",0,0,0,0,0.0,0.0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0.0,0.0,0,0,'"+login+"')");
+                prepState.execute(); // Execution de la requete
+            }
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
     }
 }
