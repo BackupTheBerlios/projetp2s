@@ -145,23 +145,14 @@ public class JDialogAPropos extends javax.swing.JDialog {
 
         getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
 
-        pack();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-489)/2, (screenSize.height-345)/2, 489, 345);
     }//GEN-END:initComponents
 
     private void jButton1ActionPerformed (java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 	this.dispose() ;
     }//GEN-LAST:event_jButton1ActionPerformed
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main (String args[]) {
-	java.awt.EventQueue.invokeLater (new Runnable () {
-	    public void run () {
-		new JDialogAPropos (new javax.swing.JFrame (), true).setVisible (true);
-	    }
-	});
-    }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GNUPanel;

@@ -26,8 +26,7 @@ public class JDialogLireMessages extends javax.swing.JDialog {
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
        
         this.initText();
-        this.labelDate.setText(dateFormat.format(mess.getDate()));
-        pack();
+        this.labelDate.setText(dateFormat.format(mess.getDate()));        
         show();
        
     }
@@ -53,30 +52,30 @@ public class JDialogLireMessages extends javax.swing.JDialog {
         textMessage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 360, 230));
 
-        labelObjet.setText("label");
+        labelObjet.setText("Objet :");
         getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
 
         textIndObjet.setEditable(false);
         textIndObjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 360, -1));
 
-        buttonOK.setText("jButton1");
+        buttonOK.setText("OK");
         buttonOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOKActionPerformed(evt);
             }
         });
 
-        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
+        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, -1, -1));
 
-        labelStaticDate.setText("jLabel1");
+        labelStaticDate.setText("Date :");
         getContentPane().add(labelStaticDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, -1));
 
         labelDate.setText("jLabel2");
         getContentPane().add(labelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 220, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-494)/2, (screenSize.height-400)/2, 494, 400);
+        setBounds((screenSize.width-498)/2, (screenSize.height-379)/2, 498, 379);
     }//GEN-END:initComponents
  
  
