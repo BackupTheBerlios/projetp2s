@@ -38,10 +38,20 @@ public class ParserXMLLog {
         try{
             DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
             DocumentBuilder constructeur = usine.newDocumentBuilder();
-            this._document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));
+	    /*
+	     ** Ce try catch permet d'attraper des exceptions dans le cas ou
+	     ** le mot de passe ou un autre champ dans le fichier xml est incorrect
+	     */
+	    try {
+		this._document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));
+	    }
+	    catch (Exception e)
+	    {
+		e.printStackTrace() ;
+	    }
             
             //this._document = constructeur.parse(new InputStream(Xml));
-        }catch(Exception e){
+        }catch(Exception e){	    
             e.printStackTrace();
         }
     }
@@ -64,8 +74,15 @@ public class ParserXMLLog {
      * @return la fonction de l'utilisateur
      */
     public String lireFonction(){
-        Node fonction = this._document.getElementsByTagName("fonction").item(0);
-        return fonction.getFirstChild().getNodeValue();
+	try {
+	    Node fonction = this._document.getElementsByTagName("fonction").item(0);
+	    return fonction.getFirstChild().getNodeValue();
+	}
+	catch (Exception e)
+	{
+	    e.printStackTrace() ;
+	    return "error" ; // seuls valeurs reconnues : dir et sup
+	}
     }
     
     public Vector lireProjets(){
