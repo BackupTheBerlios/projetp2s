@@ -6,6 +6,7 @@
 
 package P2S.UI.View.JPanel;
 
+import P2S.Control.Bundle.*;
 import P2S.Model.Projet;
 import java.util.Vector;
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
             add(new JTextField(((Projet)listeProjets.get(i)).getNom()), gridBagConstraints);
             gridBagConstraints.gridx = 1;
             gridBagConstraints.fill = java.awt.GridBagConstraints.NONE;
-            JButton detail = new JButton("détail");
+            JButton detail = new JButton(Bundle.getText("JPanelTousLesProjetsDetail"));
             final Projet p = (Projet)listeProjets.get(i);
             
             detail.addActionListener(new java.awt.event.ActionListener() {
