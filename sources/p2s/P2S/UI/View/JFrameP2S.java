@@ -45,6 +45,8 @@ public class JFrameP2S extends javax.swing.JFrame {
     public Utilisateur utilisateur;
     
     DefaultMutableTreeNode racine;
+    NoeudMessage messages;
+    DefaultMutableTreeNode projets;
     
     /** Creates new form JFrameP2S */
     public JFrameP2S() {
@@ -61,7 +63,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         jTree1.setCellRenderer(new P2STreeRenderer());
         
         // taille des scrollpanes
-        jScrollPane1.setPreferredSize(new Dimension(200, 200)) ;
+        jScrollPane1.setPreferredSize(new Dimension(200, 600)) ;
         jScrollPane2.setPreferredSize(new Dimension(600, 600)) ;
         
         
@@ -97,6 +99,11 @@ public class JFrameP2S extends javax.swing.JFrame {
                 if (utilisateur != null) {
                     if (utilisateur instanceof Superviseur || utilisateur instanceof ChefDeProjet) {
                         construireEnvironnementSuperviseur() ;
+                        PanelContenu.removeAll() ;
+                        validate() ;
+                    }
+		    if (utilisateur instanceof ChefDeProjet) {
+                        construireEnvironnementCDP() ;
                         PanelContenu.removeAll() ;
                         validate() ;
                     }
@@ -461,8 +468,12 @@ public class JFrameP2S extends javax.swing.JFrame {
                 
                 if(utilisateur instanceof Directeur){
                     creerEnvironnementDir();
-                }else{
+                }
+		else if (utilisateur instanceof Superviseur) {
                     creerEnvironnementSup();
+                }
+		else{
+                    creerEnvironnementCDP();		    
                 }
             } else {
                 JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
@@ -509,6 +520,10 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // Construction de l'arborescence
         
+	// Messages
+        messages = new NoeudMessage();
+	// Projets
+        projets = new DefaultMutableTreeNode();
         // Premier noeud
         racine = new DefaultMutableTreeNode();
         
@@ -516,6 +531,22 @@ public class JFrameP2S extends javax.swing.JFrame {
         
     }
     
+    
+    /**
+     * @author : Conde Mike K.
+     **/
+    private void creerEnvironnementCDP() {        
+        
+        // Messages
+        messages = new NoeudMessage();
+	// Projets
+        projets = new DefaultMutableTreeNode();
+        // Premier noeud
+        racine = new DefaultMutableTreeNode();
+        
+        construireEnvironnementCDP() ;
+        
+    }
     
     private void creerEnvironnementDir() {
         //On ajoute le menu "Creer superviseur" et "Creer chef de projet" dans la barre d'outils
@@ -563,6 +594,12 @@ public class JFrameP2S extends javax.swing.JFrame {
         JTabbedPaneMembre Tab = new JTabbedPaneMembre(membre);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
+        this.validate();
+    }
+    
+    private void afficherMessages() {
+        PanelContenu.removeAll();
+        PanelContenu.add(new JPanelMessages(((Superviseur)utilisateur).getListeMessages()), java.awt.BorderLayout.CENTER);
         this.validate();
     }
     
@@ -670,7 +707,15 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuItemCreerProjetLocal.setMnemonic(Bundle.getChar("JMenuItemCreerProjetLocal"));
         JMenuItemGererCDP.setText(Bundle.getText("JMenuItemGererCDP"));
         JMenuItemGererCDP.setMnemonic(Bundle.getChar("JMenuItemGererCDP"));
-        racine.setUserObject(Bundle.getText("NoeudProjets")) ;
+        racine.setUserObject(Bundle.getText("NoeudSuperviseur")) ;
+	messages.setUserObject(Bundle.getText("NoeudMessages")) ;
+	projets.setUserObject(Bundle.getText("NoeudProjets")) ;
+	
+	
+	// 
+	messages.removeAllChildren() ;
+	// 
+	projets.removeAllChildren() ;
         // on efface tout
         racine.removeAllChildren() ;
         // Ajout des projets du chef de projet
@@ -684,9 +729,10 @@ public class JFrameP2S extends javax.swing.JFrame {
                 noeudProjet.add(noeudIteration);
             }
             
-            racine.add(noeudProjet);
+            projets.add(noeudProjet);
         }
-        // racine.add(racineProjet);
+	racine.add(messages);
+        racine.add(projets);
         
         // Met à jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
@@ -703,6 +749,79 @@ public class JFrameP2S extends javax.swing.JFrame {
                 else if(d instanceof NoeudIteration){//Si len noeud est une iteration
                     afficherInfoIte(((NoeudIteration)d).getIteration());
                 }
+		
+		else if(d instanceof NoeudMessage){//Si len noeud est un message
+                    afficherMessages();
+                }
+                // si c'est le noeud "projets"
+                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0) {
+                    Vector listeProjets = new Vector();
+                    for(int i=0;i<d.getChildCount();i++) {
+                        listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
+                    }
+                    
+                    PanelContenu.removeAll(); // On supprime tout ce qu'il y a dans le panel contenu
+                    PanelContenu.add(new JPanelTousLesProjets(listeProjets));
+                    validate();
+                }
+            }
+        }
+        );
+    }
+    
+    
+    /**
+     * Dessine/ajoute les composants graphiques dans la fenetre pour le cdp
+     *@author Conde Mike K.
+     *@version 1.0
+     */
+    private void construireEnvironnementCDP() {	
+        racine.setUserObject(Bundle.getText("NoeudCDP")) ;
+	messages.setUserObject(Bundle.getText("NoeudMessages")) ;
+	projets.setUserObject(Bundle.getText("NoeudProjets")) ;
+	
+	// 
+	messages.removeAllChildren() ;
+	//
+	projets.removeAllChildren() ;
+        // on efface tout
+        racine.removeAllChildren() ;
+        // Ajout des projets du chef de projet
+        for(int i = 0 ; i < ((ChefDeProjet) utilisateur).nbProjets(); i++){
+            Projet proj = ((ChefDeProjet) utilisateur).getProjet(i);
+            NoeudProjet noeudProjet = new NoeudProjet(proj);
+            
+            // liste des iterations pour le projet
+            for(int j=0;j<proj.getListeIt().size();j++){
+                NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
+                noeudProjet.add(noeudIteration);
+            }
+            
+            projets.add(noeudProjet);
+        }
+        racine.add(messages);
+	racine.add(projets);
+        
+        // Met à jour l'arborescence
+        jTree1.setModel(new DefaultTreeModel(racine));
+        
+        
+        // Ajout du listener pour la selection d'un projet
+        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
+                // On recupere le noeud sur lequel on a clique
+                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
+                if(d instanceof NoeudProjet) // si le noeud est un projet
+                    afficherInfoProjet(((NoeudProjet)d).getProjet());
+                
+                else if(d instanceof NoeudIteration){//Si len noeud est une iteration
+                    afficherInfoIte(((NoeudIteration)d).getIteration());
+                }
+		
+		else if(d instanceof NoeudMessage){//Si len noeud est un message
+                    afficherMessages();
+                }
+		
                 // si c'est le noeud "projets"
                 else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0) {
                     Vector listeProjets = new Vector();
