@@ -48,14 +48,24 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         this.textNomProjet.setEditable(false);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
         //this.LabelDateDebut.setText(dateFormat.format(proj.getDateDebut()));
-        this.textDateDebut.setText(dateFormat.format(proj.getDateDebut()));
+        
+        if(proj.getDateDebut() != null)
+            this.textDateDebut.setText(dateFormat.format(proj.getDateDebut()));
+        else
+            this.textDateDebut.setText("N/C");
+        
         this.textDateDebut.setBackground(new Color(255,255,255));
         this.textDateDebut.setEditable(false);
         //this.LabelDateFin.setText(dateFormat.format(proj.getDateFin()));
-        this.textDateFin.setText(dateFormat.format(proj.getDateFin()));
+        if(proj.getDateFin() != null)
+            this.textDateFin.setText(dateFormat.format(proj.getDateFin()));
+        else
+            this.textDateFin.setText("N/C");
         this.textDateFin.setBackground(new Color(255,255,255));
         this.textDateFin.setEditable(false);
-        this.TextAreaDescription.setText(proj.getDescription());
+        
+        if(proj.getDescription() != null)
+            this.TextAreaDescription.setText(proj.getDescription());
         this.TextAreaDescription.setEditable(false);
         
         //Affichage des indicateurs généraux aux projets
@@ -68,12 +78,16 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         
         this.textIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString()+" %");
         this.textIndAvancementProjet.setBackground(new Color(255,255,255));
+        
         this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
         this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
+        
         this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
         this.textIndNombreParticipants.setBackground(new Color(255,255,255));
+        
         this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
         this.textIndTachesTerminees.setBackground(new Color(255,255,255));
+        
         this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
         this.textIndTotalCharges.setBackground(new Color(255,255,255));
     }

@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import P2S.UI.View.*;
 
+import javax.swing.plaf.metal.MetalProgressBarUI;
+
 /**
  *
  * @author  Fabien
@@ -25,7 +27,6 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
     public JDialogAjouterProjet(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
         initTexte();
     }
     
@@ -135,7 +136,6 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
                     javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             }
         }
-        
         this.dispose();
     }//GEN-LAST:event_jButtonOKActionPerformed
     

@@ -178,10 +178,10 @@ public class ParserXMLLog {
                         
                         //Recuperation du taux d'avancement
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("avancementprojet"))
-
+                            
                             if(indicateurActuel.getFirstChild() != null)
                                 avancementProjet = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
-
+                        
                         
                     }
                     System.out.println("nit  nit");
@@ -214,16 +214,19 @@ public class ParserXMLLog {
                             
                             //Recuperation de l'id de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("id"))
-                                idIteration = Integer.parseInt(attributIterationCourant.getFirstChild().getNodeValue());
+                                if(attributIterationCourant.getFirstChild() != null)
+                                    idIteration = Integer.parseInt(attributIterationCourant.getFirstChild().getNodeValue());
                             
                             //Recuperation du numero de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("numero"))
-                                numero = Integer.parseInt(attributIterationCourant.getFirstChild().getNodeValue());
+                                if(attributIterationCourant.getFirstChild() != null)
+                                    numero = Integer.parseInt(attributIterationCourant.getFirstChild().getNodeValue());
                             
                             //Recuperation de la date de debut prevue de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
                                 try{
-                                    dateDebutPrevue = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
+                                    if(attributIterationCourant.getFirstChild() != null)
+                                        dateDebutPrevue = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateDebutPrevue");
                                 }
@@ -247,7 +250,8 @@ public class ParserXMLLog {
                             //Recuperation de la date de debut reelle de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("datefinreelle"))
                                 try{
-                                    dateFinReelle = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
+                                    if(attributIterationCourant.getFirstChild() != null)
+                                        dateFinReelle = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateFinReelle");
                                 }
@@ -269,36 +273,42 @@ public class ParserXMLLog {
                                     Node indicateurActuelIte = attributsIndicateurIte.item(nbrIndicateursIte);
                                     //Recuperation du total des charges
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("totalcharges")){
-                                        totalChargesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        if(indicateurActuelIte.getFirstChild() != null)
+                                            totalChargesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                         
                                         System.out.println(totalChargesIte);
                                     }
                                     
                                     //Recuperation du nombre de taches terminees
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombretachesterminees"))
-                                        tachesTermineesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        if(indicateurActuelIte.getFirstChild() != null)
+                                            tachesTermineesIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation du duree moyenne des taches
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("dureemoyennetache"))
-                                        dureeMoyenneTacheIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        if(indicateurActuelIte.getFirstChild() != null)
+                                            dureeMoyenneTacheIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation du nombre de participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombreparticipants"))
-                                        nombreParticipantsIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        if(indicateurActuelIte.getFirstChild() != null)
+                                            nombreParticipantsIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation de la charge moyenne des participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("chargemoyenneparticipants"))
-                                        chargeMoyenneParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        if(indicateurActuelIte.getFirstChild() != null)
+                                            chargeMoyenneParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation de la charge moyenne des participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombremoyentachesparticipants"))
-                                        nombreMoyenTachesParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                        if(indicateurActuelIte.getFirstChild() != null)
+                                            nombreMoyenTachesParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                 }
                                 indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);
                             }
                             
-                                                       
+                            
                             
                             
                             //Recuperation des taches
@@ -331,36 +341,44 @@ public class ParserXMLLog {
                                         
                                         //Recuperation de l'id de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("id"))
-                                            idTache = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                idTache = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation du nom de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("nom"))
-                                            nomTache = attributTacheCourant.getFirstChild().getNodeValue();
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                nomTache = attributTacheCourant.getFirstChild().getNodeValue();
                                         
                                         //Recuperation de la description de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("description"))
-                                            descriptionTache = attributTacheCourant.getFirstChild().getNodeValue();
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                descriptionTache = attributTacheCourant.getFirstChild().getNodeValue();
                                         
                                         //Recuperation de l'etat de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("etat"))
-                                            etat = attributTacheCourant.getFirstChild().getNodeValue();
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                etat = attributTacheCourant.getFirstChild().getNodeValue();
                                         
                                         //Recuperation de la charge prevue de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("chargeprevue"))
-                                            chargePrevue = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                chargePrevue = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation du temps passe de la tache
                                         if(attributCourant.getNodeName().equalsIgnoreCase("tempspasse"))
-                                            tempsPasse = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                tempsPasse = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation du reste a passer de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("resteapasser"))
-                                            resteAPasser = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
+                                            if(attributTacheCourant.getFirstChild() != null)
+                                                resteAPasser = Integer.parseInt(attributTacheCourant.getFirstChild().getNodeValue());
                                         
                                         //Recuperation de la date de debut prevue de l'iteration
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("datedebutprevue"))
                                             try{
-                                                dateDebutPrevueTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
+                                                if(attributTacheCourant.getFirstChild() != null)
+                                                    dateDebutPrevueTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateDebutPrevue");}
                                         
@@ -368,7 +386,8 @@ public class ParserXMLLog {
                                         //Recuperation de la date de debut reelle de l'iteration
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("datedebutreelle"))
                                             try{
-                                                dateDebutReelleTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
+                                                if(attributTacheCourant.getFirstChild() != null)
+                                                    dateDebutReelleTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateDebutReelle");}
                                         
@@ -376,14 +395,16 @@ public class ParserXMLLog {
                                         //Recuperation de la date de debut reelle de l'iteration
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("datefinprevue"))
                                             try{
-                                                dateFinPrevueTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
+                                                if(attributTacheCourant.getFirstChild() != null)
+                                                    dateFinPrevueTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateFinPrevue");}
                                         
                                         //Recuperation de la date de debut reelle de l'iteration
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("datefinreelle"))
                                             try{
-                                                dateFinReelleTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
+                                                if(attributTacheCourant.getFirstChild() != null)
+                                                    dateFinReelleTache = dateFormat.parse(attributTacheCourant.getFirstChild().getNodeValue());
                                             } catch(ParseException e1){
                                                 System.out.println("Probleme pour parser dateFinReelle");
                                             }
@@ -397,7 +418,7 @@ public class ParserXMLLog {
                         
                         Iteration iteration = new Iteration(numero, dateDebutPrevue, dateDebutReelle, dateFinPrevue, dateFinReelle, tacheListe, indicateursIteration);
                         iterationList.add(iteration);
-                    }                   
+                    }
                     
                 }
                 
@@ -425,28 +446,33 @@ public class ParserXMLLog {
                             Node attributRisqueCourant = attributsRisqueCourant.item(riskCounter1);
                             //Recuperation du nom du risque
                             if(attributRisqueCourant.getNodeName().equalsIgnoreCase("nom")) {
-                                nomRisque = attributRisqueCourant.getFirstChild().getNodeValue();
+                                if(attributRisqueCourant.getFirstChild() != null)
+                                    nomRisque = attributRisqueCourant.getFirstChild().getNodeValue();
                             }
-                        
+                            
                             //Recuperation de la description
                             if(attributRisqueCourant.getNodeName().equalsIgnoreCase("description")) {
-                                descriptionRisque = attributRisqueCourant.getFirstChild().getNodeValue();
+                                if(attributRisqueCourant.getFirstChild() != null)
+                                    descriptionRisque = attributRisqueCourant.getFirstChild().getNodeValue();
                             }
-                        
-                        
+                            
+                            
                             //Recuperation de la priorite
                             if(attributRisqueCourant.getNodeName().equalsIgnoreCase("priorite")) {
-                                priorite = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
-                            }                        
-                        
+                                if(attributRisqueCourant.getFirstChild() != null)
+                                    priorite = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
+                            }
+                            
                             //Recuperation de l'impact
                             if(risqueCourant.getNodeName().equalsIgnoreCase("impact")) {
-                                impact = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
+                                if(attributRisqueCourant.getFirstChild() != null)
+                                    impact = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
                             }
-                        
+                            
                             //Recuperation de l'etat
                             if(attributRisqueCourant.getNodeName().equalsIgnoreCase("etat")) {
-                                etatRisque = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
+                                if(attributRisqueCourant.getFirstChild() != null)
+                                    etatRisque = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
                             }
                         }
                         Risque risque = new Risque(nomRisque, descriptionRisque, priorite, impact, etatRisque) ;
@@ -497,23 +523,28 @@ public class ParserXMLLog {
                 
                 //Recuperation du nom du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("nom"))
-                    nom = attributCourant.getFirstChild().getNodeValue();
+                    if(attributCourant.getFirstChild() != null)
+                        nom = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recuperation du prenom du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("prenom"))
-                    prenom = attributCourant.getFirstChild().getNodeValue();
+                    if(attributCourant.getFirstChild() != null)
+                        prenom = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recuperation de l'adresse du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("adresse"))
-                    adresse = attributCourant.getFirstChild().getNodeValue();
+                    if(attributCourant.getFirstChild() != null)
+                        adresse = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recuperation du telephone du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("telephone"))
-                    telephone = attributCourant.getFirstChild().getNodeValue();
+                    if(attributCourant.getFirstChild() != null)
+                        telephone = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recup?ration du mail du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("email"))
-                    email = attributCourant.getFirstChild().getNodeValue();
+                    if(attributCourant.getFirstChild() != null)
+                        email = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recuperation des indicateurs liées aux roles du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("roles")){
@@ -534,11 +565,13 @@ public class ParserXMLLog {
                             
                             //Recuperation de la designation du role
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("designation"))
-                                designation = indicateurActuel.getFirstChild().getNodeValue();
+                                if(indicateurActuel.getFirstChild() != null)
+                                    designation = indicateurActuel.getFirstChild().getNodeValue();
                             
                             //Recuperation de la description du role
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("description"))
-                                description = indicateurActuel.getFirstChild().getNodeValue();
+                                if(indicateurActuel.getFirstChild() != null)
+                                    description = indicateurActuel.getFirstChild().getNodeValue();
                         }
                         
                         listeRoles.add(new Role(designation,description));
@@ -566,15 +599,18 @@ public class ParserXMLLog {
                             
                             //Recuperation du nom du projet
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
-                                nomProjet = indicateurActuel.getFirstChild().getNodeValue();
+                                if(indicateurActuel.getFirstChild() != null)
+                                    nomProjet = indicateurActuel.getFirstChild().getNodeValue();
                             
                             //Recuperation des charges dans ce projet
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("charges"))
-                                charge = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                if(indicateurActuel.getFirstChild() != null)
+                                    charge = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                             
                             //Recuperation du temps de travail dans ce projet
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("tempstravail"))
-                                tempsTravail = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                if(indicateurActuel.getFirstChild() != null)
+                                    tempsTravail = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                             
                         }
                         
@@ -605,15 +641,18 @@ public class ParserXMLLog {
                             
                             //Recuperation du nom de la tache
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
-                                nomTache = indicateurActuel.getFirstChild().getNodeValue();
+                                if(indicateurActuel.getFirstChild() != null)
+                                    nomTache = indicateurActuel.getFirstChild().getNodeValue();
                             
                             //Recuperation du nom du projet associé
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("nomprojet"))
-                                nomProjet = indicateurActuel.getFirstChild().getNodeValue();
+                                if(indicateurActuel.getFirstChild() != null)
+                                    nomProjet = indicateurActuel.getFirstChild().getNodeValue();
                             
                             //Recuperation des charges dans cette tache
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("charges"))
-                                charges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                if(indicateurActuel.getFirstChild() != null)
+                                    charges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                             
                         }
                         listeIndicateursTache.add(new IndicateursTacheMembre(nomTache,nomProjet,charges));
@@ -639,11 +678,13 @@ public class ParserXMLLog {
                             
                             //Recuperation du nom du produit
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
-                                nomProduit = indicateurActuel.getFirstChild().getNodeValue();
+                                if(indicateurActuel.getFirstChild() != null)
+                                    nomProduit = indicateurActuel.getFirstChild().getNodeValue();
                             
                             //Recuperation de l'etat du produit
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("etat"))
-                                etat = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                                if(indicateurActuel.getFirstChild() != null)
+                                    etat = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                             
                         }
                         listeIndicateursProduit.add(new IndicateursProduitMembre(nomProduit,etat));
