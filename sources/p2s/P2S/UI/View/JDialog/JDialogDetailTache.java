@@ -63,11 +63,13 @@ public class JDialogDetailTache extends javax.swing.JDialog {
              {
                  textIndEtat.setForeground(new Color(20, 20, 250)) ;
              }
-             if (((String)value).equals("3"))
+            if (((String)value).equals("3"))
              {
                  textIndEtat.setForeground(new Color(250, 20, 20)) ;
              }
+            
         this.textIndEtat.setBackground(new Color(255,255,255));
+        System.out.println(value);
         //recupération de la liste des artefacts en entrées
         /*Vector artefactsEntrees = new Vector();
         artefactsEntrees = tacheDetail.getListeArtefactsEntrees();
@@ -138,7 +140,6 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         getContentPane().add(labelStaticIndEtat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 100, -1));
 
         textIndEtat.setEditable(false);
-        textIndEtat.setText("etat");
         textIndEtat.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndEtat, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 170, -1));
 
