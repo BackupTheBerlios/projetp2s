@@ -65,10 +65,10 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majBase() throws NullValueXMLException{
+    public void majBase() throws NullValueXMLException, IncorrectFileException{
         
         majProjet();
-       
+        
         majLienSuperviseurProjet();
         majIterations();
         majMembres();
@@ -120,7 +120,7 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majProjet() throws NullValueXMLException, NullPointerException{
+    public void majProjet() throws NullValueXMLException, IncorrectFileException{
         String id = null;
         String nom = null;
         String dateDebut = null;
@@ -128,95 +128,102 @@ public class ParserXMLFichierWF {
         String description = null;
         String budget = null;
         
-        Node NoeudProjet = this.document.getElementsByTagName("projet").item(0);
-        NodeList listeNoeud = NoeudProjet.getChildNodes();
-        
-        int b = 0;
-        // on recherche l'id du projet
+        Node NoeudProjet = null;
+        NodeList listeNoeud = null;
         try{
-            id = lireIdProjet();
-        }catch(NullPointerException e){            
-            throw new NullValueXMLException();
+            NoeudProjet = this.document.getElementsByTagName("projet").item(0);
+            listeNoeud = NoeudProjet.getChildNodes();
+        } catch(NullPointerException e){
+            throw new IncorrectFileException();
         }
         
-        // on recherche le nom du projet
-        b = 0;
-        while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
-            b++;
-        }
-        try{
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
-        }catch(NullPointerException e){            
-            throw new NullValueXMLException();
-        }
-        
-        // on recherche la date de debut du projet
-        b = 0;
-        while(listeNoeud.item(b).getNodeName().compareTo("dateDebut") != 0) {
-            b++;
-        }
-        try{
-            dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
-        }catch(NullPointerException e){}    
-        
-        
-        // on recherche la date de fin du projet
-        b = 0;
-        while(listeNoeud.item(b).getNodeName().compareTo("dateFin") != 0) {
-            b++;
-        }
-        try{
-            dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
-        }catch(NullPointerException e){}        
-        
-        // on recherche la description
-        b = 0;
-        while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
-            b++;
-        }
-        try{    
-            description = listeNoeud.item(b).getFirstChild().getNodeValue();
-        }catch(NullPointerException e){}
-        
-        // on recherche le budget du projet
-        b = 0;
-        while(listeNoeud.item(b).getNodeName().compareTo("budget") != 0) {
-            b++;
-        }
-        try{
-            budget = listeNoeud.item(b).getFirstChild().getNodeValue();
-        }catch(NullPointerException e){}    
-        
-        
-        
-        try {
-            // Requete SQL
-            PreparedStatement prepState = conn.prepareStatement("Select * from projets where idprojet="+id);
-            ResultSet rsp = prepState.executeQuery(); // Execution de la requete
-            
-            if(!rsp.next()){
-                prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+")");
-                prepState.execute(); // Execution de la requete
-                
-            }else{
-                PreparedStatement updateProjet = conn.prepareStatement(
-                        "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=? where idprojet ="+id);
-                updateProjet.setString(1,nom);
-                updateProjet.setString(2,dateDebut);
-                updateProjet.setString(3,dateFin);
-                updateProjet.setString(4,description);                
-                updateProjet.setInt(5,updateInt(budget));
-                
-                updateProjet.executeUpdate();
+            int b = 0;
+            // on recherche l'id du projet
+            try{
+                id = lireIdProjet();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
             }
             
+            // on recherche le nom du projet
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
+                b++;
+            }
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
-        }catch (SQLException ex) { // Si une SQLException survient
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            ex.printStackTrace();
-        }
+            // on recherche la date de debut du projet
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("dateDebut") != 0) {
+                b++;
+            }
+            try{
+                dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            
+            // on recherche la date de fin du projet
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("dateFin") != 0) {
+                b++;
+            }
+            try{
+                dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            // on recherche la description
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
+                b++;
+            }
+            try{
+                description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            // on recherche le budget du projet
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("budget") != 0) {
+                b++;
+            }
+            try{
+                budget = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            
+            
+            try {
+                // Requete SQL
+                PreparedStatement prepState = conn.prepareStatement("Select * from projets where idprojet="+id);
+                ResultSet rsp = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rsp.next()){
+                    prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+")");
+                    prepState.execute(); // Execution de la requete
+                    
+                }else{
+                    PreparedStatement updateProjet = conn.prepareStatement(
+                            "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=? where idprojet ="+id);
+                    updateProjet.setString(1,nom);
+                    updateProjet.setString(2,dateDebut);
+                    updateProjet.setString(3,dateFin);
+                    updateProjet.setString(4,description);
+                    updateProjet.setInt(5,updateInt(budget));
+                    
+                    updateProjet.executeUpdate();
+                }
+                
+                
+            }catch (SQLException ex) { // Si une SQLException survient
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+                ex.printStackTrace();
+            }
+        
     }
     
     public void majLienSuperviseurProjet() throws NullValueXMLException{
@@ -251,8 +258,8 @@ public class ParserXMLFichierWF {
         try{
             idProjet = lireIdProjet();
         }catch(NullPointerException e){
-             throw new NullValueXMLException();
-         }
+            throw new NullValueXMLException();
+        }
         
         NodeList listeIteration = this.document.getElementsByTagName("eltIteration");
         NodeList listeNoeud;
@@ -289,7 +296,7 @@ public class ParserXMLFichierWF {
             }
             try{
                 dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){}            
+            }catch(NullPointerException e){}
             
             // on recherche la date reelle de debut d'iteration
             b = 0;
@@ -426,7 +433,7 @@ public class ParserXMLFichierWF {
                 mail = listeNoeud.item(b).getFirstChild().getNodeValue();
             }catch(NullPointerException e){}
             
-            try {               
+            try {
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from membres where idmembre="+id);
                 ResultSet rsmembre = prepState.executeQuery(); // Execution de la requete
@@ -518,7 +525,7 @@ public class ParserXMLFichierWF {
                     
                     updateRole.executeUpdate();
                 }
-                                
+                
             }catch (SQLException ex) { // Si une SQLException survient
                 System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
@@ -640,7 +647,7 @@ public class ParserXMLFichierWF {
             idProjet = lireIdProjet();
         }catch(NullPointerException e){
             throw new NullValueXMLException();
-        }        
+        }
         
         NodeList listeRisques = this.document.getElementsByTagName("eltRisque");
         NodeList listeNoeud;
@@ -1325,9 +1332,7 @@ public class ParserXMLFichierWF {
             }
             try{
                 livrable = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){
-                throw new NullValueXMLException();
-            }
+            }catch(NullPointerException e){}
             
             // on recherche l'etat de l'artefact
             b = 0;
@@ -1430,66 +1435,69 @@ public class ParserXMLFichierWF {
         NodeList listeNoeudIdTache;
         
         NodeList listeNoeudTemp = this.document.getElementsByTagName("MembreTacheCollaborative_Realise").item(0).getChildNodes();
-        // on recherche le noeud listeMembre
-        int b = 0;
-        while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
-            b++;
-        }
-        listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
         
-        // on recherche les noeuds Membre
-        for(int n=0;n<listeNoeudTemp.getLength();n++){
-            if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
-                listeMembreTache.add(listeNoeudTemp.item(n));
-            }
-        }
-        
-        // on parcourt tous les noeuds Membre
-        for(int i=0;i<listeMembreTache.size();i++){
-            listeNoeud = ((Node)listeMembreTache.get(i)).getChildNodes();
-            
-            // on recherche l'id du membre
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+        if(listeNoeudTemp.getLength() != 1){
+            // on recherche le noeud listeMembre
+            int b = 0;
+            while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
                 b++;
             }
-            try{
-                idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){
-                throw new NullValueXMLException();
-            }
+            listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
             
-            // on recherche les taches auquelles il participe
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("listeTacheCollaborative") != 0) {
-                b++;
-            }
-            listeNoeudIdTache = listeNoeud.item(b).getChildNodes();
-            for(int j=0;j<listeNoeudIdTache.getLength();j++){
-                if(listeNoeudIdTache.item(j).getNodeName().compareTo("id") == 0){
-                    listeIdTache.add(listeNoeudIdTache.item(j).getFirstChild().getNodeValue());
+            // on recherche les noeuds Membre
+            for(int n=0;n<listeNoeudTemp.getLength();n++){
+                if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
+                    listeMembreTache.add(listeNoeudTemp.item(n));
                 }
             }
             
-            for(int k=0;k<listeIdTache.size();k++){
-                try {
-                    // Requete SQL
-                    PreparedStatement prepState = conn.prepareStatement("Select * from membres_tachescollaboratives where idmembre="+idMembre+" and idtache="+listeIdTache.get(k));
-                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
-                    
-                    if(!rs.next()){
-                        prepState = conn.prepareStatement("insert into membres_tachescollaboratives values ("+idMembre+","+listeIdTache.get(k)+")");
-                        prepState.execute(); // Execution de la requete
+            // on parcourt tous les noeuds Membre
+            for(int i=0;i<listeMembreTache.size();i++){
+                listeNoeud = ((Node)listeMembreTache.get(i)).getChildNodes();
+                
+                // on recherche l'id du membre
+                b = 0;
+                while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                    b++;
+                }
+                try{
+                    idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
+                }catch(NullPointerException e){
+                    throw new NullValueXMLException();
+                }
+                
+                // on recherche les taches auquelles il participe
+                b = 0;
+                while(listeNoeud.item(b).getNodeName().compareTo("listeTacheCollaborative") != 0) {
+                    b++;
+                }
+                listeNoeudIdTache = listeNoeud.item(b).getChildNodes();
+                for(int j=0;j<listeNoeudIdTache.getLength();j++){
+                    if(listeNoeudIdTache.item(j).getNodeName().compareTo("id") == 0){
+                        listeIdTache.add(listeNoeudIdTache.item(j).getFirstChild().getNodeValue());
                     }
-                    
-                }catch (SQLException ex) { // Si une SQLException survient
-                    System.out.println("SQLException: " + ex.getMessage());
-                    System.out.println("SQLState: " + ex.getSQLState());
-                    System.out.println("VendorError: " + ex.getErrorCode());
-                    ex.printStackTrace();
                 }
+                
+                for(int k=0;k<listeIdTache.size();k++){
+                    try {
+                        // Requete SQL
+                        PreparedStatement prepState = conn.prepareStatement("Select * from membres_tachescollaboratives where idmembre="+idMembre+" and idtache="+listeIdTache.get(k));
+                        ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                        
+                        if(!rs.next()){
+                            prepState = conn.prepareStatement("insert into membres_tachescollaboratives values ("+idMembre+","+listeIdTache.get(k)+")");
+                            prepState.execute(); // Execution de la requete
+                        }
+                        
+                    }catch (SQLException ex) { // Si une SQLException survient
+                        System.out.println("SQLException: " + ex.getMessage());
+                        System.out.println("SQLState: " + ex.getSQLState());
+                        System.out.println("VendorError: " + ex.getErrorCode());
+                        ex.printStackTrace();
+                    }
+                }
+                listeIdTache.removeAllElements();
             }
-            listeIdTache.removeAllElements();
         }
     }
     
@@ -1595,7 +1603,7 @@ public class ParserXMLFichierWF {
         }
     }
     
-     public void majLiensArtefacts_Sorties_Taches() throws NullValueXMLException{
+    public void majLiensArtefacts_Sorties_Taches() throws NullValueXMLException{
         String idTache = null;
         Vector listeIdArtefacts = new Vector();
         
@@ -1776,66 +1784,68 @@ public class ParserXMLFichierWF {
         NodeList listeNoeudIdRole;
         
         NodeList listeNoeudTemp = this.document.getElementsByTagName("MembreRole").item(0).getChildNodes();
-        // on recherche le noeud listeMembre
-        int b = 0;
-        while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
-            b++;
-        }
-        listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
-        
-        // on recherche les noeuds Membre
-        for(int n=0;n<listeNoeudTemp.getLength();n++){
-            if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
-                listeMembreRole.add(listeNoeudTemp.item(n));
-            }
-        }
-        
-        // on parcourt tous les noeuds Membre
-        for(int i=0;i<listeMembreRole.size();i++){
-            listeNoeud = ((Node)listeMembreRole.get(i)).getChildNodes();
-            
-            // on recherche l'id du membre
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+        if(listeNoeudTemp.getLength() != 1){
+            // on recherche le noeud listeMembre
+            int b = 0;
+            while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
                 b++;
             }
-            try{
-                idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){
-                throw new NullValueXMLException();
-            }
+            listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
             
-            // on recherche les roles qu'il exerce
-            b = 0;
-            while(listeNoeud.item(b).getNodeName().compareTo("listeRole") != 0) {
-                b++;
-            }
-            listeNoeudIdRole = listeNoeud.item(b).getChildNodes();
-            for(int j=0;j<listeNoeudIdRole.getLength();j++){
-                if(listeNoeudIdRole.item(j).getNodeName().compareTo("id") == 0){
-                    listeIdRole.add(listeNoeudIdRole.item(j).getFirstChild().getNodeValue());
+            // on recherche les noeuds Membre
+            for(int n=0;n<listeNoeudTemp.getLength();n++){
+                if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
+                    listeMembreRole.add(listeNoeudTemp.item(n));
                 }
             }
             
-            for(int k=0;k<listeIdRole.size();k++){
-                try {
-                    // Requete SQL
-                    PreparedStatement prepState = conn.prepareStatement("Select * from roles_membres where idmembre="+idMembre+" and idrole='"+listeIdRole.get(k)+"'");
-                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
-                    
-                    if(!rs.next()){
-                        prepState = conn.prepareStatement("insert into roles_membres values ('"+listeIdRole.get(k)+"',"+idMembre+")");
-                        prepState.execute(); // Execution de la requete
+            // on parcourt tous les noeuds Membre
+            for(int i=0;i<listeMembreRole.size();i++){
+                listeNoeud = ((Node)listeMembreRole.get(i)).getChildNodes();
+                
+                // on recherche l'id du membre
+                b = 0;
+                while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                    b++;
+                }
+                try{
+                    idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
+                }catch(NullPointerException e){
+                    throw new NullValueXMLException();
+                }
+                
+                // on recherche les roles qu'il exerce
+                b = 0;
+                while(listeNoeud.item(b).getNodeName().compareTo("listeRole") != 0) {
+                    b++;
+                }
+                listeNoeudIdRole = listeNoeud.item(b).getChildNodes();
+                for(int j=0;j<listeNoeudIdRole.getLength();j++){
+                    if(listeNoeudIdRole.item(j).getNodeName().compareTo("id") == 0){
+                        listeIdRole.add(listeNoeudIdRole.item(j).getFirstChild().getNodeValue());
                     }
-                    
-                }catch (SQLException ex) { // Si une SQLException survient
-                    System.out.println("SQLException: " + ex.getMessage());
-                    System.out.println("SQLState: " + ex.getSQLState());
-                    System.out.println("VendorError: " + ex.getErrorCode());
-                    ex.printStackTrace();
                 }
+                
+                for(int k=0;k<listeIdRole.size();k++){
+                    try {
+                        // Requete SQL
+                        PreparedStatement prepState = conn.prepareStatement("Select * from roles_membres where idmembre="+idMembre+" and idrole='"+listeIdRole.get(k)+"'");
+                        ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                        
+                        if(!rs.next()){
+                            prepState = conn.prepareStatement("insert into roles_membres values ('"+listeIdRole.get(k)+"',"+idMembre+")");
+                            prepState.execute(); // Execution de la requete
+                        }
+                        
+                    }catch (SQLException ex) { // Si une SQLException survient
+                        System.out.println("SQLException: " + ex.getMessage());
+                        System.out.println("SQLState: " + ex.getSQLState());
+                        System.out.println("VendorError: " + ex.getErrorCode());
+                        ex.printStackTrace();
+                    }
+                }
+                listeIdRole.removeAllElements();
             }
-            listeIdRole.removeAllElements();
         }
     }
     
@@ -2066,8 +2076,8 @@ public class ParserXMLFichierWF {
         try{
             idProjet = lireIdProjet();
         }catch(NullPointerException e){
-                throw new NullValueXMLException();
-            }
+            throw new NullValueXMLException();
+        }
         
         try {
             // On recupere le total des charges

@@ -14,7 +14,7 @@ USE `p2s`;
 DROP TABLE IF EXISTS `artefacts`;
 CREATE TABLE `artefacts` (
   `idartefact` int(10) unsigned NOT NULL auto_increment,
-  `livrable` enum('true','false') NOT NULL default 'true',
+  `livrable` enum('true','false') default NULL,
   `etat` int(11) default NULL,
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,

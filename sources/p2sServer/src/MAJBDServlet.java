@@ -62,7 +62,12 @@ public class MAJBDServlet extends HttpServlet {
         }catch(FileNotFoundException e){
             out.print("0");
         }catch(NullValueXMLException e){
-            out.print("1");
+            e.printStackTrace();
+            out.print("1");            
+        }catch(NullPointerException e){            
+            e.printStackTrace();
+        }catch(IncorrectFileException e){
+            out.print("0");
         }
         out.close();
     }
