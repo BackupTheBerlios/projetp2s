@@ -18,6 +18,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     
     private Projet projet;
     private String ancienneValeur;
+    private String ancienneValeur2;
     
     /** Creates new form JPanelInfoSeuil */
     public JPanelInfoSeuil(Projet proj) {
@@ -533,10 +534,10 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     
     private void nombreParticipantProjetSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMinFocusLost
         try{
-            Integer.parseInt(nombreParticipantIterationSeuilMin.getText());
+            Integer.parseInt(nombreParticipantProjetSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
-            nombreParticipantIterationSeuilMin.setText(ancienneValeur);
+            nombreParticipantProjetSeuilMin.setText(ancienneValeur);
         }
     }//GEN-LAST:event_nombreParticipantProjetSeuilMinFocusLost
     
