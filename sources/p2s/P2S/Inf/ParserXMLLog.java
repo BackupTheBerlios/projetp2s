@@ -71,7 +71,7 @@ public class ParserXMLLog {
     
     public Vector lireProjets(){
         Vector projets = new Vector();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         NodeList listeProjets = this._document.getElementsByTagName("projet");
         //Récupération des projets un par un
         for(int i = 0 ; i < listeProjets.getLength() ; i++){
@@ -103,22 +103,23 @@ public class ParserXMLLog {
                 
                 //Recuperation de la date de debut du projet
                 if(attributCourant.getNodeName().equalsIgnoreCase("datedebut"))
-                    try{
-                        dateDebut = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                    try{                        
+                        dateDebut = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());                        
                     } catch(ParseException e1){
                         System.out.println("Problème pour parser dateDebut");
                     }
                 
                 //Recuperation de la date de fin du projet
                 if(attributCourant.getNodeName().equalsIgnoreCase("datefin"))
-                    try{
-                        dateFin = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                    try{                       
+                        dateFin = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());                        
                     } catch(ParseException e2){
                         System.out.println("Problème pour parser dateFin");
                     }
             }
             
             //IL FAUT REGARDER COMMENT CA SE PASSE POUR LES MESURES !!
+            
             Projet projetCourant = new Projet(idProjet,nom,description, dateDebut, dateFin, null);
             projets.add(projetCourant);
         }
@@ -153,7 +154,7 @@ public class ParserXMLLog {
                     idMembre = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
                 
                 //Recupération du nom du membre
-                if(attributCourant.getNodeName().equalsIgnoreCase("idMembre"))
+                if(attributCourant.getNodeName().equalsIgnoreCase("nom"))
                     nom = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recupération du prenom du membre

@@ -33,9 +33,9 @@ public class P2S {
         
         // Recuperation et initialisation de la langue
         ControllerLocale = new LocaleController();
-        ParserXMLPreferences parserPref = new ParserXMLPreferences("E:\\Documents and Settings\\Fabien\\Bureau\\BE\\sources\\P2S\\P2S\\preferences.xml");
-        Bundle.setCurrentLocale(new Locale(parserPref.lireLangue()));
-        
+        //ParserXMLPreferences parserPref = new ParserXMLPreferences("E:\\Documents and Settings\\Fabien\\Bureau\\BE\\sources\\sources\\P2S\\P2S\\preferences.xml");
+        //Bundle.setCurrentLocale(new Locale(parserPref.lireLangue()));
+        Bundle.setCurrentLocale(Locale.FRENCH);
         new JFrameP2S().show();
     }
     

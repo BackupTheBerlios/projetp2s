@@ -23,8 +23,9 @@ public class Projet {
     /** Creates a new instance of Projet */
     
     public Projet(String nom, Vector listeMesures) {
+        this.idProjet = 1;
         this.nom = nom;
-        this.description = description;
+        this.description = new String("");
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = listeMesures;
@@ -54,7 +55,7 @@ public class Projet {
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.listeMesures = listeMesure;
+        this.listeMesures = listeMesure;        
     }
     
     public void ajouterMesure(Mesure mesure) {
@@ -126,6 +127,5 @@ public class Projet {
     
     public void setIdProjet(int idProjet) {
         this.idProjet = idProjet;
-    }
-    
+    }   
 }

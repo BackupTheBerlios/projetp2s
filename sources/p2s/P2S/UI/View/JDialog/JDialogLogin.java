@@ -101,21 +101,23 @@ public class JDialogLogin extends javax.swing.JDialog {
             while ((inputLine = in.readLine()) != null)
                 fluxXml += inputLine;
             
-            ParserXMLLog parser = new ParserXMLLog(fluxXml);
-            
-            //Reader reader = new StringReader(inputLine);
-            if(parser.lireFonction().compareTo("sup") == 0) {
-                ((JFrameP2S)this.getParent()).utilisateur = new Superviseur(this.JTextFieldLogin.getText(),parser.lireProjets());
-            } else if(parser.lireFonction().compareTo("dir") == 0) {
-                ((JFrameP2S)this.getParent()).utilisateur = new Directeur(this.JTextFieldLogin.getText(),parser.lireMembres());
-            }            
+            if(fluxXml.compareTo("") != 0) {
+                ParserXMLLog parser = new ParserXMLLog(fluxXml);
+                
+                //Reader reader = new StringReader(inputLine);
+                if(parser.lireFonction().compareTo("sup") == 0) {
+                    ((JFrameP2S)this.getParent()).utilisateur = new Superviseur(this.JTextFieldLogin.getText(),parser.lireProjets());
+                } else if(parser.lireFonction().compareTo("dir") == 0) {
+                    ((JFrameP2S)this.getParent()).utilisateur = new Directeur(this.JTextFieldLogin.getText(),parser.lireMembres());
+                }
+            }
             in.close();
         } catch(MalformedURLException e1){
             e1.printStackTrace();
         } catch(IOException e2){
             e2.printStackTrace();
         }
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_JButtonOKActionPerformed
     
     public void initText(){
