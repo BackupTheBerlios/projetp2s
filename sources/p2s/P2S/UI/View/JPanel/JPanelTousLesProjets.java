@@ -112,7 +112,7 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
         }
         
         public boolean isCellEditable(int row, int col) {
-            return (col == 5) ;
+            return (col == 4) ;
         }
     }
      
