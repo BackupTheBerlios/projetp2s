@@ -27,11 +27,7 @@ public class JTabbedPaneProjet extends JTabbedPane {
      */
     public JTabbedPaneProjet(Projet proj, Utilisateur util) {
         initComponents();
-        
-        //Utilisateur utilisateur = this.getParent();
-        Utilisateur utilisateur = null;
-        System.out.println(this.getParent());
-        
+      
         this.addTab(Bundle.getText("JTabbedPaneProjet_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoGenProjet(proj,util));
         this.addTab(Bundle.getText("JTabbedPaneProjet_TabRisques"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_risk.gif")),new JPanelInfoRisque(proj.getListeRisques()));
 	this.addTab(Bundle.getText("JTabbedPaneProjet_TabProblemes"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_problemes.gif")),new JPanelInfoProbleme(proj.getListeProblemes()));

@@ -9,6 +9,7 @@ package P2S.UI.View.JPanel;
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
 import P2S.Model.Projet;
+import P2S.Model.Seuil;
 import P2S.Model.Utilisateur;
 import P2S.UI.Graphic2D.GrapheIndicateursProjet;
 import P2S.UI.View.JDialog.JDialogAlerte;
@@ -64,7 +65,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         if(proj.getDateDebut() != null)
             this.textDateDebut.setText(dateFormat.format(proj.getDateDebut()));
         else
-            this.textDateDebut.setText("N/C");    
+            this.textDateDebut.setText("N/C");
         
         this.textDateDebut.setBackground(new Color(255,255,255));
         this.textDateDebut.setEditable(false);
@@ -93,35 +94,42 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         
         if(ind != null){
             
-            if(new Float(ind.getDureeMoyenneTache()) != null)
-                this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
             this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
+            if(new Float(ind.getDureeMoyenneTache()) != null){
+                this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
+                if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTache()),new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMin().toString()), new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMax().toString())))
+                    this.textIndDureeMoyenneTache.setBackground(new Color(240,200,100));
+            }
             
-            if(new Float(ind.getNombreParticipants()) != null)
-                this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
             this.textIndNombreParticipants.setBackground(new Color(255,255,255));
+            if(new Integer(ind.getNombreParticipants()) != null){
+                this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
+                if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMax().toString())))
+                    this.textIndNombreParticipants.setBackground(new Color(240,200,100));
+            }
             
-            if(new Float(ind.getTachesTerminees()) != null)
-                this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
             this.textIndTachesTerminees.setBackground(new Color(255,255,255));
+            if(new Float(ind.getTachesTerminees()) != null){
+                this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
+                if(Seuil.estHorsIntervalle(new Integer(ind.getTachesTerminees()),new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMax().toString())))
+                    this.textIndTachesTerminees.setBackground(new Color(240,200,100));
+            }
             
             if(new Float(ind.getTotalCharges()) != null)
                 this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
             
             this.jTextAreaComment.setText(proj.getCommentaire());
             
-            //if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString())))
-            //    this.textIndTotalCharges.setForeground(new Color(151,151,12));
-            
             this.textIndTotalCharges.setBackground(new Color(255,255,255));
+            if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString())))
+                this.textIndTotalCharges.setBackground(new Color(240,200,100));
+            
         }else{
             this.textIndDureeMoyenneTache.setText("0");
             this.textIndNombreParticipants.setText("0");
             this.textIndTachesTerminees.setText("0");
             this.textIndTotalCharges.setText("0");
         }
-        
-        System.out.println(login+" "+pass);
         
     }
     
@@ -253,23 +261,23 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
     }//GEN-END:initComponents
     
     private void jTextAreaCommentFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextAreaCommentFocusLost
-        try{     
+        try{
             String nomProjet = proj.getNom().replaceAll("\\s","%20");
             String comment = jTextAreaComment.getText();
-                 
-            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJCommentServet?login="+login+"&commentaire="+comment.replaceAll("\\s","%20")+"&projet="+nomProjet);
+            
+            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJCommentServlet?login="+login+"&commentaire="+comment.replaceAll("\\s","%20")+"&projet="+nomProjet);
             url.openStream();
             
             proj.setCommentaire(comment);
             
         } catch(MalformedURLException e1){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         } catch(IOException e2){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         } catch(IllegalArgumentException e3){
             e3.printStackTrace();
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;            
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         }
     }//GEN-LAST:event_jTextAreaCommentFocusLost
     

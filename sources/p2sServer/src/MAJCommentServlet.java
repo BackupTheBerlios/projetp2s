@@ -19,7 +19,7 @@ import javax.servlet.http.*;
  * @author Administrateur
  * @version
  */
-public class MAJCommentServet extends HttpServlet {
+public class MAJCommentServlet extends HttpServlet {
     
     /** Initializes the servlet.
      */

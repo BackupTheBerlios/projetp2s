@@ -797,7 +797,6 @@ public class ParserXMLLog {
                 }
             }
             Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
-            System.out.println(commentaire);
             projetCourant.setCommentaire(commentaire);
             projetCourant.setListeIt(iterationList);
             projetCourant.setIndicateursProjet(indicateursProjet);

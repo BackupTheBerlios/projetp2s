@@ -61,8 +61,8 @@
     <servlet-class>MAJBDSeuil</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>MAJCommentServet</servlet-name>
-    <servlet-class>MAJCommentServet</servlet-class>
+    <servlet-name>MAJCommentServlet</servlet-name>
+    <servlet-class>MAJCommentServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -121,8 +121,8 @@
     <url-pattern>/MAJBDSeuil</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>MAJCommentServet</servlet-name>
-    <url-pattern>/MAJCommentServet</url-pattern>
+    <servlet-name>MAJCommentServlet</servlet-name>
+    <url-pattern>/MAJCommentServlet</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>
