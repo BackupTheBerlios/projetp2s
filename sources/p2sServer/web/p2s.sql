@@ -64,6 +64,16 @@ CREATE TABLE `artefacts_sorties_tachescollaboratives` (
   CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `chefprojet_projets`;
+CREATE TABLE `chefprojet_projets` (
+  `login` varchar(45) NOT NULL default '',
+  `idprojet` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`login`),
+  KEY `FK_chefprojet_projets_idprojet` (`idprojet`),
+  CONSTRAINT `FK_chefprojet_projets_login` FOREIGN KEY (`login`) REFERENCES `utilisateurs` (`login`),
+  CONSTRAINT `FK_chefprojet_projets_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `indicateurs_iteration`;
 CREATE TABLE `indicateurs_iteration` (
   `iditeration` int(10) unsigned NOT NULL auto_increment,
