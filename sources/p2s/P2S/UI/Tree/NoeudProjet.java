@@ -43,6 +43,6 @@ public class NoeudProjet extends DefaultMutableTreeNode{
     public String toString()
     {
         return this.Projet.getNom();
-    }
-    
+    }    
+        
 }

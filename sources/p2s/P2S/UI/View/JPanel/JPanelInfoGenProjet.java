@@ -9,10 +9,12 @@ package P2S.UI.View.JPanel;
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
 import P2S.Model.Projet;
+import P2S.UI.Graphic2D.GrapheIndicateursProjet;
 import P2S.UI.View.JDialog.JDialogMail;
 import java.text.DateFormat;
 import java.util.Locale;
 import java.awt.Color;
+import javax.swing.JTextField;
 
 
 
@@ -22,13 +24,19 @@ import java.awt.Color;
  */
 public class JPanelInfoGenProjet extends javax.swing.JPanel {
     
+    GrapheIndicateursProjet  graphe ;
+    
     /**
      * Creates new form JPanelInfoGenProjet
      * @param proj projet a afficher
      */
     
     public JPanelInfoGenProjet(Projet proj) {
+        
         initComponents();
+        graphe = new GrapheIndicateursProjet(proj) ;
+        add(new GrapheIndicateursProjet(proj), new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
+        
         
         // Initialisation du texte des labels
         initText();
