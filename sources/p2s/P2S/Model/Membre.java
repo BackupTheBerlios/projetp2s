@@ -23,7 +23,7 @@ public class Membre {
     private String email;
     private Vector listeRoles; //Vector de vector : une dimension représente 
     private Vector listeProjets; // une instance et l'autres ses
-    private Vector listeTaches; // caracteristiques
+    private Vector listeTaches; // caracteristiques ATTENTION ce ne sont pas les taches mais les indicateurs de taches
     private Vector listeArtefacts;
     
     //CONSTRUCTEURS

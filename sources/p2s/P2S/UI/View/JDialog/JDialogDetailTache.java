@@ -29,7 +29,10 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         this.textIndDateDebutReelle.setText(dateFormat.format(tacheDetail.getDateDebutReelle()));
         this.textIndDateFinPrevue.setText(dateFormat.format(tacheDetail.getDateFinPrevue()));
         this.textIndDateFinReelle.setText(dateFormat.format(tacheDetail.getDateFinReelle()));
-        this.textIndEtat.setText(tacheDetail.getEtat());    
+        this.textIndEtat.setText(tacheDetail.getEtat()); 
+        
+        pack() ;
+        show() ;
     }
     
     /** This method is called from within the constructor to

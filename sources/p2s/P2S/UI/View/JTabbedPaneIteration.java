@@ -21,7 +21,7 @@ public class JTabbedPaneIteration extends JTabbedPane {
     /** Creates new form BeanForm */
     public JTabbedPaneIteration (Iteration iter) {
         initComponents ();
-        
+                
        addTab(Bundle.getText("JTabbedPaneIteration_TabInfoGen"),new JPanelInfoIteration(iter)) ;
        addTab(Bundle.getText("JTabbedPaneIteration_TabTaches"),new JPanelInfoTaches(iter.getListeTache())) ;
     }

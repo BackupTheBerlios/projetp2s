@@ -148,6 +148,8 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
       }
 
    } // fin de la classe NumericRenderer
+    
+    
    
    /** classe ButtonRenderer
     * @author C Mike K
@@ -171,7 +173,7 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
    } // fin de la classe ButtonRenderer
    
    
-   /** classe ButtonRenderer
+   /** classe ButtonEditor
     * @author C Mike K
     * @version 1.0
     */
