@@ -9,14 +9,6 @@ package P2S.UI.View.JPanel;
 import P2S.Control.Bundle.*;
 import P2S.Model.*;
 import javax.swing.*;
-import java.awt.*;
-import P2S.UI.View.JPanel.*;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagConstraints;
-import java.lang.*;
-import java.net.*;
-import java.io.*;
-import P2S.UI.View.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -24,10 +16,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable ;
 import javax.swing.table.TableCellRenderer;
 import java.util.*;
-import P2S.UI.View.JFrameP2S;
 import P2S.UI.View.JDialog.ModeleTableMesure;
 import P2S.UI.View.JDialog.JDialogDetailProjet;
-import P2S.Model.Tache;  
+
+import java.text.NumberFormat;
 
 /**
  * JPanel affichant les informations sur l'ensemble des projets
@@ -60,6 +52,9 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
         
         this.projets = listeProjets ;
        
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        
         donnees = new Object[projets.size()][6] ;
         for (int i = 0 ; i < donnees.length ; i++)
         {
@@ -70,7 +65,7 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
                 donnees[i][2] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getNombreParticipants());
                 donnees[i][3] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTachesTerminees());
                 donnees[i][4] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTotalCharges());
-                donnees[i][5] = new JButton(Bundle.getText("JPanelTousLesProjetsDetail")) ;
+                donnees[i][5] = new JButton(Bundle.getText("JTableTachesDetails")) ;
             }
         }
          
@@ -232,7 +227,9 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
       }
      public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
+         
          details.setText(((JButton)value).getText()) ;
+         
          return details ;
       }
 

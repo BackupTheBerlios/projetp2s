@@ -2,18 +2,11 @@ package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.*;
 import P2S.Model.*;
-import P2S.UI.View.*;
 import java.text.DateFormat;
 import java.util.Locale;
-import javax.swing.table.TableCellRenderer;
-import java.awt.Component;
-import java.util.Vector ;
-import javax.swing.* ;
 import java.awt.Color;
-import P2S.UI.View.JDialog.ModeleTableMesure;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
+
+import java.text.NumberFormat;
 
 /**
  *
@@ -33,6 +26,9 @@ public class JDialogDetailTache extends javax.swing.JDialog {
     public JDialogDetailTache(java.awt.Frame parent, boolean modal, Tache tacheDetail) {
         super(parent, modal);
         
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        
         initComponents();
         this.initText();
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
@@ -43,9 +39,9 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         this.textDescription.setText(tacheDetail.getDescription());
         this.textIndCharge.setText(new Integer(tacheDetail.getChargePrevue()).toString());
         this.textIndCharge.setBackground(new Color(255,255,255));
-        this.textIndTempsPasse.setText(new Float(tacheDetail.getTempsPasse()).toString());
+        this.textIndTempsPasse.setText(nf.format(new Float(tacheDetail.getTempsPasse())).toString());
         this.textIndTempsPasse.setBackground(new Color(255,255,255));
-        this.textIndTempsRestant.setText(new Float(tacheDetail.getResteAPasser()).toString());
+        this.textIndTempsRestant.setText(nf.format(new Float(tacheDetail.getResteAPasser())).toString());
         this.textIndTempsRestant.setBackground(new Color(255,255,255));
         
         if(tacheDetail.getDateDebutPrevue() != null){

@@ -10,11 +10,11 @@ import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
 import P2S.Model.Projet;
 import P2S.UI.Graphic2D.GrapheIndicateursProjet;
-import P2S.UI.View.JDialog.JDialogAlerte;
 import java.text.DateFormat;
 import java.util.Locale;
 import java.awt.Color;
-import javax.swing.JTextField;
+
+import java.text.NumberFormat;
 
 
 
@@ -75,9 +75,13 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
         //this.LabelIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
         //this.LabelIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
         //this.LabelIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+        
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        
         if(ind != null){
             if(new Float(ind.getAvancementProjet()) != null)
-                this.textIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString()+" %");
+                this.textIndAvancementProjet.setText(nf.format(new Float(ind.getAvancementProjet())).toString()+" %");
             this.textIndAvancementProjet.setBackground(new Color(255,255,255));
             
             if(new Float(ind.getDureeMoyenneTache()) != null)

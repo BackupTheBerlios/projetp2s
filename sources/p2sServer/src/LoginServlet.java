@@ -892,7 +892,7 @@ public class LoginServlet extends HttpServlet {
                                 
                                 /****************************** LES INDICATEURS D'UN PROJET *************************/
                                 
-                                prepState = conn.prepareStatement("Select * from seuilsfixes_projet where idprojet = " + rsIdProjets.getString("idprojet"));
+                                prepState = conn.prepareStatement("Select * from seuilsfixes_projet where idprojet = " + rsIdProjets.getString("idprojet") + " AND login='" + rsUser.getString("login") + "'");
                                 ResultSet rsSeuilsProjet = prepState.executeQuery(); // Execution de la requete
                                 
                                 if(rsSeuilsProjet.next()){

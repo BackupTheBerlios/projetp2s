@@ -8,8 +8,8 @@ package P2S.UI.View.JPanel;
 
 import P2S.Model.IndicateursIteration;
 import P2S.Model.Iteration;
-import P2S.Model.Tache;
-import java.util.Vector ;
+
+import java.text.NumberFormat;
 
 /**
  *
@@ -23,7 +23,10 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         
         IndicateursIteration ind = ite.getIndicateursIteration();
 
-        this.textIndChargeMoyenne.setText(new Float(ind.getChargeMoyenneParticipants()).toString());
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        
+        this.textIndChargeMoyenne.setText(nf.format(new Float(ind.getChargeMoyenneParticipants())).toString());
         this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
         this.textIndDureeMoyenne.setText(new Integer(ind.getDureeMoyenneTaches()).toString());
         this.textIndMoyenneTache.setText(new Integer(ind.getNombreMoyenTachesParticipants()).toString());
