@@ -88,7 +88,7 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldURLKeyPressed
 
     private void jTextFieldURLFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldURLFocusGained
-        jButtonOK.setSelected(true) ;
+        //jButtonOK.setSelected(true) ;
     }//GEN-LAST:event_jTextFieldURLFocusGained
     
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
