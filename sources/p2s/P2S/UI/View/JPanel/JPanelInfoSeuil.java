@@ -87,7 +87,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         totalChargesProjet.setText("Total des charges");
         add(totalChargesProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, -1));
 
-
         totalChargesProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 totalChargesProjetSeuilMinFocusLost(evt);
@@ -145,7 +144,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         nombreParticipantProjet.setText("Nombre de participants");
         add(nombreParticipantProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, -1));
 
-
         nombreParticipantProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreParticipantProjetSeuilMinFocusLost(evt);
@@ -167,7 +165,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         totalChargesIteration.setText("Total des charges");
         add(totalChargesIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, -1));
-
 
         totalChargesIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -207,7 +204,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         dureeMoyenneIteration.setText("Dur\u00e9e moyenne des t\u00e2ches");
         add(dureeMoyenneIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 220, -1));
-
 
         dureeMoyenneIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -306,21 +302,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             
             
             
-               
-            
-            
-            
-            
-               
-                    
-            
-                
-            
-                     
-            
-             
-            
-            
+              
             
             URL url;
             
@@ -434,17 +416,17 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             seuilsFixes.getChargeMoyenne().setSeuilMax(new Float(Float.parseFloat(chargeMoyenneSeuilMax.getText())));
             }
             
-            if(Integer.parseInt(seuilsFixes.getNombreTacheParticipant().getSeuilMin().toString()) !=  Integer.parseInt(nombreTacheParticipantSeuilMin.getText())){
+            if(Float.parseFloat(seuilsFixes.getNombreTacheParticipant().getSeuilMin().toString()) !=  Float.parseFloat(nombreTacheParticipantSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMin" +"&value="+nombreTacheParticipantSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreTacheParticipant().setSeuilMin(new Integer(Integer.parseInt(nombreTacheParticipantSeuilMin.getText())));
+            seuilsFixes.getNombreTacheParticipant().setSeuilMin(new Float(Float.parseFloat(nombreTacheParticipantSeuilMin.getText())));
             
             }
             
-            if(Integer.parseInt(seuilsFixes.getNombreTacheParticipant().getSeuilMax().toString()) !=  Integer.parseInt(nombreTacheParticipantSeuilMax.getText())){
+            if(Float.parseFloat(seuilsFixes.getNombreTacheParticipant().getSeuilMax().toString()) !=  Float.parseFloat(nombreTacheParticipantSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMax" +"&value="+nombreTacheParticipantSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreTacheParticipant().setSeuilMax(new Integer(Integer.parseInt(nombreTacheParticipantSeuilMax.getText())));
+            seuilsFixes.getNombreTacheParticipant().setSeuilMax(Float.parseFloat(nombreTacheParticipantSeuilMax.getText()));
             }
             
         } catch(MalformedURLException e1){
@@ -461,7 +443,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     private void nombreTacheParticipantSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreParticipantProjetSeuilMinActionPerformed
         try{//GEN-FIRST:event_nombreTacheParticipantSeuilMaxFocusLost
             ancienneValeur2 = ancienneValeur;
-            Integer.parseInt(nombreTacheParticipantSeuilMax.getText());
+            Float.parseFloat(nombreTacheParticipantSeuilMax.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreTacheParticipantSeuilMax.setText(projet.getSeuilFixes().getNombreTacheParticipant().getSeuilMax().toString());
@@ -471,7 +453,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     private void nombreTacheParticipantSeuilMinFocusLost(java.awt.event.FocusEvent evt) {//GEN-LAST:event_nombreTacheParticipantSeuilMaxFocusGained
         try{//GEN-FIRST:event_nombreTacheParticipantSeuilMinFocusLost
             ancienneValeur2 = ancienneValeur;
-            Integer.parseInt(nombreTacheParticipantSeuilMin.getText());
+            Float.parseFloat(nombreTacheParticipantSeuilMin.getText());
         } catch(NumberFormatException e){
             javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreTacheParticipantSeuilMin.setText(projet.getSeuilFixes().getNombreTacheParticipant().getSeuilMin().toString());
@@ -677,8 +659,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         nombreParticipantIterationSeuilMax.setText(((Integer)seuilFixe.getNombreParticipantIteration().getSeuilMax()).toString());
         chargeMoyenneSeuilMin.setText(((Float)seuilFixe.getChargeMoyenne().getSeuilMin()).toString());
         chargeMoyenneSeuilMax.setText(((Float)seuilFixe.getChargeMoyenne().getSeuilMax()).toString());
-        nombreTacheParticipantSeuilMin.setText(((Integer)seuilFixe.getNombreTacheParticipant().getSeuilMin()).toString());
-        nombreTacheParticipantSeuilMax.setText(((Integer)seuilFixe.getNombreTacheParticipant().getSeuilMax()).toString());
+        nombreTacheParticipantSeuilMin.setText(((Float)seuilFixe.getNombreTacheParticipant().getSeuilMin()).toString());
+        nombreTacheParticipantSeuilMax.setText(((Float)seuilFixe.getNombreTacheParticipant().getSeuilMax()).toString());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

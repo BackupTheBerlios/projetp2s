@@ -1015,8 +1015,8 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nombreTacheParticipantMin>");
                                     
                                     out.println("<nombreTacheParticipantMax>");
-                                    if(rsSeuilsProjet.getInt("nombreTacheParticipantMax") != -1)
-                                        out.println(rsSeuilsProjet.getInt("nombreTacheParticipantMax"));
+                                    if(rsSeuilsProjet.getFloat("nombreTacheParticipantMax") != -1)
+                                        out.println(rsSeuilsProjet.getFloat("nombreTacheParticipantMax"));
                                     out.println("</nombreTacheParticipantMax>");
                                     
                                     out.println("</seuilsProjet>");

@@ -406,15 +406,15 @@ public class ParserXMLLog {
                         //Recuperation du seuil min pour le nombre de tache par participant dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreTacheParticipantMin"))
                             if(seuilActuel.getFirstChild() != null){
-                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreTacheParticipant.setSeuilMin(new Integer(seuilInt));
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            nombreTacheParticipant.setSeuilMin(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil max pour le nombre de tache par participant dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreTacheParticipantMax"))
                             if(seuilActuel.getFirstChild() != null){
-                            seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreTacheParticipant.setSeuilMax(new Integer(seuilInt));
+                            seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
+                            nombreTacheParticipant.setSeuilMax(new Float(seuilFloat));
                             }
                         
                     }

@@ -26,10 +26,10 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         
-        this.textIndChargeMoyenne.setText(nf.format(new Float(ind.getChargeMoyenneParticipants())).toString());
+        this.textIndChargeMoyenne.setText(nf.format(new Float(ind.getChargeMoyenneParticipants())));
         this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
         
-        this.textIndDureeMoyenne.setText(nf.format(new Float(ind.getDureeMoyenneTaches())).toString());
+        this.textIndDureeMoyenne.setText(nf.format(new Float(ind.getDureeMoyenneTaches())));
         
         this.textIndMoyenneTache.setText(nf.format(new Float(ind.getNombreMoyenTachesParticipants())));
         

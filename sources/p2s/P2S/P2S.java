@@ -5,6 +5,8 @@ import P2S.Control.Bundle.Bundle;
 import P2S.UI.View.JDialog.JDialogPremiereFois;
 import P2S.UI.View.JFrameP2S;
 import java.io.*;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -100,6 +102,22 @@ public class P2S {
         
         // On recupere la langue
         Bundle.setCurrentLocale(new Locale(Preferences.getProperty("langue")));
+        
+        //On teste la connection avec le serveur Tomcat
+        try{
+            URL url = new URL("http://"+Preferences.getProperty("host")+":"+Preferences.getProperty("port")+"/p2sserver/");
+            url.openStream();
+        }
+        catch(ConnectException e){
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JDialogErreurTomcat_Text"), Bundle.getText("JDialogErreurTomcat_Title"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            System.exit(0);
+        }
+        catch(MalformedURLException e2){
+            e2.printStackTrace();
+        }
+        catch(java.io.IOException e3){
+            e3.printStackTrace();
+        }
         
         // On initialise les infos de la BD pour les servlet
         try{
