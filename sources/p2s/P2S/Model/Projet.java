@@ -58,6 +58,14 @@ public class Projet {
         this.listeMesures = listeMesure;        
     }
     
+    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {        
+        this.nom = nom;
+        this.description = description;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.listeMesures = listeMesure;        
+    }
+    
     public void ajouterMesure(Mesure mesure) {
         this.listeMesures.add(mesure);
     }

@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-               
+        
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         
@@ -59,14 +59,13 @@ public class LoginServlet extends HttpServlet {
             try {
                 // Connexion a la base de donnees
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
-                
+                //Connection conn = DriverManager.getConnection("jdbc:mysql://unicorn-da.berlios.de/projetp2s","projetp2s","N94d8pX9wt");
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from utilisateurs where login = '" + login + "' and password ='"+ password + "'");
                 ResultSet rsUser = prepState.executeQuery(); // Execution de la requete
                 
                 if(rsUser.next()){
-                
-                                     
+                                              
                     out.println("<utilisateur>"); // debut flux
                     out.println("<login>"); // login
                     out.println(rsUser.getString("login"));
@@ -171,6 +170,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("SQLException: " + ex.getMessage()); 
                 System.out.println("SQLState: " + ex.getSQLState()); 
                 System.out.println("VendorError: " + ex.getErrorCode());
+                ex.printStackTrace();
             }
         }
         

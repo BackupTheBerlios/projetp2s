@@ -5,17 +5,35 @@
     <servlet-class>LoginServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>AjoutProjetServlet</servlet-name>
+    <servlet-class>AjoutProjetServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MAJBDServlet</servlet-name>
+    <servlet-class>MAJBDServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>CreerSuperviseurServlet</servlet-name>
     <servlet-class>CreerSuperviseurServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>AjoutProjetServlet</servlet-name>
+    <url-pattern>/AjoutProjetServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MAJBDServlet</servlet-name>
+    <url-pattern>/MAJBDServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>CreerSuperviseurServlet</servlet-name>
     <url-pattern>/CreerSuperviseurServlet</url-pattern>
   </servlet-mapping>
+
   <session-config>
     <session-timeout>
             30

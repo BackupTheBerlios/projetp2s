@@ -3,7 +3,11 @@ package P2S.UI.View.JDialog;
 import P2S.UI.View.*;
 import P2S.Model.*;
 import P2S.Control.Bundle.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,24 +15,24 @@ import java.util.*;
  */
 public class JDialogCreerProjet extends javax.swing.JDialog {
         
-    private Vector _listeMesures;
-    private String[] _titreColonnes;
+    private Vector listeMesures;
+    private String[] titreColonnes;
     
     /** Creates new form JDialogCreerProjet */
     public JDialogCreerProjet(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        _listeMesures = new Vector();
+        listeMesures = new Vector();
         
         // Initialisation de la table des mesures
         Object donnees[][] = new Object[0][0];
-        _titreColonnes = new String[3];
-        _titreColonnes[0] = Bundle.getText("JDialogCreerProjet_JTable_NomCol1");
-        _titreColonnes[1] = Bundle.getText("JDialogCreerProjet_JTable_NomCol2");
-        _titreColonnes[2] = Bundle.getText("JDialogCreerProjet_JTable_NomCol3");
+        titreColonnes = new String[3];
+        titreColonnes[0] = Bundle.getText("JDialogCreerProjet_JTable_NomCol1");
+        titreColonnes[1] = Bundle.getText("JDialogCreerProjet_JTable_NomCol2");
+        titreColonnes[2] = Bundle.getText("JDialogCreerProjet_JTable_NomCol3");
                              
-        this.jTableMesures.setModel(new ModeleTableMesure(donnees,_titreColonnes));
+        this.jTableMesures.setModel(new ModeleTableMesure(donnees,titreColonnes));
         
         this.initText();
 
@@ -56,6 +60,8 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         JTextFieldDateDebutAnnee = new javax.swing.JTextField();
         JTextFieldDateFinAnnee = new javax.swing.JTextField();
         JTextFieldDateFinJour = new javax.swing.JTextField();
+        JLabelDescription = new javax.swing.JLabel();
+        JTextAreaDescription = new javax.swing.JTextArea();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -77,10 +83,10 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         getContentPane().add(JTextFieldDateFinMois, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 30, -1));
 
         JLabelMesures.setText("Mesures :");
-        getContentPane().add(JLabelMesures, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        getContentPane().add(JLabelMesures, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
-        JScrollPaneMesures.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         JScrollPaneMesures.setBackground(new java.awt.Color(255, 255, 255));
+        JScrollPaneMesures.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jTableMesures.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -94,7 +100,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         ));
         JScrollPaneMesures.setViewportView(jTableMesures);
 
-        getContentPane().add(JScrollPaneMesures, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 400, 110));
+        getContentPane().add(JScrollPaneMesures, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 400, 110));
 
         JButtonOk.setText("OK");
         JButtonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +109,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, -1));
+        getContentPane().add(JButtonOk, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 350, -1, -1));
 
         JButtonAnnuler.setText("Annuler");
         JButtonAnnuler.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +118,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, -1, -1));
+        getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, -1, -1));
 
         JButtonAjouterMesure.setText("Ajouter mesure");
         JButtonAjouterMesure.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +127,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(JButtonAjouterMesure, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 110, -1));
+        getContentPane().add(JButtonAjouterMesure, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 310, 110, -1));
 
         getContentPane().add(JTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 130, -1));
 
@@ -137,8 +143,13 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         JTextFieldDateFinJour.setText("jj");
         getContentPane().add(JTextFieldDateFinJour, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 30, -1));
 
+        JLabelDescription.setText("Description : ");
+        getContentPane().add(JLabelDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        getContentPane().add(JTextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 380, 80));
+
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-498)/2, (screenSize.height-325)/2, 498, 325);
+        setBounds((screenSize.width-514)/2, (screenSize.height-425)/2, 514, 425);
     }//GEN-END:initComponents
 
     public void initText()
@@ -148,6 +159,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         JLabelNom.setText(Bundle.getText("JDialogCreerProjet_JLabel_Nom"));
         JLabelDateDebut.setText(Bundle.getText("JDialogCreerProjet_JLabel_DateDebut"));
         JLabelDateFin.setText(Bundle.getText("JDialogCreerProjet_JLabel_DateFin"));
+        JLabelDescription.setText(Bundle.getText("JDialogCreerProjet_JLabel_Description"));
         JLabelMesures.setText(Bundle.getText("JDialogCreerProjet_JLabel_Mesures"));
         JButtonOk.setText(Bundle.getText("JDialogCreerProjet_JButton_Ok"));
         JButtonAnnuler.setText(Bundle.getText("JDialogCreerProjet_JButton_Annuler"));
@@ -179,27 +191,51 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
         {
            // Date dateDebut = new Date(new Integer(this.JTextFieldDateDebutAnnee.getText()).intValue(),new Integer(this.JTextFieldDateDebutMois.getText()).intValue(),new Integer(this.JTextFieldDateDebutJour.getText()).intValue());
             //Date dateFin = new Date(new Integer(this.JTextFieldDateFinAnnee.getText()).intValue(),new Integer(this.JTextFieldDateFinMois.getText()).intValue(),new Integer(this.JTextFieldDateFinJour.getText()).intValue());
-            ((JFrameP2S)this.getParent()).ajouterProjet(new Projet(this.JTextFieldNom.getText(),_listeMesures));
+            
+            // format de la date
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            
+            // On récupère la date début
+            Date dateDebut = null;
+            try{                        
+                dateDebut = dateFormat.parse(this.JTextFieldDateDebutAnnee.getText()+"-"+this.JTextFieldDateDebutMois.getText()+"-"+this.JTextFieldDateDebutJour.getText());
+            } catch(ParseException e1){
+                System.out.println("Problème pour parser dateDebut");
+            }
+            
+            // On recupere la date fin
+            Date dateFin = null;
+            try{                        
+                dateFin = dateFormat.parse(this.JTextFieldDateFinAnnee.getText()+"-"+this.JTextFieldDateFinMois.getText()+"-"+this.JTextFieldDateFinJour.getText());
+            } catch(ParseException e1){
+                System.out.println("Problème pour parser dateFin");
+            }
+            
+            ((JFrameP2S)this.getParent()).ajouterProjet(new Projet(this.JTextFieldNom.getText(),this.JTextAreaDescription.getText(),dateDebut,dateFin,this.listeMesures));
+            this.dispose();
         }
-        this.dispose();
+        else
+            JOptionPane.showMessageDialog(this, new String("Veuillez entrer un nom de projet"),new String("Problème Création Projet") , JOptionPane.WARNING_MESSAGE);
+        
+        
     }//GEN-LAST:event_JButtonOkActionPerformed
     
     public void ajouterMesure(Mesure mesure)
     {
-        _listeMesures.add(mesure);
+        listeMesures.add(mesure);
     }
     
     public void rafarichirMesures()
     {
-        Object donnees[][] = new Object[_listeMesures.size()][3];
+        Object donnees[][] = new Object[listeMesures.size()][3];
         
-        for(int i=0;i<_listeMesures.size();i++)
+        for(int i=0;i<listeMesures.size();i++)
         {
-            donnees[i][0] = ((Mesure)(_listeMesures.get(i))).get_nom();
-            donnees[i][1] = new Integer(((Mesure)(_listeMesures.get(i))).get_limiteInf());
-            donnees[i][2] = new Integer(((Mesure)(_listeMesures.get(i))).get_limiteSup());
+            donnees[i][0] = ((Mesure)(listeMesures.get(i))).get_nom();
+            donnees[i][1] = new Integer(((Mesure)(listeMesures.get(i))).get_limiteInf());
+            donnees[i][2] = new Integer(((Mesure)(listeMesures.get(i))).get_limiteSup());
         }
-        this.jTableMesures.setModel(new ModeleTableMesure(donnees,_titreColonnes));
+        this.jTableMesures.setModel(new ModeleTableMesure(donnees,titreColonnes));
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -208,9 +244,11 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
     private javax.swing.JButton JButtonOk;
     private javax.swing.JLabel JLabelDateDebut;
     private javax.swing.JLabel JLabelDateFin;
+    private javax.swing.JLabel JLabelDescription;
     private javax.swing.JLabel JLabelMesures;
     private javax.swing.JLabel JLabelNom;
     private javax.swing.JScrollPane JScrollPaneMesures;
+    private javax.swing.JTextArea JTextAreaDescription;
     private javax.swing.JTextField JTextFieldDateDebutAnnee;
     private javax.swing.JTextField JTextFieldDateDebutJour;
     private javax.swing.JTextField JTextFieldDateDebutMois;
