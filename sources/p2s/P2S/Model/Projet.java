@@ -10,13 +10,15 @@ public class Projet {
     
     //ATTRIBUTS
     
-    private int idProjet;
+    private int id;
     private String nom;
     private String description;
     private Date dateDebut;
     private Date dateFin;
     private Vector listeMesures;
     private Vector listeIt;
+    private Vector listeMembres;
+    private Vector listeArtefacts;
     
     
     //CONSTRUCTEURS
@@ -24,43 +26,51 @@ public class Projet {
     /** Creates a new instance of Projet */
     
     public Projet(String nom, Vector listeMesures) {
-        this.idProjet = 1;
+        this.id = 1;
         this.nom = nom;
         this.description = new String("");
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = listeMesures;
         this.listeIt = new Vector();
+        this.listeMembres = new Vector();
+        this.listeArtefacts = new Vector();
     }
     
     public Projet(int idProjet, String nom, String description) {
-        this.idProjet = idProjet;
+        this.id = idProjet;
         this.nom = nom;
         this.description = description;
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = new Vector();
         this.listeIt = new Vector();
+        this.listeMembres = new Vector();
+        this.listeArtefacts = new Vector();
     }
     
     public Projet(int idProjet,String nom, String description, Vector listeMesure) {
-        this.idProjet = idProjet;
+        this.id = idProjet;
         this.nom = nom;
         this.description = description;
         this.dateDebut = new Date();
         this.dateFin = new Date();
         this.listeMesures = new Vector(listeMesure);
         this.listeIt = new Vector();
+        this.listeMembres = new Vector();
+        this.listeArtefacts = new Vector();
     }
     
-    public Projet(int idProjet,String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt) {
-        this.idProjet = idProjet;
+    public Projet(int idProjet,String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres, Vector listeArtefacts) {
+        this.id = idProjet;
         this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.listeMesures = listeMesure;
         this.listeIt = listeIt;
+        this.listeMembres = listeMembres;
+        this.listeArtefacts = listeArtefacts;
     }
     
     public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {
@@ -70,6 +80,8 @@ public class Projet {
         this.dateFin = dateFin;
         this.listeMesures = listeMesure;
         this.listeIt = new Vector();
+        this.listeMembres = new Vector();
+        this.listeArtefacts = new Vector();
     }
     
     public void ajouterMesure(Mesure mesure) {
@@ -135,19 +147,35 @@ public class Projet {
         this.description = description;
     }
     
-    public int getIdProjet() {
-        return idProjet;
+    public int getId() {
+        return id;
     }
     
-    public void setIdProjet(int idProjet) {
-        this.idProjet = idProjet;
+    public void setId(int idProjet) {
+        this.id = idProjet;
     }
-
+    
     public Vector getListeIt() {
         return listeIt;
     }
-
+    
     public void setListeIt(Vector listeIt) {
         this.listeIt = listeIt;
+    }
+    
+    public Vector getListeMembres() {
+        return listeMembres;
+    }
+    
+    public void setListeMembres(Vector listeMembres) {
+        this.listeMembres = listeMembres;
+    }
+    
+    public Vector getListeArtefacts() {
+        return listeArtefacts;
+    }
+    
+    public void setListeArtefacts(Vector listeArtefacts) {
+        this.listeArtefacts = listeArtefacts;
     }
 }
