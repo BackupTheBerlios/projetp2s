@@ -204,6 +204,37 @@ CREATE TABLE `projets` (
   PRIMARY KEY  (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `seuilsfixes_projet`;
+CREATE TABLE `seuilsfixes_projet` (
+  `idprojet` int(10) unsigned NOT NULL,
+  `totalChargesProjetMin` int(10) unsigned default 0,
+  `totalChargesProjetMax` int(10) unsigned default 0,
+  `tachesTermineesProjetMin` int(10) unsigned default 0,
+  `tachesTermineesProjetMax` int(10) unsigned default 0,
+  `dureeMoyenneTacheMin` float unsigned default 0,
+  `dureeMoyenneTacheMax` float unsigned default 0,
+  `nombreParticipantsMin` int(10) unsigned default 0,
+  `nombreParticipantsMax` int(10) unsigned default 0,
+  `avancementProjetMin` int(10) unsigned default 0,
+  `avancementProjetMax` int(10) unsigned default 0,
+  `totalChargesIterationMin` int(10) unsigned default 0,
+  `totalChargesIterationMax` int(10) unsigned default 0,
+  `tacheTermineesIterationMin` int(10) unsigned default 0,
+  `tacheTermineesIterationMax` int(10) unsigned default 0,
+  `dureeMoyenneIterationMin` float unsigned default 0,
+  `dureeMoyenneIterationMax` float unsigned default 0,
+  `nombreParticipantIterationMin` int(10) unsigned default 0,
+  `nombreParticipantIterationMax` int(10) unsigned default 0,
+  `chargeMoyenneMin` int(10) unsigned default 0,
+  `chargeMoyenneMax` int(10) unsigned default 0,
+  `nombreTacheParticipantMin` int(10) unsigned default 0,
+  `nombreTacheParticipantMax` int(10) unsigned default 0,
+  PRIMARY KEY  (`idprojet`),
+  KEY `FK_superviseurprojets_idprojet` (`idprojet`),
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 4096 kB';
+
+
+
 DROP TABLE IF EXISTS `risques`;
 CREATE TABLE `risques` (
   `idrisque` int(10) unsigned NOT NULL auto_increment,
