@@ -444,41 +444,43 @@ public class LoginServlet extends HttpServlet {
                                             out.println("</tachesCollaboratives>");
                                             
                                         }
+                                        
+                                        
+                                        
+                                        /************************** INDICATEURS D'UNE ITERATION ***************/
+                                        prepState = conn.prepareStatement("Select * from indicateurs_iteration where iditeration = " + rsIterations.getString("iditeration"));
+                                        ResultSet rsIndicateursIteration = prepState.executeQuery(); // Execution de la requete
+                                        
+                                        if(rsIndicateursIteration.next()){
+                                            out.println("<indicateursIteration>");
+                                            
+                                            out.println("<nombreTachesTerminees>");
+                                            out.println(rsIndicateursIteration.getString("nombreTachesTerminees"));
+                                            out.println("</nombreTachesTerminees>");
+                                            
+                                            out.println("<dureeMoyenneTache>");
+                                            out.println(rsIndicateursIteration.getString("dureeMoyenneTache"));
+                                            out.println("</dureeMoyenneTache>");
+                                            
+                                            out.println("<nombreParticipants>");
+                                            out.println(rsIndicateursIteration.getString("nombreParticipants"));
+                                            out.println("</nombreParticipants>");
+                                            
+                                            out.println("<chargeMoyenneParticipants>");
+                                            out.println(rsIndicateursIteration.getString("chargeMoyenneParticipants"));
+                                            out.println("</chargeMoyenneParticipants>");
+                                            
+                                            out.println("<nombreMoyenTachesParticipants>");
+                                            out.println(rsIndicateursIteration.getString("nombreMoyenTachesParticipants"));
+                                            out.println("</nombreMoyenTachesParticipants>");
+                                            
+                                            out.println("</indicateursIteration>");
+                                        }
+                                        rsIndicateursIteration.close();
+                                        
                                         out.println("</iteration>");
                                         
                                     }while(rsIterations.next());
-                                    
-                                    
-                                    /************************** INDICATEURS D'UNE ITERATION ***************/
-                                    prepState = conn.prepareStatement("Select * from indicateurs_iteration where iditeration = " + rsIterations.getString("iditeration"));
-                                    ResultSet rsIndicateursIteration = prepState.executeQuery(); // Execution de la requete
-                                    
-                                    if(rsIndicateursIteration.next()){
-                                        out.println("<indicateursIteration>");
-                                        
-                                        out.println("<nombreTachesTerminees>");
-                                        out.println(rsIndicateursIteration.getString("nombreTachesTerminees"));
-                                        out.println("</nombreTachesTerminees>");
-                                        
-                                        out.println("<dureeMoyenneTache>");
-                                        out.println(rsIndicateursIteration.getString("dureeMoyenneTache"));
-                                        out.println("</dureeMoyenneTache>");
-                                        
-                                        out.println("<nombreParticipants>");
-                                        out.println(rsIndicateursIteration.getString("nombreParticipants"));
-                                        out.println("</nombreParticipants>");
-                                        
-                                        out.println("<chargeMoyenneParticipants>");
-                                        out.println(rsIndicateursIteration.getString("chargeMoyenneParticipants"));
-                                        out.println("</chargeMoyenneParticipants>");
-                                        
-                                        out.println("<nombreMoyenTachesParticipants>");
-                                        out.println(rsIndicateursIteration.getString("nombreMoyenTachesParticipants"));
-                                        out.println("</nombreMoyenTachesParticipants>");
-                                        
-                                        out.println("</indicateursIteration>");
-                                    }
-                                    rsIndicateursIteration.close();
                                     
                                     rsIterations.close();
                                     out.println("</iterations>");
@@ -735,12 +737,7 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<avancementProjet>");
                                     out.println(rsIndicateursProjet.getString("avancementProjet"));
                                     out.println("</avancementProjet>");
-                                    
-                                    out.println("<indicateursProjet>");
-                                    out.println(rsIndicateursProjet.getString("indicateursProjet"));
-                                    out.println("</indicateursProjet>");
-                                    
-                                    
+                                                         
                                     out.println("</indicateursProjet>");
                                     
                                 }

@@ -44,6 +44,7 @@ public class TacheCollaborative extends Tache {
     //GETTEURS ET SETTEURS
     
     public Vector getRealisateurs() {
+                
         return realisateurs;
     }
     
