@@ -68,12 +68,13 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
         
         table = new JTable(tableModel) ;
         table.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+	table.setDefaultRenderer(Float.class, new NumericRenderer()) ;
         table.setDefaultRenderer(String.class, new StatusRenderer()) ;
         table.setDefaultRenderer(JButton.class, new ButtonRenderer()) ;
         table.setDefaultEditor(JButton.class, new ButtonEditor(this)) ;
         table.getTableHeader().setReorderingAllowed(false) ;
 	
-	table.setPreferredScrollableViewportSize(new Dimension(50, 10)) ;
+	table.setPreferredScrollableViewportSize(new Dimension(500, 100)) ;
 	jScrollPane1 = new JScrollPane(table) ;
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 

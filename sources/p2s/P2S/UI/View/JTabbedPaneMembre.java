@@ -30,7 +30,7 @@ public class JTabbedPaneMembre extends JTabbedPane {
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoGenMembre(membre));
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabTaches"),new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_tasks.gif")), new JPanelIndicTachesMembre(membre.getListeTaches()));
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabArtefacts"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_artefacts.gif")), new JPanelIndicArtefactsMembre(membre.getListeArtefacts()));
-        this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoProf"), new JPanelInfoProfMembre(membre.getListeRoles(), membre.getListeProjets()));
+        this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoProf"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_projets_roles.gif")), new JPanelInfoProfMembre(membre.getListeRoles(), membre.getListeProjets()));
         
     }
     
