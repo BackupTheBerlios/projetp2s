@@ -4,17 +4,9 @@ import P2S.Control.Bundle.*;
 import P2S.UI.View.*;
 import P2S.Model.*;
 import P2S.Inf.*;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.net.*;
 import java.io.*;
-import java.util.Vector;
-import java.util.List;
-import javax.swing.JOptionPane ;
+
 
 /**
  * JDialog permettant ? un utilisateur de se connecter ? l'application en tant que directeur ou superviseur
@@ -156,8 +148,9 @@ public class JDialogLogin extends javax.swing.JDialog {
     private void JButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOKActionPerformed
         
         try{
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie du login et du password a la servlet "LoginServlet" pour identifier l'utilisateur
-            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.JPasswordFieldMDP.getText()));
+            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.JPasswordFieldMDP.getText()));
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(

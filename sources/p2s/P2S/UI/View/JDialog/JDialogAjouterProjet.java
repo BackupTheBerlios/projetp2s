@@ -7,6 +7,7 @@
 package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.Bundle;
+import P2S.Inf.ParserXMLPreferences;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -77,7 +78,8 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
         String URLFichier = this.jTextFieldURL.getText();
         
         try{
-            URL url = new URL("http://localhost:8084/p2sserver/MAJBDServlet?login="+((JFrameP2S)this.getParent()).utilisateur.getLogin()+"&url="+URLFichier);
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDServlet?login="+((JFrameP2S)this.getParent()).utilisateur.getLogin()+"&url="+URLFichier);
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(

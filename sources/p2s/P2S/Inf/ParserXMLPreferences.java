@@ -5,6 +5,7 @@
 
 package P2S.Inf;
 
+import java.io.InputStream;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 
@@ -19,7 +20,7 @@ public class ParserXMLPreferences {
     /**
      * Fichier Xml
      */    
-    private String _fichierPreferences;
+    private InputStream _fichierPreferences;
     /**
      * Document contenant le fichier Xml
      */    
@@ -29,7 +30,7 @@ public class ParserXMLPreferences {
      * Cree une instance de ParserXMLPreferences
      * @param Xml Chemin du fichier Xml a lire
      */
-    public ParserXMLPreferences(String Xml) {
+    public ParserXMLPreferences(InputStream Xml) {
         this._fichierPreferences = Xml;
         
         try{
@@ -49,9 +50,18 @@ public class ParserXMLPreferences {
      */    
     public String lireLangue()
     {
-        Node langue = this._document.getElementsByTagName("langue").item(0);
-                
+        Node langue = this._document.getElementsByTagName("langue").item(0);                
         return langue.getFirstChild().getNodeValue();   
+    }
+    
+    public String lirePortServeur(){
+        Node port = this._document.getElementsByTagName("port").item(0);                
+        return port.getFirstChild().getNodeValue();
+    }
+    
+    public String lireAdresseServeur(){
+        Node adresse = this._document.getElementsByTagName("adresse").item(0);                
+        return adresse.getFirstChild().getNodeValue();
     }
     
     public void changerLangue()

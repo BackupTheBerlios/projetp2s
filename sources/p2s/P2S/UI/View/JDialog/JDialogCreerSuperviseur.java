@@ -2,6 +2,7 @@ package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.*;
 import P2S.Inf.Md5;
+import P2S.Inf.ParserXMLPreferences;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
@@ -93,8 +94,9 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
     private void JButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOkActionPerformed
         
         try{
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
-            URL url = new URL("http://localhost:8084/p2sserver/CreerSuperviseurServlet?login="+this.jTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.jPasswordMDP.getText()));
+            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/CreerSuperviseurServlet?login="+this.jTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.jPasswordMDP.getText()));
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
