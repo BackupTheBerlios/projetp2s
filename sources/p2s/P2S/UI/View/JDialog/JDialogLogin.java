@@ -15,6 +15,7 @@ import java.io.*;
 public class JDialogLogin extends javax.swing.JDialog {
     
     private boolean OK;
+    private boolean fermerApplication = true ; // sera verifie lors de la fermeture de la boite de dialogue
     
     /**
      * Creates new form JDialogLogin
@@ -140,7 +141,10 @@ public class JDialogLogin extends javax.swing.JDialog {
     }//GEN-END:initComponents
 
     private void formWindowClosed (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        //System.exit(0) ;
+        if (fermerApplication)
+        {
+            System.exit(0) ;
+        }
     }//GEN-LAST:event_formWindowClosed
 
     private void JPasswordFieldMDPFocusLost (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPFocusLost
@@ -163,7 +167,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_JButtonAnnulerActionPerformed
     
     private void JButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOKActionPerformed
-        
+        fermerApplication = true ;
         try{
             ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie du login et du password a la servlet "LoginServlet" pour identifier l'utilisateur
@@ -196,6 +200,7 @@ public class JDialogLogin extends javax.swing.JDialog {
         } catch(IOException e2){
             e2.printStackTrace();
         }
+        fermerApplication = false ;
         this.dispose();
     }//GEN-LAST:event_JButtonOKActionPerformed
     
