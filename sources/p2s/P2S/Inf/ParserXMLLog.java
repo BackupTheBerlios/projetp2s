@@ -267,154 +267,154 @@ public class ParserXMLLog {
                         if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesProjetMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            totalChargesProjet.setSeuilMin(seuilInt);
+                            totalChargesProjet.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max du total des charges du projet
                         if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesProjetMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            totalChargesProjet.setSeuilMax(seuilInt);
+                            totalChargesProjet.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min du total des taches terminees du projet
                         if(seuilActuel.getNodeName().equalsIgnoreCase("tachesTermineesProjetMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            tachesTermineesProjet.setSeuilMin(seuilInt);
+                            tachesTermineesProjet.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max du total des taches terminees du projet
                         if(seuilActuel.getNodeName().equalsIgnoreCase("tachesTermineesProjetMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            tachesTermineesProjet.setSeuilMax(seuilInt);
+                            tachesTermineesProjet.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min de la duree moyenne des taches
                         if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneTacheMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
-                            dureeMoyenneTache.setSeuilMin(seuilFloat);
+                            dureeMoyenneTache.setSeuilMin(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil max de la duree moyenne des taches
                         if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneTacheMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
-                            dureeMoyenneTache.setSeuilMax(seuilFloat);
+                            dureeMoyenneTache.setSeuilMax(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil min pour le nombre de participant
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantsMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreParticipants.setSeuilMin(seuilInt);
+                            nombreParticipants.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max pour le nombre de participant
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantsMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreParticipants.setSeuilMax(seuilInt);
+                            nombreParticipants.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min pour l'avancement du projet
                         if(seuilActuel.getNodeName().equalsIgnoreCase("avancementProjetMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            avancementProjet.setSeuilMin(seuilInt);
+                            avancementProjet.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max pour l'avancement du projet
                         if(seuilActuel.getNodeName().equalsIgnoreCase("avancementProjetMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            avancementProjet.setSeuilMax(seuilInt);
+                            avancementProjet.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min pour le total des charges dans l'itération
                         if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesIterationMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            totalChargesIteration.setSeuilMin(seuilInt);
+                            totalChargesIteration.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max pour le total des charges dans l'itération
                         if(seuilActuel.getNodeName().equalsIgnoreCase("totalChargesIterationMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            totalChargesIteration.setSeuilMax(seuilInt);
+                            totalChargesIteration.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min pour le total des taches terminees dans l'itération
                         if(seuilActuel.getNodeName().equalsIgnoreCase("tacheTermineesIterationMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            tacheTermineesIteration.setSeuilMin(seuilInt);
+                            tacheTermineesIteration.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max pour le total des taches terminees dans l'itération
                         if(seuilActuel.getNodeName().equalsIgnoreCase("tacheTermineesIterationMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            tacheTermineesIteration.setSeuilMax(seuilInt);
+                            tacheTermineesIteration.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min de la duree moyenne des taches dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneIterationMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
-                            dureeMoyenneIteration.setSeuilMin(seuilFloat);
+                            dureeMoyenneIteration.setSeuilMin(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil max de la duree moyenne des taches dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("dureeMoyenneIterationMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
-                            dureeMoyenneIteration.setSeuilMax(seuilFloat);
+                            dureeMoyenneIteration.setSeuilMax(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil min pour le nombre de participant dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantIterationMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreParticipantIteration.setSeuilMin(seuilInt);
+                            nombreParticipantIteration.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max pour le nombre de participant dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreParticipantIterationMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreParticipantIteration.setSeuilMax(seuilInt);
+                            nombreParticipantIteration.setSeuilMax(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil min de la charge moyenne des participants l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("chargeMoyenneMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
-                            chargeMoyenne.setSeuilMin(seuilFloat);
+                            chargeMoyenne.setSeuilMin(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil max de la charge moyenne des participants l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("chargeMoyenneMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilFloat = Float.parseFloat(seuilActuel.getFirstChild().getNodeValue());
-                            chargeMoyenne.setSeuilMax(seuilFloat);
+                            chargeMoyenne.setSeuilMax(new Float(seuilFloat));
                             }
                         
                         //Recuperation du seuil min pour le nombre de tache par participant dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreTacheParticipantMin"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreTacheParticipant.setSeuilMin(seuilInt);
+                            nombreTacheParticipant.setSeuilMin(new Integer(seuilInt));
                             }
                         
                         //Recuperation du seuil max pour le nombre de tache par participant dans l'iteration
                         if(seuilActuel.getNodeName().equalsIgnoreCase("nombreTacheParticipantMax"))
                             if(seuilActuel.getFirstChild() != null){
                             seuilInt = Integer.parseInt(seuilActuel.getFirstChild().getNodeValue());
-                            nombreTacheParticipant.setSeuilMax(seuilInt);
+                            nombreTacheParticipant.setSeuilMax(new Integer(seuilInt));
                             }
                         
                     }
