@@ -26,6 +26,11 @@ public class Directeur extends Utilisateur{
         listeMembres = new Vector();
     }
     
+    public Directeur(String login, String pass) {
+        super(login, pass);
+        listeMembres = new Vector();
+    }
+    
     public Directeur(String login, Vector listeMembres) {
         super(login);
         this.listeMembres = new Vector(listeMembres);
@@ -36,8 +41,19 @@ public class Directeur extends Utilisateur{
         listeMembres = new Vector();
     }
     
+     public Directeur(String login,String pass, String nom, String prenom) {
+        super(login,pass,nom,prenom);
+        listeMembres = new Vector();
+    }
+    
     public Directeur(String nom, String prenom, String login, Vector listeMembres) {
         super(login,nom,prenom);
+        
+        this.listeMembres = new Vector(listeMembres);
+    }
+    
+    public Directeur(String nom, String pass, String prenom, String login, Vector listeMembres) {
+        super(login,pass,nom,prenom);
         
         this.listeMembres = new Vector(listeMembres);
     }
