@@ -39,30 +39,31 @@ public class JDialogMail extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         labelDestinataire.setText("A :");
-        getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, -1));
+        getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
         textIndDestinataire.setBackground(new java.awt.Color(255, 255, 255));
         textIndDestinataire.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 170, -1));
+        getContentPane().add(textIndDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 360, -1));
 
+        textMessage.setLineWrap(true);
         textMessage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 170, 90));
+        getContentPane().add(textMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 360, 230));
 
         labelObjet.setText("Objet  :");
-        getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 60, -1));
+        getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, -1));
 
         textIndObjet.setBackground(new java.awt.Color(255, 255, 255));
         textIndObjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 170, -1));
+        getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 360, -1));
 
         buttonOK.setText("Envoyer");
-        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
+        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, -1, -1));
 
         buttonCancel.setText("Annuler");
-        getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
+        getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-400)/2, (screenSize.height-400)/2, 400, 400);
+        setBounds((screenSize.width-494)/2, (screenSize.height-400)/2, 494, 400);
     }//GEN-END:initComponents
 
     public void initText()
