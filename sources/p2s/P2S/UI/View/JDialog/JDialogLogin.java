@@ -30,6 +30,7 @@ public class JDialogLogin extends javax.swing.JDialog {
      */
     public JDialogLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
         initComponents();
         
         // Initialisation du texte
