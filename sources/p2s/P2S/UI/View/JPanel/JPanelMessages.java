@@ -13,6 +13,7 @@ import java.net.*;
 import java.io.*;
 import P2S.Control.Bundle.Bundle ;
 import P2S.UI.View.JDialog.*;
+import P2S.UI.View.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -22,7 +23,6 @@ import javax.swing.table.TableCellRenderer;
 import java.util.Vector;
 import java.util.*;
 import P2S.UI.View.JFrameP2S;
-
 
 /**
  *
@@ -132,6 +132,8 @@ public class JPanelMessages extends JPanel{
          
          super (new JTextField()) ;
          this.owner = owner ;
+         
+         
          editorComponent = new JButton(Bundle.getText("")) ;        
          ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(ActionEvent e) {
@@ -163,6 +165,8 @@ public class JPanelMessages extends JPanel{
                             String inputLine = in.readLine();
             
                             if(inputLine.equalsIgnoreCase("ok")){ // Si la servlet repond que ce n'est pas Ok                 
+                                messages.removeElementAt(table.getEditingRow());
+                                
                                 
                             }
                             in.close();
@@ -187,7 +191,9 @@ public class JPanelMessages extends JPanel{
 
    } // fin de la classe ButtonEditor
     
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration
+   // Variables declaration - do not modify                     
     // End of variables declaration//GEN-END:variables
     
 }
