@@ -8,7 +8,7 @@ import java.util.Locale;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
-
+import P2S.Inf.ParserXMLPreferences;
 import java.util.*;
 import java.sql.*;
 import java.sql.Connection;
@@ -17,7 +17,6 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 
 /**
  *
@@ -100,8 +99,9 @@ public class JDialogAlerte extends javax.swing.JDialog {
         }
         
         try{            
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
-              URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/CreerUnMessageServlet?login="+this.textIndDestinataire.getText()+"&sujet="+this.textIndObjet.getText()+"&message="+this.textMessage.getText());
+              URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/CreerUnMessageServlet?login="+this.textIndDestinataire.getText()+"&sujet="+this.textIndObjet.getText()+"&message="+this.textMessage.getText());
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
