@@ -8,14 +8,15 @@ package P2S.UI.View.JPanel;
 
 
 import P2S.Control.Bundle.Bundle;
-import P2S.Model.IndicateursProjet;
-import P2S.Model.Iteration;
-import P2S.Model.Projet;
 import P2S.Model.Risque;
-import java.text.DateFormat;
-import java.util.Locale;
+import P2S.UI.View.JDialog.ModeleTableMesure;
+import java.awt.Component;
 import java.util.Vector ;
-import javax.swing.table.DefaultTableModel ;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
+
 
 /**
  *
@@ -23,45 +24,36 @@ import javax.swing.table.DefaultTableModel ;
  */
 public class JPanelInfoRisque extends javax.swing.JPanel {
     
-    private Vector risques ;
+    private String[] titresColonnes = {Bundle.getText("JTableRisquesColonne1"),
+                Bundle.getText("JTableRisquesColonne2"),
+                Bundle.getText("JTableRisquesColonne3"),
+                Bundle.getText("JTableRisquesColonne4"),
+                Bundle.getText("JTableRisquesColonne5")} ; ;
+    private Object[][] donnees = null ;
     
     /** Creates new form JPanelInfoRisque */
-    public JPanelInfoRisque (Projet proj) {
-        initComponents ();
+    public JPanelInfoRisque (Vector risques) {
         
-        risques = proj.getListeRisques() ;
-        
-        // remplissage de la JTable        
-        // titres des colonnes
-        Vector titresColonnes = new Vector() ;
-        titresColonnes.add(Bundle.getText("JTableRisquesColonne1")) ;
-        titresColonnes.add(Bundle.getText("JTableRisquesColonne2")) ;
-        titresColonnes.add(Bundle.getText("JTableRisquesColonne3")) ;
-        titresColonnes.add(Bundle.getText("JTableRisquesColonne4")) ;
-        titresColonnes.add(Bundle.getText("JTableRisquesColonne5")) ;
-        
-        // changement de taille de certaines colonnes       
-        
-        
-        ((DefaultTableModel)(jTable1.getModel())).setColumnIdentifiers(titresColonnes) ;
-        
-       for (int i = 0 ; i < risques.size() ; i++)
+        donnees = new Object[risques.size()][5] ;
+        for (int i = 0 ; i < donnees.length ; i++)
         {
-            Risque tempRisque ;
-            Vector donneesRisque ;   // les donnees les plus importantes
-            if (risques.get(i) instanceof Risque) // precaution on teste si l'objet est une Tisque
+            if (risques.get(i) instanceof Risque)
             {
-                // affichage des informations sommaires des tisques
-                tempRisque = (Risque)risques.get(i) ;
-                donneesRisque = new Vector() ;
-                donneesRisque.add(tempRisque.getNom()) ;
-                donneesRisque.add(tempRisque.getDescription()) ;
-                donneesRisque.add(Integer.toString(tempRisque.getPriorite())) ;
-                donneesRisque.add(Integer.toString(tempRisque.getImpact())) ;
-                donneesRisque.add(Integer.toString(tempRisque.getEtat())) ;                                
-                ((DefaultTableModel)(jTable1.getModel())).addRow (donneesRisque) ;
+                donnees[i][0] = ((Risque)risques.get(i)).getNom() ;
+                donnees[i][1] = ((Risque)risques.get(i)).getDescription() ;
+                donnees[i][2] = ((Risque)risques.get(i)).getPriorite() ;
+                donnees[i][3] = ((Risque)risques.get(i)).getImpact() ;
+                donnees[i][4] = ((Risque)risques.get(i)).getEtat() ;
             }
         }
+        
+        ModeleTableMesure tableModel = new ModeleTableMesure(donnees, titresColonnes) ;
+        
+        initComponents ();     
+        
+        table.setModel(tableModel) ;     
+        
+
     }
     
     /** This method is called from within the constructor to
@@ -71,11 +63,11 @@ public class JPanelInfoRisque extends javax.swing.JPanel {
      */
     private void initComponents() {//GEN-BEGIN:initComponents
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -91,7 +83,7 @@ public class JPanelInfoRisque extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -100,7 +92,8 @@ public class JPanelInfoRisque extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
     
+       
 }
