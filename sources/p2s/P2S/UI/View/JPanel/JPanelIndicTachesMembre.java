@@ -9,9 +9,14 @@ package P2S.UI.View.JPanel;
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursTacheMembre;
 import P2S.UI.View.JDialog.ModeleTableMesure;
+import java.awt.Component;
 import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.JFormattedTextField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -43,6 +48,7 @@ public class JPanelIndicTachesMembre extends javax.swing.JPanel {
         
         ModeleTableMesure tableModel = new ModeleTableMesure(donnees, nomsColonnes) ;        
         table = new JTable(tableModel) ;
+	table.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
         tableScrollPane = new JScrollPane(table) ;
         add(tableScrollPane, java.awt.BorderLayout.CENTER);
     }
@@ -58,6 +64,28 @@ public class JPanelIndicTachesMembre extends javax.swing.JPanel {
 
     }//GEN-END:initComponents
     
+    
+    /** classe NumericRenderer
+    * @author C Mike K
+    * @version 1.0
+    */
+   class NumericRenderer implements TableCellRenderer
+   {
+      private JFormattedTextField numericField = new JFormattedTextField() ;
+
+      public NumericRenderer()
+      {
+         numericField.setHorizontalAlignment(JTextField.RIGHT) ;
+         numericField.setBorder(BorderFactory.createEmptyBorder()) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+         numericField.setValue(value + " " +Bundle.getText("Constante_heures")) ;
+         return numericField ;
+      }
+
+   } // fin de la classe NumericRenderer
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
