@@ -261,7 +261,10 @@ CREATE TABLE `seuilsfixes_projet` (
   `chargeMoyenneMax` int(10) unsigned default '0',
   `nombreTacheParticipantMin` int(10) unsigned default '0',
   `nombreTacheParticipantMax` int(10) unsigned default '0',
-  PRIMARY KEY  (`idprojet`),
+  `login` varchar(45) NOT NULL default '',
+  PRIMARY KEY  (`idprojet`,`login`),
+  KEY `FK_seuilsfixes_projet_2` (`login`),
+  CONSTRAINT `FK_seuilsfixes_projet_2` FOREIGN KEY (`login`) REFERENCES `utilisateurs` (`login`),
   CONSTRAINT `FK_seuilsfixes_projet_1` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 4096 kB';
 
