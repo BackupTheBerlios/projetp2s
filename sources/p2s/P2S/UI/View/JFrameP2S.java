@@ -7,6 +7,7 @@ import P2S.Model.*;
 import P2S.UI.Tree.*;
 import P2S.UI.View.JPanel.*;
 import P2S.UI.View.JPanel.JPanelInfoIteration;
+import P2S.Inf.*;
 import javax.swing.tree.*;
 import javax.swing.*;
 import java.awt.*;
@@ -173,7 +174,8 @@ public class JFrameP2S extends javax.swing.JFrame {
         //FenCreerProjet = new JDialogCreerProjet(this,true);
         //FenCreerProjet.show();
         new JDialogAjouterProjet(this,true).show();
-        
+        // on rafraichit apres avoir ajoute
+        rafraichirContenuSuperviseur() ;
     }
     
     /** Exit the Application */
@@ -184,18 +186,25 @@ public class JFrameP2S extends javax.swing.JFrame {
     private void initTexte() {
         // Initialisation des labels de la barre de menu
         JMenuFichier.setText(Bundle.getText("JMenuFichier"));
+        JMenuFichier.setMnemonic(Bundle.getChar("JMenuFichier"));
         JMenuOutils.setText(Bundle.getText("JMenuOutils"));
+        JMenuOutils.setMnemonic(Bundle.getChar("JMenuOutils"));
         JMenuAide.setText(Bundle.getText("JMenuAide"));
+        JMenuAide.setMnemonic(Bundle.getChar("JMenuAide"));
         
         //Initialisation des labels du menu "Fichier"
         JMenuItemQuitter.setText(Bundle.getText("JMenuItemQuitter"));
+        JMenuItemQuitter.setMnemonic(Bundle.getChar("JMenuItemQuitter"));
         
         //Initialisation des labels du menu "Outils"
         JMenuItemRafraichir.setText(Bundle.getText("JMenuItemRafraichir"));
+        JMenuItemRafraichir.setMnemonic(Bundle.getChar("JMenuItemRafraichir"));
         JMenuItemPreferences.setText(Bundle.getText("JMenuItemPreferences"));
+        JMenuItemPreferences.setMnemonic(Bundle.getChar("JMenuItemPreferences"));
         
         //Initialisation des labels du menu "Aide"
         JMenuItemAProposDe.setText(Bundle.getText("JMenuItemAProposDe"));
+        JMenuItemAProposDe.setMnemonic(Bundle.getChar("JMenuItemAProposDe"));
         
     }
     
@@ -226,6 +235,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         // On ajoute le menu "Creer projet" au menu Outils
         JMenuItem JMenuItemCreerProjet = new JMenuItem();
         JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
+        JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
         JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JMenuItemCreerProjetActionPerformed(evt);                
@@ -237,55 +247,11 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Construction de l'arborescence
         
         // Premier noeud
-        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
+        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));        
+       
+        construireEnvironnementSuperviseur() ;
         
-        // Ajout des projets supervis?s par l'utilisateur
-        
-        // Ajout du noeud "Projets"
-       // DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
-        
-        // Ajout des projets du superviseur
-        for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
-            Projet proj = ((Superviseur) utilisateur).getProjet(i);
-            NoeudProjet noeudProjet = new NoeudProjet(proj);
-            for(int j=0;j<proj.getListeIt().size();j++){
-                NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
-                noeudProjet.add(noeudIteration);
-            }
-            racine.add(noeudProjet);
-        }
-       // racine.add(racineProjet);
-        
-        // Met ? jour l'arborescence
-        jTree1.setModel(new DefaultTreeModel(racine));
-        
-        // Ajout du listener pour la selection d'un projet
-        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent e) {
-                // On recupere le noeud sur lequel on a clique
-                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
-                if(d instanceof NoeudProjet) // si le noeud est un projet
-                    afficherInfoProjet(((NoeudProjet)d).getProjet());
-                
-                else if(d instanceof NoeudIteration){//Si len noeud est une iteration
-                    afficherInfoIte(((NoeudIteration)d).getIteration());
-                }
-                // si c'est le noeud "projets"
-                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0)
-                {
-                    Vector listeProjets = new Vector();
-                    for(int i=0;i<d.getChildCount();i++)
-                    {
-                        listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
-                    }
-                    
-                    PanelContenu.removeAll(); // On supprime tout ce qu'il y a dans le panel contenu
-                    PanelContenu.add(new JPanelTousLesProjets(listeProjets));
-                    validate();
-                }
-            }
-        }
-        );        
+              
     }
     
     
@@ -406,6 +372,112 @@ public class JFrameP2S extends javax.swing.JFrame {
         noeud.add( new NoeudProjet(projet));
         // Met a jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
+    }
+    
+    
+    /** 
+     * rafraichit les projets du superviseur
+     *@author Conde Mike K.
+     *@version 1.0
+     *@see LoginServlet
+     */
+    public void rafraichirContenuSuperviseur() {
+	/*
+	 ** PRINCIPE : Appel a la servlet LoginServlet mais seuls
+         * les projets sont traites car le superviseur est le meme
+	 */
+	
+	try {
+                
+            URL url = new URL("http://localhost:8084/p2sserver/RecupererInfosSuperviseur?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
+	
+            // Buffer qui va recuperer la reponse de la servlet
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(
+                url.openStream()));
+
+            //Recuperation du fluxXml envoye par la Servlet : LoginServlet contenant toutes les donnees de l'utilisateur
+            String fluxXml = new String("");
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                fluxXml += inputLine;
+            }
+
+            System.out.println("FLUX : " + fluxXml);
+
+            if(fluxXml.compareTo("") != 0) {
+                ParserXMLLog parser = new ParserXMLLog(fluxXml);
+
+                ((Superviseur)utilisateur).setListeProjets(parser.lireProjets()) ;                
+            }
+            in.close();
+        } catch(MalformedURLException e1){
+            e1.printStackTrace();
+            return ;
+        } catch(IOException e2){
+            e2.printStackTrace();
+            return ;
+        }
+	
+	
+	/*
+	 * ETAPE 2 : a ce point tout semble correct, appel de la fonction qui construit l'ihm
+	 */	
+        construireEnvironnementSuperviseur() ;
+    }
+
+    /**
+     * Dessine/ajoute les composants graphiques dans la fenetre
+     *@author Conde Mike K.
+     *@version 1.0
+     */
+    private void construireEnvironnementSuperviseur () {
+        // Ajout des projets du superviseur
+        for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
+            Projet proj = ((Superviseur) utilisateur).getProjet(i);
+            NoeudProjet noeudProjet = new NoeudProjet(proj);
+            
+            // liste des iterations pour le projet
+            for(int j=0;j<proj.getListeIt().size();j++){
+                NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
+                noeudProjet.add(noeudIteration);
+            }
+            
+            racine.add(noeudProjet);
+        }
+       // racine.add(racineProjet);
+        
+        // Met ? jour l'arborescence
+        jTree1.setModel(new DefaultTreeModel(racine));
+        
+        
+        // Ajout du listener pour la selection d'un projet
+        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
+                // On recupere le noeud sur lequel on a clique
+                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
+                if(d instanceof NoeudProjet) // si le noeud est un projet
+                    afficherInfoProjet(((NoeudProjet)d).getProjet());
+                
+                else if(d instanceof NoeudIteration){//Si len noeud est une iteration
+                    afficherInfoIte(((NoeudIteration)d).getIteration());
+                }
+                // si c'est le noeud "projets"
+                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0)
+                {
+                    Vector listeProjets = new Vector();
+                    for(int i=0;i<d.getChildCount();i++)
+                    {
+                        listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
+                    }
+                    
+                    PanelContenu.removeAll(); // On supprime tout ce qu'il y a dans le panel contenu
+                    PanelContenu.add(new JPanelTousLesProjets(listeProjets));
+                    validate();
+                }
+            }
+        }
+        ); 
     }
     
     
