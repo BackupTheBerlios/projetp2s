@@ -8,10 +8,8 @@ package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.Bundle;
 import P2S.Inf.ParserXMLCDP;
-import P2S.Inf.ParserXMLPreferences;
 import P2S.UI.View.JFrameP2S;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;

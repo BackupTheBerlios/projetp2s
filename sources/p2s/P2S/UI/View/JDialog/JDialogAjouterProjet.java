@@ -7,7 +7,6 @@
 package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.Bundle;
-import P2S.Inf.ParserXMLPreferences;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

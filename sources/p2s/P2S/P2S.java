@@ -2,7 +2,6 @@ package P2S;
 
 import P2S.Control.*;
 import P2S.Control.Bundle.Bundle;
-import P2S.Inf.ParserXMLPreferences;
 import P2S.UI.View.JFrameP2S;
 import java.io.*;
 import java.net.URL;

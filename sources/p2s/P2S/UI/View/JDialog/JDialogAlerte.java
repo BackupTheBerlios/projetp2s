@@ -5,7 +5,6 @@ import P2S.Model.*;
 import P2S.UI.View.*;
 import java.text.DateFormat;
 import java.util.Locale;
-import P2S.Inf.ParserXMLPreferences;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;

@@ -304,7 +304,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                     }
                 }
             }catch(IOException e){
-                e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
             }
             rafraichirContenuSuperviseur();
         }

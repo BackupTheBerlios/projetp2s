@@ -2,7 +2,6 @@ package P2S.UI.View.JDialog;
 
 import P2S.Control.Bundle.*;
 import P2S.Inf.Md5;
-import P2S.Inf.ParserXMLPreferences;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
