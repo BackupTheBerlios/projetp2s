@@ -77,8 +77,9 @@ public class AjoutProjetServlet extends HttpServlet {
                 
         if (nom != null){
             try {
-                // Connexion a la base de donnees
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
+                ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
+                // Connexion a la base de donnees                                
+                Connection conn = DriverManager.getConnection("jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword());
                 
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select MAX(idprojet) from projets");
