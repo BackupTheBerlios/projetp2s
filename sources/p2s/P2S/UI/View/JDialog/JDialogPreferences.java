@@ -98,22 +98,20 @@ public class JDialogPreferences extends javax.swing.JDialog {
     }//GEN-LAST:event_ButtonCancelActionPerformed
 
     private void ButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOKActionPerformed
-        ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+        
         // On regarde la langue choisie et on change la Locale
         if(this.ComboBoxLangue.getSelectedItem().toString().compareTo(Bundle.getText("JDialogPreferences_ComboBoxLangue_Francais")) == 0)
         {
             Bundle.setCurrentLocale(Locale.FRENCH);
             P2S.P2S.ControllerLocale.fireLocaleChanged(); // genere un evenement changement de langue
-            parserPref.changerLangue("fr");
+            
         }
         else if(this.ComboBoxLangue.getSelectedItem().toString().compareTo(Bundle.getText("JDialogPreferences_ComboBoxLangue_Anglais")) == 0)
         {
             Bundle.setCurrentLocale(Locale.ENGLISH);
             P2S.P2S.ControllerLocale.fireLocaleChanged(); // genere un evenement changement de langue
-            parserPref.changerLangue("en");
-        }   
-        parserPref.editerFichier(); // Sauvegarde dans le fichier préférence
-        
+            
+        }     
         this.dispose();
     }//GEN-LAST:event_ButtonOKActionPerformed
 
@@ -133,11 +131,10 @@ public class JDialogPreferences extends javax.swing.JDialog {
         this.LabelPort.setText(Bundle.getText("JDialogPreferences_JLabel_Port"));
         this.ButtonOK.setText(Bundle.getText("JDialogPreferences_JButton_Ok"));
         this.ButtonCancel.setText(Bundle.getText("JDialogPreferences_JButton_Annuler"));
+                
         
-        ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
-        
-        this.TextFieldHost.setText(parserPref.lireAdresseServeur());
-        this.TextFieldPort.setText(parserPref.lirePortServeur());
+        this.TextFieldHost.setText(P2S.P2S.Preferences.getProperty("host"));
+        this.TextFieldPort.setText(P2S.P2S.Preferences.getProperty("port"));
     }
         
        

@@ -228,11 +228,9 @@ public class JFrameP2S extends javax.swing.JFrame {
     private void JMenuItemRafraichirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemRafraichirActionPerformed
         if(utilisateur instanceof Superviseur){
             try{
-                int flag = 1;
+                int flag = 1;               
                 
-                ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
-                
-                URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJFichierServlet?login="+utilisateur.getLogin()) ;
+                URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJFichierServlet?login="+utilisateur.getLogin()) ;
                 BufferedReader  out = new BufferedReader(new InputStreamReader(url.openStream()));
                 
                 String output;
@@ -242,7 +240,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                         flag = 1;
                         try{
                             
-                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDServlet?login="+utilisateur.getLogin()+"&url="+output);
+                            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDServlet?login="+utilisateur.getLogin()+"&url="+output);
                             
                             // Buffer qui va recuperer la reponse de la servlet
                             BufferedReader  in = new BufferedReader(
@@ -280,16 +278,16 @@ public class JFrameP2S extends javax.swing.JFrame {
                         int nblu;
                         try{
                             // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+output.replaceAll("\\s","%20")+"&flux=");
+                            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+output.replaceAll("\\s","%20")+"&flux=");
                             BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
                             // On lit le fichier
                             BufferedReader buffer = new BufferedReader(new FileReader(output));
                             while((nblu = buffer.read(Flux,0,500)) != -1){
-                                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+output.replaceAll("\\s","%20"));
+                                url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+output.replaceAll("\\s","%20"));
                                 in = new BufferedReader(new InputStreamReader(url.openStream()));
                             }
                             // On indique qu'on a fini de lire le fichier
-                            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+output.replaceAll("\\s","%20")+"&flux=");
+                            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+output.replaceAll("\\s","%20")+"&flux=");
                             in = new BufferedReader(new InputStreamReader(url.openStream()));
                             
                             String reponse = new String("");
@@ -346,21 +344,20 @@ public class JFrameP2S extends javax.swing.JFrame {
             
             char Flux[] = new char[500];
             int nblu;
-            URL url;
-            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            URL url;            
             
             try{
                 // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20")+"&flux=");
+                url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20")+"&flux=");
                 BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
                 // On lit le fichier
                 BufferedReader buffer = new BufferedReader(new FileReader(Fic));
                 while((nblu = buffer.read(Flux,0,500)) != -1){
-                    url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20"));
+                    url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20"));
                     in = new BufferedReader(new InputStreamReader(url.openStream()));
                 }
                 // On indique qu'on a fini de lire le fichier
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20")+"&flux=");
+                url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+Fic.replaceAll("\\\\","/").replaceAll("\\s","%20")+"&flux=");
                 in = new BufferedReader(new InputStreamReader(url.openStream()));
                 
                 String reponse = new String("");
@@ -390,10 +387,9 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     private void JMenuItemGererCDPActionPerformed(java.awt.event.ActionEvent evt) {
-        try{
-            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+        try{            
             // Envoie du login et du password a la servlet "GestionCDPServlet" pour recevoir tous sur les chefs de projet
-            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/GestionCDPServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword());
+            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/GestionCDPServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword());
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
@@ -581,10 +577,9 @@ public class JFrameP2S extends javax.swing.JFrame {
             Calendar calendarFin = new GregorianCalendar();
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
-            
-            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+                        
             // Envoie des infos sur le projet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
-            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
+            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
@@ -628,10 +623,8 @@ public class JFrameP2S extends javax.swing.JFrame {
      */
     public void rafraichirContenuSuperviseur() {
         
-        try {
-            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
-            
-            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
+        try {         
+            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(

@@ -130,11 +130,9 @@ public class JDialogCreerCDP extends javax.swing.JDialog {
             return ;
         }
         
-        try{
-            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
-            
+        try{           
             // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
-            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/CreerCDPServlet?login="+this.jTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.jPasswordMDP.getText()));
+            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/CreerCDPServlet?login="+this.jTextFieldLogin.getText()+"&password="+Md5.getEncodedPassword(this.jPasswordMDP.getText()));
             System.out.println("TEST");
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(

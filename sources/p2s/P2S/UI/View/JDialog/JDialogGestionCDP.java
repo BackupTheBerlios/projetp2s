@@ -243,12 +243,11 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         int fluxMax = 50;
         int longueurFlux = flux.length();
         int longueurActuelle = 0 ;
-        URL url;
-        ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+        URL url;        
         
         try{
             // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=0&flux=");
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=0&flux=");
             BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
             // On lit le fichier
             
@@ -256,12 +255,12 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
             while(longueurActuelle < longueurFlux){
                 if (longueurFlux-longueurActuelle>fluxMax) longueurReelle = fluxMax;
                 else longueurReelle = longueurFlux-longueurActuelle;
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=1&flux="+flux.substring(longueurActuelle,longueurActuelle+longueurReelle).replaceAll("\\s","%20"));
+                url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=1&flux="+flux.substring(longueurActuelle,longueurActuelle+longueurReelle).replaceAll("\\s","%20"));
                 in = new BufferedReader(new InputStreamReader(url.openStream()));
                 longueurActuelle += fluxMax;
             }
             // On indique qu'on a fini de lire le fichier
-            url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=2&flux=");
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDCDP?login="+loginUtilisateur+"&lecture=2&flux=");
             in = new BufferedReader(new InputStreamReader(url.openStream()));
             
             String reponse = new String("");

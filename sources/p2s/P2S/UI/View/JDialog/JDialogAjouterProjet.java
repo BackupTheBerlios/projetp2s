@@ -102,9 +102,8 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
         if(URLFichier.compareTo("") == 0){
             javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorEntreeVide"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         } else{
-            try{
-                ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
-                URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDServlet?login="+((JFrameP2S)this.getParent()).utilisateur.getLogin()+"&url="+URLFichier);
+            try{                
+                URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDServlet?login="+((JFrameP2S)this.getParent()).utilisateur.getLogin()+"&url="+URLFichier);
                 
                 // Buffer qui va recuperer la reponse de la servlet
                 BufferedReader  in = new BufferedReader(
