@@ -20,6 +20,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable ;
 import javax.swing.table.TableCellRenderer;
 import java.util.Vector;
+import java.util.*;
+import P2S.UI.View.JFrameP2S;
 
 
 /**
@@ -31,6 +33,7 @@ public class JPanelMessages extends JPanel{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
     
+    private String login;
     private JLabel nomTache ;
     private JButton boutonDetails ;
     private JTable tableTaches ;
@@ -50,6 +53,7 @@ public class JPanelMessages extends JPanel{
         }*/
         
         this.messages = messages ;
+        this.login = ((Messages)messages.get(0)).getDestinataire();
        
         donnees = new Object[messages.size()][4] ;
         for (int i = 0 ; i < donnees.length ; i++)
@@ -110,16 +114,7 @@ public class JPanelMessages extends JPanel{
 
       public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
-         /*if (column == 2)
-         {
-            details.setText(Bundle.getText("JTableMessagesColonne3")) ;           
-         }
-         else
-         {
-             details.setText(Bundle.getText("JTableMessagesColonne4")) ;         
-         }
-         return details;*/
-	  details.setText(((JButton)value).getText()) ;
+	details.setText(((JButton)value).getText()) ;
          return details ;
       }
 
@@ -141,67 +136,51 @@ public class JPanelMessages extends JPanel{
          ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(ActionEvent e) {
 		   if (table.getSelectedColumn() == 2)
-		   {System.out.println("huu") ;
-			//new JDialogLireMessages(null, true, (Messages)messages.get(table.getSelectedRow())) ;
+		   {
+			new JDialogLireMessages(null, true, (Messages)messages.get(table.getSelectedRow())) ;
 		   }
 		   else if (table.getSelectedColumn() == 3)
 		   {
-		       System.out.println("haa") ;
-		   }
-               }
-           }) ;
-         
-         
-         /*else if (table.getSelectedColumn()==3)
-         {
-            ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(ActionEvent e) {
-                  Messages mess = new Messages();
-                  mess = (Messages)messages.get(table.getSelectedRow());
+                        Messages mess = new Messages();
+                        mess = (Messages)messages.get(table.getSelectedRow());
                   
-                  String sujet = mess.getSujet();
-                  String message = mess.getMessage();
+                        String sujet = mess.getSujet();
+                        String message = mess.getMessage();
+                      
                   
-                  try{
-            // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
-            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/SuppimerUnMessageServlet?sujet="+sujet+"&message= "+message);
+                         try
+                         {
+                            // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
+                             URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/SupprimerUnMessageServlet?message="+message+"&sujet="+sujet);
             
-            // Buffer qui va recuperer la reponse de la servlet
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                    url.openStream()));
+                            // Buffer qui va recuperer la reponse de la servlet
+                             
+                            BufferedReader in = new BufferedReader(
+                                new InputStreamReader(
+                                url.openStream()));
+                             
+                            // On recupere la reponse
+                            String inputLine = in.readLine();
             
-            // On recupere la reponse
-            String inputLine = in.readLine();
-            
-            if(inputLine.equalsIgnoreCase("ok")){ // Si la servlet repond que ce n'est pas Ok                 
-            }
-            in.close();
-        } catch(MalformedURLException e1){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
-        } catch(IOException e2){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
-        } catch(IllegalArgumentException e3){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
-        }
-               }
-           }) ;
-         }*/
-         
-         
+                            if(inputLine.equalsIgnoreCase("ok")){ // Si la servlet repond que ce n'est pas Ok                 
+                                
+                            }
+                            in.close();
+                        } catch(MalformedURLException e1){
+                            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                        } catch(IOException e2){
+                            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                        } catch(IllegalArgumentException e3){
+                            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                    }
+                 }
+		}
+           }) ;   
       }
 
       public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
-         /*if (column == 2)
-         {
-            details.setText(Bundle.getText("JTableMessagesColonne3")) ;           
-         }
-         else
-         {
-             details.setText(Bundle.getText("JTableMessagesColonne4")) ;         
-         }
-         return details;*/
+         
 	 details.setText(((JButton)value).getText()) ;
          return details ;
       }

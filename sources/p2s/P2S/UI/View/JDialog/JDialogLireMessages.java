@@ -6,7 +6,8 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.Color;
 import P2S.Model.Messages;
-
+import java.text.DateFormat;
+import java.util.Locale;
 
 /**
  *
@@ -16,13 +17,18 @@ public class JDialogLireMessages extends javax.swing.JDialog {
     private String message;
     private String sujet;
     
+    
     public JDialogLireMessages(java.awt.Frame parent, boolean modal, Messages mess) {
         super(parent, modal);
         initComponents();
         this.sujet = mess.getSujet();
         this.message = mess.getMessage();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
        
         this.initText();
+        this.labelDate.setText(dateFormat.format(mess.getDate()));
+        pack();
+        show();
        
     }
     
@@ -36,6 +42,8 @@ public class JDialogLireMessages extends javax.swing.JDialog {
         labelObjet = new javax.swing.JLabel();
         textIndObjet = new javax.swing.JTextField();
         buttonOK = new javax.swing.JButton();
+        labelStaticDate = new javax.swing.JLabel();
+        labelDate = new javax.swing.JLabel();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -61,6 +69,12 @@ public class JDialogLireMessages extends javax.swing.JDialog {
 
         getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 300, -1, -1));
 
+        labelStaticDate.setText("jLabel1");
+        getContentPane().add(labelStaticDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, -1));
+
+        labelDate.setText("jLabel2");
+        getContentPane().add(labelDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 220, -1));
+
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-494)/2, (screenSize.height-400)/2, 494, 400);
     }//GEN-END:initComponents
@@ -77,7 +91,8 @@ public class JDialogLireMessages extends javax.swing.JDialog {
     {
            this.setTitle(Bundle.getText("JDialogAlerteTitle"));
            labelObjet.setText(Bundle.getText("JDialogAlerteObject"));
-           buttonOK.setText(Bundle.getText("JDialogAlerteSend"));
+           labelStaticDate.setText(Bundle.getText("JDialogAlerteDate"));
+           buttonOK.setText(Bundle.getText("JDialogAlerteOK"));
            textIndObjet.setBackground(new Color(255,255,255));
            textIndObjet.setText(sujet);
            textMessage.setText(message);
@@ -87,7 +102,9 @@ public class JDialogLireMessages extends javax.swing.JDialog {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonOK;
+    private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelObjet;
+    private javax.swing.JLabel labelStaticDate;
     private javax.swing.JTextField textIndObjet;
     private javax.swing.JTextArea textMessage;
     // End of variables declaration//GEN-END:variables

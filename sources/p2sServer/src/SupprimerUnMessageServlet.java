@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.*;
 
 /**
  *
@@ -27,7 +28,11 @@ public class SupprimerUnMessageServlet extends HttpServlet {
      */
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        
+         try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     /** Destroys the servlet.
@@ -45,6 +50,7 @@ public class SupprimerUnMessageServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
        
+  
         String sujet = request.getParameter("sujet");
         String message = request.getParameter("message");
        
@@ -55,7 +61,7 @@ public class SupprimerUnMessageServlet extends HttpServlet {
                 Connection conn = DriverManager.getConnection("jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword());
         
                 Statement s = conn.createStatement();
-                s.executeUpdate("delete from messages where sujet = '" + sujet + "' and message= '" + message + "')");
+                s.executeUpdate("delete from messages where sujet = '" + sujet + "' and message = '" + message + "' ");
                 out.println("ok");
                 s.close();
                     
