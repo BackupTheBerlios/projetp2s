@@ -71,37 +71,31 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         jLabel6.setText("Nombre moyen de taches par participants :");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 210, -1));
 
-        textIndMoyenneTache.setBackground(new java.awt.Color(255, 255, 255));
         textIndMoyenneTache.setEditable(false);
         textIndMoyenneTache.setText("jTextField1");
         textIndMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 40, -1));
 
-        textIndChargeMoyenne.setBackground(new java.awt.Color(255, 255, 255));
         textIndChargeMoyenne.setEditable(false);
         textIndChargeMoyenne.setText("jTextField2");
         textIndChargeMoyenne.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndChargeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 40, -1));
 
-        textIndNombreParticipants.setBackground(new java.awt.Color(255, 255, 255));
         textIndNombreParticipants.setEditable(false);
         textIndNombreParticipants.setText("jTextField3");
         textIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 40, -1));
 
-        textIndDureeMoyenne.setBackground(new java.awt.Color(255, 255, 255));
         textIndDureeMoyenne.setEditable(false);
         textIndDureeMoyenne.setText("jTextField4");
         textIndDureeMoyenne.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndDureeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 40, -1));
 
-        textIndTachesTerminees.setBackground(new java.awt.Color(255, 255, 255));
         textIndTachesTerminees.setEditable(false);
         textIndTachesTerminees.setText("jTextField5");
         textIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 40, -1));
 
-        textIndChargesTotales.setBackground(new java.awt.Color(255, 255, 255));
         textIndChargesTotales.setEditable(false);
         textIndChargesTotales.setText("jTextField6");
         textIndChargesTotales.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
