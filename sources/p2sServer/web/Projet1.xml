@@ -796,6 +796,25 @@
 			</eltIteration>
 		</listeIterations>
 
+		
+		
+		<!--  Liste de toutes les taches -->
+		<listeTaches>
+			<eltTache>
+				<id>1</id>
+				<nom>tache 1</nom>
+				<description>desc tache 1</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-02-02</dateDebutPrevue>
+				<dateDebutReelle>2003-02-03</dateDebutReelle>
+				<dateFinPrevue>2003-02-15</dateFinPrevue>
+				<dateFinReelle>2003-02-16</dateFinReelle>
+			</eltTache>
+		</listeTaches>
+		
 		<!--  Liste de toutes les taches -->
 		<listeTaches>
 			<eltTache>
@@ -1031,11 +1050,18 @@
 		<!--  Liste de tous les problemes -->
 		<listeProblemes>
 			<eltProbleme>
-				<id></id>
-				<nom></nom>
-				<cause></cause>
-				<dateDebut></dateDebut>
-				<dateFin></dateFin>
+				<id>1</id>
+				<nom>probleme1</nom>
+				<cause>petage de plomb</cause>
+				<dateDebut>2005-01-01</dateDebut>
+				<dateFin>2005-02-02</dateFin>
+			</eltProbleme>
+			<eltProbleme>
+				<id>2</id>
+				<nom>probleme2</nom>
+				<cause>cassage de materiel</cause>
+				<dateDebut>2005-07-01</dateDebut>
+				<dateFin>2005-08-03</dateFin>
 			</eltProbleme>
 		</listeProblemes>
 
