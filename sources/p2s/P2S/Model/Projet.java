@@ -32,8 +32,7 @@ public class Projet {
         this.dateFin = new Date();
         this.listeMesures = listeMesures;
         this.listeIt = new Vector();
-        this.listeMembres = new Vector();
-        this.listeArtefacts = new Vector();
+        this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
     }
     
@@ -44,8 +43,7 @@ public class Projet {
         this.dateFin = new Date();
         this.listeMesures = new Vector();
         this.listeIt = new Vector();
-        this.listeMembres = new Vector();
-        this.listeArtefacts = new Vector();
+        this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
     }
     
@@ -56,20 +54,18 @@ public class Projet {
         this.dateFin = new Date();
         this.listeMesures = new Vector(listeMesure);
         this.listeIt = new Vector();
-        this.listeMembres = new Vector();
-        this.listeArtefacts = new Vector();
+        this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
     }
     
-    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres, Vector listeArtefacts) {        
+    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres) {        
         this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.listeMesures = new Vector(listeMesure);
         this.listeIt = new Vector(listeIt);
-        this.listeMembres = new Vector(listeMembres);
-        this.listeArtefacts = new Vector(listeArtefacts);
+        this.listeMembres = new Vector(listeMembres);    
         this.listeRisques = new Vector();
     }
     
@@ -80,8 +76,7 @@ public class Projet {
         this.dateFin = dateFin;
         this.listeMesures = new Vector(listeMesure);
         this.listeIt = new Vector();
-        this.listeMembres = new Vector();
-        this.listeArtefacts = new Vector();
+        this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
     }
         
@@ -163,15 +158,7 @@ public class Projet {
     
     public void setListeMembres(Vector listeMembres) {
         this.listeMembres = listeMembres;
-    }
-    
-    public Vector getListeArtefacts() {
-        return listeArtefacts;
-    }
-    
-    public void setListeArtefacts(Vector listeArtefacts) {
-        this.listeArtefacts = listeArtefacts;
-    }
+    }  
 
     public Vector getListeRisques() {
         return listeRisques;
