@@ -5,6 +5,20 @@ import P2S.Model.*;
 import P2S.UI.View.*;
 import java.text.DateFormat;
 import java.util.Locale;
+import P2S.Inf.ParserXMLPreferences;
+import java.net.*;
+import java.io.*;
+import javax.swing.*;
+
+import java.util.*;
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Date;
 
 /**
  *
@@ -31,32 +45,27 @@ public class JDialogAlerte extends javax.swing.JDialog {
         textMessage = new javax.swing.JTextArea();
         labelObjet = new javax.swing.JLabel();
         textIndObjet = new javax.swing.JTextField();
-        buttonOK = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
-        labelStaticIndDate = new javax.swing.JLabel();
-        textIndDate = new javax.swing.JTextField();
+        buttonOK = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         labelDestinataire.setText("label");
-        getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 50, -1));
+        getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 50, -1));
 
         textIndDestinataire.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 360, -1));
+        getContentPane().add(textIndDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 360, -1));
 
         textMessage.setLineWrap(true);
         textMessage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 360, 230));
+        getContentPane().add(textMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 360, 230));
 
         labelObjet.setText("label");
-        getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 50, -1));
+        getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 50, -1));
 
         textIndObjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 360, -1));
-
-        buttonOK.setText("Envoyer");
-        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, -1, -1));
+        getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 360, -1));
 
         buttonCancel.setText("Annuler");
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -65,20 +74,67 @@ public class JDialogAlerte extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
+        getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
 
-        labelStaticIndDate.setText("jLabel1");
-        getContentPane().add(labelStaticIndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 50, -1));
+        buttonOK.setText("jButton1");
+        buttonOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOKActionPerformed(evt);
+            }
+        });
 
-        textIndDate.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        getContentPane().add(textIndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 80, -1));
+        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, -1, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-494)/2, (screenSize.height-400)/2, 494, 400);
     }//GEN-END:initComponents
+ 
+ 
 
+    private void buttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKActionPerformed
+        
+        // verification si les champs sont vides
+        if (textIndDestinataire.getText().equals("") || textIndObjet.getText().equals("") || textMessage.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, Bundle.getText("JDialogAlerteChampsVides"),Bundle.getText("JDialogAlerteAttentionMessage") , JOptionPane.WARNING_MESSAGE);
+            return ;
+        }
+        
+        try{
+            
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
+              URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/CreerUnMessageServlet?login="+this.textIndDestinataire.getText()+"&sujet="+this.textIndObjet.getText()+"&message="+this.textMessage.getText());
+            
+            // Buffer qui va recuperer la reponse de la servlet
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                    url.openStream()));
+            // On recupere la reponse
+            String inputLine = in.readLine();
+            if(inputLine.equalsIgnoreCase("ok")){ // on a enregistré dans la bd
+               this.dispose();
+               in.close();
+               return;  
+            }
+            else if(inputLine.equalsIgnoreCase("nok")){
+                JOptionPane.showMessageDialog(this, Bundle.getText("JDialogAlerteNoSup"),Bundle.getText("JDialogAlerteAttentionMessage") , JOptionPane.WARNING_MESSAGE);
+            }             
+            in.close();
+        } catch(MalformedURLException e1){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IOException e2){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IllegalArgumentException e3){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        }
+    }//GEN-LAST:event_buttonOKActionPerformed
+
+   
+   
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         this.dispose();
+        
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     public void initText()
@@ -86,7 +142,6 @@ public class JDialogAlerte extends javax.swing.JDialog {
            this.setTitle(Bundle.getText("JDialogAlerteTitle"));
            labelDestinataire.setText(Bundle.getText("JDialogAlerteTo"));
            labelObjet.setText(Bundle.getText("JDialogAlerteObject"));
-           labelStaticIndDate.setText(Bundle.getText("JDialogAlerteDate"));
            buttonOK.setText(Bundle.getText("JDialogAlerteSend"));
            buttonCancel.setText(Bundle.getText("JDialogAlerteCancel"));
            
@@ -99,8 +154,6 @@ public class JDialogAlerte extends javax.swing.JDialog {
     private javax.swing.JButton buttonOK;
     private javax.swing.JLabel labelDestinataire;
     private javax.swing.JLabel labelObjet;
-    private javax.swing.JLabel labelStaticIndDate;
-    private javax.swing.JTextField textIndDate;
     private javax.swing.JTextField textIndDestinataire;
     private javax.swing.JTextField textIndObjet;
     private javax.swing.JTextArea textMessage;
