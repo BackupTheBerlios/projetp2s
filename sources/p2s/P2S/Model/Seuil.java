@@ -42,10 +42,10 @@ public class Seuil {
     
     public static boolean estHorsIntervalle(Float valeur,Float min,Float max){
         
-        if(min == 0.0 && max==0.0)
+        if(min.floatValue() == 0.0 && max.floatValue()==0.0)
             return false;
         
-        if(valeur<min || valeur > max)
+        if(valeur.floatValue()<min.floatValue() || valeur.floatValue() > max.floatValue())
             return true;
         
         return false;    
@@ -53,10 +53,10 @@ public class Seuil {
     
         public static boolean estHorsIntervalle(Integer valeur,Integer min,Integer max){
         
-        if(min == 0.0 && max==0.0)
+        if(min.floatValue() == 0.0 && max.floatValue()==0.0)
             return false;
         
-        if(valeur<min || valeur > max)
+        if(valeur.floatValue()<min.floatValue() || valeur.floatValue() > max.floatValue())
             return true;
         
         return false;    

@@ -426,7 +426,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             if(Float.parseFloat(seuilsFixes.getNombreTacheParticipant().getSeuilMax().toString()) !=  Float.parseFloat(nombreTacheParticipantSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMax" +"&value="+nombreTacheParticipantSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreTacheParticipant().setSeuilMax(Float.parseFloat(nombreTacheParticipantSeuilMax.getText()));
+            seuilsFixes.getNombreTacheParticipant().setSeuilMax(new Float(Float.parseFloat(nombreTacheParticipantSeuilMax.getText())));
             }
             
         } catch(MalformedURLException e1){
