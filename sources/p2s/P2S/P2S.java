@@ -30,27 +30,24 @@ public class P2S {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        P2S p = new P2S();
         
         // Recuperation et initialisation de la langue
-        ControllerLocale = new LocaleController();
-        //ParserXMLPreferences parserPref = new ParserXMLPreferences("E:\\Documents and Settings\\Fabien\\Bureau\\BE\\sources\\sources\\P2S\\P2S\\preferences.xml");
-        //ParserXMLPreferences parserPref = new ParserXMLPreferences(".\\preferences.xml");
-        //Bundle.setCurrentLocale(new Locale(parserPref.lireLangue()));
-        Bundle.setCurrentLocale(Locale.FRENCH);
-    /*File dir = new File (".");
-    String sAppliDir = new String();
-    try
-    {
-    sAppliDir = dir.getCanonicalPath();
-    System.out.println(sAppliDir);
-    }
-    catch(Exception e)
-    {
-    e.printStackTrace();
-    }*/
-
-        //Bundle.setCurrentLocale(Locale.FRENCH);
+        ControllerLocale = new LocaleController();        
+        ParserXMLPreferences parserPref = new ParserXMLPreferences(p.getClassPath());        
+        Bundle.setCurrentLocale(new Locale(parserPref.lireLangue()));       
+        
+        // Fenetre principale
         new JFrameP2S().show();
+    }
+    
+    
+    /**
+     * Cette methode permet d'avoir le chemin absolu du fichier preference
+     * @return le chemin du fichier preferences
+     */
+    private String getClassPath(){
+        return getClass().getResource("/P2S/preferences.xml").getPath();
     }
     
 }

@@ -7,9 +7,7 @@ package P2S.Inf;
 
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
-import java.io.*;
-import java.util.*;
-import java.io.FileOutputStream;
+
 
 
 /**
@@ -37,7 +35,8 @@ public class ParserXMLPreferences {
         try{
             DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
             DocumentBuilder constructeur = usine.newDocumentBuilder();
-            this._document = constructeur.parse(new FileInputStream(new File(this._fichierPreferences)));
+            //this._document = constructeur.parse(new FileInputStream(new File(this._fichierPreferences)));
+            this._document = constructeur.parse(this._fichierPreferences);
         }catch(Exception e){
             e.printStackTrace();
         }       
@@ -57,6 +56,27 @@ public class ParserXMLPreferences {
     
     public void changerLangue()
     {
-        
+    /*    Element root = this._document.addElement( "bibliotheque" );
+    Element livre = null;
+    try {
+      livre = root.addElement("livre");
+      livre.addElement("titre").addText("titre 1");
+      livre.addElement("auteur").addText("auteur 1");
+      livre.addElement("editeur").addText("editeur 1");
+      livre = root.addElement("livre");
+      livre.addElement("titre").addText("titre 2");
+      livre.addElement("auteur").addText("auteur 2");
+      livre.addElement("editeur").addText("editeur 2");
+      livre = root.addElement("livre");
+      livre.addElement("titre").addText("titre 3");
+      livre.addElement("auteur").addText("auteur 3");
+      livre.addElement("editeur").addText("editeur 3");
+      OutputFormat format = OutputFormat.createPrettyPrint(); 
+      XMLWriter writer = new XMLWriter( System.out, format ); 
+      writer.write( document ); 
+    } catch (Exception e){
+      e.printStackTrace();
+    }*/
+
     }
 }
