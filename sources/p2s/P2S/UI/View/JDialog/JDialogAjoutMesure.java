@@ -100,8 +100,8 @@ public class JDialogAjoutMesure extends javax.swing.JDialog {
     private void JButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOkActionPerformed
         if((this.JTextFieldNom.getText().compareTo("") != 0) && (this.JTextFieldLimiteInf.getText().compareTo("") != 0) &&(this.JTextFieldLimiteSup.getText().compareTo("") != 0))
         {
-            JFrameP2S.FenCreerProjet.ajouterMesure(new Mesure(JTextFieldNom.getText(),new Integer(JTextFieldLimiteInf.getText()).intValue(),new Integer(JTextFieldLimiteSup.getText()).intValue(),this.JTextAreaDescription.getText()));
-            JFrameP2S.FenCreerProjet.rafarichirMesures();
+           /* JFrameP2S.FenCreerProjet.ajouterMesure(new Mesure(JTextFieldNom.getText(),new Integer(JTextFieldLimiteInf.getText()).intValue(),new Integer(JTextFieldLimiteSup.getText()).intValue(),this.JTextAreaDescription.getText()));
+            JFrameP2S.FenCreerProjet.rafarichirMesures();*/
         }
         
         this.dispose();
