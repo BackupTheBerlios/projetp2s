@@ -147,6 +147,7 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         labelStaticIndNom.setText("Nom :");
         getContentPane().add(labelStaticIndNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
 

@@ -37,6 +37,7 @@ public class JDialogMail extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         labelDestinataire.setText("label");
         getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 

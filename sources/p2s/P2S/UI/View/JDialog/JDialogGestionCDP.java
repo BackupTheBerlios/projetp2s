@@ -69,6 +69,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
 
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        setResizable(false);
         jComboBoxChoixCDP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxChoixCDPActionPerformed(evt);
@@ -214,7 +215,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         getContentPane().add(jLabelCDP, gridBagConstraints);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-389)/2, (screenSize.height-399)/2, 389, 399);
+        setBounds((screenSize.width-386)/2, (screenSize.height-399)/2, 386, 399);
     }//GEN-END:initComponents
     
     private void jButtonConfirmerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmerActionPerformed

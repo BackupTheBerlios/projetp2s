@@ -129,17 +129,19 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
                 }
             }
             
-            if(new Float(ind.getTotalCharges()) != null)
-                this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+            
             
             this.jTextAreaComment.setText(proj.getCommentaire());
             
             this.textIndTotalCharges.setBackground(new Color(255,255,255));
-            if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString()))){
-                this.textIndTotalCharges.setBackground(new Color(240,200,100));
-                JLabel jIconTotalCharges = new JLabel("");
-                jIconTotalCharges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
-                add(jIconTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 239, -1, -1));
+            if(new Float(ind.getTotalCharges()) != null){
+                this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+                if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString()))){
+                    this.textIndTotalCharges.setBackground(new Color(240,200,100));
+                    JLabel jIconTotalCharges = new JLabel("");
+                    jIconTotalCharges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jIconTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 239, -1, -1));
+                }
             }
         }else{
             this.textIndDureeMoyenneTache.setText("0");

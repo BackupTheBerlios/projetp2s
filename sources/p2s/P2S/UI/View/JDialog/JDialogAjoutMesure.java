@@ -38,6 +38,7 @@ public class JDialogAjoutMesure extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         JLabelNom.setText("Nom :");
         getContentPane().add(JLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 

@@ -13,6 +13,7 @@ import P2S.Model.SeuilsFixes;
 import java.awt.Color;
 
 import java.text.NumberFormat;
+import javax.swing.JLabel;
 
 /**
  *
@@ -29,29 +30,71 @@ public class JPanelInfoIteration extends javax.swing.JPanel {
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         this.textIndChargeMoyenne.setText(nf.format(new Float(ind.getChargeMoyenneParticipants())));
-        if(Seuil.estHorsIntervalle(new Float(ind.getChargeMoyenneParticipants()),new Float(seuils.getChargeMoyenne().getSeuilMin().toString()), new Float(seuils.getChargeMoyenne().getSeuilMax().toString())))
+        if(Seuil.estHorsIntervalle(new Float(ind.getChargeMoyenneParticipants()),new Float(seuils.getChargeMoyenne().getSeuilMin().toString()), new Float(seuils.getChargeMoyenne().getSeuilMax().toString()))){
             this.textIndChargeMoyenne.setBackground(new Color(240,200,100));
+            
+            JLabel jLabel11 = new JLabel("");
+            jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+            add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
+        }
         
         this.textIndChargesTotales.setText(new Integer(ind.getTotalCharges()).toString());
-        if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(seuils.getTotalChargesIteration().getSeuilMin().toString()), new Integer(seuils.getTotalChargesIteration().getSeuilMax().toString())))
+        if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(seuils.getTotalChargesIteration().getSeuilMin().toString()), new Integer(seuils.getTotalChargesIteration().getSeuilMax().toString()))){
             this.textIndChargesTotales.setBackground(new Color(240,200,100));
+            JLabel jLabel7 = new JLabel("");
+            jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+            add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
+            
+        }
         
         this.textIndDureeMoyenne.setText(nf.format(new Float(ind.getDureeMoyenneTaches())));
-        if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTaches()),new Float(seuils.getDureeMoyenneIteration().getSeuilMin().toString()), new Float(seuils.getDureeMoyenneIteration().getSeuilMax().toString())))
+        if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTaches()),new Float(seuils.getDureeMoyenneIteration().getSeuilMin().toString()), new Float(seuils.getDureeMoyenneIteration().getSeuilMax().toString()))){
             this.textIndDureeMoyenne.setBackground(new Color(240,200,100));
+            JLabel jLabel9 = new JLabel("");
+            jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+            add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, -1, -1));
+            
+        }
         
         this.textIndMoyenneTache.setText(nf.format(new Float(ind.getNombreMoyenTachesParticipants())));
-        if(Seuil.estHorsIntervalle(new Float(ind.getNombreMoyenTachesParticipants()),new Float(seuils.getNombreTacheParticipant().getSeuilMin().toString()), new Float(seuils.getNombreTacheParticipant().getSeuilMax().toString())))
+        if(Seuil.estHorsIntervalle(new Float(ind.getNombreMoyenTachesParticipants()),new Float(seuils.getNombreTacheParticipant().getSeuilMin().toString()), new Float(seuils.getNombreTacheParticipant().getSeuilMax().toString()))){
             this.textIndMoyenneTache.setBackground(new Color(240,200,100));
+            JLabel jLabel12 = new JLabel("");
+            jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+            add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
+        }
         
         this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
-        if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(seuils.getNombreParticipantIteration().getSeuilMin().toString()), new Integer(seuils.getNombreParticipantIteration().getSeuilMax().toString())))
+        if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(seuils.getNombreParticipantIteration().getSeuilMin().toString()), new Integer(seuils.getNombreParticipantIteration().getSeuilMax().toString()))){
             this.textIndNombreParticipants.setBackground(new Color(240,200,100));
+            JLabel jLabel10 = new JLabel("");
+            jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+            add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, -1));
+            
+        }
         
         this.textIndTachesTerminees.setText(new Integer(ind.getNombreTachesTerminees()).toString());
-        if(Seuil.estHorsIntervalle(new Integer(ind.getNombreTachesTerminees()),new Integer(seuils.getTacheTermineesIteration().getSeuilMin().toString()), new Integer(seuils.getTacheTermineesIteration().getSeuilMax().toString())))
+        if(Seuil.estHorsIntervalle(new Integer(ind.getNombreTachesTerminees()),new Integer(seuils.getTacheTermineesIteration().getSeuilMin().toString()), new Integer(seuils.getTacheTermineesIteration().getSeuilMax().toString()))){
             this.textIndTachesTerminees.setBackground(new Color(240,200,100));
+            JLabel jLabel8 = new JLabel("");
+            jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+            add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+            
+        }
     }
     
     

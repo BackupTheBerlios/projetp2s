@@ -47,6 +47,7 @@ public class JDialogPreferences extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         LabelLangue.setText("Langue");
         getContentPane().add(LabelLangue, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 

@@ -9,12 +9,14 @@ package P2S.UI.View.JDialog;
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
 import P2S.Model.Projet;
+import P2S.Model.Seuil;
 import P2S.UI.Graphic2D.GrapheIndicateursProjet;
 import java.text.DateFormat;
 import java.util.Locale;
 import java.awt.Color;
 
 import java.text.NumberFormat;
+import javax.swing.JLabel;
 
 
 
@@ -79,30 +81,68 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
         nf.setMaximumFractionDigits(2);
         
         if(ind != null){
-             
-            if(new Float(ind.getDureeMoyenneTache()) != null)
-                this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
+            
+            
+            
+            
+            
+            
+            
             this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
+            if(new Float(ind.getDureeMoyenneTache()) != null){
+                this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
+                if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTache()),new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMin().toString()), new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMax().toString()))){
+                    JLabel jIconDureeMoyenne = new JLabel("");
+                    this.textIndDureeMoyenneTache.setBackground(new Color(240,200,100));
+                    jIconDureeMoyenne.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jIconDureeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, -1));
+                }
+            }
             
-            if(new Float(ind.getNombreParticipants()) != null)
-                this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
             this.textIndNombreParticipants.setBackground(new Color(255,255,255));
+            if(new Integer(ind.getNombreParticipants()) != null){
+                this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
+                if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMax().toString()))){
+                    this.textIndNombreParticipants.setBackground(new Color(240,200,100));
+                    JLabel jLabel1 = new JLabel("");
+                    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
+                }
+                
+            }
             
-            if(new Float(ind.getTachesTerminees()) != null)
-                this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
             this.textIndTachesTerminees.setBackground(new Color(255,255,255));
+            if(new Float(ind.getTachesTerminees()) != null){
+                this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
+                if(Seuil.estHorsIntervalle(new Integer(ind.getTachesTerminees()),new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMax().toString()))){
+                    this.textIndTachesTerminees.setBackground(new Color(240,200,100));
+                    JLabel jLabel2 = new JLabel("");
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
+                }
+            }
             
-            if(new Float(ind.getTotalCharges()) != null)
-                this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
             this.textIndTotalCharges.setBackground(new Color(255,255,255));
+            if(new Float(ind.getTotalCharges()) != null){
+                this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+                if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString()))){
+                    this.textIndTotalCharges.setBackground(new Color(240,200,100));
+                    JLabel jIconTotalCharges = new JLabel("");
+                    jIconTotalCharges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jIconTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, -1));
+                }
+            }
+            
+            
+            
         }else{
             this.textIndDureeMoyenneTache.setText("0");
             this.textIndNombreParticipants.setText("0");
             this.textIndTachesTerminees.setText("0");
-            this.textIndTotalCharges.setText("0");  
+            this.textIndTotalCharges.setText("0");
         }
-            pack();
-            show();
+        pack();
+        show();
     }
     
     /** This method is called from within the constructor to
@@ -129,6 +169,7 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        setResizable(false);
         LabelStaticDateDebut.setText("Date de d\u00e9but : ");
         getContentPane().add(LabelStaticDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
@@ -195,14 +236,14 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
         getContentPane().add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 270, -1));
 
     }//GEN-END:initComponents
-        
+    
     private void initText() {
         //this.LabelStaticNomProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_NomProjet"));
         this.LabelStaticDateDebut.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_DateDebut"));
         this.LabelStaticDateFin.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_DateFin"));
         this.LabelStaticDescription.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_Description"));
-        this.LabelStaticIndicateursProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurProjet")); 
-         this.textStaticIndDureeMoyenneTache.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurMoyenneTache"));
+        this.LabelStaticIndicateursProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurProjet"));
+        this.textStaticIndDureeMoyenneTache.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurMoyenneTache"));
         this.textStaticIndDureeMoyenneTache.setBackground(new Color(255,255,255));
         this.textStaticIndNombreParticipants.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurParticipant"));
         this.textStaticIndNombreParticipants.setBackground(new Color(255,255,255));

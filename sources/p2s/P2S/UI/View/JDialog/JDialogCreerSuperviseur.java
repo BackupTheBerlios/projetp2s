@@ -43,6 +43,7 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Creer un superviseur de projet");
+        setResizable(false);
         JButtonOk.setText("OK");
         JButtonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
