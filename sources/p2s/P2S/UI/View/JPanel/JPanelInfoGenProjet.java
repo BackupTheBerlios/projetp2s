@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.text.NumberFormat;
+import javax.swing.JLabel;
 
 
 
@@ -97,8 +98,12 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
             this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
             if(new Float(ind.getDureeMoyenneTache()) != null){
                 this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
-                if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTache()),new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMin().toString()), new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMax().toString())))
+                if(Seuil.estHorsIntervalle(new Float(ind.getDureeMoyenneTache()),new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMin().toString()), new Float(proj.getSeuilFixes().getDureeMoyenneTache().getSeuilMax().toString()))){
+                    JLabel jIconDureeMoyenne = new JLabel("");
                     this.textIndDureeMoyenneTache.setBackground(new Color(240,200,100));
+                    jIconDureeMoyenne.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jIconDureeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+            }
             }
             
             this.textIndNombreParticipants.setBackground(new Color(255,255,255));
@@ -121,9 +126,12 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
             this.jTextAreaComment.setText(proj.getCommentaire());
             
             this.textIndTotalCharges.setBackground(new Color(255,255,255));
-            if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString())))
+            if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString()))){
                 this.textIndTotalCharges.setBackground(new Color(240,200,100));
-            
+                JLabel jIconTotalCharges = new JLabel("");
+                jIconTotalCharges.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                add(jIconTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 239, -1, -1));
+            }
         }else{
             this.textIndDureeMoyenneTache.setText("0");
             this.textIndNombreParticipants.setText("0");
