@@ -257,15 +257,15 @@ CREATE TABLE `seuilsfixes_projet` (
   `dureeMoyenneIterationMax` float unsigned default '0',
   `nombreParticipantIterationMin` int(10) unsigned default '0',
   `nombreParticipantIterationMax` int(10) unsigned default '0',
-  `chargeMoyenneMin` int(10) unsigned default '0',
-  `chargeMoyenneMax` int(10) unsigned default '0',
+  `chargeMoyenneMin` float default '0',
+  `chargeMoyenneMax` float default '0',
   `nombreTacheParticipantMin` int(10) unsigned default '0',
   `nombreTacheParticipantMax` int(10) unsigned default '0',
   `login` varchar(45) NOT NULL default '',
   PRIMARY KEY  (`idprojet`,`login`),
   KEY `FK_seuilsfixes_projet_2` (`login`),
-  CONSTRAINT `FK_seuilsfixes_projet_2` FOREIGN KEY (`login`) REFERENCES `utilisateurs` (`login`),
-  CONSTRAINT `FK_seuilsfixes_projet_1` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
+  CONSTRAINT `FK_seuilsfixes_projet_1` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`),
+  CONSTRAINT `FK_seuilsfixes_projet_2` FOREIGN KEY (`login`) REFERENCES `utilisateurs` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 4096 kB';
 
 DROP TABLE IF EXISTS `superviseur_projets`;
@@ -329,8 +329,7 @@ CREATE TABLE `utilisateurs` (
   `fonction` varchar(45) NOT NULL default '',
   PRIMARY KEY  (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `utilisateurs` (`login`,`password`,`fonction`) VALUES 
- ('directeur','902c77af765b79c19f2d71fa427008d0','dir'),
+INSERT INTO `utilisateurs` VALUES  ('directeur','902c77af765b79c19f2d71fa427008d0','dir'),
  ('sup','2eeecd72c567401e6988624b179d0b14','sup');
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
