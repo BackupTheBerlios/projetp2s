@@ -186,24 +186,31 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Initialisation des labels de la barre de menu
         JMenuFichier.setText(Bundle.getText("JMenuFichier"));
         JMenuFichier.setMnemonic(Bundle.getChar("JMenuFichier"));
+        JMenuFichier.setFont(new Font("Default", Font.PLAIN, 11));
         JMenuOutils.setText(Bundle.getText("JMenuOutils"));
         JMenuOutils.setMnemonic(Bundle.getChar("JMenuOutils"));
+        JMenuOutils.setFont(new Font("Default", Font.PLAIN, 11));
         JMenuAide.setText(Bundle.getText("JMenuAide"));
         JMenuAide.setMnemonic(Bundle.getChar("JMenuAide"));
+        JMenuAide.setFont(new Font("Default", Font.PLAIN, 11));
         
         //Initialisation des labels du menu "Fichier"
         JMenuItemQuitter.setText(Bundle.getText("JMenuItemQuitter"));
         JMenuItemQuitter.setMnemonic(Bundle.getChar("JMenuItemQuitter"));
+        JMenuItemQuitter.setFont(new Font("Default", Font.PLAIN, 11));
         
         //Initialisation des labels du menu "Outils"
         JMenuItemRafraichir.setText(Bundle.getText("JMenuItemRafraichir"));
         JMenuItemRafraichir.setMnemonic(Bundle.getChar("JMenuItemRafraichir"));
+        JMenuItemRafraichir.setFont(new Font("Default", Font.PLAIN, 11));
         JMenuItemPreferences.setText(Bundle.getText("JMenuItemPreferences"));
         JMenuItemPreferences.setMnemonic(Bundle.getChar("JMenuItemPreferences"));
+        JMenuItemPreferences.setFont(new Font("Default", Font.PLAIN, 11));
         
         //Initialisation des labels du menu "Aide"
         JMenuItemAProposDe.setText(Bundle.getText("JMenuItemAProposDe"));
         JMenuItemAProposDe.setMnemonic(Bundle.getChar("JMenuItemAProposDe"));
+        JMenuItemAProposDe.setFont(new Font("Default", Font.PLAIN, 11));
         
     }
     
@@ -232,9 +239,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     private void creerEnvironnementSup() {
         
         // On ajoute le menu "Creer projet" au menu Outils
-        JMenuItem JMenuItemCreerProjet = new JMenuItem();
-        JMenuItemCreerProjet.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        JMenuItemCreerProjet.setBackground(new Color(245, 244, 249));
+        JMenuItem JMenuItemCreerProjet = new JMenuItem();        
         JMenuItemCreerProjet.setText(Bundle.getText("JMenuItemCreerProjet"));
         JMenuItemCreerProjet.setMnemonic(Bundle.getChar("JMenuItemCreerProjet"));
         JMenuItemCreerProjet.addActionListener(new java.awt.event.ActionListener() {
