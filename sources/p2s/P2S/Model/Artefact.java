@@ -17,14 +17,16 @@ public class Artefact {
     private String description;
     private boolean livrable;
     private String etat;
+    private Membre responsable;
     
     /** Creates a new instance of Artefact */
-    public Artefact( int id, String nom,String description,boolean livrable,String etat) {
+    public Artefact( int id, String nom,String description,boolean livrable,String etat,Membre responsable) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.livrable = livrable;
         this.etat = etat;
+        this.setResponsable(responsable);
     }
 
     public int getId() {
@@ -65,6 +67,14 @@ public class Artefact {
 
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public Membre getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(Membre responsable) {
+        this.responsable = responsable;
     }
     
 }
