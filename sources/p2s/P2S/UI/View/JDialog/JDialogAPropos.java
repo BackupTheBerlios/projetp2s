@@ -64,7 +64,7 @@ public class JDialogAPropos extends javax.swing.JDialog {
 
         m1Panel.setBackground(new java.awt.Color(255, 255, 255));
         m1Panel.setBorder(new javax.swing.border.TitledBorder("Groupe M1"));
-        jLabel1.setText("SOUYRIS Matthieu : chef de projet");
+        jLabel1.setText("SOUYRIS Matthieu : Chef de projet");
         m1Panel.add(jLabel1);
 
         jLabel2.setText("BOUYSSOU Fabien : Sp\u00e9cialiste outils");
