@@ -55,7 +55,7 @@ public class ParserXMLFichierWF {
             }
         } else{ // C'est un fichier local donc un flux xml
             try{
-                this.local = "true";                
+                this.local = "true";
                 DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
                 DocumentBuilder constructeur = usine.newDocumentBuilder();
                 
@@ -2381,36 +2381,29 @@ public class ParserXMLFichierWF {
         }
         
         try {
-            // On recupere le total des charges
-            PreparedStatement prepState = conn.prepareStatement("select SUM(ind.totalcharges) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
+            PreparedStatement prepState = conn.prepareStatement("select * from indicateurs_iteration");
             ResultSet rs = prepState.executeQuery(); // Execution de la requete
-            if(rs.next())
-                totalcharges = rs.getInt(1);
-            
-            // On recupere le nombre de taches terminees
-            prepState = conn.prepareStatement("select SUM(ind.nombretachesterminees) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
-            rs = prepState.executeQuery(); // Execution de la requete
-            if(rs.next())
-                tachesterminees = rs.getInt(1);
-            
-            // On recupere la duree moyenne des taches
-            /*prepState = conn.prepareStatement("select iditeration from iterations where idprojet="+idProjet);
-            rs = prepState.executeQuery(); // Execution de la requete
-            int nbtachesfinies = 0;
-            int chTotales = 0;
-            while(rs.next()){
-                chTotales += calculerChargesTotalTachesTerminees_Iteration(rs.getInt(1));
-                nbtachesfinies += nbTachesTerminees_Iteration(rs.getInt(1));
+            if(rs.next()){
+                // On recupere le total des charges
+                prepState = conn.prepareStatement("select SUM(ind.totalcharges) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
+                rs = prepState.executeQuery(); // Execution de la requete
+                if(rs.next())
+                    totalcharges = rs.getInt(1);
+                
+                // On recupere le nombre de taches terminees
+                prepState = conn.prepareStatement("select SUM(ind.nombretachesterminees) from iterations i, indicateurs_iteration ind where i.idprojet="+idProjet+" and ind.iditeration=i.iditeration");
+                rs = prepState.executeQuery(); // Execution de la requete
+                if(rs.next())
+                    tachesterminees = rs.getInt(1);
+                
+                dureemoyennetache = (float)totalcharges/(float)tachesterminees;
+                
+                // On recupere le nombre de participants
+                nombreparticipants = nbParticipants_Projet();
+                
+                // Avancement du projet
+                avancementprojet = 10.0f;
             }
-            dureemoyennetache = (float)chTotales/(float)nbtachesfinies;*/
-            dureemoyennetache = (float)totalcharges/(float)tachesterminees;
-            
-            // On recupere le nombre de participants
-            nombreparticipants = nbParticipants_Projet();
-            
-            // Avancement du projet
-            avancementprojet = 10.0f;
-            
             // Requete SQL
             prepState = conn.prepareStatement("Select * from indicateurs_projet where idprojet="+idProjet);
             ResultSet rsSelect = prepState.executeQuery(); // Execution de la requete
@@ -2428,6 +2421,7 @@ public class ParserXMLFichierWF {
                 updateIndicateur.setFloat(5,avancementprojet);
                 
                 updateIndicateur.executeUpdate();
+                
             }
         }catch (SQLException ex) { // Si une SQLException survient
             System.out.println("SQLException: " + ex.getMessage());

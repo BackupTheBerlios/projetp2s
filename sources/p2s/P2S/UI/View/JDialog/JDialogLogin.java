@@ -169,6 +169,7 @@ public class JDialogLogin extends javax.swing.JDialog {
         } catch(IllegalArgumentException e3){
             e3.printStackTrace();
 	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            e3.printStackTrace();
         }
         
         this.dispose();
