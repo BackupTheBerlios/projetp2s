@@ -235,7 +235,8 @@ public class ParserXMLLog {
                             //Recuperation de la date de debut reelle de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("datedebutreelle"))
                                 try{
-                                    dateDebutReelle = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
+                                    if(attributIterationCourant.getFirstChild() != null)
+                                        dateDebutReelle = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateDebutReelle");
                                 }
@@ -243,7 +244,8 @@ public class ParserXMLLog {
                             //Recuperation de la date de debut reelle de l'iteration
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("datefinprevue"))
                                 try{
-                                    dateFinPrevue = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
+                                    if(attributIterationCourant.getFirstChild() != null)
+                                        dateFinPrevue = dateFormat.parse(attributIterationCourant.getFirstChild().getNodeValue());
                                 } catch(ParseException e1){
                                     System.out.println("Probleme pour parser dateFinPrevue");
                                 }

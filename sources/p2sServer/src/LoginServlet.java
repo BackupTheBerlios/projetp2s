@@ -136,8 +136,8 @@ public class LoginServlet extends HttpServlet {
                                 out.println("</dateFin>");
                                 
                                 out.println("<budget>");
-                                if(rsProjets.getInt("budget") != -1)
-                                    out.println(rsProjets.getInt("budget"));
+                                if(rsProjets.getFloat("budget") != -1)
+                                    out.println(rsProjets.getFloat("budget"));
                                 out.println("</budget>");
                                 
                                 /*********** RECUPERATION DES MEMBRES DU PROJET  ************/
@@ -332,13 +332,13 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</chargeprevue>");
                                                 
                                                 out.println("<tempspasse>");
-                                                if(rsTaches.getInt("tempspasse") != -1)
-                                                    out.println(rsTaches.getInt("tempspasse"));
+                                                if(rsTaches.getFloat("tempspasse") != -1)
+                                                    out.println(rsTaches.getFloat("tempspasse"));
                                                 out.println("</tempspasse>");
                                                 
                                                 out.println("<tempsrestant>");
-                                                if(rsTaches.getInt("tempsrestant") != -1)
-                                                    out.println(rsTaches.getInt("tempsrestant"));
+                                                if(rsTaches.getFloat("tempsrestant") != -1)
+                                                    out.println(rsTaches.getFloat("tempsrestant"));
                                                 out.println("</tempsrestant>");
                                                 
                                                 out.println("<datedebutprevue>");
@@ -400,13 +400,13 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</chargeprevue>");
                                                 
                                                 out.println("<tempspasse>");
-                                                if(rsTachesCollaboratives.getInt("tempspasse") != -1)
-                                                    out.println(rsTachesCollaboratives.getInt("tempspasse"));
+                                                if(rsTachesCollaboratives.getFloat("tempspasse") != -1)
+                                                    out.println(rsTachesCollaboratives.getFloat("tempspasse"));
                                                 out.println("</tempspasse>");
                                                 
                                                 out.println("<tempsrestant>");
-                                                if(rsTachesCollaboratives.getInt("tempsrestant") != -1)
-                                                    out.println(rsTachesCollaboratives.getInt("tempsrestant"));
+                                                if(rsTachesCollaboratives.getFloat("tempsrestant") != -1)
+                                                    out.println(rsTachesCollaboratives.getFloat("tempsrestant"));
                                                 out.println("</tempsrestant>");
                                                 
                                                 out.println("<datedebutprevue>");
@@ -467,8 +467,8 @@ public class LoginServlet extends HttpServlet {
                                             out.println("</nombreParticipants>");
                                             
                                             out.println("<chargeMoyenneParticipants>");
-                                            if(rsIndicateursIteration.getInt("chargeMoyenneParticipants") != -1)
-                                                out.println(rsIndicateursIteration.getInt("chargeMoyenneParticipants"));
+                                            if(rsIndicateursIteration.getFloat("chargeMoyenneParticipants") != -1)
+                                                out.println(rsIndicateursIteration.getFloat("chargeMoyenneParticipants"));
                                             out.println("</chargeMoyenneParticipants>");
                                             
                                             out.println("<nombreMoyenTachesParticipants>");
@@ -770,8 +770,8 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nombreParticipants>");
                                     
                                     out.println("<avancementProjet>");
-                                    if(rsIndicateursProjet.getInt("avancementProjet") != -1)
-                                        out.println(rsIndicateursProjet.getInt("avancementProjet"));
+                                    if(rsIndicateursProjet.getFloat("avancementProjet") != -1)
+                                        out.println(rsIndicateursProjet.getFloat("avancementProjet"));
                                     out.println("</avancementProjet>");
                                     
                                     out.println("</indicateursProjet>");
@@ -910,7 +910,7 @@ public class LoginServlet extends HttpServlet {
                                             ResultSet rsIndicNbMembre = prepState.executeQuery(); // Execution de la requete
                                             
                                             if(rsIndicNbMembre.next())
-                                                chargesCollaboratives += rsIndicChargesCollaboratives.getInt("tempspasse")/rsIndicNbMembre.getInt(1);
+                                                chargesCollaboratives += rsIndicChargesCollaboratives.getFloat("tempspasse")/rsIndicNbMembre.getInt(1);
                                             rsIndicNbMembre.close();
                                         }while(rsIndicChargesCollaboratives.next());
                                     }
@@ -981,7 +981,7 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nom>");
                                     
                                     out.println("<charges>");
-                                    out.println(rsIndicTacheMembre.getString("tempspasse"));
+                                    out.println(rsIndicTacheMembre.getFloat("tempspasse"));
                                     out.println("</charges>");
                                     
                                     out.println("</indicateurTache>");
