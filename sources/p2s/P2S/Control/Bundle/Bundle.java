@@ -34,7 +34,14 @@ public class Bundle {
      */    
     public static String getText(String id)
     {
-        return bundle.getString(id);
+        try
+        {
+             return (bundle.getString(id)) ;
+        }
+        catch (MissingResourceException e)
+        {
+             return id ;
+        }
     }
     
     /**
