@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/p2sserver">
+  <Logger className="org.apache.catalina.logger.FileLogger" prefix="p2sserver." suffix=".log" timestamp="true"/>
+</Context>
