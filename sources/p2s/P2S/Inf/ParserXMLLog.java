@@ -152,9 +152,10 @@ public class ParserXMLLog {
             // plus
             Vector membresList = new Vector() ;
             Vector risquesList = new Vector() ;
+	    Vector problemesList = new Vector() ;
             
             //Recuperation des attributs du projet
-            for(int j = 0 ; j < attributs.getLength() ; j++){
+            for(int j = 0 ; j < attributs.getLength() ; j++){		
                 Node attributCourant = attributs.item(j);
                 
                 //Recuperation de l'id du projet
@@ -190,13 +191,13 @@ public class ParserXMLLog {
                 
                 //Recuperation des indicateurs liées aux projets
                 if(attributCourant.getNodeName().equalsIgnoreCase("indicateursprojet")){
-                    
                     int totalCharges = 0;
                     int tachesTerminees = 0;
                     int dureeMoyenneTache = 0;
                     int nombreParticipants = 0;
                     float avancementProjet = 0;
-                    
+		    
+		    
                     NodeList attributsIndicateurProjet = attributCourant.getChildNodes();
                     
                     for(int nbrIndicateurs=0; nbrIndicateurs<attributsIndicateurProjet.getLength();nbrIndicateurs++ ){
@@ -231,7 +232,7 @@ public class ParserXMLLog {
                         
                         
                     }
-                    System.out.println("nit  nit");
+
                     indicateursProjet = new IndicateursProjet(totalCharges , tachesTerminees, dureeMoyenneTache, nombreParticipants, avancementProjet);
                 }
                 
@@ -518,7 +519,7 @@ public class ParserXMLLog {
                             }
                             
                             //Recuperation de l'impact
-                            if(risqueCourant.getNodeName().equalsIgnoreCase("impact")) {
+                            if(attributRisqueCourant.getNodeName().equalsIgnoreCase("impact")) {
                                 if(attributRisqueCourant.getFirstChild() != null)
                                     impact = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
                             }
@@ -533,11 +534,70 @@ public class ParserXMLLog {
                         risquesList.add(risque) ;
                     }
                 }
+		
+		//problemes
+                if(attributCourant.getNodeName().equalsIgnoreCase("problemes")){
+                    NodeList problemeNodeList = attributCourant.getChildNodes();
+                    
+                    for(int pbCounter = 0 ; pbCounter < problemeNodeList.getLength() ; pbCounter++){
+                        
+                        
+                        
+                        String nomProbleme = null ;
+                        String causeProbleme = null ;
+			Date debutProbleme = null ;
+                        Date finProbleme = null ;
+			
+                        
+                        
+                        Node problemeCourant = problemeNodeList.item(pbCounter);
+                        NodeList attributsProblemeCourant = problemeCourant.getChildNodes();
+                        
+                        for(int pbCounter1 = 0 ; pbCounter1 < attributsProblemeCourant.getLength() ; pbCounter1++){
+                            
+                            Node attributProblemeCourant = attributsProblemeCourant.item(pbCounter1);
+                            //Recuperation du nom du probleme
+                            if(attributProblemeCourant.getNodeName().equalsIgnoreCase("nom")) {
+                                if(attributProblemeCourant.getFirstChild() != null)
+                                    nomProbleme = attributProblemeCourant.getFirstChild().getNodeValue();
+                            }
+                            
+                            //Recuperation de la cause
+                            if(attributProblemeCourant.getNodeName().equalsIgnoreCase("cause")) {
+                                if(attributProblemeCourant.getFirstChild() != null)
+                                    causeProbleme = attributProblemeCourant.getFirstChild().getNodeValue();
+                            }
+                            
+                            
+                            //Recuperation de la date de debut
+                            if(attributProblemeCourant.getNodeName().equalsIgnoreCase("dateDebut")) {
+                                try{
+                                   if(attributProblemeCourant.getFirstChild() != null)
+                                       debutProbleme = dateFormat.parse(attributProblemeCourant.getFirstChild().getNodeValue());
+                                } catch(ParseException e1){
+                                   System.out.println("Probleme pour parser debut du probleme");}
+                            }
+                            
+                            //Recuperation de la date de fin
+                            if(attributProblemeCourant.getNodeName().equalsIgnoreCase("dateFin")) {
+                                try{
+                                   if(attributProblemeCourant.getFirstChild() != null)
+                                       finProbleme = dateFormat.parse(attributProblemeCourant.getFirstChild().getNodeValue());				   
+                                } catch(ParseException e1){
+                                   System.out.println("Probleme pour parser fin du probleme");}
+                            }                            
+                            
+                        }
+                        Probleme probleme = new Probleme(nomProbleme, causeProbleme, debutProbleme, finProbleme) ;
+                        problemesList.add(probleme) ;
+                    }
+                }		
             }
             Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
             projetCourant.setListeIt(iterationList);
             projetCourant.setIndicateursProjet(indicateursProjet);
             projetCourant.setListeRisques(risquesList) ;
+	    projetCourant.setListeProblemes(problemesList) ;
             projets.add(projetCourant);
             
         }

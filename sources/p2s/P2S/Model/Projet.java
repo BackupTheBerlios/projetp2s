@@ -19,6 +19,7 @@ public class Projet {
     private Vector listeIt;
     private Vector listeMembres;
     private Vector listeRisques;
+    private Vector listeProblemes;
     
     
     //CONSTRUCTEURS
@@ -33,6 +34,7 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
+	this.listeProblemes = new Vector() ;
         this.indicateursProjet = new IndicateursProjet();
     }
     
@@ -46,6 +48,7 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
+	this.listeProblemes = new Vector() ;
         this.indicateursProjet = new IndicateursProjet();
     }   
     
@@ -59,6 +62,7 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();        
         this.listeRisques = new Vector();
+	this.listeProblemes = new Vector() ;
         this.indicateursProjet = indicateursProjet;
     }
     
@@ -71,6 +75,7 @@ public class Projet {
         this.listeIt = new Vector(listeIt);
         this.listeMembres = new Vector(listeMembres);    
         this.listeRisques = new Vector();
+	this.listeProblemes = new Vector() ;
         this.indicateursProjet = new IndicateursProjet();
     }
        
@@ -162,6 +167,14 @@ public class Projet {
 
     public void setListeRisques(Vector listeRisques) {
         this.listeRisques = listeRisques;
+    }
+    
+    public Vector getListeProblemes() {
+        return listeProblemes;
+    }
+
+    public void setListeProblemes(Vector listeProblemes) {
+        this.listeProblemes = listeProblemes;
     }
     
     public IndicateursProjet getIndicateursProjet(){
