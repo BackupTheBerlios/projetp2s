@@ -120,7 +120,7 @@ public class ParserXMLLog {
             
             //IL FAUT REGARDER COMMENT CA SE PASSE POUR LES MESURES !!
             
-            Projet projetCourant = new Projet(idProjet,nom,description, dateDebut, dateFin, null, null);
+            Projet projetCourant = new Projet(idProjet,nom,description, dateDebut, dateFin, null, null,null,null);
             projets.add(projetCourant);
         }
         
