@@ -154,6 +154,16 @@ CREATE TABLE `mesures` (
   PRIMARY KEY  (`idmesure`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages` (
+  `idmessage` int(10) unsigned NOT NULL auto_increment,
+  `login` varchar(45) NOT NULL default '',
+  `sujet` varchar(45) NOT NULL default '',
+  `date` date default NULL,
+  `message` tinytext default NULL,
+  PRIMARY KEY  (`idmessage`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `projets`;
 CREATE TABLE `projets` (
   `idprojet` int(10) unsigned NOT NULL auto_increment,
