@@ -259,8 +259,8 @@ CREATE TABLE `seuilsfixes_projet` (
   `nombreParticipantIterationMax` int(10) unsigned default '0',
   `chargeMoyenneMin` float default '0',
   `chargeMoyenneMax` float default '0',
-  `nombreTacheParticipantMin` int(10) unsigned default '0',
-  `nombreTacheParticipantMax` int(10) unsigned default '0',
+  `nombreTacheParticipantMin` float default '0',
+  `nombreTacheParticipantMax` float default '0',
   `login` varchar(45) NOT NULL default '',
   PRIMARY KEY  (`idprojet`,`login`),
   KEY `FK_seuilsfixes_projet_2` (`login`),
@@ -329,7 +329,8 @@ CREATE TABLE `utilisateurs` (
   `fonction` varchar(45) NOT NULL default '',
   PRIMARY KEY  (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-INSERT INTO `utilisateurs` VALUES  ('directeur','902c77af765b79c19f2d71fa427008d0','dir'),
+INSERT INTO `utilisateurs` (`login`,`password`,`fonction`) VALUES 
+ ('directeur','902c77af765b79c19f2d71fa427008d0','dir'),
  ('sup','2eeecd72c567401e6988624b179d0b14','sup');
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

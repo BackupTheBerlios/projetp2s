@@ -2576,7 +2576,7 @@ public class ParserXMLFichierWF {
             PreparedStatement prepState = conn.prepareStatement("select * from seuilsfixes_projet where idprojet="+lireIdProjet()+" and login = '"+this.login+"'");
             ResultSet rs = prepState.executeQuery(); // Execution de la requete
             if(!rs.next()) {
-                prepState = conn.prepareStatement("insert into seuilsfixes_projet values ("+lireIdProjet()+",0,0,0,0,0.0,0.0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0.0,0.0,0,0,'"+login+"')");
+                prepState = conn.prepareStatement("insert into seuilsfixes_projet values ("+lireIdProjet()+",0,0,0,0,0.0,0.0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,'"+login+"')");
                 prepState.execute(); // Execution de la requete
             }
         }catch (SQLException ex) { // Si une SQLException survient

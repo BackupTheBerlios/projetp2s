@@ -327,124 +327,124 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             if(Integer.parseInt(seuilsFixes.getTotalChargesProjet().getSeuilMin().toString()) !=  Integer.parseInt(totalChargesProjetSeuilMin.getText())){
                 url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMin" +"&&value="+totalChargesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
                 url.openStream();
-                seuilsFixes.getTotalChargesProjet().setSeuilMin(Integer.parseInt(totalChargesProjetSeuilMin.getText()));
+                seuilsFixes.getTotalChargesProjet().setSeuilMin(new Integer(Integer.parseInt(totalChargesProjetSeuilMin.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getTotalChargesProjet().getSeuilMax().toString()) !=  Integer.parseInt(totalChargesProjetSeuilMax.getText())){
                 url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMax" +"&value="+totalChargesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
                 url.openStream();
-                seuilsFixes.getTotalChargesProjet().setSeuilMax(Integer.parseInt(totalChargesProjetSeuilMax.getText()));
+                seuilsFixes.getTotalChargesProjet().setSeuilMax(new Integer(Integer.parseInt(totalChargesProjetSeuilMax.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getTachesTermineesProjet().getSeuilMin().toString()) !=  Integer.parseInt(tacheTermineesProjetSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tachesTermineesProjetMin" +"&value="+tacheTermineesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getTachesTermineesProjet().setSeuilMin(Integer.parseInt(tacheTermineesProjetSeuilMin.getText()));
+            seuilsFixes.getTachesTermineesProjet().setSeuilMin(new Integer(Integer.parseInt(tacheTermineesProjetSeuilMin.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getTachesTermineesProjet().getSeuilMax().toString()) !=  Integer.parseInt(tacheTermineesProjetSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tachesTermineesProjetMax" +"&value="+tacheTermineesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getTachesTermineesProjet().setSeuilMax(Integer.parseInt(tacheTermineesProjetSeuilMax.getText()));
+            seuilsFixes.getTachesTermineesProjet().setSeuilMax(new Integer(Integer.parseInt(tacheTermineesProjetSeuilMax.getText())));
             }
             if(Float.parseFloat(seuilsFixes.getDureeMoyenneTache().getSeuilMin().toString()) !=  Float.parseFloat(dureeMoyenneProjetSeuilMin.getText())){  
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneTacheMin" +"&value="+dureeMoyenneProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getDureeMoyenneTache().setSeuilMin(Float.parseFloat(dureeMoyenneProjetSeuilMin.getText()));
+            seuilsFixes.getDureeMoyenneTache().setSeuilMin(new Float(Float.parseFloat(dureeMoyenneProjetSeuilMin.getText())));
             }
             
             if(Float.parseFloat(seuilsFixes.getDureeMoyenneTache().getSeuilMax().toString()) !=  Float.parseFloat(dureeMoyenneProjetSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneTacheMax" +"&value="+dureeMoyenneProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getDureeMoyenneTache().setSeuilMax(Float.parseFloat(dureeMoyenneProjetSeuilMax.getText()));
+            seuilsFixes.getDureeMoyenneTache().setSeuilMax(new Float(Float.parseFloat(dureeMoyenneProjetSeuilMax.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getNombreParticipants().getSeuilMin().toString()) !=  Integer.parseInt(nombreParticipantProjetSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantsMin" +"&value="+nombreParticipantProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreParticipants().setSeuilMin(Integer.parseInt(nombreParticipantProjetSeuilMin.getText()));
+            seuilsFixes.getNombreParticipants().setSeuilMin(new Integer(Integer.parseInt(nombreParticipantProjetSeuilMin.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getNombreParticipants().getSeuilMax().toString()) !=  Integer.parseInt(nombreParticipantProjetSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantsMax" +"&value="+nombreParticipantProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreParticipants().setSeuilMax(Integer.parseInt(nombreParticipantProjetSeuilMax.getText()));
+            seuilsFixes.getNombreParticipants().setSeuilMax(new Integer(Integer.parseInt(nombreParticipantProjetSeuilMax.getText())));
             
             }
             
             if(Integer.parseInt(seuilsFixes.getTotalChargesIteration().getSeuilMin().toString()) !=  Integer.parseInt(totalChargesIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesIterationMin" +"&value="+totalChargesIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getTotalChargesIteration().setSeuilMin(Integer.parseInt(totalChargesIterationSeuilMin.getText()));
+            seuilsFixes.getTotalChargesIteration().setSeuilMin(new Integer(Integer.parseInt(totalChargesIterationSeuilMin.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getTotalChargesIteration().getSeuilMax().toString()) !=  Integer.parseInt(totalChargesIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesIterationMax" +"&value="+totalChargesIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getTotalChargesIteration().setSeuilMax(Integer.parseInt(totalChargesIterationSeuilMax.getText()));
+            seuilsFixes.getTotalChargesIteration().setSeuilMax(new Integer(Integer.parseInt(totalChargesIterationSeuilMax.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getTacheTermineesIteration().getSeuilMin().toString()) !=  Integer.parseInt(tacheTermineesIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tacheTermineesIterationMin" +"&value="+tacheTermineesIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getTacheTermineesIteration().setSeuilMin(Integer.parseInt(tacheTermineesIterationSeuilMin.getText()));
+            seuilsFixes.getTacheTermineesIteration().setSeuilMin(new Integer(Integer.parseInt(tacheTermineesIterationSeuilMin.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getTacheTermineesIteration().getSeuilMax().toString()) !=  Integer.parseInt(tacheTermineesIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tacheTermineesIterationMax" +"&value="+tacheTermineesIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getTacheTermineesIteration().setSeuilMax(Integer.parseInt(tacheTermineesIterationSeuilMax.getText())); 
+            seuilsFixes.getTacheTermineesIteration().setSeuilMax(new Integer(Integer.parseInt(tacheTermineesIterationSeuilMax.getText()))); 
             }
             
             if(Float.parseFloat(seuilsFixes.getDureeMoyenneIteration().getSeuilMin().toString()) !=  Float.parseFloat(dureeMoyenneIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneIterationMin" +"&value="+dureeMoyenneIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getDureeMoyenneIteration().setSeuilMin(Float.parseFloat(dureeMoyenneIterationSeuilMin.getText()));
+            seuilsFixes.getDureeMoyenneIteration().setSeuilMin(new Float(Float.parseFloat(dureeMoyenneIterationSeuilMin.getText())));
             
             }
             if(Float.parseFloat(seuilsFixes.getDureeMoyenneIteration().getSeuilMax().toString()) !=  Float.parseFloat(dureeMoyenneIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneIterationMax" +"&value="+dureeMoyenneIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getDureeMoyenneIteration().setSeuilMax(Float.parseFloat(dureeMoyenneIterationSeuilMax.getText()));
+            seuilsFixes.getDureeMoyenneIteration().setSeuilMax(new Float(Float.parseFloat(dureeMoyenneIterationSeuilMax.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getNombreParticipantIteration().getSeuilMin().toString()) !=  Integer.parseInt(nombreParticipantIterationSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantIterationMin" +"&value="+nombreParticipantIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreParticipantIteration().setSeuilMin(Integer.parseInt(nombreParticipantIterationSeuilMin.getText()));
+            seuilsFixes.getNombreParticipantIteration().setSeuilMin(new Integer(Integer.parseInt(nombreParticipantIterationSeuilMin.getText())));
             
             }
             
             if(Integer.parseInt(seuilsFixes.getNombreParticipantIteration().getSeuilMax().toString()) !=  Integer.parseInt(nombreParticipantIterationSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantIterationMax" +"&value="+nombreParticipantIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreParticipantIteration().setSeuilMax(Integer.parseInt(nombreParticipantIterationSeuilMax.getText()));
+            seuilsFixes.getNombreParticipantIteration().setSeuilMax(new Integer(Integer.parseInt(nombreParticipantIterationSeuilMax.getText())));
             }
             
             if(Float.parseFloat(seuilsFixes.getChargeMoyenne().getSeuilMin().toString()) !=  Float.parseFloat(chargeMoyenneSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "chargeMoyenneMin" +"&value="+chargeMoyenneSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getChargeMoyenne().setSeuilMin(Float.parseFloat(chargeMoyenneSeuilMin.getText()));
+            seuilsFixes.getChargeMoyenne().setSeuilMin(new Float(Float.parseFloat(chargeMoyenneSeuilMin.getText())));
             
             }
             
             if(Float.parseFloat(seuilsFixes.getChargeMoyenne().getSeuilMax().toString()) !=  Float.parseFloat(chargeMoyenneSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "chargeMoyenneMax" +"&value="+chargeMoyenneSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getChargeMoyenne().setSeuilMax(Float.parseFloat(chargeMoyenneSeuilMax.getText()));
+            seuilsFixes.getChargeMoyenne().setSeuilMax(new Float(Float.parseFloat(chargeMoyenneSeuilMax.getText())));
             }
             
             if(Integer.parseInt(seuilsFixes.getNombreTacheParticipant().getSeuilMin().toString()) !=  Integer.parseInt(nombreTacheParticipantSeuilMin.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMin" +"&value="+nombreTacheParticipantSeuilMin.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreTacheParticipant().setSeuilMin(Integer.parseInt(nombreTacheParticipantSeuilMin.getText()));
+            seuilsFixes.getNombreTacheParticipant().setSeuilMin(new Integer(Integer.parseInt(nombreTacheParticipantSeuilMin.getText())));
             
             }
             
             if(Integer.parseInt(seuilsFixes.getNombreTacheParticipant().getSeuilMax().toString()) !=  Integer.parseInt(nombreTacheParticipantSeuilMax.getText())){
             url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMax" +"&value="+nombreTacheParticipantSeuilMax.getText()+"&nomProjet="+nomProjet);
             url.openStream();
-            seuilsFixes.getNombreTacheParticipant().setSeuilMax(Integer.parseInt(nombreTacheParticipantSeuilMax.getText()));
+            seuilsFixes.getNombreTacheParticipant().setSeuilMax(new Integer(Integer.parseInt(nombreTacheParticipantSeuilMax.getText())));
             }
             
         } catch(MalformedURLException e1){

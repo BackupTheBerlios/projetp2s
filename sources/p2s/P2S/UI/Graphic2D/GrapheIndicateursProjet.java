@@ -73,7 +73,7 @@ public class GrapheIndicateursProjet extends JPanel {
 		if (tempIndIt.getNombreTachesTerminees() > tachesTermineesMax) { tachesTermineesMax = tempIndIt.getNombreTachesTerminees() ; }
 		if (tempIndIt.getNombreMoyenTachesParticipants() > tachesParticipantsMax) { tachesParticipantsMax = tempIndIt.getNombreMoyenTachesParticipants() ; }
             }
-        }   
+        }
         setPreferredSize(new Dimension(ITERATION_WIDTH * nbIt,400));
 	//setBorder(new TitledBorder(new EtchedBorder(), "toto", 5, TitledBorder.ABOVE_TOP)) ;
     }
