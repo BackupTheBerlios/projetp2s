@@ -54,13 +54,14 @@ public class ParserXMLFichierWF {
         
         try{
             // Connexion a la base de donnees
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/essai?user=root&password=rootpass");
         }catch(SQLException e){
             
         }
     }
     
     public void majBase() {
+        
         majProjet();
         majIterations();
         majMembres();
@@ -70,6 +71,8 @@ public class ParserXMLFichierWF {
         majTaches();
         majTachesCollaboratives();
         majArtefacts();
+        
+        // Mise a jour des liens
         majLiensMembres_TachesCollaboratives();
         majLiensMembres_Projets();
         majLiensArtefacts_Entrees_Taches();
@@ -77,6 +80,9 @@ public class ParserXMLFichierWF {
         majLiensArtefacts_Entrees_TachesCollaboratives();
         majLiensArtefacts_Sorties_TachesCollaboratives();
         majLiensMembres_Roles();
+        
+        // Mise a jour des indicateurs
+        //majIndicateurIteration();
     }
     
     
@@ -862,6 +868,7 @@ public class ParserXMLFichierWF {
         String dateFinPrevue = null;
         String dateFinReelle = null;
         int idIteration = -1;
+        int idResponsable = -1;
         
         NodeList listeTache = this.document.getElementsByTagName("eltTacheCollaborative");
         NodeList listeNoeud;
@@ -957,6 +964,8 @@ public class ParserXMLFichierWF {
             // on recherche l'id de l'iteration auquel est rattache la tache
             idIteration = lireIdIteration_TacheCollaborative(id);
             
+            // on recherche l'id du responsable de la tache
+            idResponsable = lireIdResponsable_TacheCollaborative(id);
             
             try {
                 // Requete SQL
@@ -964,11 +973,11 @@ public class ParserXMLFichierWF {
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rstache.next()){
-                    prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+",'"+nom+"','"+description+"',"+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+",'"+dateDebutPrevue+"','"+dateFinPrevue+"','"+dateDebutReelle+"','"+dateFinReelle+"',"+idIteration+")");
+                    prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+",'"+nom+"','"+description+"',"+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+",'"+dateDebutPrevue+"','"+dateFinPrevue+"','"+dateDebutReelle+"','"+dateFinReelle+"',"+idIteration+","+idResponsable+")");
                     prepState.execute(); // Execution de la requete
                 }else{
                     PreparedStatement updateTache = conn.prepareStatement(
-                            "update tachescollaboratives set nom=?, description=?, etat=?, chargeprevue=?, tempspasse=?, tempsrestant=?, datedebutprevue=?, datefinprevue=?, datedebutreelle=?, datefinreelle=?, iditeration=? where idtache ="+id);
+                            "update tachescollaboratives set nom=?, description=?, etat=?, chargeprevue=?, tempspasse=?, tempsrestant=?, datedebutprevue=?, datefinprevue=?, datedebutreelle=?, datefinreelle=?, iditeration=?, idresponsable=? where idtache ="+id);
                     updateTache.setString(1,nom);
                     updateTache.setString(2,description);
                     updateTache.setInt(3,etat);
@@ -980,6 +989,7 @@ public class ParserXMLFichierWF {
                     updateTache.setString(9,dateDebutReelle);
                     updateTache.setString(10,dateFinReelle);
                     updateTache.setInt(11,idIteration);
+                    updateTache.setInt(12,idResponsable);
                     
                     updateTache.executeUpdate();
                 }
@@ -1032,6 +1042,51 @@ public class ParserXMLFichierWF {
         
         if(!trouve){
             // traitement erreur : aucun id iteration n'a etait trouve pour cette tache
+            System.out.println("aucun id iteration n'a etait trouve pour cette tache");
+        }
+        
+        return(id);
+    }
+    
+    
+    private int lireIdResponsable_TacheCollaborative(int idTache) {
+        NodeList listeMembreTache = this.document.getElementsByTagName("MembreTacheCollaborative_Responsable");
+        NodeList listeIdTache;
+        
+        int id = -1;
+        boolean trouve = false;
+        int b = 0;
+        int i = 0;
+        int j = 0;
+        
+        while(i<listeMembreTache.getLength() && !trouve){
+            Node NoeudMembreTache = listeMembreTache.item(i);
+            
+            b = 0;
+            while(NoeudMembreTache.getChildNodes().item(b).getNodeName().compareTo("listeTacheCollaborative") != 0) {
+                b++;
+            }
+            listeIdTache = NoeudMembreTache.getChildNodes().item(b).getChildNodes();
+            
+            j = 0;
+            while(j<listeIdTache.getLength() && !trouve){
+                if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
+                    if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
+                        b = 0;
+                        while(NoeudMembreTache.getChildNodes().item(b).getNodeName().compareTo("idMembre") != 0) {
+                            b++;
+                        }
+                        id = new Integer(NoeudMembreTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        trouve = true;
+                    }
+                }
+                j++;
+            }
+            i++;
+        }
+        
+        if(!trouve){
+            // traitement erreur : aucun id membre n'a etait trouve pour cette tache
             System.out.println("aucun id iteration n'a etait trouve pour cette tache");
         }
         
@@ -1170,6 +1225,71 @@ public class ParserXMLFichierWF {
     public void majLiensMembres_TachesCollaboratives() {
         int idMembre = -1;
         Vector listeIdTache = new Vector();
+        Vector listeMembreTache = new Vector();
+        
+        NodeList listeNoeud;
+        NodeList listeNoeudIdTache;
+        
+        NodeList listeNoeudTemp = this.document.getElementsByTagName("MembreTacheCollaborative_Realise").item(0).getChildNodes();
+        // on recherche le noeud listeMembre
+        int b = 0;
+        while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
+            b++;
+        }
+        listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
+        
+        // on recherche les noeuds Membre
+        for(int n=0;n<listeNoeudTemp.getLength();n++){
+            if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
+                listeMembreTache.add(listeNoeudTemp.item(n));
+            }
+        }
+        
+        // on parcourt tous les noeuds Membre
+        for(int i=0;i<listeMembreTache.size();i++){
+            listeNoeud = ((Node)listeMembreTache.get(i)).getChildNodes();
+            
+            // on recherche l'id du membre
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                b++;
+            }
+            idMembre = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les taches auquelles il participe
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeTacheCollaborative") != 0) {
+                b++;
+            }
+            listeNoeudIdTache = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdTache.getLength();j++){
+                if(listeNoeudIdTache.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdTache.add(listeNoeudIdTache.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdTache.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from membres_tachescollaboratives where idmembre="+idMembre+" and idtache="+listeIdTache.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into membres_tachescollaboratives values ("+idMembre+","+listeIdTache.get(k)+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdTache.removeAllElements();
+        }
+        /*int idMembre = -1;
+        Vector listeIdTache = new Vector();
         
         NodeList listeMembreTache = this.document.getElementsByTagName("MembreTacheCollaborative_Responsable");
         NodeList listeNoeud;
@@ -1216,7 +1336,7 @@ public class ParserXMLFichierWF {
                 }
             }
             listeIdTache.removeAllElements();
-        }
+        }*/
     }
     
     
@@ -1488,13 +1608,13 @@ public class ParserXMLFichierWF {
         }
         listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
         
-        // on recherche les noeuds Membre        
+        // on recherche les noeuds Membre
         for(int n=0;n<listeNoeudTemp.getLength();n++){
             if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
                 listeMembreRole.add(listeNoeudTemp.item(n));
             }
-        }          
-        System.out.println(listeMembreRole.size());
+        }
+        
         // on parcourt tous les noeuds Membre
         for(int i=0;i<listeMembreRole.size();i++){
             listeNoeud = ((Node)listeMembreRole.get(i)).getChildNodes();
@@ -1539,5 +1659,56 @@ public class ParserXMLFichierWF {
             listeIdRole.removeAllElements();
         }
     }
+    
+    
+    public void majIndicateurIteration(){
+        int nbIt = 0;
+        
+        try {
+            // On recupere le nombre d'iteration du projet
+            PreparedStatement prepState = conn.prepareStatement("select COUNT(*) from iterations where idprojet="+lireIdProjet());
+            ResultSet rs = prepState.executeQuery(); // Execution de la requete
+            if(rs.next()) {
+                nbIt = rs.getInt(1);
+            }
+            
+            for(int i=0;i<nbIt;i++){
+                
+                prepState = conn.prepareStatement("select * from indicateurs_iteration where iditeration="+lireIdProjet());
+                rs = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rs.next()){
+                    //prepState = conn.prepareStatement("insert into roles_membres values ("+listeIdRole.get(k)+","+idMembre+")");
+                    //prepState.execute(); // Execution de la requete
+                }
+                
+            }
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+    }
+    
+    /*private int calculerChargesTotal_Iteration()
+    {
+        try {
+            // Requete SQL
+            PreparedStatement prepState = conn.prepareStatement("select * from indicateurs_projet where idprojet="+lireIdProjet());
+            ResultSet rs = prepState.executeQuery(); // Execution de la requete
+     
+            if(!rs.next()){
+                //prepState = conn.prepareStatement("insert into roles_membres values ("+listeIdRole.get(k)+","+idMembre+")");
+                //prepState.execute(); // Execution de la requete
+            }
+     
+        }catch (SQLException ex) { // Si une SQLException survient
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
+        }
+    }*/
 }
 

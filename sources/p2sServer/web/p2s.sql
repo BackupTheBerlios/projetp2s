@@ -1,8 +1,6 @@
--- Commande pour importer les tables : mysql -u login -ppassword nom_base < p2s.sql
-
 -- MySQL dump 10.9
 --
--- Host: localhost    Database: p2s
+-- Host: localhost    Database: essai
 -- ------------------------------------------------------
 -- Server version	4.1.8-nt
 
@@ -540,8 +538,11 @@ CREATE TABLE `tachescollaboratives` (
   `datedebutreelle` date default NULL,
   `datefinreelle` date default NULL,
   `iditeration` int(10) unsigned NOT NULL default '0',
+  `idresponsable` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idtache`),
   KEY `FK_tachescolaboratives_iditeration` (`iditeration`),
+  KEY `FK_tachescollaboratives_idresponsable` (`idresponsable`),
+  CONSTRAINT `FK_tachescollaboratives_idresponsable` FOREIGN KEY (`idresponsable`) REFERENCES `membres` (`idmembre`),
   CONSTRAINT `FK_tachescolaboratives_iditeration` FOREIGN KEY (`iditeration`) REFERENCES `iterations` (`iditeration`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB';
 
