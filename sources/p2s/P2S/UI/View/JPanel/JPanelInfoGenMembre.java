@@ -50,19 +50,19 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
 
         LabelVide = new javax.swing.JLabel();
         textNom = new javax.swing.JTextField();
-        textStaticNom = new javax.swing.JTextField();
-        textStaticPrenom = new javax.swing.JTextField();
         textPrenom = new javax.swing.JTextField();
-        textStaticAdresse = new javax.swing.JTextField();
         textAdresse = new javax.swing.JTextField();
-        textStaticTel = new javax.swing.JTextField();
         textTel = new javax.swing.JTextField();
-        textStaticMail = new javax.swing.JTextField();
         textMail = new javax.swing.JTextField();
+        labelStaticNom = new javax.swing.JLabel();
+        labelStaticPrenom = new javax.swing.JLabel();
+        labelStaticAdresse = new javax.swing.JLabel();
+        labelStaticTel = new javax.swing.JLabel();
+        labelStaticMail = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LabelVide.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        LabelVide.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(1, 1, 1, 1)));
         add(LabelVide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 348));
 
         textNom.setBackground(new java.awt.Color(255, 255, 255));
@@ -71,29 +71,11 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
         textNom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 120, -1));
 
-        textStaticNom.setBackground(new java.awt.Color(255, 255, 255));
-        textStaticNom.setEditable(false);
-        textStaticNom.setText("Nom :");
-        textStaticNom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 70, -1));
-
-        textStaticPrenom.setBackground(new java.awt.Color(255, 255, 255));
-        textStaticPrenom.setEditable(false);
-        textStaticPrenom.setText("Pr\u00e9nom :");
-        textStaticPrenom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticPrenom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 70, -1));
-
         textPrenom.setBackground(new java.awt.Color(255, 255, 255));
         textPrenom.setEditable(false);
         textPrenom.setText("Pr\u00e9nom");
         textPrenom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textPrenom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 120, -1));
-
-        textStaticAdresse.setBackground(new java.awt.Color(255, 255, 255));
-        textStaticAdresse.setEditable(false);
-        textStaticAdresse.setText("Adresse :");
-        textStaticAdresse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 70, -1));
 
         textAdresse.setBackground(new java.awt.Color(255, 255, 255));
         textAdresse.setEditable(false);
@@ -101,23 +83,11 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
         textAdresse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
 
-        textStaticTel.setBackground(new java.awt.Color(255, 255, 255));
-        textStaticTel.setEditable(false);
-        textStaticTel.setText("T\u00e9l\u00e9phonne :");
-        textStaticTel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 70, -1));
-
         textTel.setBackground(new java.awt.Color(255, 255, 255));
         textTel.setEditable(false);
         textTel.setText("t\u00e9l\u00e9phonne");
         textTel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 120, -1));
-
-        textStaticMail.setBackground(new java.awt.Color(255, 255, 255));
-        textStaticMail.setEditable(false);
-        textStaticMail.setText("EMail :");
-        textStaticMail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 70, -1));
 
         textMail.setBackground(new java.awt.Color(255, 255, 255));
         textMail.setEditable(false);
@@ -125,34 +95,44 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
         textMail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 120, -1));
 
+        labelStaticNom.setText("jLabel1");
+        add(labelStaticNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 70, -1));
+
+        labelStaticPrenom.setText("jLabel2");
+        add(labelStaticPrenom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 70, -1));
+
+        labelStaticAdresse.setText("jLabel3");
+        add(labelStaticAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 70, -1));
+
+        labelStaticTel.setText("jLabel4");
+        add(labelStaticTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 70, -1));
+
+        labelStaticMail.setText("jLabel5");
+        add(labelStaticMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 70, -1));
+
     }//GEN-END:initComponents
              
     private void initText()
     {
-        /*this.LabelStaticNom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
-        this.LabelStaticPrenom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
-        this.LabelStaticAdresse.setText(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
-        this.LabelStaticTelephone.setText(Bundle.getText("JPanelInfoMembre_JLabel_Telephone"));
-        this.LabelStaticEMail.setText(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));*/
+        this.labelStaticNom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
+        this.labelStaticPrenom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
+        this.labelStaticAdresse.setText(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
+        this.labelStaticTel.setText(Bundle.getText("JPanelInfoMembre_JLabel_Telephone"));
+        this.labelStaticMail.setText(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));
         
-        this.textStaticNom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
-        this.textStaticPrenom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
-        this.textStaticAdresse.setText(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
-        this.textStaticTel.setText(Bundle.getText("JPanelInfoMembre_JLabel_Telephone"));
-        this.textStaticMail.setText(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelVide;
+    private javax.swing.JLabel labelStaticAdresse;
+    private javax.swing.JLabel labelStaticMail;
+    private javax.swing.JLabel labelStaticNom;
+    private javax.swing.JLabel labelStaticPrenom;
+    private javax.swing.JLabel labelStaticTel;
     private javax.swing.JTextField textAdresse;
     private javax.swing.JTextField textMail;
     private javax.swing.JTextField textNom;
     private javax.swing.JTextField textPrenom;
-    private javax.swing.JTextField textStaticAdresse;
-    private javax.swing.JTextField textStaticMail;
-    private javax.swing.JTextField textStaticNom;
-    private javax.swing.JTextField textStaticPrenom;
-    private javax.swing.JTextField textStaticTel;
     private javax.swing.JTextField textTel;
     // End of variables declaration//GEN-END:variables
     
