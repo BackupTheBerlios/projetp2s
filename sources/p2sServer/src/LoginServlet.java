@@ -22,7 +22,7 @@ import java.util.Properties;
  */
 public class LoginServlet extends HttpServlet {
     
-        
+    
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
             ex.printStackTrace();
-        }        
+        }
     }
     
     /** Destroys the servlet.
@@ -57,8 +57,8 @@ public class LoginServlet extends HttpServlet {
         
         // On verifie que le login et que le mot de passe sont non nul
         if ((login != null) && (password != null)){
-            try {                
-                // Connexion a la base de donnees                
+            try {
+                // Connexion a la base de donnees
                 Connection conn = DriverManager.getConnection("jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password"));
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from utilisateurs where login = '" + login + "' and password ='"+ password + "'");
@@ -495,6 +495,54 @@ public class LoginServlet extends HttpServlet {
                                             
                                             out.println("</indicateursIteration>");
                                         }
+                                        rsIndicateursIteration.close();
+                                        
+                                        /************************** MESURES D'UNE ITERATION ***************/
+                                        prepState = conn.prepareStatement("Select * from iteration_mesures im, mesures m where m.idmesure = im.idmesure AND im.iditeration = " + rsIterations.getString("iditeration"));
+                                        ResultSet rsMesuresIteration = prepState.executeQuery(); // Execution de la requete
+                                        
+                                        if(rsMesuresIteration.next()){
+                                            out.println("<mesuresIteration>");
+                                            do
+                                            {
+                                                out.println("<mesureIteration>");
+                                                
+                                                out.println("<nom>");
+                                                if(rsMesuresIteration.getString("nom") != null)
+                                                    out.println(rsMesuresIteration.getString("nom"));
+                                                out.println("</nom>");
+                                                
+                                                out.println("<description>");
+                                                if(rsMesuresIteration.getString("description") != null)
+                                                    out.println(rsMesuresIteration.getString("description"));
+                                                out.println("</description>");
+                                                
+                                                out.println("<unite>");
+                                                if(rsMesuresIteration.getString("unite") != null)
+                                                    out.println(rsMesuresIteration.getString("unite"));
+                                                out.println("</unite>");
+                                                
+                                                out.println("<valeur>");
+                                                if(rsMesuresIteration.getString("valeur") != null)
+                                                    out.println(rsMesuresIteration.getString("valeur"));
+                                                out.println("</valeur>");
+                                                
+                                                out.println("<commentaire>");
+                                                if(rsMesuresIteration.getString("commentaire") != null)
+                                                    out.println(rsMesuresIteration.getString("commentaire"));
+                                                out.println("</commentaire>");
+                                                
+                                                out.println("<idmembre>");
+                                                if(rsMesuresIteration.getInt("idmembre") != -1)
+                                                    out.println(rsMesuresIteration.getInt("idmembre"));
+                                                out.println("</idmembre>");
+                                                
+                                                
+                                                out.println("</mesureIteration>");
+                                            }while(rsMesuresIteration.next());
+                                            out.println("</mesuresIteration>");
+                                        }
+                                        rsMesuresIteration.close();
                                         rsIndicateursIteration.close();
                                         
                                         out.println("</iteration>");
