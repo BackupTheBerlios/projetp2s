@@ -13,7 +13,7 @@
 	<!-- /////////////////////////////////////////////////////////////// -->
 	<elementProjet>
 
-<!— Condition d’activation d’une definition de travail -->
+<!-- Condition d’activation d’une definition de travail -->
 <listeConditionDefTravail>
 	<conditionDefTravail>
 				<id></id>
@@ -133,19 +133,23 @@
 				<nom>role 1</nom>
 				<description>desc 1</description>
 			</eltRole>
-			<id>2</id>
+                        <eltRole>
+                                <id>2</id>
 				<nom>role 2</nom>
 				<description>desc 2</description>
 			</eltRole>
-			<id>3</id>
+                        <eltRole>
+                                <id>3</id>
 				<nom>role 3</nom>
 				<description>desc 3</description>
 			</eltRole>
-			<id>4</id>
+                        <eltRole>
+                                <id>4</id>
 				<nom>role 4</nom>
 				<description>desc 4</description>
 			</eltRole>
-			<id>5</id>
+                        <eltRole>
+                                <id>5</id>
 				<nom>role 5</nom>
 				<description>desc 5</description>
 			</eltRole>
@@ -278,7 +282,7 @@
 				<dateDebutPrevue>2003-05-02</dateDebutPrevue>
 				<dateDebutReelle>2003-05-03</dateDebutReelle>
 				<dateFinPrevue>2003-05-15</dateFinPrevue>
-				<dateFinReelle></dateFinReelle>
+				<dateFinReelle>null</dateFinReelle>
 			</eltTache>
 			<eltTache>
 				<id>8</id>
@@ -289,9 +293,9 @@
 				<tempsPasse>0</tempsPasse>
 				<resteAPasser>10</resteAPasser>
 				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
-				<dateDebutReelle></dateDebutReelle>
+				<dateDebutReelle>null</dateDebutReelle>
 				<dateFinPrevue>2003-06-02</dateFinPrevue>
-				<dateFinReelle></dateFinReelle>
+				<dateFinReelle>null</dateFinReelle>
 			</eltTache>
 		</listeTaches>
 
@@ -331,9 +335,9 @@
 				<tempsPasse>0</tempsPasse>
 				<resteAPasser>10</resteAPasser>
 				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
-				<dateDebutReelle></dateDebutReelle>
+				<dateDebutReelle>null</dateDebutReelle>
 				<dateFinPrevue>2003-06-02</dateFinPrevue>
-				<dateFinReelle></dateFinReelle>
+				<dateFinReelle>null</dateFinReelle>
 			</eltTacheCollaborative>
 		</listeTacheCollaboratives>
 		
@@ -443,20 +447,20 @@
 		
 		<!--  Lien entre les deftravail et leur condition de debut-->
 		<listeDefTravailconditionDefTravail_debuteSi>
-<defTravailconditionDefTravail_debuteSi>
+                        <defTravailconditionDefTravail_debuteSi>
 				<idDefTravail></idDefTravail>
 				<listeIdCondition>
 					<id></id>
 					<id></id>
 				</listeIdCondition >
-			</defTravailconditionDefTravail >
-</listeDefTravailconditionDefTravail_debuteSi>
+			</defTravailconditionDefTravail_debuteSi>
+                </listeDefTravailconditionDefTravail_debuteSi>
 
 <!--  Lien entre une condition et la deftravail sur laquelle elle porte-->
 		<listeDefTravailconditionDefTravail_porteSur>
 			<defTravailconditionDefTravail_porteSur>
 				<idDefTravailt></idDefTravailt >
-				< idCondition ></idCondition >
+				<idCondition ></idCondition >
 			</defTravailconditionDefTravail_porteSur>
 		</listeDefTravailconditionDefTravail_porteSur>
 
@@ -709,7 +713,7 @@
 					<id>10</id>					
 				</listeArtefact>
 			</TacheColArtefact_Sortie>
-		<listeTacheColArtefact_Sortie>
+		</listeTacheColArtefact_Sortie>
 
 
 		<!--  Lien entre les artefact en entree et la tache qui les utilise -->
@@ -815,7 +819,7 @@
 					<id>11</id>
 				</listeArtefact>
 			</TacheArtefact_Sortie>
-		<listeTacheArtefact_Sortie>
+		</listeTacheArtefact_Sortie>
 
 		
 		<!-- Lien one to many entre membre et tache collaborative -->
@@ -923,9 +927,9 @@
 						<id></id>
 						<id></id>
 					</listeProbleme>
-				</ TacheCol>
-			</listeTacheCol>
-		</Tache_Provoque_Probleme>
+				</TacheCol>
+			</listeTache>
+		</TacheCol_Provoque_Probleme>
 
 		<!-- Lien many to many entre probleme et tache collaborative -->
 		<!-- une tache collaborative peut resoudre 0..* probleme  -->
@@ -976,8 +980,7 @@
 			<ActiviteTache>
 				<idActivite></idActivite>
 				<listeIdTache>
-					<id></id>
-					<id></id>
+					<id></id>					
 				</listeIdTache>
 			</ActiviteTache>
 		</listeActiviteTache>
@@ -1023,7 +1026,7 @@
 		</MembreRole>
 
 <!--  Lien entre les composant et les iterations-->
-<ComposantIeration>
+                <ComposantIteration>
 			<listeIteration>
 				<Iteration>
 					<id></id>
@@ -1032,7 +1035,7 @@
 						<id></id>
 					</listeIdComposant>
 				</Iteration>
-				<Iterataion>
+				<Iteration>
 					<id></id>
 					<listeIdComposant>
 						<id></id>
@@ -1040,12 +1043,12 @@
 					</listeIdComposant>
 				</Iteration>
 			</listeIteration>
-		</ComposantIeration >
+		</ComposantIteration >
 
 <!--  Lien entre les condition de defTravail et les iterations-->
 <listCondDefTravailIeration>
 			<condDefTravailIeration>
-					<idTeration></idIteration>
+					<idIteration></idIteration>
 					<listeIdCondDefTravail>
 						<id></id>
 						<id></id>

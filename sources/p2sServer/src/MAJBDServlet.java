@@ -31,8 +31,7 @@ public class MAJBDServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver").newInstance(); 
         } catch (Exception ex) { 
             ex.printStackTrace();
-        }
-        
+        }        
     }
     
     /** Destroys the servlet.
@@ -49,11 +48,15 @@ public class MAJBDServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        
-        ParserXMLFichierWF parserFic = new ParserXMLFichierWF(getServletContext().getRealPath("/projet1.xml"));        
+                
+        ParserXMLFichierWF parserFic = new ParserXMLFichierWF(getServletContext().getRealPath("/Projet1.xml"));        
+        parserFic.majProjet();
         parserFic.majIterations();
         parserFic.majMembres();
-        parserFic.majTaches();
+        parserFic.majMesures();
+        parserFic.majRisques();
+        parserFic.majTaches();  
+        parserFic.majTachesCollaboratives();
         
         out.close();
     }
