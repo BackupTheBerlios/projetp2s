@@ -443,7 +443,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             ancienneValeur2 = ancienneValeur;
             Float.parseFloat(nombreTacheParticipantSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreTacheParticipantSeuilMax.setText(projet.getSeuilFixes().getNombreTacheParticipant().getSeuilMax().toString());
         }
     }//GEN-LAST:event_nombreTacheParticipantSeuilMaxFocusLost
@@ -453,7 +453,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             ancienneValeur2 = ancienneValeur;
             Float.parseFloat(nombreTacheParticipantSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreTacheParticipantSeuilMin.setText(projet.getSeuilFixes().getNombreTacheParticipant().getSeuilMin().toString());
         }
     }//GEN-LAST:event_nombreTacheParticipantSeuilMinFocusLost
@@ -462,9 +462,12 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_chargeMoyenneSeuilMaxFocusLost
             ancienneValeur2 = ancienneValeur;
             Float.parseFloat(chargeMoyenneSeuilMax.getText());
-            chargeMoyenneSeuilMax.setText(new Float(Float.parseFloat(chargeMoyenneSeuilMax.getText())).toString());
+            
+            Float max = new Float(Float.parseFloat(chargeMoyenneSeuilMax.getText()));
+            
+            chargeMoyenneSeuilMax.setText(max.toString());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurFlottant"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             chargeMoyenneSeuilMax.setText(projet.getSeuilFixes().getChargeMoyenne().getSeuilMax().toString());
         }
     }//GEN-LAST:event_chargeMoyenneSeuilMaxFocusLost
@@ -476,7 +479,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             Float.parseFloat(chargeMoyenneSeuilMin.getText());
             chargeMoyenneSeuilMin.setText(new Float(Float.parseFloat(chargeMoyenneSeuilMin.getText())).toString());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurFlottant"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             chargeMoyenneSeuilMin.setText(projet.getSeuilFixes().getChargeMoyenne().getSeuilMin().toString());
         }
     }//GEN-LAST:event_chargeMoyenneSeuilMinFocusLost
@@ -487,7 +490,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{
             Integer.parseInt(nombreParticipantIterationSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreParticipantIterationSeuilMax.setText(projet.getSeuilFixes().getNombreParticipantIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_nombreParticipantIterationSeuilMaxFocusLost
@@ -496,7 +499,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_nombreParticipantIterationSeuilMinFocusLost
             Integer.parseInt(nombreParticipantIterationSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreParticipantIterationSeuilMin.setText(projet.getSeuilFixes().getNombreParticipantIteration().getSeuilMin().toString());
         }
     }//GEN-LAST:event_nombreParticipantIterationSeuilMinFocusLost
@@ -506,7 +509,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             Float.parseFloat(dureeMoyenneIterationSeuilMax.getText());
             dureeMoyenneIterationSeuilMax.setText(new Float(Float.parseFloat(dureeMoyenneIterationSeuilMax.getText())).toString());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurFlottant"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             dureeMoyenneIterationSeuilMax.setText(projet.getSeuilFixes().getDureeMoyenneIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_dureeMoyenneIterationSeuilMaxFocusLost
@@ -516,7 +519,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             Float.parseFloat(dureeMoyenneIterationSeuilMin.getText());
             dureeMoyenneIterationSeuilMin.setText(new Float(Float.parseFloat(dureeMoyenneIterationSeuilMin.getText())).toString());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurFlottant"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             dureeMoyenneIterationSeuilMin.setText(projet.getSeuilFixes().getDureeMoyenneIteration().getSeuilMin().toString());
         }
     }//GEN-LAST:event_dureeMoyenneIterationSeuilMinFocusLost
@@ -525,7 +528,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_tacheTermineesIterationSeuilMaxFocusLost
             Integer.parseInt(tacheTermineesIterationSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             tacheTermineesIterationSeuilMax.setText(projet.getSeuilFixes().getTacheTermineesIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_tacheTermineesIterationSeuilMaxFocusLost
@@ -534,7 +537,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_tacheTermineesIterationSeuilMinFocusLost
             Integer.parseInt(tacheTermineesIterationSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             tacheTermineesIterationSeuilMin.setText(projet.getSeuilFixes().getTacheTermineesIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_tacheTermineesIterationSeuilMinFocusLost
@@ -544,7 +547,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             ancienneValeur2 = ancienneValeur;
             Integer.parseInt(totalChargesIterationSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             totalChargesIterationSeuilMax.setText(projet.getSeuilFixes().getTotalChargesIteration().getSeuilMax().toString());
         }
     }//GEN-LAST:event_totalChargesIterationSeuilMaxFocusLost
@@ -553,7 +556,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_totalChargesIterationSeuilMinFocusLost
             Integer.parseInt(totalChargesIterationSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             totalChargesIterationSeuilMin.setText(projet.getSeuilFixes().getTotalChargesIteration().getSeuilMin().toString());
         }
     }//GEN-LAST:event_totalChargesIterationSeuilMinFocusLost
@@ -562,7 +565,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_nombreParticipantProjetSeuilMaxFocusLost
             Integer.parseInt(nombreParticipantProjetSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreParticipantProjetSeuilMax.setText(projet.getSeuilFixes().getNombreParticipants().getSeuilMax().toString());
         }
     }//GEN-LAST:event_nombreParticipantProjetSeuilMaxFocusLost
@@ -571,7 +574,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_nombreParticipantProjetSeuilMinFocusLost
             Integer.parseInt(nombreParticipantProjetSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             nombreParticipantProjetSeuilMin.setText(projet.getSeuilFixes().getNombreParticipants().getSeuilMin().toString());
         }
     }//GEN-LAST:event_nombreParticipantProjetSeuilMinFocusLost
@@ -582,7 +585,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             dureeMoyenneProjetSeuilMax.setText(new Float(Float.parseFloat(dureeMoyenneProjetSeuilMax.getText())).toString());
       
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurFlottant"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             dureeMoyenneProjetSeuilMax.setText(projet.getSeuilFixes().getDureeMoyenneTache().getSeuilMax().toString());
         }
     }//GEN-LAST:event_dureeMoyenneProjetSeuilMaxFocusLost
@@ -592,7 +595,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             Float.parseFloat(dureeMoyenneProjetSeuilMin.getText());
             dureeMoyenneProjetSeuilMin.setText(new Float(Float.parseFloat(dureeMoyenneProjetSeuilMin.getText())).toString());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un flottant", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurFlottant"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             dureeMoyenneProjetSeuilMin.setText(projet.getSeuilFixes().getDureeMoyenneTache().getSeuilMin().toString());
         }
     }//GEN-LAST:event_dureeMoyenneProjetSeuilMinFocusLost
@@ -601,7 +604,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_tacheTermineesProjetSeuilMaxFocusLost
             Integer.parseInt(tacheTermineesProjetSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             tacheTermineesProjetSeuilMax.setText(projet.getSeuilFixes().getTachesTermineesProjet().getSeuilMax().toString());
         }
     }//GEN-LAST:event_tacheTermineesProjetSeuilMaxFocusLost
@@ -610,7 +613,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_tacheTermineesProjetSeuilMinFocusLost
             Integer.parseInt(tacheTermineesProjetSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             tacheTermineesProjetSeuilMin.setText(projet.getSeuilFixes().getTachesTermineesProjet().getSeuilMin().toString());
         }
     }//GEN-LAST:event_tacheTermineesProjetSeuilMinFocusLost
@@ -619,7 +622,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{//GEN-FIRST:event_totalChargesProjetSeuilMaxFocusLost
             Integer.parseInt(totalChargesProjetSeuilMax.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             totalChargesProjetSeuilMax.setText(projet.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString());
         }
     }//GEN-LAST:event_totalChargesProjetSeuilMaxFocusLost
@@ -628,7 +631,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         try{
             Integer.parseInt(totalChargesProjetSeuilMin.getText());
         } catch(NumberFormatException e){
-            javax.swing.JOptionPane.showMessageDialog(null, "Cette valeur doit etre un entier", "Erreur d'arguments", javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("JPanelSeuils_erreurEntier"), Bundle.getText("JPanelSeuils_erreurTitre"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             totalChargesProjetSeuilMin.setText(projet.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString());
         }
     }//GEN-LAST:event_totalChargesProjetSeuilMinFocusLost
