@@ -86,6 +86,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         getContentPane().add(jComboBoxChoixCDP, gridBagConstraints);
 
         jListProjetSupervise.setBorder(new javax.swing.border.EtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 153, 255), null));
+        jListProjetSupervise.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 11));
         jListProjetSupervise.setAlignmentX(1.0F);
         jListProjetSupervise.setAlignmentY(10.0F);
         jListProjetSupervise.setMaximumSize(new java.awt.Dimension(10, 10));
@@ -104,6 +105,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         getContentPane().add(jListProjetSupervise, gridBagConstraints);
 
         jListProjetNonSupervise.setBorder(new javax.swing.border.EtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 153, 255), null));
+        jListProjetNonSupervise.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 11));
         jListProjetNonSupervise.setAlignmentX(1.0F);
         jListProjetNonSupervise.setAlignmentY(10.0F);
         jListProjetNonSupervise.setMaximumSize(new java.awt.Dimension(110, 110));
