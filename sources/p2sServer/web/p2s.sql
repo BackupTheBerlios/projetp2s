@@ -79,10 +79,10 @@ CREATE TABLE `indicateurs_iteration` (
   `iditeration` int(10) unsigned NOT NULL auto_increment,
   `totalcharges` int(10) unsigned default NULL,
   `nombretachesterminees` int(10) unsigned default NULL,
-  `dureemoyennetache` int(10) unsigned default NULL,
+  `dureemoyennetache` float default NULL,
   `nombreparticipants` int(10) unsigned default NULL,
-  `chargemoyenneparticipants` int(10) unsigned default NULL,
-  `nombremoyentachesparticipants` int(10) unsigned default NULL,
+  `chargemoyenneparticipants` float default NULL,
+  `nombremoyentachesparticipants` float default NULL,
   PRIMARY KEY  (`iditeration`),
   CONSTRAINT `FK_indicateurs_iteration_iditeration` FOREIGN KEY (`iditeration`) REFERENCES `iterations` (`iditeration`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -92,7 +92,7 @@ CREATE TABLE `indicateurs_projet` (
   `idprojet` int(10) unsigned NOT NULL auto_increment,
   `totalcharges` int(10) unsigned default NULL,
   `tachesterminees` int(10) unsigned default NULL,
-  `dureemoyennetache` int(10) unsigned default NULL,
+  `dureemoyennetache` float default NULL,
   `nombreparticipants` int(10) unsigned default NULL,
   `avancementprojet` float default NULL,
   PRIMARY KEY  (`idprojet`),
@@ -144,6 +144,16 @@ CREATE TABLE `membres_tachescollaboratives` (
   CONSTRAINT `FK_membrestachescolaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages` (
+  `idmessage` int(10) unsigned NOT NULL auto_increment,
+  `login` varchar(45) NOT NULL default '',
+  `sujet` varchar(45) NOT NULL default '',
+  `date` date default NULL,
+  `message` tinytext,
+  PRIMARY KEY  (`idmessage`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 DROP TABLE IF EXISTS `mesures`;
 CREATE TABLE `mesures` (
   `idmesure` int(10) unsigned NOT NULL auto_increment,
@@ -152,16 +162,6 @@ CREATE TABLE `mesures` (
   `type` int(11) NOT NULL default '0',
   `valeur` varchar(45) NOT NULL default '',
   PRIMARY KEY  (`idmesure`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-DROP TABLE IF EXISTS `messages`;
-CREATE TABLE `messages` (
-  `idmessage` int(10) unsigned NOT NULL auto_increment,
-  `login` varchar(45) NOT NULL default '',
-  `sujet` varchar(45) NOT NULL default '',
-  `date` date default NULL,
-  `message` tinytext default NULL,
-  PRIMARY KEY  (`idmessage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `projets`;

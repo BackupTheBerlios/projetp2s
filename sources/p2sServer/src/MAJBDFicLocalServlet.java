@@ -65,8 +65,7 @@ public class MAJBDFicLocalServlet extends HttpServlet {
             ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
             cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
             
-            try{
-                System.out.println(this.FluxTotal);
+            try{                
                 ParserXMLFichierWF parserFic = new ParserXMLFichierWF(this.FluxTotal,cheminBD,login, type, fichier);
                 parserFic.majBase();
             }catch(FileNotFoundException e){

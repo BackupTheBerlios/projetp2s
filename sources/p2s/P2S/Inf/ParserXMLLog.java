@@ -120,12 +120,14 @@ public class ParserXMLLog {
                 
                 //Recuperation de la description du projet
                 if(attributCourant.getNodeName().equalsIgnoreCase("description"))
-                    description = attributCourant.getFirstChild().getNodeValue();
+                    if(attributCourant.getFirstChild() != null)
+                        description = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recuperation de la date de debut du projet
                 if(attributCourant.getNodeName().equalsIgnoreCase("datedebut"))
                     try{
-                        dateDebut = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                        if(attributCourant.getFirstChild() != null)
+                            dateDebut = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
                     } catch(ParseException e1){
                         System.out.println("Probleme pour parser dateDebut");
                     }
@@ -133,7 +135,8 @@ public class ParserXMLLog {
                 //Recuperation de la date de fin du projet
                 if(attributCourant.getNodeName().equalsIgnoreCase("datefin"))
                     try{
-                        dateFin = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
+                        if(attributCourant.getFirstChild() != null)
+                            dateFin = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());
                     } catch(ParseException e2){
                         System.out.println("Probleme pour parser dateFin");
                     }
@@ -155,23 +158,28 @@ public class ParserXMLLog {
                         
                         //Recuperation du total des charges
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("totalcharges"))
-                            totalCharges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            if(indicateurActuel.getFirstChild() != null)
+                                totalCharges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                         
                         //Recuperation du nombre de taches terminees
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("tachesterminees"))
-                            tachesTerminees = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            if(indicateurActuel.getFirstChild() != null)
+                                tachesTerminees = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                         
                         //Recuperation du duree moyenne des taches
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("dureemoyennetache"))
-                            dureeMoyenneTache = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            if(indicateurActuel.getFirstChild() != null)
+                                dureeMoyenneTache = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                         
                         //Recuperation du nombre de participants
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("nombreparticipants"))
-                            nombreParticipants = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            if(indicateurActuel.getFirstChild() != null)
+                                nombreParticipants = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                         
                         //Recuperation du taux d'avancement
                         if(indicateurActuel.getNodeName().equalsIgnoreCase("avancementprojet"))
-                            avancementProjet = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
+                            if(indicateurActuel.getFirstChild() != null)
+                                avancementProjet = Float.parseFloat(indicateurActuel.getFirstChild().getNodeValue());
                         
                     }
                     indicateursProjet = new IndicateursProjet(totalCharges , tachesTerminees, dureeMoyenneTache, nombreParticipants, avancementProjet);
