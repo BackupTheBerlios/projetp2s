@@ -191,7 +191,7 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
          editorComponent = new JButton(Bundle.getText("JTableTachesDetails")) ;
             ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
                public void actionPerformed(ActionEvent e) {
-                  new JDialogDetailTache(null, true, (Tache)taches.get(0)) ;
+                  new JDialogDetailTache(null, true, (Tache)taches.get(table.getSelectedRow())) ;
                }
            }) ;
       }
