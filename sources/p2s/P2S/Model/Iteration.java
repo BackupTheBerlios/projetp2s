@@ -46,7 +46,7 @@ public class Iteration {
         this.setDateDebutReelle(_dateDebutReelle);
         this.setDateFinPrevue(_dateFinPrevue);
         this.setDateFinReelle(_dateFinReelle);
-        this.setListeTache(new Vector(_listeTache));
+        listeTache = _listeTache;
     }
     
     //GETTEURS ET SETTEURS
