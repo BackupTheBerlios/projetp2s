@@ -102,6 +102,9 @@ public class ParserXMLLog {
             Date dateFin = null;
             IndicateursProjet indicateursProjet = null;
             Vector iterationList = new Vector();
+            // plus
+            Vector membresList = new Vector() ;
+            Vector risquesList = new Vector() ;
             
             //Recuperation des attributs du projet
             for(int j = 0 ; j < attributs.getLength() ; j++){
@@ -286,6 +289,9 @@ public class ParserXMLLog {
                                 indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);
                             }
                             
+                                                       
+                            
+                            
                             //Recuperation des taches
                             if(attributIterationCourant.getNodeName().equalsIgnoreCase("taches")){
                                 
@@ -327,8 +333,8 @@ public class ParserXMLLog {
                                             descriptionTache = attributTacheCourant.getFirstChild().getNodeValue();
                                         
                                         //Recuperation de l'etat de la tache
-                                        if(attributCourant.getNodeName().equalsIgnoreCase("etat"))
-                                            etat = attributCourant.getFirstChild().getNodeValue();
+                                        if(attributTacheCourant.getNodeName().equalsIgnoreCase("etat"))
+                                            etat = attributTacheCourant.getFirstChild().getNodeValue();
                                         
                                         //Recuperation de la charge prevue de la tache
                                         if(attributTacheCourant.getNodeName().equalsIgnoreCase("chargeprevue"))
@@ -382,14 +388,67 @@ public class ParserXMLLog {
                         
                         Iteration iteration = new Iteration(numero, dateDebutPrevue, dateDebutReelle, dateFinPrevue, dateFinReelle, tacheListe, indicateursIteration);
                         iterationList.add(iteration);
-                    }
+                    }                   
+                    
                 }
                 
                 //IL FAUT REGARDER COMMENT CA SE PASSE POUR LES MESURES !!
+                
+                // risques
+                if(attributCourant.getNodeName().equalsIgnoreCase("risques")){
+                    NodeList risqueNodeList = attributCourant.getChildNodes();
+                    
+                    for(int riskCounter = 0 ; riskCounter < risqueNodeList.getLength() ; riskCounter++){
+                        
+                        
+                        //int idRisque;
+                        String nomRisque = null ;
+                        String descriptionRisque = null ;
+                        int priorite = 0 ;
+                        int impact = 0 ;
+                        int etatRisque = 0 ;
+                        
+                        Node risqueCourant = risqueNodeList.item(riskCounter);
+                        NodeList attributsRisqueCourant = risqueCourant.getChildNodes();
+                        
+                        for(int riskCounter1 = 0 ; riskCounter1 < attributsRisqueCourant.getLength() ; riskCounter1++){
+                            
+                            Node attributRisqueCourant = attributsRisqueCourant.item(riskCounter1);
+                            //Recuperation du nom du risque
+                            if(attributRisqueCourant.getNodeName().equalsIgnoreCase("nom")) {
+                                nomRisque = attributRisqueCourant.getFirstChild().getNodeValue();
+                            }
+                        
+                            //Recuperation de la description
+                            if(attributRisqueCourant.getNodeName().equalsIgnoreCase("description")) {
+                                descriptionRisque = attributRisqueCourant.getFirstChild().getNodeValue();
+                            }
+                        
+                        
+                            //Recuperation de la priorite
+                            if(attributRisqueCourant.getNodeName().equalsIgnoreCase("priorite")) {
+                                priorite = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
+                            }                        
+                        
+                            //Recuperation de l'impact
+                            if(risqueCourant.getNodeName().equalsIgnoreCase("impact")) {
+                                impact = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
+                            }
+                        
+                            //Recuperation de l'etat
+                            if(attributRisqueCourant.getNodeName().equalsIgnoreCase("etat")) {
+                                etatRisque = Integer.parseInt(attributRisqueCourant.getFirstChild().getNodeValue());
+                            }
+                        }
+                        Risque risque = new Risque(nomRisque, descriptionRisque, priorite, impact, etatRisque) ;
+                        risquesList.add(risque) ;
+                    }
+                }
             }
             Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
             projetCourant.setListeIt(iterationList);
             projetCourant.setIndicateursProjet(indicateursProjet);
+            projetCourant.setListeRisques(risquesList) ;
             projets.add(projetCourant);
             
         }
