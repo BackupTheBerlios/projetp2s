@@ -38,20 +38,18 @@ public class ParserXMLLog {
         try{
             DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
             DocumentBuilder constructeur = usine.newDocumentBuilder();
-	    /*
-	     ** Ce try catch permet d'attraper des exceptions dans le cas ou
-	     ** le mot de passe ou un autre champ dans le fichier xml est incorrect
-	     */
-	    try {
-		this._document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));
-	    }
-	    catch (Exception e)
-	    {
-		e.printStackTrace() ;
-	    }
+            /*
+             ** Ce try catch permet d'attraper des exceptions dans le cas ou
+             ** le mot de passe ou un autre champ dans le fichier xml est incorrect
+             */
+            try {
+                this._document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));
+            } catch (Exception e) {
+                e.printStackTrace() ;
+            }
             
             //this._document = constructeur.parse(new InputStream(Xml));
-        }catch(Exception e){	    
+        }catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -74,15 +72,13 @@ public class ParserXMLLog {
      * @return la fonction de l'utilisateur
      */
     public String lireFonction(){
-	try {
-	    Node fonction = this._document.getElementsByTagName("fonction").item(0);
-	    return fonction.getFirstChild().getNodeValue();
-	}
-	catch (Exception e)
-	{
-	    e.printStackTrace() ;
-	    return "error" ; // seuls valeurs reconnues : dir et sup
-	}
+        try {
+            Node fonction = this._document.getElementsByTagName("fonction").item(0);
+            return fonction.getFirstChild().getNodeValue();
+        } catch (Exception e) {
+            e.printStackTrace() ;
+            return "error" ; // seuls valeurs reconnues : dir et sup
+        }
     }
     
     public Vector lireProjets(){
@@ -418,6 +414,10 @@ public class ParserXMLLog {
             String adresse = null;
             String telephone = null;
             String email = null;
+            Vector listeRoles = new Vector();
+            Vector listeIndicateursProjet = new Vector();
+            Vector listeIndicateursTache = new Vector();
+            Vector listeIndicateursProduit = new Vector();
             
             //Recuperation des attributs du projet
             for(int j = 0 ; j < attributs.getLength() ; j++){
@@ -446,11 +446,143 @@ public class ParserXMLLog {
                 //Recup?ration du mail du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("email"))
                     email = attributCourant.getFirstChild().getNodeValue();
+                
+                //Recuperation des indicateurs liées aux roles du membre
+                if(attributCourant.getNodeName().equalsIgnoreCase("roles")){
+                    
+                    String designation = null;
+                    String description = null;
+                    
+                    NodeList listeRolesMembre = attributCourant.getChildNodes();
+                    
+                    for(int nbrRoles=0; nbrRoles<listeRolesMembre.getLength();nbrRoles++ ){
+                        
+                        Node roleActuel = listeRolesMembre.item(nbrRoles);
+                        NodeList attributRolesMembres = roleActuel.getChildNodes();
+                        
+                        for(int nbrAttributs=0; nbrAttributs<attributRolesMembres.getLength();nbrAttributs++ ){
+                            
+                            Node indicateurActuel = attributRolesMembres.item(nbrAttributs);
+                            
+                            //Recuperation de la designation du role
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("designation"))
+                                designation = indicateurActuel.getFirstChild().getNodeValue();
+                            
+                            //Recuperation de la description du role
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("description"))
+                                description = indicateurActuel.getFirstChild().getNodeValue();
+                        }
+                        
+                        listeRoles.add(new Role(designation,description));
+                    }
+                    
+                }
+                
+                //Recuperation des indicateurs liées aux projets du membre
+                if(attributCourant.getNodeName().equalsIgnoreCase("indicateursProjets")){
+                    
+                    String nomProjet = null;
+                    int charge = -1;
+                    int tempsTravail = -1;
+                    
+                    NodeList listeIndicateursProjetsMembre = attributCourant.getChildNodes();
+                    
+                    for(int nbrIndicateursProjets=0; nbrIndicateursProjets<listeIndicateursProjetsMembre.getLength();nbrIndicateursProjets++ ){
+                        
+                        Node indicateursProjetsMembreActuel = listeIndicateursProjetsMembre.item(nbrIndicateursProjets);
+                        NodeList attributIndicateursProjetsMembre = indicateursProjetsMembreActuel.getChildNodes();
+                        
+                        for(int nbrAttributs=0; nbrAttributs<attributIndicateursProjetsMembre.getLength();nbrAttributs++ ){
+                            
+                            Node indicateurActuel = attributIndicateursProjetsMembre.item(nbrAttributs);
+                            
+                            //Recuperation du nom du projet
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
+                                nomProjet = indicateurActuel.getFirstChild().getNodeValue();
+                            
+                            //Recuperation des charges dans ce projet
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("charges"))
+                                charge = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            
+                            //Recuperation du temps de travail dans ce projet
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("tempstravail"))
+                                tempsTravail = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            
+                        }
+                        
+                        listeIndicateursProjet.add(new IndicateursProjetMembre(nomProjet,charge,tempsTravail));
+                    }
+                    
+                }
+                
+                
+                
+                //Recuperation des indicateurs liées aux taches du membre
+                if(attributCourant.getNodeName().equalsIgnoreCase("indicateursTaches")){
+                    
+                    String nomTache = null;
+                    int tempsPasse = -1;
+                    
+                    NodeList listeIndicateursTachesMembre = attributCourant.getChildNodes();
+                    
+                    for(int nbrIndicateursTaches=0; nbrIndicateursTaches<listeIndicateursTachesMembre.getLength();nbrIndicateursTaches++ ){
+                        
+                        Node indicateursTachesMembreActuel = listeIndicateursTachesMembre.item(nbrIndicateursTaches);
+                        NodeList attributIndicateursTachesMembre = indicateursTachesMembreActuel.getChildNodes();
+                        
+                        for(int nbrAttributs=0; nbrAttributs<attributIndicateursTachesMembre.getLength();nbrAttributs++ ){
+                            
+                            Node indicateurActuel = attributIndicateursTachesMembre.item(nbrAttributs);
+                            
+                            //Recuperation du nom de la tache
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
+                                nomTache = indicateurActuel.getFirstChild().getNodeValue();
+                            
+                            //Recuperation des charges dans cette tache
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("tempspasse"))
+                                tempsPasse = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            
+                        }
+                        listeIndicateursTache.add(new IndicateursTacheMembre(nomTache,tempsPasse));
+                    }
+                }
+                
+                //Recuperation des indicateurs liées aux produits du membre
+                if(attributCourant.getNodeName().equalsIgnoreCase("indicateursArtefacts")){
+                    
+                    String nomProduit = null;
+                    int etat = -1;
+                    
+                    NodeList listeIndicateursProduitsMembre = attributCourant.getChildNodes();
+                    
+                    for(int nbrIndicateursProduits=0; nbrIndicateursProduits<listeIndicateursProduitsMembre.getLength();nbrIndicateursProduits++ ){
+                        
+                        Node indicateursProduitsMembreActuel = listeIndicateursProduitsMembre.item(nbrIndicateursProduits);
+                        NodeList attributIndicateursProduitsMembre = indicateursProduitsMembreActuel.getChildNodes();
+                        
+                        for(int nbrAttributs=0; nbrAttributs<attributIndicateursProduitsMembre.getLength();nbrAttributs++ ){
+                            
+                            Node indicateurActuel = attributIndicateursProduitsMembre.item(nbrAttributs);
+                            
+                            //Recuperation du nom du produit
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
+                                nomProduit = indicateurActuel.getFirstChild().getNodeValue();
+                            
+                            //Recuperation de l'etat du produit
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("etat"))
+                                etat = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            
+                        }
+                        listeIndicateursProduit.add(new IndicateursProduitMembre(nomProduit,etat));
+                    }
+                }
+                
             }
             
-            Membre membreCourant = new Membre(nom,prenom,adresse,telephone,email);
+            Membre membreCourant = new Membre(nom,prenom,adresse,telephone,email,listeRoles, listeIndicateursTache, listeIndicateursProjet, listeIndicateursProduit);
             membres.add(membreCourant);
         }
+        
         return membres;
     }
 }

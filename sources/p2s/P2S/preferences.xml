@@ -2,6 +2,6 @@
     <langue>fr</langue>
     <serveur>
         <adresse>localhost</adresse>
-        <port>8080</port>
+        <port>8084</port>
     </serveur>
 </preferences>

@@ -21,8 +21,9 @@ public class Membre {
     private String adresse;
     private String telephone;
     private String email;
-    private Vector listeRoles;
-    private Vector listeTaches;
+    private Vector listeRoles; //Vector de vector : une dimension représente 
+    private Vector listeProjets; // une instance et l'autres ses
+    private Vector listeTaches; // caracteristiques
     private Vector listeArtefacts;
     
     //CONSTRUCTEURS
@@ -43,14 +44,15 @@ public class Membre {
     }
     
     //Constructeur complet
-    public Membre(String _nom,String _prenom,String _adresse,String _telephone,String _email,Vector _listeRoles,Vector _listeTaches,Vector _listeArtefacts) {
+    public Membre(String _nom,String _prenom,String _adresse,String _telephone,String _email,Vector _listeRoles,Vector _listeTaches,Vector _listeProjets, Vector _listeArtefacts) {
         this.nom = _nom;
         this.prenom = _prenom;
         this.adresse = _adresse;
         this.telephone = _telephone;
         this.email = _email;
         this.setListeRoles(_listeRoles);
-        this.listeTaches = listeTaches;
+        this.setListeProjets(_listeProjets);
+        this.listeTaches = _listeTaches;
         this.listeArtefacts = _listeArtefacts;
     }
     
@@ -120,6 +122,14 @@ public class Membre {
     
     public void setListeRoles(Vector listeRoles) {
         this.listeRoles = listeRoles;
+    }
+
+    public Vector getListeProjets() {
+        return listeProjets;
+    }
+
+    public void setListeProjets(Vector listeProjets) {
+        this.listeProjets = listeProjets;
     }
     
 }
