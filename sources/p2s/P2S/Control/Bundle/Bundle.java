@@ -3,7 +3,7 @@ package P2S.Control.Bundle;
 import java.util.*;
 
 /**
- * Classe permettant de r?cup?rer le texte dans la langue de la Locale
+ * Classe permettant de recuperer le texte dans la langue de la Locale
  * @author Fabien
  */
 public class Bundle {

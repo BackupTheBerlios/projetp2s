@@ -94,7 +94,7 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
     private void JButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOkActionPerformed
         
         try{
-            // Envoie du login et du password à la servlet "CreerSuperviseurServlet" pour l'ajouter à la BD
+            // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
             URL url = new URL("http://localhost:8084/p2sserver/CreerSuperviseurServlet?login="+this.jTextFieldLogin.getText()+"&password="+this.jPasswordMDP.getText());
             
             // Buffer qui va recuperer la reponse de la servlet
@@ -108,8 +108,8 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             if(inputLine.equalsIgnoreCase("nok")){ // Si la servlet repond que ce n'est pas Ok
                 this.setVisible(false); // on cache la fenetre
                 // On affiche un message d'erreur
-                JOptionPane.showMessageDialog(this, new String("Ce login existe déjà."),new String("Création impossible") , JOptionPane.WARNING_MESSAGE);
-                // On remet à vide le login et le password
+                JOptionPane.showMessageDialog(this, new String("Ce login existe deja."),new String("Creation impossible") , JOptionPane.WARNING_MESSAGE);
+                // On remet a vide le login et le password
                 this.jTextFieldLogin.setText("");
                 this.jPasswordMDP.setText("");
                 this.show(); // on reaffiche la jdialog
@@ -117,7 +117,7 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             else{
                this.dispose(); // on ferme la fenetre
                // On avertit le directeur que le superviseur a ete cree
-               JOptionPane.showMessageDialog(this, new String("Le superviseur a bien été ajouté"),new String("Création effectuée") , JOptionPane.INFORMATION_MESSAGE);                 
+               JOptionPane.showMessageDialog(this, new String("Le superviseur a bien ete ajoute"),new String("Creation effectuee") , JOptionPane.INFORMATION_MESSAGE);                 
             }
             in.close();
         } catch(MalformedURLException e1){

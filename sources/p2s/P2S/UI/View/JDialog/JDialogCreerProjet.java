@@ -10,7 +10,7 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
- * jdialog permettant de créer un projet pour le superviseur courant
+ * jdialog permettant de creer un projet pour le superviseur courant
  * @author Fabien
  */
 public class JDialogCreerProjet extends javax.swing.JDialog {
@@ -189,12 +189,12 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             // format de la date
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             
-            // On récupère la date début
+            // On recupere la date debut
             Date dateDebut = null;
             try{                        
                 dateDebut = dateFormat.parse(this.JTextFieldDateDebutAnnee.getText()+"-"+this.JTextFieldDateDebutMois.getText()+"-"+this.JTextFieldDateDebutJour.getText());
             } catch(ParseException e1){
-                System.out.println("Problème pour parser dateDebut");
+                System.out.println("Probl?me pour parser dateDebut");
             }
             
             // On recupere la date fin
@@ -202,22 +202,22 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             try{                        
                 dateFin = dateFormat.parse(this.JTextFieldDateFinAnnee.getText()+"-"+this.JTextFieldDateFinMois.getText()+"-"+this.JTextFieldDateFinJour.getText());
             } catch(ParseException e1){
-                System.out.println("Problème pour parser dateFin");
+                System.out.println("Probl?me pour parser dateFin");
             }
             
             // On ajoute le projet
             ((JFrameP2S)this.getParent()).ajouterProjet(new Projet(this.JTextFieldNom.getText(),this.JTextAreaDescription.getText(),dateDebut,dateFin,this.listeMesures));
             this.dispose();
         }
-        else // Un nom de projet n'a pas était entre
-            JOptionPane.showMessageDialog(this, new String("Veuillez entrer un nom de projet"),new String("Problème Création Projet") , JOptionPane.WARNING_MESSAGE);
+        else // Un nom de projet n'a pas ?tait entre
+            JOptionPane.showMessageDialog(this, new String("Veuillez entrer un nom de projet"),new String("Probl?me Cr?ation Projet") , JOptionPane.WARNING_MESSAGE);
         
         
     }//GEN-LAST:event_JButtonOkActionPerformed
     
     /**
      * permet d'ajouter une mesure au projet
-     * @param mesure Mesure à ajouter
+     * @param mesure Mesure ? ajouter
      */
     public void ajouterMesure(Mesure mesure)
     {

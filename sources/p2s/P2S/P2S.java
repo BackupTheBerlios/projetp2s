@@ -26,7 +26,7 @@ public class P2S {
     }
     
     /**
-     * Méthode main
+     * Methode main
      * @param args the command line arguments
      */
     public static void main(String[] args) {

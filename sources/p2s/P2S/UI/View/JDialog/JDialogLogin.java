@@ -16,7 +16,7 @@ import java.util.Vector;
 import java.util.List;
 
 /**
- * JDialog permettant à un utilisateur de se connecter à l'application en tant que directeur ou superviseur
+ * JDialog permettant ? un utilisateur de se connecter ? l'application en tant que directeur ou superviseur
  * @author Fabien
  */
 public class JDialogLogin extends javax.swing.JDialog {
@@ -91,7 +91,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     private void JButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOKActionPerformed
         
         try{
-            // Envoie du login et du password à la servlet "LoginServlet" pour identifier l'utilisateur
+            // Envoie du login et du password a la servlet "LoginServlet" pour identifier l'utilisateur
             URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+this.JTextFieldLogin.getText()+"&password="+this.JPasswordFieldMDP.getText());
             
             // Buffer qui va recuperer la reponse de la servlet
@@ -99,7 +99,7 @@ public class JDialogLogin extends javax.swing.JDialog {
                     new InputStreamReader(
                     url.openStream()));
             
-            //Récupération du fluxXml envoyé par la Servlet : LoginServlet contenant toutes les données de l'utilisateur
+            //Recuperation du fluxXml envoye par la Servlet : LoginServlet contenant toutes les donnees de l'utilisateur
             String fluxXml = new String("");
             String inputLine;
             while ((inputLine = in.readLine()) != null)

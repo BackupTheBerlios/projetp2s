@@ -1,7 +1,7 @@
 /*
  * Noeud.java
  *
- * Created on 1 décembre 2004, 23:54
+ * Created on 1 decembre 2004, 23:54
  */
 
 package P2S.UI.Tree;

@@ -49,7 +49,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Initialisation des attributs
         this.utilisateur = null;
         
-        // Fenêtre plein écran
+        // Fen?tre plein ?cran
         this.setState(Frame.NORMAL);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension dimension = toolkit.getScreenSize();
@@ -63,7 +63,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        // Affichage de la boîte de dialogue pour se logger
+        // Affichage de la bo?te de dialogue pour se logger
         JDialogLogin JDialogLog = new JDialogLogin(this,true);
         JDialogLog.show();
         
@@ -201,7 +201,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         {
             if(this.utilisateur != null) {
                 loginOK = true;
-                // si c'est un superviseur, on crée son environnement
+                // si c'est un superviseur, on cr?e son environnement
                 if(this.utilisateur instanceof Superviseur) {
                     creerEnvironnementSup();
                 } else // sinon c'est un directeur
@@ -209,7 +209,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                     creerEnvironnementDir();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, new String("Login Inconnu ou mot de passe incorrect"),new String("Problème Login") , JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, new String("Login Inconnu ou mot de passe incorrect"),new String("Probl?me Login") , JOptionPane.WARNING_MESSAGE);
                 JDialogLog = new JDialogLogin(this,true);
                 JDialogLog.show();
             }
@@ -235,7 +235,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Premier noeud
         racine = new DefaultMutableTreeNode(Bundle.getText("NoeudSuperviseur"));
         
-        // Ajout des projets supervisés par l'utilisateur
+        // Ajout des projets supervis?s par l'utilisateur
         
         // Ajout du noeud "Projets"
         DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
@@ -247,7 +247,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         }
         racine.add(racineProjet);
         
-        // Met à jour l'arborescence
+        // Met ? jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
         
         // Ajout du listener pour la selection d'un projet
@@ -307,7 +307,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         racine.add( new DefaultMutableTreeNode(Bundle.getText("NoeudProjetsEnCours")));
         
-        // Met à jour l'arborescence
+        // Met ? jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
         
         // Ajout du listener pour la selection d'un membre
@@ -352,7 +352,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
                      
-            // Envoie des infos sur lengthprojet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
+            // Envoie des infos sur lengthprojet ? la servlet "AjoutProjetServlet" pour l'ajouter a la BD
             URL url = new URL("http://localhost:8084/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR));
             
             // Buffer qui va recuperer la reponse de la servlet
@@ -360,7 +360,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                     new InputStreamReader(
                     url.openStream()));
             
-            //Récupération de la reponse envoyé par la Servlet
+            //Recuperation de la reponse envoye par la Servlet
             String reponse = new String("");
             String inputLine;
             while ((inputLine = in.readLine()) != null)
@@ -384,7 +384,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             noeud = noeud.getNextNode();
         
         noeud.add( new NoeudProjet(projet));
-        // Met à jour l'arborescence
+        // Met a jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
     }
     

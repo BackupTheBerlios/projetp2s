@@ -21,7 +21,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
     
     /**
      * Creates new form JPanelInfoGenProjet
-     * @param proj projet à afficher
+     * @param proj projet a afficher
      */
     public JPanelInfoGenProjet(Projet proj) {
         initComponents();

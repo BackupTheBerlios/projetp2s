@@ -40,7 +40,7 @@ public class ModeleTableMesure extends AbstractTableModel {
     }
     
    public boolean isCellEditable(int row, int col) {
-        // toutes les cellules sont non éditables
+        // toutes les cellules sont non editables
         return false;        
     }
 

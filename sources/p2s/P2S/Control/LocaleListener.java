@@ -8,7 +8,7 @@ import java.util.*;
  */
 public interface LocaleListener extends EventListener {
     /**
-     * Méthode changeant la langue
+     * Methode changeant la langue
      */    
     public void localeChanged (); 
 }

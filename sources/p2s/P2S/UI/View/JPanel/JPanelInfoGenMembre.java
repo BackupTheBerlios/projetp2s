@@ -18,7 +18,7 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
     
     /**
      * Creates new form JPanelInfoGenMembre
-     * @param membre membre à afficher
+     * @param membre membre a afficher
      */
     public JPanelInfoGenMembre(Membre membre) {
         initComponents();

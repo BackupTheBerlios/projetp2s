@@ -6,7 +6,7 @@ import P2S.Control.Bundle.*;
 
 
 /**
- * Controller qui gère le changement de langue
+ * Controller qui gere le changement de langue
  * @author Fabien Bouyssou
  */
 public class LocaleController {
@@ -18,7 +18,7 @@ public class LocaleController {
     
     /**
      * Ajoute un LocaleListener
-     * @param l LocaleListener à ajouter à la liste
+     * @param l LocaleListener a ajouter a la liste
      */    
     public void addLocaleListener (LocaleListener l) { 
         listenerList.add(LocaleListener.class, l); 
@@ -26,14 +26,14 @@ public class LocaleController {
     
     /**
      * Supprime un LocaleListener
-     * @param l LocaleListener à supprimer
+     * @param l LocaleListener a supprimer
      */    
     public void removeLocaleListener (LocaleListener l) { 
         listenerList.remove(LocaleListener.class, l); 
     } 
     
     /**
-     * Change la langue de tous les LocaleListener enregistrés
+     * Change la langue de tous les LocaleListener enregistres
      */    
     public void fireLocaleChanged () { 
         LocaleListener[] listeners = (LocaleListener[]) 

@@ -28,8 +28,8 @@ public class ParserXMLPreferences {
     private Document _document;
     
     /**
-     * Crée une instance de ParserXMLPreferences
-     * @param Xml Chemin du fichier Xml à lire
+     * Cree une instance de ParserXMLPreferences
+     * @param Xml Chemin du fichier Xml a lire
      */
     public ParserXMLPreferences(String Xml) {
         this._fichierPreferences = Xml;

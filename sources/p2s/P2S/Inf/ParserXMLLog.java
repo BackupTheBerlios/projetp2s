@@ -32,8 +32,8 @@ public class ParserXMLLog {
     //CONSTRUCTEUR
     
     /**
-     * Crée une instance de ParserXMLLog
-     * @param Xml Chemin du fichier Xml à lire
+     * Cree une instance de ParserXMLLog
+     * @param Xml Chemin du fichier Xml a lire
      */
     public ParserXMLLog(String Xml) {
         try{
@@ -73,19 +73,19 @@ public class ParserXMLLog {
         Vector projets = new Vector();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         NodeList listeProjets = this._document.getElementsByTagName("projet");
-        //Récupération des projets un par un
+        //Recuperation des projets un par un
         for(int i = 0 ; i < listeProjets.getLength() ; i++){
             Node projetXML = listeProjets.item(i);
             NodeList attributs = projetXML.getChildNodes();
             
-            //Attributs que l'on va récupérer
+            //Attributs que l'on va recuperer
             
             int idProjet = -1;
             String nom = null;
             String description = null;
             Date dateDebut = null;
             Date dateFin = null;
-            //Récupération des attributs du projet
+            //Recuperation des attributs du projet
             for(int j = 0 ; j < attributs.getLength() ; j++){
                 Node attributCourant = attributs.item(j);
                 
@@ -106,7 +106,7 @@ public class ParserXMLLog {
                     try{                        
                         dateDebut = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());                        
                     } catch(ParseException e1){
-                        System.out.println("Problème pour parser dateDebut");
+                        System.out.println("Probleme pour parser dateDebut");
                     }
                 
                 //Recuperation de la date de fin du projet
@@ -114,7 +114,7 @@ public class ParserXMLLog {
                     try{                       
                         dateFin = dateFormat.parse(attributCourant.getFirstChild().getNodeValue());                        
                     } catch(ParseException e2){
-                        System.out.println("Problème pour parser dateFin");
+                        System.out.println("Probleme pour parser dateFin");
                     }
             }
             
@@ -130,12 +130,12 @@ public class ParserXMLLog {
     public Vector lireMembres(){
         Vector membres = new Vector();
         NodeList listeProjets = this._document.getElementsByTagName("membre");
-        //Récupération des membres un par un
+        //Recuperation des membres un par un
         for(int i = 0 ; i < listeProjets.getLength() ; i++){
             Node membreXML = listeProjets.item(i);
             NodeList attributs = membreXML.getChildNodes();
             
-            //Attributs que l'on va récupérer
+            //Attributs que l'on va recuperer
             
             int idMembre = -1;
             String nom = null;
@@ -144,31 +144,31 @@ public class ParserXMLLog {
             String telephone = null;
             String email = null;
             
-            //Récupération des attributs du projet
+            //Recuperation des attributs du projet
             for(int j = 0 ; j < attributs.getLength() ; j++){
                 Node attributCourant = attributs.item(j);
                 
-                //Recupération de l'id du membre
+                //Recuperation de l'id du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("idMembre"))
                     idMembre = Integer.parseInt(attributCourant.getFirstChild().getNodeValue());
                 
-                //Recupération du nom du membre
+                //Recuperation du nom du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("nom"))
                     nom = attributCourant.getFirstChild().getNodeValue();
                 
-                //Recupération du prenom du membre
+                //Recuperation du prenom du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("prenom"))
                     prenom = attributCourant.getFirstChild().getNodeValue();
                                                 
-                //Recupération de l'adresse du membre
+                //Recuperation de l'adresse du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("adresse"))
                     adresse = attributCourant.getFirstChild().getNodeValue();
                 
-                //Recupération du telephone du membre
+                //Recuperation du telephone du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("telephone"))
                     telephone = attributCourant.getFirstChild().getNodeValue();
                 
-                //Recupération du mail du membre
+                //Recup?ration du mail du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("email"))
                     email = attributCourant.getFirstChild().getNodeValue();
             }

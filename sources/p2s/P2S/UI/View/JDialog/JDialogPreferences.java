@@ -7,13 +7,13 @@ import javax.swing.*;
 import java.util.*;
 
 /**
- * Boîte de dialogue contenant les préférences du logiciel
+ * Boite de dialogue contenant les preferences du logiciel
  * @author Fabien Bouyssou
  */
 public class JDialogPreferences extends javax.swing.JDialog {
     
     /**
-     * Crée une nouvelle instance
+     * Cree une nouvelle instance
      * @param parent Frame Parent
      * @param modal Modal
      */

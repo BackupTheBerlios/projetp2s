@@ -19,7 +19,7 @@ public class JTabbedPaneProjet extends JTabbedPane {
     
     /**
      * Creates new form BeanForm
-     * @param proj proj à afficher
+     * @param proj proj a afficher
      */
     public JTabbedPaneProjet(Projet proj) {
         initComponents();
