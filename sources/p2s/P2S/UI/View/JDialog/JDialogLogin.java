@@ -177,7 +177,10 @@ public class JDialogLogin extends javax.swing.JDialog {
         this.setTitle(Bundle.getText("JDialogLogin_TitreFenetre"));
         
         JLabelLogin.setText(Bundle.getText("JDialogLogin_JLabel_Login"));
+        JLabelLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_members.gif")));
         JLabelMDP.setText(Bundle.getText("JDialogLogin_JLabel_MDP"));
+        JLabelMDP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/login_cle.gif")));
+        
         JButtonOK.setText(Bundle.getText("JDialogLogin_JButton_Ok"));
         JButtonAnnuler.setText(Bundle.getText("JDialogLogin_JButton_Annuler"));        
     }
@@ -194,5 +197,5 @@ public class JDialogLogin extends javax.swing.JDialog {
     private javax.swing.JPasswordField JPasswordFieldMDP;
     private javax.swing.JTextField JTextFieldLogin;
     // End of variables declaration//GEN-END:variables
-    
+
 }
