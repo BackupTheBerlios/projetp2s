@@ -1106,14 +1106,14 @@ public class ParserXMLFichierWF {
                     ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                     
                     if(!rstache.next()){
-                        prepState = conn.prepareStatement("insert into taches values ("+id+","+insertString(nom)+","+insertString(description)+","+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+","+insertString(dateDebutPrevue)+","+insertString(dateFinPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinReelle)+","+idIteration+","+idMembre+")");
+                        prepState = conn.prepareStatement("insert into taches values ("+id+","+insertString(nom)+","+insertString(description)+","+insertString(etat)+","+chargePrevue+","+tempsPasse+","+resteAPasser+","+insertString(dateDebutPrevue)+","+insertString(dateFinPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinReelle)+","+idIteration+","+idMembre+")");
                         prepState.execute(); // Execution de la requete
                     }else{
                         PreparedStatement updateTache = conn.prepareStatement(
                                 "update taches set nom=?, description=?, etat=?, chargeprevue=?, tempspasse=?, tempsrestant=?, datedebutprevue=?, datefinprevue=?, datedebutreelle=?, datefinreelle=?, iditeration=?, idmembre=? where idtache ="+id);
                         updateTache.setString(1,nom);
                         updateTache.setString(2,description);
-                        updateTache.setInt(3,updateInt(etat));
+                        updateTache.setString(3,etat);
                         updateTache.setFloat(4,updateFloat(chargePrevue));
                         updateTache.setFloat(5,updateFloat(tempsPasse));
                         updateTache.setFloat(6,updateFloat(resteAPasser));
@@ -1389,14 +1389,14 @@ public class ParserXMLFichierWF {
                     ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                     
                     if(!rstache.next()){
-                        prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+","+insertString(nom)+","+insertString(description)+","+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+","+insertString(dateDebutPrevue)+","+insertString(dateFinPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinReelle)+","+idIteration+","+idResponsable+")");
+                        prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+","+insertString(nom)+","+insertString(description)+","+insertString(etat)+","+chargePrevue+","+tempsPasse+","+resteAPasser+","+insertString(dateDebutPrevue)+","+insertString(dateFinPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinReelle)+","+idIteration+","+idResponsable+")");
                         prepState.execute(); // Execution de la requete
                     }else{
                         PreparedStatement updateTache = conn.prepareStatement(
                                 "update tachescollaboratives set nom=?, description=?, etat=?, chargeprevue=?, tempspasse=?, tempsrestant=?, datedebutprevue=?, datefinprevue=?, datedebutreelle=?, datefinreelle=?, iditeration=?, idresponsable=? where idtache ="+id);
                         updateTache.setString(1,nom);
                         updateTache.setString(2,description);
-                        updateTache.setInt(3,updateInt(etat));
+                        updateTache.setString(3,etat);
                         updateTache.setFloat(4,updateFloat(chargePrevue));
                         updateTache.setFloat(5,updateFloat(tempsPasse));
                         updateTache.setFloat(6,updateFloat(resteAPasser));
