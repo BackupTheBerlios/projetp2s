@@ -131,61 +131,61 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         textIndTotalCharges.setEditable(false);
         textIndTotalCharges.setText("totalCharges");
         textIndTotalCharges.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, 90, -1));
+        add(textIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 60, -1));
 
         textIndTachesTerminees.setBackground(new java.awt.Color(255, 255, 255));
         textIndTachesTerminees.setEditable(false);
         textIndTachesTerminees.setText("tachesTerminees");
         textIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 90, -1));
+        add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 60, -1));
 
         textIndDureeMoyenneTache.setBackground(new java.awt.Color(255, 255, 255));
         textIndDureeMoyenneTache.setEditable(false);
         textIndDureeMoyenneTache.setText("dureeMoyenneTache");
         textIndDureeMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 90, -1));
+        add(textIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 60, -1));
 
         textIndNombreParticipants.setBackground(new java.awt.Color(255, 255, 255));
         textIndNombreParticipants.setEditable(false);
         textIndNombreParticipants.setText("nombreParticipants");
         textIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 90, -1));
+        add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 60, -1));
 
         textIndAvancementProjet.setBackground(new java.awt.Color(255, 255, 255));
         textIndAvancementProjet.setEditable(false);
         textIndAvancementProjet.setText("avancemantProjet");
         textIndAvancementProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 90, -1));
+        add(textIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 60, -1));
 
         textStaticIndTotalCharges.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndTotalCharges.setEditable(false);
         textStaticIndTotalCharges.setText("Total des charges :");
         textStaticIndTotalCharges.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 240, -1));
+        add(textStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 270, -1));
 
         textStaticIndTachesTerminees.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndTachesTerminees.setEditable(false);
         textStaticIndTachesTerminees.setText("Nombre de t\u00e2ches termin\u00e9es :");
         textStaticIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 240, -1));
+        add(textStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 270, -1));
 
         textStaticIndDureeMoyenneTache.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndDureeMoyenneTache.setEditable(false);
         textStaticIndDureeMoyenneTache.setText("Dur\u00e9e moyenne des t\u00e2ches :");
         textStaticIndDureeMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 240, -1));
+        add(textStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 270, -1));
 
         textStaticIndNombreParticipants.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndNombreParticipants.setEditable(false);
         textStaticIndNombreParticipants.setText("Nombre de participants :");
         textStaticIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 240, -1));
+        add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 270, -1));
 
         textStaticIndAvancementProjet.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndAvancementProjet.setEditable(false);
         textStaticIndAvancementProjet.setText("Avancement du projet :");
         textStaticIndAvancementProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
-        add(textStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 240, -1));
+        add(textStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 270, -1));
 
     }//GEN-END:initComponents
     
