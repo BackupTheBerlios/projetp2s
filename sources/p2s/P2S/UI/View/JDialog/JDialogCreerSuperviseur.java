@@ -99,11 +99,11 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
     }//GEN-LAST:event_jPasswordMDPKeyPressed
 
     private void jPasswordMDPFocusLost (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordMDPFocusLost
-        JButtonOk.setSelected(false) ;
+        //JButtonOk.setSelected(false) ;
     }//GEN-LAST:event_jPasswordMDPFocusLost
 
     private void jPasswordMDPFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordMDPFocusGained
-        JButtonOk.setSelected(true) ;
+        //JButtonOk.setSelected(true) ;
     }//GEN-LAST:event_jPasswordMDPFocusGained
     
     private void initText() {
