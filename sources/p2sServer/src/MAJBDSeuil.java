@@ -37,9 +37,12 @@ public class MAJBDSeuil extends HttpServlet {
     throws ServletException, IOException {
         
         String login = request.getParameter("login");
-        String lecture = request.getParameter("lecture");
+        String pass = request.getParameter("pass");
         String nomChamp = request.getParameter("nomChamp");
         String valeur = request.getParameter("value");
+        String nomProjet = request.getParameter("nomProjet");
+        
+        System.out.println(login + " " + pass + " " + nomChamp + " " + valeur + " " + nomProjet);
         
     }
     

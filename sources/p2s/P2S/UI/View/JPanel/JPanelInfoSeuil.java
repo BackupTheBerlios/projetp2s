@@ -7,8 +7,19 @@
 package P2S.UI.View.JPanel;
 
 import P2S.Control.Bundle.Bundle;
+import P2S.Inf.Md5;
+import P2S.Inf.ParserXMLLog;
+import P2S.Model.ChefDeProjet;
+import P2S.Model.Directeur;
 import P2S.Model.Projet;
 import P2S.Model.SeuilsFixes;
+import P2S.Model.Superviseur;
+import P2S.UI.View.JFrameP2S;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  *
@@ -163,6 +174,11 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         nombreParticipantProjet.setText("Nombre de participants");
         add(nombreParticipantProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, -1));
 
+        nombreParticipantProjetSeuilMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreParticipantProjetSeuilMinActionPerformed(evt);
+            }
+        });
         nombreParticipantProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 nombreParticipantProjetSeuilMinFocusGained(evt);
@@ -354,9 +370,78 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         add(nombreTacheParticipantSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 40, -1));
 
         jButton1.setText("Enregistrer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
     }//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{     
+            String login = ((JFrameP2S)this.getTopLevelAncestor()).utilisateur.getLogin();
+            String pass = ((JFrameP2S)this.getTopLevelAncestor()).utilisateur.getPassword();
+            String nomProjet = projet.getNom().replaceAll("\\s","%20");
+            
+            // Envoie de tous les jtextfields qui seront insérés dans la servlet
+            URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMin" +"&&value="+totalChargesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesProjetMax" +"&value="+totalChargesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tachesTermineesProjetMin" +"&value="+tacheTermineesProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tachesTermineesProjetMax" +"&value="+tacheTermineesProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneTacheMin" +"&value="+dureeMoyenneProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneTacheMax" +"&value="+dureeMoyenneProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantsMin" +"&value="+nombreParticipantProjetSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantsMax" +"&value="+nombreParticipantProjetSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesIterationMin" +"&value="+totalChargesIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "totalChargesIterationMax" +"&value="+totalChargesIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tacheTermineesIterationMin" +"&value="+tacheTermineesIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "tacheTermineesIterationMax" +"&value="+tacheTermineesIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneIterationMin" +"&value="+dureeMoyenneIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "dureeMoyenneIterationMax" +"&value="+dureeMoyenneIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantIterationMin" +"&value="+nombreParticipantIterationSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreParticipantIterationMax" +"&value="+nombreParticipantIterationSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "chargeMoyenneMin" +"&value="+chargeMoyenneSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "chargeMoyenneMax" +"&value="+chargeMoyenneSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMin" +"&value="+nombreTacheParticipantSeuilMin.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJBDSeuil?login="+login+"&pass="+pass+"&nomChamp="+ "nombreTacheParticipantMax" +"&value="+nombreTacheParticipantSeuilMax.getText()+"&nomProjet="+nomProjet);
+            url.openStream();
+            
+        } catch(MalformedURLException e1){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IOException e2){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        } catch(IllegalArgumentException e3){
+            e3.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;            
+        }        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void nombreParticipantProjetSeuilMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreParticipantProjetSeuilMinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreParticipantProjetSeuilMinActionPerformed
 
     private void nombreTacheParticipantSeuilMaxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreTacheParticipantSeuilMaxFocusLost
         try{
