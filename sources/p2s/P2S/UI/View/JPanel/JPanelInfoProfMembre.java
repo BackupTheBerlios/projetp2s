@@ -10,6 +10,7 @@ import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjetMembre;
 import P2S.Model.Role;
 import P2S.UI.View.JDialog.ModeleTableMesure;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -54,11 +55,15 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
         ModeleTableMesure tableModel1 = new ModeleTableMesure(donnees1, nomsColonnes1) ;
         table1 = new JTable(tableModel1) ;
         tableScrollPane1 = new JScrollPane(table1) ;
+	table1.setPreferredScrollableViewportSize(new Dimension(450, 80)) ;
+	
+	
         
-        JLabel labelRoles = new JLabel(Bundle.getText("JTableRolesLabel")) ;
-        jPanel1.add(labelRoles) ;
+        JLabel labelRoles = new JLabel(Bundle.getText("JTableRolesLabel")) ;	
+        panel1.add(labelRoles, BorderLayout.NORTH) ;
         
-        jPanel1.add(tableScrollPane1) ;
+        panel1.add(tableScrollPane1, BorderLayout.CENTER) ;
+	
         
         donnees2 = new Object[projets.size()][3] ;
         for (int i = 0 ; i < donnees2.length ; i++)
@@ -73,15 +78,17 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
         
         
         JLabel labelProjet = new JLabel(Bundle.getText("JTableIndicProjetLabel")) ;
-        jPanel1.add(labelProjet) ;
+        panel2.add(labelProjet, BorderLayout.NORTH) ;
         
         ModeleTableMesure tableModel2 = new ModeleTableMesure(donnees2, nomsColonnes2) ;
         table2 = new JTable(tableModel2) ;
         table2.setPreferredScrollableViewportSize(new Dimension(100, 50)) ;
-        table2.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+        //table2.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+	table2.setDefaultRenderer(Float.class, new NumericRenderer()) ;
         tableScrollPane2 = new JScrollPane(table2) ;
+	table2.setPreferredScrollableViewportSize(new Dimension(450, 80)) ;
         
-        jPanel1.add(tableScrollPane2) ;
+        panel2.add(tableScrollPane2, BorderLayout.CENTER) ;
         
         
         
@@ -94,10 +101,20 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
      */
     private void initComponents() {//GEN-BEGIN:initComponents
         jPanel1 = new javax.swing.JPanel();
+        panel1 = new javax.swing.JPanel();
+        panel2 = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
+        jPanel1.setLayout(new java.awt.GridLayout(2, 1));
+
+        panel1.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.add(panel1);
+
+        panel2.setLayout(new java.awt.BorderLayout());
+
+        jPanel1.add(panel2);
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -106,6 +123,8 @@ public class JPanelInfoProfMembre extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel panel1;
+    private javax.swing.JPanel panel2;
     // End of variables declaration//GEN-END:variables
     
     
