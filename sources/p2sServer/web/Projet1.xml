@@ -887,7 +887,7 @@
 				<dateDebutPrevue>2003-05-02</dateDebutPrevue>
 				<dateDebutReelle>2003-05-03</dateDebutReelle>
 				<dateFinPrevue>2003-05-15</dateFinPrevue>
-				<dateFinReelle>null</dateFinReelle>
+				<dateFinReelle>2003-05-16</dateFinReelle>
 			</eltTache>
 			<eltTache>
 				<id>8</id>
@@ -898,9 +898,9 @@
 				<tempsPasse>0</tempsPasse>
 				<resteAPasser>10</resteAPasser>
 				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
-				<dateDebutReelle>null</dateDebutReelle>
+				<dateDebutReelle>2003-05-17</dateDebutReelle>
 				<dateFinPrevue>2003-06-02</dateFinPrevue>
-				<dateFinReelle>null</dateFinReelle>
+				<dateFinReelle>2003-06-03</dateFinReelle>
 			</eltTache>
 		</listeTaches>
 
