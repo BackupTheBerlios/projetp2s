@@ -14,7 +14,6 @@ public class JDialogMail extends javax.swing.JDialog {
     
     public JDialogMail(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.setTitle("Envoyer un mail");
         initComponents();
        
         this.initText();
@@ -38,10 +37,9 @@ public class JDialogMail extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        labelDestinataire.setText("A :");
+        labelDestinataire.setText("label");
         getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
-        textIndDestinataire.setBackground(new java.awt.Color(255, 255, 255));
         textIndDestinataire.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 360, -1));
 
@@ -49,10 +47,9 @@ public class JDialogMail extends javax.swing.JDialog {
         textMessage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 360, 230));
 
-        labelObjet.setText("Objet  :");
+        labelObjet.setText("label");
         getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, -1));
 
-        textIndObjet.setBackground(new java.awt.Color(255, 255, 255));
         textIndObjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 360, -1));
 
@@ -60,15 +57,30 @@ public class JDialogMail extends javax.swing.JDialog {
         getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, -1, -1));
 
         buttonCancel.setText("Annuler");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
+
         getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-494)/2, (screenSize.height-400)/2, 494, 400);
     }//GEN-END:initComponents
 
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
     public void initText()
     {
-             
+           this.setTitle(Bundle.getText("JDialogMailTitle"));
+           labelDestinataire.setText(Bundle.getText("JDialogMailTo"));
+           labelObjet.setText(Bundle.getText("JDialogMailObject"));
+           buttonOK.setText(Bundle.getText("JDialogMailSend"));
+           buttonCancel.setText(Bundle.getText("JDialogMailCancel"));
+           
     }
     
      
