@@ -468,8 +468,8 @@ public class JFrameP2S extends javax.swing.JFrame {
         // on efface tout
         racine.removeAllChildren() ;
         // Ajout des projets du chef de projet
-        for(int i = 0 ; i < ((ChefDeProjet) utilisateur).nbProjets(); i++){
-            Projet proj = ((ChefDeProjet) utilisateur).getProjet(i);
+        for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
+            Projet proj = ((Superviseur) utilisateur).getProjet(i);
             NoeudProjet noeudProjet = new NoeudProjet(proj);
             
             // liste des iterations pour le projet
@@ -523,8 +523,8 @@ public class JFrameP2S extends javax.swing.JFrame {
         // on efface tout
         racine.removeAllChildren() ;
         // Ajout des projets du superviseur
-        for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
-            Projet proj = ((Superviseur) utilisateur).getProjet(i);
+        for(int i = 0 ; i < ((ChefDeProjet) utilisateur).nbProjets(); i++){
+            Projet proj = ((ChefDeProjet) utilisateur).getProjet(i);
             NoeudProjet noeudProjet = new NoeudProjet(proj);
             
             // liste des iterations pour le projet
