@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -36,7 +35,7 @@ public class ParserXMLFichierWF {
     private String login;
     
     /** Creates a new instance of ParserXMLFichierWF */
-    public ParserXMLFichierWF(String Xml, String cheminBD, String _login) {
+    public ParserXMLFichierWF(String Xml, String cheminBD, String _login) throws FileNotFoundException{
         this.fichier = Xml;
         this.login = _login;
         
@@ -45,6 +44,9 @@ public class ParserXMLFichierWF {
             DocumentBuilder constructeur = usine.newDocumentBuilder();
             
             this.document = constructeur.parse(Xml);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+            throw e;
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -63,9 +65,10 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majBase() {
+    public void majBase() throws NullValueXMLException{
         
         majProjet();
+       
         majLienSuperviseurProjet();
         majIterations();
         majMembres();
@@ -90,76 +93,99 @@ public class ParserXMLFichierWF {
         majIndicateurProjet();
     }
     
+    private String insertString(String s){
+        if(s == null)
+            return null;
+        else
+            return "'"+s+"'";
+    }
     
-    public int lireIdProjet() {
+    private int updateInt(String s){
+        if(s == null)
+            return -1;
+        else
+            return Integer.parseInt(s);
+    }
+    
+    public String lireIdProjet() throws NullPointerException{
         NodeList listeNoeud = this.document.getElementsByTagName("projet").item(0).getChildNodes();
-        
+        String id;
         int b = 0;
         while(listeNoeud.item(b).getNodeName() != "id") {
             b++;
         }
-        return new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+        id = listeNoeud.item(b).getFirstChild().getNodeValue();
+        
+        return id;
     }
     
     
-    public void majProjet(){
-        int id = -1;
+    public void majProjet() throws NullValueXMLException, NullPointerException{
+        String id = null;
         String nom = null;
         String dateDebut = null;
         String dateFin = null;
         String description = null;
-        int budget = -1;
-        
+        String budget = null;
         
         Node NoeudProjet = this.document.getElementsByTagName("projet").item(0);
         NodeList listeNoeud = NoeudProjet.getChildNodes();
         
-        
-        // on recherche l'id du projet
         int b = 0;
-        while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
-            b++;
+        // on recherche l'id du projet
+        try{
+            id = lireIdProjet();
+        }catch(NullPointerException e){            
+            throw new NullValueXMLException();
         }
-        id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
         
         // on recherche le nom du projet
         b = 0;
         while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
             b++;
         }
-        nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+        try{
+            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){            
+            throw new NullValueXMLException();
+        }
         
         // on recherche la date de debut du projet
         b = 0;
         while(listeNoeud.item(b).getNodeName().compareTo("dateDebut") != 0) {
             b++;
         }
-        dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
-        if(dateDebut.compareTo("null") == 0)
-            dateDebut = "0001-01-01";
+        try{
+            dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}    
+        
         
         // on recherche la date de fin du projet
         b = 0;
         while(listeNoeud.item(b).getNodeName().compareTo("dateFin") != 0) {
             b++;
         }
-        dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
-        if(dateFin.compareTo("null") == 0)
-            dateFin = "0001-01-01";
+        try{
+            dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}        
         
         // on recherche la description
         b = 0;
         while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
             b++;
         }
-        description = listeNoeud.item(b).getFirstChild().getNodeValue();
+        try{    
+            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}
         
         // on recherche le budget du projet
         b = 0;
         while(listeNoeud.item(b).getNodeName().compareTo("budget") != 0) {
             b++;
         }
-        budget = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+        try{
+            budget = listeNoeud.item(b).getFirstChild().getNodeValue();
+        }catch(NullPointerException e){}    
         
         
         
@@ -169,17 +195,17 @@ public class ParserXMLFichierWF {
             ResultSet rsp = prepState.executeQuery(); // Execution de la requete
             
             if(!rsp.next()){
-                prepState = conn.prepareStatement("insert into projets values ("+id+",'"+nom+"','"+dateDebut+"','"+dateFin+"','"+description+"',"+budget+")");
+                prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+")");
                 prepState.execute(); // Execution de la requete
                 
             }else{
                 PreparedStatement updateProjet = conn.prepareStatement(
                         "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=? where idprojet ="+id);
                 updateProjet.setString(1,nom);
-                updateProjet.setString(2, dateDebut);
-                updateProjet.setString(3, dateFin);
-                updateProjet.setString(4, description);
-                updateProjet.setInt(5, budget);
+                updateProjet.setString(2,dateDebut);
+                updateProjet.setString(3,dateFin);
+                updateProjet.setString(4,description);                
+                updateProjet.setInt(5,updateInt(budget));
                 
                 updateProjet.executeUpdate();
             }
@@ -193,7 +219,7 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majLienSuperviseurProjet() {
+    public void majLienSuperviseurProjet() throws NullValueXMLException{
         try {
             // Requete SQL
             PreparedStatement prepState = conn.prepareStatement("Select * from superviseur_projets where login='"+this.login+"' and idprojet="+lireIdProjet());
@@ -213,15 +239,20 @@ public class ParserXMLFichierWF {
         
     }
     
-    public void majIterations() {
-        int id = -1;
-        int numero = -1;
+    public void majIterations() throws NullValueXMLException{
+        String id = null;
+        String numero = null;
         String dateDebutPrevue = null;
         String dateDebutReelle = null;
         String dateFinPrevue = null;
         String dateFinReelle = null;
+        String idProjet = null;
         
-        int idProjet = lireIdProjet();
+        try{
+            idProjet = lireIdProjet();
+        }catch(NullPointerException e){
+             throw new NullValueXMLException();
+         }
         
         NodeList listeIteration = this.document.getElementsByTagName("eltIteration");
         NodeList listeNoeud;
@@ -234,50 +265,60 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le numero de l'iteration
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("numero") != 0) {
                 b++;
             }
-            numero = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                numero = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche la date prevue de debut d'iteration
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateDebutPrevue") != 0) {
                 b++;
             }
-            dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateDebutPrevue.compareTo("null") == 0)
-                dateDebutPrevue = "0001-01-01";
+            try{
+                dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}            
             
             // on recherche la date reelle de debut d'iteration
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateDebutReelle") != 0) {
                 b++;
             }
-            dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateDebutReelle.compareTo("null") == 0)
-                dateDebutReelle = "0001-01-01";
+            try{
+                dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche la date prevue de fin d'iteration
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateFinPrevue") != 0) {
                 b++;
             }
-            dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateFinPrevue.compareTo("null") == 0)
-                dateFinPrevue = "0001-01-01";
+            try{
+                dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche la date reelle de fin d'iteration
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateFinReelle") != 0) {
                 b++;
             }
-            dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateFinReelle.compareTo("null") == 0)
-                dateFinReelle = "0001-01-01";
+            try{
+                dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             try {
                 // Requete SQL
@@ -285,17 +326,17 @@ public class ParserXMLFichierWF {
                 ResultSet rsit = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsit.next()){
-                    prepState = conn.prepareStatement("insert into iterations values ("+id+","+numero+",'"+dateDebutPrevue+"','"+dateDebutReelle+"','"+dateFinPrevue+"','"+dateFinReelle+"',"+idProjet+")");
+                    prepState = conn.prepareStatement("insert into iterations values ("+id+","+numero+","+insertString(dateDebutPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinPrevue)+","+insertString(dateFinReelle)+","+idProjet+")");
                     prepState.execute(); // Execution de la requete
                 }else{
                     PreparedStatement updateIt = conn.prepareStatement(
                             "update iterations set numero=?, datedebutprevue=?, datedebutreelle=?, datefinprevue=?, datefinreelle=?, idprojet=? where iditeration ="+id);
-                    updateIt.setInt(1,numero);
+                    updateIt.setInt(1,updateInt(numero));
                     updateIt.setString(2, dateDebutPrevue);
                     updateIt.setString(3, dateDebutReelle);
                     updateIt.setString(4, dateFinPrevue);
                     updateIt.setString(5, dateFinReelle);
-                    updateIt.setInt(6,idProjet);
+                    updateIt.setInt(6,updateInt(idProjet));
                     
                     updateIt.executeUpdate();
                 }
@@ -312,8 +353,8 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majMembres() {
-        int id = -1;
+    public void majMembres() throws NullValueXMLException{
+        String id = null;
         String nom = null;
         String prenom = null;
         String adresse = null;
@@ -331,21 +372,31 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom du membre
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le prenom du membre
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("prenom") != 0) {
                 b++;
             }
-            prenom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                prenom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             
             // on recherche l'adresse du membre
@@ -353,32 +404,35 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("adresse") != 0) {
                 b++;
             }
-            adresse = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                adresse = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche le telephone du membre
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("telephone") != 0) {
                 b++;
             }
-            tel = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                tel = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche le mail du membre
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("email") != 0) {
                 b++;
             }
-            mail = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                mail = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
-            try {
-                // Connexion a la base de donnees
-                //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
-                
+            try {               
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from membres where idmembre="+id);
                 ResultSet rsmembre = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsmembre.next()){
-                    prepState = conn.prepareStatement("insert into membres values ("+id+",'"+nom+"','"+prenom+"','"+adresse+"','"+tel+"','"+mail+"')");
+                    prepState = conn.prepareStatement("insert into membres values ("+id+","+insertString(nom)+","+insertString(prenom)+","+insertString(adresse)+","+insertString(tel)+","+insertString(mail)+")");
                     prepState.execute(); // Execution de la requete
                 } else{
                     PreparedStatement updateMembre = conn.prepareStatement(
@@ -403,7 +457,7 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majRoles() {
+    public void majRoles() throws NullValueXMLException{
         String id = null;
         String nom = null;
         String description = "description role manquant dans dpe";
@@ -420,14 +474,22 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom du role
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // PAS DE DESCRIPTIN DANS LE DPE
             // on recherche la description du role
@@ -446,18 +508,17 @@ public class ParserXMLFichierWF {
                 ResultSet rsRole = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsRole.next()){
-                    prepState = conn.prepareStatement("insert into roles values ('"+id+"','"+nom+"','"+description+"')");
+                    prepState = conn.prepareStatement("insert into roles values ("+insertString(id)+","+insertString(nom)+","+insertString(description)+")");
                     prepState.execute(); // Execution de la requete
                 } else{
                     PreparedStatement updateRole = conn.prepareStatement(
                             "update roles set nom=?, description=? where idrole ='"+id+"'");
                     updateRole.setString(1,nom);
-                    updateRole.setString(2, description);
+                    updateRole.setString(2,description);
                     
                     updateRole.executeUpdate();
                 }
-                
-                
+                                
             }catch (SQLException ex) { // Si une SQLException survient
                 System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
@@ -468,12 +529,12 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majMesures() {
-        int id = -1;
+    public void majMesures() throws NullValueXMLException{
+        String id = null;
         String nom = null;
         String description = null;
         String valeur = null;
-        int type = -1;
+        String type = null;
         
         
         NodeList listeMesures = this.document.getElementsByTagName("eltMetrique");
@@ -487,35 +548,53 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom de la mesure
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche la description de la mesure
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
                 b++;
             }
-            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la valeur de la mesure
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("valeur") != 0) {
                 b++;
             }
-            valeur = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                valeur = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le type de la mesure
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("type") != 0) {
                 b++;
             }
-            type = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                type = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             
             try {
@@ -524,14 +603,14 @@ public class ParserXMLFichierWF {
                 ResultSet rsmesure = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsmesure.next()){
-                    prepState = conn.prepareStatement("insert into mesures values ("+id+",'"+nom+"','"+description+"',"+type+",'"+valeur+"')");
+                    prepState = conn.prepareStatement("insert into mesures values ("+id+","+insertString(nom)+","+insertString(description)+","+type+","+insertString(valeur)+")");
                     prepState.execute(); // Execution de la requete
                 } else{
                     PreparedStatement updateMesure = conn.prepareStatement(
                             "update mesures set nom=?, description=?, type=?, valeur=? where idmesure ="+id);
                     updateMesure.setString(1,nom);
                     updateMesure.setString(2,description);
-                    updateMesure.setInt(3,type);
+                    updateMesure.setInt(3,updateInt(type));
                     updateMesure.setString(4,valeur);
                     
                     updateMesure.executeUpdate();
@@ -548,15 +627,20 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majRisques() {
-        int id = -1;
+    public void majRisques() throws NullValueXMLException{
+        String id = null;
         String nom = null;
         String description = null;
-        int priorite = -1;
-        int impact = -1;
-        int etat = -1;
+        String priorite = null;
+        String impact = null;
+        String etat = null;
+        String idProjet = null;
         
-        int idProjet = lireIdProjet();
+        try{
+            idProjet = lireIdProjet();
+        }catch(NullPointerException e){
+            throw new NullValueXMLException();
+        }        
         
         NodeList listeRisques = this.document.getElementsByTagName("eltRisque");
         NodeList listeNoeud;
@@ -569,42 +653,58 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom du risque
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche la description du risque
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
                 b++;
             }
-            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la priorite du risque
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("priorite") != 0) {
                 b++;
             }
-            priorite = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                priorite = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche l'impact du risque
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("impact") != 0) {
                 b++;
             }
-            impact = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                impact = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche l'etat du risque
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("etat") != 0) {
                 b++;
             }
-            etat = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                etat = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             
             try {
@@ -613,17 +713,17 @@ public class ParserXMLFichierWF {
                 ResultSet rsrisque = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsrisque.next()){
-                    prepState = conn.prepareStatement("insert into risques values ("+id+",'"+nom+"',"+priorite+","+impact+","+etat+",'"+description+"',"+idProjet+")");
+                    prepState = conn.prepareStatement("insert into risques values ("+id+","+insertString(nom)+","+priorite+","+impact+","+etat+","+insertString(description)+","+idProjet+")");
                     prepState.execute(); // Execution de la requete
                 } else{
                     PreparedStatement updateRisque = conn.prepareStatement(
                             "update risques set nom=?, description=?, priorite=?, impact=?, etat=?, idprojet=? where idrisque ="+id);
                     updateRisque.setString(1,nom);
                     updateRisque.setString(2,description);
-                    updateRisque.setInt(3,priorite);
-                    updateRisque.setInt(4,impact);
-                    updateRisque.setInt(5,etat);
-                    updateRisque.setInt(6,idProjet);
+                    updateRisque.setInt(3,updateInt(priorite));
+                    updateRisque.setInt(4,updateInt(impact));
+                    updateRisque.setInt(5,updateInt(etat));
+                    updateRisque.setInt(6,updateInt(idProjet));
                     
                     updateRisque.executeUpdate();
                 }
@@ -640,20 +740,20 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majTaches() {
-        int id = -1;
+    public void majTaches() throws NullValueXMLException{
+        String id = null;
         String nom = null;
         String description = null;
-        int etat = -1;
-        int chargePrevue = -1;
-        int tempsPasse = -1;
-        int resteAPasser = -1;
+        String etat = null;
+        String chargePrevue = null;
+        String tempsPasse = null;
+        String resteAPasser = null;
         String dateDebutPrevue = null;
         String dateDebutReelle = null;
         String dateFinPrevue = null;
         String dateFinReelle = null;
-        int idIteration = -1;
-        int idMembre = -1;
+        String idIteration = null;
+        String idMembre = null;
         
         NodeList listeTache = this.document.getElementsByTagName("eltTache");
         NodeList listeNoeud;
@@ -666,91 +766,119 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche la description de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
                 b++;
             }
-            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche l'etat de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("etat") != 0) {
                 b++;
             }
-            etat = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                etat = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la charge prevue de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("chargePrevue") != 0) {
                 b++;
             }
-            chargePrevue = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                chargePrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche le temps passe sur la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("tempsPasse") != 0) {
                 b++;
             }
-            tempsPasse = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                tempsPasse = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche le temps qu'il reste a passer sur la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("resteAPasser") != 0) {
                 b++;
             }
-            resteAPasser = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                resteAPasser = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la date prevue de debut de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateDebutPrevue") != 0) {
                 b++;
             }
-            dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateDebutPrevue.compareTo("null") == 0)
-                dateDebutPrevue = "0001-01-01";
+            try{
+                dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la date reelle de debut de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateDebutReelle") != 0) {
                 b++;
             }
-            dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateDebutReelle.compareTo("null") == 0)
-                dateDebutReelle = "0001-01-01";
+            try{
+                dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche la date prevue de fin de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateFinPrevue") != 0) {
                 b++;
             }
-            dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateFinPrevue.compareTo("null") == 0)
-                dateFinPrevue = "0001-01-01";
+            try{
+                dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche la date reelle de fin de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateFinReelle") != 0) {
                 b++;
             }
-            dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateFinReelle.compareTo("null") == 0)
-                dateFinReelle = "0001-01-01";
+            try{
+                dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche l'id de l'iteration auquel est rattache la tache
-            idIteration = lireIdIteration_Tache(id);
+            try{
+                idIteration = lireIdIteration_Tache(id);
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche l'id du membre auquel est rattache la tache
-            idMembre = lireIdMembre_Tache(id);
+            try{
+                idMembre = lireIdMembre_Tache(id);
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             try {
                 // Requete SQL
@@ -758,23 +886,23 @@ public class ParserXMLFichierWF {
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rstache.next()){
-                    prepState = conn.prepareStatement("insert into taches values ("+id+",'"+nom+"','"+description+"',"+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+",'"+dateDebutPrevue+"','"+dateFinPrevue+"','"+dateDebutReelle+"','"+dateFinReelle+"',"+idIteration+","+idMembre+")");
+                    prepState = conn.prepareStatement("insert into taches values ("+id+","+insertString(nom)+","+insertString(description)+","+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+","+insertString(dateDebutPrevue)+","+insertString(dateFinPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinReelle)+","+idIteration+","+idMembre+")");
                     prepState.execute(); // Execution de la requete
                 }else{
                     PreparedStatement updateTache = conn.prepareStatement(
                             "update taches set nom=?, description=?, etat=?, chargeprevue=?, tempspasse=?, tempsrestant=?, datedebutprevue=?, datefinprevue=?, datedebutreelle=?, datefinreelle=?, iditeration=?, idmembre=? where idtache ="+id);
                     updateTache.setString(1,nom);
                     updateTache.setString(2,description);
-                    updateTache.setInt(3,etat);
-                    updateTache.setInt(4,chargePrevue);
-                    updateTache.setInt(5,tempsPasse);
-                    updateTache.setInt(6,resteAPasser);
+                    updateTache.setInt(3,updateInt(etat));
+                    updateTache.setInt(4,updateInt(chargePrevue));
+                    updateTache.setInt(5,updateInt(tempsPasse));
+                    updateTache.setInt(6,updateInt(resteAPasser));
                     updateTache.setString(7,dateDebutPrevue);
                     updateTache.setString(8,dateFinPrevue);
                     updateTache.setString(9,dateDebutReelle);
                     updateTache.setString(10,dateFinReelle);
-                    updateTache.setInt(11,idIteration);
-                    updateTache.setInt(12,idMembre);
+                    updateTache.setInt(11,updateInt(idIteration));
+                    updateTache.setInt(12,updateInt(idMembre));
                     
                     updateTache.executeUpdate();
                 }
@@ -789,11 +917,11 @@ public class ParserXMLFichierWF {
         }
     }
     
-    private int lireIdIteration_Tache(int idTache) {
+    private String lireIdIteration_Tache(String idTache) throws NullPointerException{
         NodeList listeItTache = this.document.getElementsByTagName("IterationTache");
         NodeList listeIdTache;
         
-        int id = -1;
+        String id = null;
         boolean trouve = false;
         int b = 0;
         int i = 0;
@@ -811,12 +939,12 @@ public class ParserXMLFichierWF {
             j = 0;
             while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
-                    if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
+                    if(listeIdTache.item(j).getFirstChild().getNodeValue().compareTo(idTache) == 0){
                         b = 0;
                         while(NoeudItTache.getChildNodes().item(b).getNodeName().compareTo("idIteration") != 0) {
                             b++;
                         }
-                        id = new Integer(NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        id = NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue();
                         trouve = true;
                     }
                 }
@@ -834,11 +962,11 @@ public class ParserXMLFichierWF {
     }
     
     
-    private int lireIdMembre_Tache(int idTache) {
+    private String lireIdMembre_Tache(String idTache) throws NullPointerException{
         NodeList listeItTache = this.document.getElementsByTagName("MembreTache");
         NodeList listeIdTache;
         
-        int id = -1;
+        String id = null;
         boolean trouve = false;
         int b = 0;
         int i = 0;
@@ -855,12 +983,12 @@ public class ParserXMLFichierWF {
             j = 0;
             while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
-                    if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
+                    if(listeIdTache.item(j).getFirstChild().getNodeValue().compareTo(idTache) == 0){
                         b = 0;
                         while(NoeudItTache.getChildNodes().item(b).getNodeName().compareTo("idMembre") != 0) {
                             b++;
                         }
-                        id = new Integer(NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        id = NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue();
                         trouve = true;
                     }
                 }
@@ -877,20 +1005,20 @@ public class ParserXMLFichierWF {
         return(id);
     }
     
-    public void majTachesCollaboratives() {
-        int id = -1;
+    public void majTachesCollaboratives() throws NullValueXMLException{
+        String id = null;
         String nom = null;
         String description = null;
-        int etat = -1;
-        int chargePrevue = -1;
-        int tempsPasse = -1;
-        int resteAPasser = -1;
+        String etat = null;
+        String chargePrevue = null;
+        String tempsPasse = null;
+        String resteAPasser = null;
         String dateDebutPrevue = null;
         String dateDebutReelle = null;
         String dateFinPrevue = null;
         String dateFinReelle = null;
-        int idIteration = -1;
-        int idResponsable = -1;
+        String idIteration = null;
+        String idResponsable = null;
         
         NodeList listeTache = this.document.getElementsByTagName("eltTacheCollaborative");
         NodeList listeNoeud;
@@ -903,91 +1031,120 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche la description de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
                 b++;
             }
-            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche l'etat de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("etat") != 0) {
                 b++;
             }
-            etat = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                etat = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la charge prevue de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("chargePrevue") != 0) {
                 b++;
             }
-            chargePrevue = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                chargePrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche le temps passe sur la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("tempsPasse") != 0) {
                 b++;
             }
-            tempsPasse = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                tempsPasse = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche le temps qu'il reste a passer sur la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("resteAPasser") != 0) {
                 b++;
             }
-            resteAPasser = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                resteAPasser = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la date prevue de debut de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateDebutPrevue") != 0) {
                 b++;
             }
-            dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateDebutPrevue.compareTo("null") == 0)
-                dateDebutPrevue = "0001-01-01";
+            try{
+                dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche la date reelle de debut de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateDebutReelle") != 0) {
                 b++;
             }
-            dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateDebutReelle.compareTo("null") == 0)
-                dateDebutReelle = "0001-01-01";
+            try{
+                dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche la date prevue de fin de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateFinPrevue") != 0) {
                 b++;
             }
-            dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateFinPrevue.compareTo("null") == 0)
-                dateFinPrevue = "0001-01-01";
+            try{
+                dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche la date reelle de fin de la tache
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("dateFinReelle") != 0) {
                 b++;
             }
-            dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
-            if(dateFinReelle.compareTo("null") == 0)
-                dateFinReelle = "0001-01-01";
+            try{
+                dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
             
             // on recherche l'id de l'iteration auquel est rattache la tache
-            idIteration = lireIdIteration_TacheCollaborative(id);
+            try{
+                idIteration = lireIdIteration_TacheCollaborative(id);
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche l'id du responsable de la tache
-            idResponsable = lireIdResponsable_TacheCollaborative(id);
+            try{
+                idResponsable = lireIdResponsable_TacheCollaborative(id);
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             try {
                 // Requete SQL
@@ -995,23 +1152,23 @@ public class ParserXMLFichierWF {
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rstache.next()){
-                    prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+",'"+nom+"','"+description+"',"+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+",'"+dateDebutPrevue+"','"+dateFinPrevue+"','"+dateDebutReelle+"','"+dateFinReelle+"',"+idIteration+","+idResponsable+")");
+                    prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+","+insertString(nom)+","+insertString(description)+","+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+","+insertString(dateDebutPrevue)+","+insertString(dateFinPrevue)+","+insertString(dateDebutReelle)+","+insertString(dateFinReelle)+","+idIteration+","+idResponsable+")");
                     prepState.execute(); // Execution de la requete
                 }else{
                     PreparedStatement updateTache = conn.prepareStatement(
                             "update tachescollaboratives set nom=?, description=?, etat=?, chargeprevue=?, tempspasse=?, tempsrestant=?, datedebutprevue=?, datefinprevue=?, datedebutreelle=?, datefinreelle=?, iditeration=?, idresponsable=? where idtache ="+id);
                     updateTache.setString(1,nom);
                     updateTache.setString(2,description);
-                    updateTache.setInt(3,etat);
-                    updateTache.setInt(4,chargePrevue);
-                    updateTache.setInt(5,tempsPasse);
-                    updateTache.setInt(6,resteAPasser);
+                    updateTache.setInt(3,updateInt(etat));
+                    updateTache.setInt(4,updateInt(chargePrevue));
+                    updateTache.setInt(5,updateInt(tempsPasse));
+                    updateTache.setInt(6,updateInt(resteAPasser));
                     updateTache.setString(7,dateDebutPrevue);
                     updateTache.setString(8,dateFinPrevue);
                     updateTache.setString(9,dateDebutReelle);
                     updateTache.setString(10,dateFinReelle);
-                    updateTache.setInt(11,idIteration);
-                    updateTache.setInt(12,idResponsable);
+                    updateTache.setInt(11,updateInt(idIteration));
+                    updateTache.setInt(12,updateInt(idResponsable));
                     
                     updateTache.executeUpdate();
                 }
@@ -1026,11 +1183,11 @@ public class ParserXMLFichierWF {
         }
     }
     
-    private int lireIdIteration_TacheCollaborative(int idTache) {
+    private String lireIdIteration_TacheCollaborative(String idTache) throws NullValueXMLException{
         NodeList listeItTache = this.document.getElementsByTagName("IterationTacheCol");
         NodeList listeIdTache;
         
-        int id = -1;
+        String id = null;
         boolean trouve = false;
         int b = 0;
         int i = 0;
@@ -1048,12 +1205,12 @@ public class ParserXMLFichierWF {
             j = 0;
             while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
-                    if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
+                    if(listeIdTache.item(j).getFirstChild().getNodeValue().compareTo(idTache) == 0){
                         b = 0;
                         while(NoeudItTache.getChildNodes().item(b).getNodeName().compareTo("idIteration") != 0) {
                             b++;
                         }
-                        id = new Integer(NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        id = NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue();
                         trouve = true;
                     }
                 }
@@ -1071,11 +1228,11 @@ public class ParserXMLFichierWF {
     }
     
     
-    private int lireIdResponsable_TacheCollaborative(int idTache) {
+    private String lireIdResponsable_TacheCollaborative(String idTache) throws NullValueXMLException{
         NodeList listeMembreTache = this.document.getElementsByTagName("MembreTacheCollaborative_Responsable");
         NodeList listeIdTache;
         
-        int id = -1;
+        String id = null;
         boolean trouve = false;
         int b = 0;
         int i = 0;
@@ -1093,12 +1250,12 @@ public class ParserXMLFichierWF {
             j = 0;
             while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
-                    if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
+                    if(listeIdTache.item(j).getFirstChild().getNodeValue().compareTo(idTache) == 0){
                         b = 0;
                         while(NoeudMembreTache.getChildNodes().item(b).getNodeName().compareTo("idMembre") != 0) {
                             b++;
                         }
-                        id = new Integer(NoeudMembreTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        id = NoeudMembreTache.getChildNodes().item(b).getFirstChild().getNodeValue();
                         trouve = true;
                     }
                 }
@@ -1116,13 +1273,13 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majArtefacts() {
-        int id = -1;
+    public void majArtefacts() throws NullValueXMLException{
+        String id = null;
         String nom = null;
         String description = null;
         String livrable = null;
-        int etat = -1;
-        int idResponsable = -1;
+        String etat = null;
+        String idResponsable = null;
         
         NodeList listeArtefact = this.document.getElementsByTagName("eltArtefact");
         NodeList listeNoeud;
@@ -1135,38 +1292,58 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche le nom de l'artefact
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
                 b++;
             }
-            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche la description de l'artefact
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
                 b++;
             }
-            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche si l'artefact est livrable
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("livrable") != 0) {
                 b++;
             }
-            livrable = listeNoeud.item(b).getFirstChild().getNodeValue();
+            try{
+                livrable = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche l'etat de l'artefact
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("etat") != 0) {
                 b++;
             }
-            etat = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                etat = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
             
             // on recherche l'id du membre responsable de l'artefact
-            idResponsable = lireIdMembre_Artefact(id);
+            try{
+                idResponsable = lireIdMembre_Artefact(id);
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             
             try {
@@ -1175,16 +1352,16 @@ public class ParserXMLFichierWF {
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rstache.next()){
-                    prepState = conn.prepareStatement("insert into artefacts values ("+id+",'"+livrable+"',"+etat+",'"+nom+"','"+description+"',"+idResponsable+")");
+                    prepState = conn.prepareStatement("insert into artefacts values ("+id+","+insertString(livrable)+","+etat+","+insertString(nom)+","+insertString(description)+","+idResponsable+")");
                     prepState.execute(); // Execution de la requete
                 }else{
                     PreparedStatement updateTache = conn.prepareStatement(
                             "update artefacts set nom=?, description=?, etat=?, livrable=?, idresponsable=? where idartefact ="+id);
                     updateTache.setString(1,nom);
                     updateTache.setString(2,description);
-                    updateTache.setInt(3,etat);
+                    updateTache.setInt(3,updateInt(etat));
                     updateTache.setString(4,livrable);
-                    updateTache.setInt(5,idResponsable);
+                    updateTache.setInt(5,updateInt(idResponsable));
                     
                     updateTache.executeUpdate();
                 }
@@ -1199,11 +1376,11 @@ public class ParserXMLFichierWF {
         }
     }
     
-    private int lireIdMembre_Artefact(int idArtefact) {
+    private String lireIdMembre_Artefact(String idArtefact) throws NullValueXMLException{
         NodeList listeMembreArtefact = this.document.getElementsByTagName("MembreArtefact");
         NodeList listeIdArtefact;
         
-        int id = -1;
+        String id = null;
         boolean trouve = false;
         int b = 0;
         int i = 0;
@@ -1221,12 +1398,12 @@ public class ParserXMLFichierWF {
             j = 0;
             while(j<listeIdArtefact.getLength() && !trouve){
                 if(listeIdArtefact.item(j).getNodeName().compareTo("id") == 0){
-                    if(new Integer(listeIdArtefact.item(j).getFirstChild().getNodeValue()).intValue() == idArtefact){
+                    if(listeIdArtefact.item(j).getFirstChild().getNodeValue().compareTo(idArtefact) == 0){
                         b = 0;
                         while(NoeudMembreArtefact.getChildNodes().item(b).getNodeName().compareTo("idMembre") != 0) {
                             b++;
                         }
-                        id = new Integer(NoeudMembreArtefact.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        id = NoeudMembreArtefact.getChildNodes().item(b).getFirstChild().getNodeValue();
                         trouve = true;
                     }
                 }
@@ -1244,8 +1421,8 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majLiensMembres_TachesCollaboratives() {
-        int idMembre = -1;
+    public void majLiensMembres_TachesCollaboratives() throws NullValueXMLException{
+        String idMembre = null;
         Vector listeIdTache = new Vector();
         Vector listeMembreTache = new Vector();
         
@@ -1276,7 +1453,11 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            idMembre = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche les taches auquelles il participe
             b = 0;
@@ -1314,9 +1495,14 @@ public class ParserXMLFichierWF {
     
     
     
-    public void majLiensMembres_Projets() {
-        int idProjet = lireIdProjet();
+    public void majLiensMembres_Projets() throws NullValueXMLException{
+        String idProjet = null;
         Vector listeIdMembre = new Vector();
+        try{
+            idProjet = lireIdProjet();
+        }catch(NullPointerException e){
+            throw new NullValueXMLException();
+        }
         
         NodeList listeMembre = this.document.getElementsByTagName("eltMembre");
         NodeList listeNoeud;
@@ -1353,8 +1539,8 @@ public class ParserXMLFichierWF {
         listeIdMembre.removeAllElements();
     }
     
-    public void majLiensArtefacts_Entrees_Taches() {
-        int idTache = -1;
+    public void majLiensArtefacts_Entrees_Taches() throws NullValueXMLException{
+        String idTache = null;
         Vector listeIdArtefacts = new Vector();
         
         NodeList listeArtefactTache = this.document.getElementsByTagName("TacheArtefact_Entree");
@@ -1369,7 +1555,11 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("idTache") != 0) {
                 b++;
             }
-            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                idTache = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche les artefacts en entree de la tache
             b = 0;
@@ -1405,8 +1595,8 @@ public class ParserXMLFichierWF {
         }
     }
     
-    public void majLiensArtefacts_Sorties_Taches() {
-        int idTache = -1;
+     public void majLiensArtefacts_Sorties_Taches() throws NullValueXMLException{
+        String idTache = null;
         Vector listeIdArtefacts = new Vector();
         
         NodeList listeArtefactTache = this.document.getElementsByTagName("TacheArtefact_Sortie");
@@ -1421,7 +1611,11 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("idTache") != 0) {
                 b++;
             }
-            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                idTache = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche les artefacts en sortie de la tache
             b = 0;
@@ -1459,8 +1653,8 @@ public class ParserXMLFichierWF {
     
     
     
-    public void majLiensArtefacts_Entrees_TachesCollaboratives() {
-        int idTache = -1;
+    public void majLiensArtefacts_Entrees_TachesCollaboratives() throws NullValueXMLException{
+        String idTache = null;
         Vector listeIdArtefacts = new Vector();
         
         NodeList listeArtefactTache = this.document.getElementsByTagName("TacheColArtefact_Entree");
@@ -1475,7 +1669,11 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("idTacheCol") != 0) {
                 b++;
             }
-            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                idTache = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche les artefacts en entree de la tache
             b = 0;
@@ -1512,8 +1710,8 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majLiensArtefacts_Sorties_TachesCollaboratives() {
-        int idTache = -1;
+    public void majLiensArtefacts_Sorties_TachesCollaboratives() throws NullValueXMLException{
+        String idTache = null;
         Vector listeIdArtefacts = new Vector();
         
         NodeList listeArtefactTache = this.document.getElementsByTagName("TacheColArtefact_Sortie");
@@ -1528,7 +1726,11 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("idTacheCol") != 0) {
                 b++;
             }
-            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                idTache = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche les artefacts en sortie de la tache
             b = 0;
@@ -1565,8 +1767,8 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majLiensMembres_Roles() {
-        int idMembre = -1;
+    public void majLiensMembres_Roles() throws NullValueXMLException{
+        String idMembre = null;
         Vector listeIdRole = new Vector();
         Vector listeMembreRole = new Vector();
         
@@ -1597,7 +1799,11 @@ public class ParserXMLFichierWF {
             while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
                 b++;
             }
-            idMembre = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            try{
+                idMembre = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
             
             // on recherche les roles qu'il exerce
             b = 0;
@@ -1634,7 +1840,7 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majIndicateurIteration(){
+    public void majIndicateurIteration() throws NullValueXMLException{
         int idIt = 0;
         int chargeTotal = 0;
         int nbTachesTerminees = 0;
@@ -1707,7 +1913,7 @@ public class ParserXMLFichierWF {
         }
     }
     
-    private int calculerChargesTotal_Iteration(int idIt) {
+    private int calculerChargesTotal_Iteration(int idIt){
         int Somme = 0;
         
         try {
@@ -1733,7 +1939,7 @@ public class ParserXMLFichierWF {
     }
     
     
-    private int calculerChargesTotalTachesTerminees_Iteration(int idIt) {
+    private int calculerChargesTotalTachesTerminees_Iteration(int idIt){
         int Somme = 0;
         
         try {
@@ -1758,7 +1964,7 @@ public class ParserXMLFichierWF {
         return Somme;
     }
     
-    private int nbTachesTerminees_Iteration(int idIt) {
+    private int nbTachesTerminees_Iteration(int idIt){
         int Somme = 0;
         
         try {
@@ -1783,7 +1989,7 @@ public class ParserXMLFichierWF {
         return Somme;
     }
     
-    private int nbTaches_Iteration(int idIt) {
+    private int nbTaches_Iteration(int idIt){
         int Somme = 0;
         
         try {
@@ -1849,13 +2055,19 @@ public class ParserXMLFichierWF {
     }
     
     
-    public void majIndicateurProjet(){
-        int idProjet = lireIdProjet();
+    public void majIndicateurProjet() throws NullValueXMLException{
+        String idProjet = null;
         int totalcharges = 0;
         int tachesterminees = 0;
         float dureemoyennetache = 0;
         int nombreparticipants = 0;
         float avancementprojet = 0;
+        
+        try{
+            idProjet = lireIdProjet();
+        }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
         
         try {
             // On recupere le total des charges
@@ -1914,7 +2126,7 @@ public class ParserXMLFichierWF {
     }
     
     
-    private int nbParticipants_Projet(){
+    private int nbParticipants_Projet() throws NullValueXMLException{
         int nb = 0;
         Vector idMembre = new Vector();
         

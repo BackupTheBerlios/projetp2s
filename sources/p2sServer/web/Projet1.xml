@@ -658,10 +658,10 @@
 		<projet>
 			<id>1</id>
 			<nom>p2s</nom>
-			<description>projet p2s</description>
-			<dateDebut>2002-02-03</dateDebut>
+			<description></description>
+			<dateDebut></dateDebut>
 			<dateFin>2004-03-05</dateFin>
-			<budget>400</budget>
+			<budget></budget>
 		</projet>
 
 		<!--  Liste de toutes les metriques -->

@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS `artefacts`;
 CREATE TABLE `artefacts` (
   `idartefact` int(10) unsigned NOT NULL auto_increment,
   `livrable` enum('true','false') NOT NULL default 'true',
-  `etat` int(10) unsigned default NULL,
+  `etat` int(11) default NULL,
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
   `idresponsable` int(10) unsigned NOT NULL default '0',
@@ -40,8 +40,8 @@ CREATE TABLE `artefacts_entrees_tachescollaboratives` (
   `idtache` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idartefact`,`idtache`),
   KEY `FK_artefacts_entrees_tachescollaboratives_idtache` (`idtache`),
-  CONSTRAINT `FK_artefacts_entrees_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`),
-  CONSTRAINT `FK_artefacts_entrees_tachescollaboratives_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`)
+  CONSTRAINT `FK_artefacts_entrees_tachescollaboratives_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`),
+  CONSTRAINT `FK_artefacts_entrees_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB';
 
 DROP TABLE IF EXISTS `artefacts_sorties_taches`;
@@ -60,8 +60,8 @@ CREATE TABLE `artefacts_sorties_tachescollaboratives` (
   `idtache` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idartefact`,`idtache`),
   KEY `FK_artefacts_sorties_tachescollaboratives_idtache` (`idtache`),
-  CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`),
-  CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`)
+  CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`),
+  CONSTRAINT `FK_artefacts_sorties_tachescollaboratives_idtache` FOREIGN KEY (`idtache`) REFERENCES `tachescollaboratives` (`idtache`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `indicateurs_iteration`;
@@ -139,7 +139,7 @@ CREATE TABLE `mesures` (
   `idmesure` int(10) unsigned NOT NULL auto_increment,
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
-  `type` int(10) unsigned NOT NULL default '0',
+  `type` int(11) NOT NULL default '0',
   `valeur` varchar(45) NOT NULL default '',
   PRIMARY KEY  (`idmesure`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -151,7 +151,7 @@ CREATE TABLE `projets` (
   `datedebut` date default NULL,
   `datefin` date default NULL,
   `description` varchar(200) default NULL,
-  `budget` int(10) unsigned default '0',
+  `budget` int(11) default '0',
   PRIMARY KEY  (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -159,9 +159,9 @@ DROP TABLE IF EXISTS `risques`;
 CREATE TABLE `risques` (
   `idrisque` int(10) unsigned NOT NULL auto_increment,
   `nom` varchar(45) NOT NULL default '',
-  `priorite` int(10) unsigned default NULL,
-  `impact` int(10) unsigned default NULL,
-  `etat` int(10) unsigned default NULL,
+  `priorite` int(11) default NULL,
+  `impact` int(11) default NULL,
+  `etat` int(11) default NULL,
   `description` varchar(200) default NULL,
   `idprojet` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idrisque`),
@@ -183,8 +183,8 @@ CREATE TABLE `roles_membres` (
   `idmembre` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idrole`,`idmembre`),
   KEY `FK_roles_membres_idmembre` (`idmembre`),
-  CONSTRAINT `FK_roles_membres_idrole` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`),
-  CONSTRAINT `FK_roles_membres_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`)
+  CONSTRAINT `FK_roles_membres_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`),
+  CONSTRAINT `FK_roles_membres_idrole` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `superviseur_projets`;
@@ -202,10 +202,10 @@ CREATE TABLE `taches` (
   `idtache` int(10) unsigned NOT NULL auto_increment,
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(125) default NULL,
-  `etat` int(10) unsigned default NULL,
-  `chargeprevue` int(10) unsigned default NULL,
-  `tempspasse` int(10) unsigned default NULL,
-  `tempsrestant` int(10) unsigned default NULL,
+  `etat` int(11) default NULL,
+  `chargeprevue` int(11) default NULL,
+  `tempspasse` int(11) default NULL,
+  `tempsrestant` int(11) default NULL,
   `datedebutprevue` date default NULL,
   `datefinprevue` date default NULL,
   `datedebutreelle` date default NULL,
@@ -224,10 +224,10 @@ CREATE TABLE `tachescollaboratives` (
   `idtache` int(10) unsigned NOT NULL default '0',
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
-  `etat` int(10) unsigned default NULL,
-  `chargeprevue` int(10) unsigned default NULL,
-  `tempspasse` int(10) unsigned default NULL,
-  `tempsrestant` int(10) unsigned default NULL,
+  `etat` int(11) default NULL,
+  `chargeprevue` int(11) default NULL,
+  `tempspasse` int(11) default NULL,
+  `tempsrestant` int(11) default NULL,
   `datedebutprevue` date default NULL,
   `datefinprevue` date default NULL,
   `datedebutreelle` date default NULL,
@@ -237,8 +237,8 @@ CREATE TABLE `tachescollaboratives` (
   PRIMARY KEY  (`idtache`),
   KEY `FK_tachescolaboratives_iditeration` (`iditeration`),
   KEY `FK_tachescollaboratives_idresponsable` (`idresponsable`),
-  CONSTRAINT `FK_tachescollaboratives_idresponsable` FOREIGN KEY (`idresponsable`) REFERENCES `membres` (`idmembre`),
-  CONSTRAINT `FK_tachescolaboratives_iditeration` FOREIGN KEY (`iditeration`) REFERENCES `iterations` (`iditeration`)
+  CONSTRAINT `FK_tachescolaboratives_iditeration` FOREIGN KEY (`iditeration`) REFERENCES `iterations` (`iditeration`),
+  CONSTRAINT `FK_tachescollaboratives_idresponsable` FOREIGN KEY (`idresponsable`) REFERENCES `membres` (`idmembre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 3072 kB';
 
 DROP TABLE IF EXISTS `utilisateurs`;

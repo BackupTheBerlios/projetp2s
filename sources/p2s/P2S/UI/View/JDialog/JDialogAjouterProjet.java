@@ -80,13 +80,13 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-345)/2, (screenSize.height-195)/2, 345, 195);
     }//GEN-END:initComponents
-
+    
     private void jTextFieldURLKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldURLKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
             jButtonOK.doClick() ;
         }
     }//GEN-LAST:event_jTextFieldURLKeyPressed
-
+    
     private void jTextFieldURLFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldURLFocusGained
         //jButtonOK.setSelected(true) ;
     }//GEN-LAST:event_jTextFieldURLFocusGained
@@ -97,33 +97,43 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
     
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         String URLFichier = this.jTextFieldURL.getText();
-        
-        try{
-            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
-            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDServlet?login="+((JFrameP2S)this.getParent()).utilisateur.getLogin()+"&url="+URLFichier);
-            
-            // Buffer qui va recuperer la reponse de la servlet
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                    url.openStream()));
-            
-            //Recuperation de la reponse envoye par la Servlet
-            String reponse = new String("");
-            String inputLine;
-            while ((inputLine = in.readLine()) != null)
-                reponse += inputLine;
-            
-            if(reponse.compareTo("erreur") == 0) {
-                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
-                System.out.println("Probleme lors de l'ajout du projet dans la BD");
+        int flag = 1;
+        if(URLFichier.compareTo("") == 0){
+            javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorEntreeVide"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } else{
+            try{
+                ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+                URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDServlet?login="+((JFrameP2S)this.getParent()).utilisateur.getLogin()+"&url="+URLFichier);
+                
+                // Buffer qui va recuperer la reponse de la servlet
+                BufferedReader  in = new BufferedReader(
+                        new InputStreamReader(
+                        url.openStream()));
+                
+                //Recuperation de la reponse envoye par la Servlet
+                flag = 2;
+                String reponse = new String("");
+                String inputLine;
+                while ((inputLine = in.readLine()) != null)
+                    reponse += inputLine;
+                
+                // Si le fichier est introuvable
+                if(reponse.compareTo("0") == 0) {
+                    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorFichierNotFound"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                }
+                // Si une valeur qui doit etre non null est nulle dans le fichier
+                else if(reponse.compareTo("1") == 0) {
+                    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorValeurNulle"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+                }
+                in.close();
+            } catch(MalformedURLException e1){
+                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionMalformedURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+            } catch(IOException e2){
+                if(flag == 1)
+                    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);
+                else
+                    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
             }
-            in.close();
-        } catch(MalformedURLException e1){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
-        } catch(IOException e2){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
-        } catch(IllegalArgumentException e3){
-	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         }
         
         this.dispose();
