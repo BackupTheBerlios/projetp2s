@@ -235,6 +235,8 @@ public class JDialogDetailProjet extends javax.swing.JDialog {
         textStaticIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 270, -1));
 
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-584)/2, (screenSize.height-713)/2, 584, 713);
     }//GEN-END:initComponents
     
     private void initText() {
