@@ -24,25 +24,25 @@ import org.w3c.dom.NodeList;
 public class ParserXMLFichierWF {
     
     /**
-     * Fichier Xml
-     */
-    private String fichier;
-    /**
      * Document contenant le fichier Xml
      */
     private Document document;
     private Connection conn;
     private String login;
+    private String local;
+    private String fichier;
+    
     
     /** Creates a new instance of ParserXMLFichierWF */
-    public ParserXMLFichierWF(String Xml, String cheminBD, String _login, int type) throws FileNotFoundException{
-        
-        this.fichier = Xml;
+    public ParserXMLFichierWF(String Xml, String cheminBD, String _login, int type, String _fichier) throws FileNotFoundException{
+                
         this.login = _login;
+        this.fichier = _fichier;
         
         // Si c'est un fichier distant
         if(type == 1){
-            try{
+            try{                
+                this.local = "false";
                 DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
                 DocumentBuilder constructeur = usine.newDocumentBuilder();
                 
@@ -54,16 +54,12 @@ public class ParserXMLFichierWF {
                 e.printStackTrace();
             }
         } else{ // C'est un fichier local donc un flux xml
-            try{
+            try{                
+                this.local = "true";
                 DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
                 DocumentBuilder constructeur = usine.newDocumentBuilder();
-                try {
-                    this.document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));
-                } catch (Exception e) {
-                    e.printStackTrace() ;
-                }
                 
-                //this._document = constructeur.parse(new InputStream(Xml));
+                this.document= constructeur.parse(new java.io.ByteArrayInputStream(Xml.getBytes()));                
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -78,9 +74,7 @@ public class ParserXMLFichierWF {
         try{
             // Connexion a la base de donnees
             conn = DriverManager.getConnection(cheminBD);
-        }catch(SQLException e){
-            
-        }
+        }catch(SQLException e){}
     }
     
     public void majBase() throws NullValueXMLException, IncorrectFileException{
@@ -144,7 +138,7 @@ public class ParserXMLFichierWF {
         String dateDebut = null;
         String dateFin = null;
         String description = null;
-        String budget = null;
+        String budget = null;        
         
         Node NoeudProjet = null;
         NodeList listeNoeud = null;
@@ -210,8 +204,7 @@ public class ParserXMLFichierWF {
         try{
             budget = listeNoeud.item(b).getFirstChild().getNodeValue();
         }catch(NullPointerException e){}
-        
-        
+                
         
         try {
             // Requete SQL
@@ -219,17 +212,19 @@ public class ParserXMLFichierWF {
             ResultSet rsp = prepState.executeQuery(); // Execution de la requete
             
             if(!rsp.next()){
-                prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+")");
+                prepState = conn.prepareStatement("insert into projets values ("+id+","+insertString(nom)+","+insertString(dateDebut)+","+insertString(dateFin)+","+insertString(description)+","+budget+","+insertString(this.local)+","+insertString(this.fichier)+")");
                 prepState.execute(); // Execution de la requete
                 
             }else{
                 PreparedStatement updateProjet = conn.prepareStatement(
-                        "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=? where idprojet ="+id);
+                        "update projets set nom=?, datedebut=?, datefin=?, description=?, budget=?, local=?, fichier=? where idprojet ="+id);
                 updateProjet.setString(1,nom);
                 updateProjet.setString(2,dateDebut);
                 updateProjet.setString(3,dateFin);
                 updateProjet.setString(4,description);
                 updateProjet.setInt(5,updateInt(budget));
+                updateProjet.setString(6,this.local);
+                updateProjet.setString(7,this.fichier);
                 
                 updateProjet.executeUpdate();
             }

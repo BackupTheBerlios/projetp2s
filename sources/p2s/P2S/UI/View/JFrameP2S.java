@@ -231,16 +231,16 @@ public class JFrameP2S extends javax.swing.JFrame {
             
             try{
                 // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&flux=");
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=0&fichier="+Fic.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
                 BufferedReader  in = new BufferedReader(new InputStreamReader(url.openStream()));
                 // On lit le fichier
                 BufferedReader buffer = new BufferedReader(new FileReader(Fic));
                 while((nblu = buffer.read(Flux,0,500)) != -1){
-                    url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20"));
+                    url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=1&flux="+String.copyValueOf(Flux,0,nblu).replaceAll("\\s","%20")+"&fichier="+Fic.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20"));
                     in = new BufferedReader(new InputStreamReader(url.openStream()));
                 }
                 // On indique qu'on a fini de lire le fichier
-                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&flux=");
+                url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/MAJBDFicLocalServlet?login="+utilisateur.getLogin()+"&lecture=2&fichier="+Fic.replaceAll("\\\\","\\\\\\\\").replaceAll("\\s","%20")+"&flux=");
                 in = new BufferedReader(new InputStreamReader(url.openStream()));
                 
                 String reponse = new String("");
@@ -253,6 +253,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                 }
                 
             }catch(IOException e){
+                e.printStackTrace();
                 javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ErrorConnexionServer"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE);                
             }
         }

@@ -162,6 +162,8 @@ CREATE TABLE `projets` (
   `datefin` date default NULL,
   `description` varchar(200) default NULL,
   `budget` int(11) default '0',
+  `local` enum('TRUE','FALSE') NOT NULL default 'TRUE',
+  `fichier` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`idprojet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

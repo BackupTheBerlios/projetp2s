@@ -59,7 +59,7 @@ public class MAJBDServlet extends HttpServlet {
         cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
                 
         try{
-            ParserXMLFichierWF parserFic = new ParserXMLFichierWF(urlfichier,cheminBD,login, type);        
+            ParserXMLFichierWF parserFic = new ParserXMLFichierWF(urlfichier,cheminBD,login, type, urlfichier);        
             parserFic.majBase();
         }catch(FileNotFoundException e){
             out.print("0");

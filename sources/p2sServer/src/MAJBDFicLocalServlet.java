@@ -51,6 +51,7 @@ public class MAJBDFicLocalServlet extends HttpServlet {
         String login = request.getParameter("login");
         String lecture = request.getParameter("lecture");
         String flux = request.getParameter("flux");
+        String fichier = request.getParameter("fichier");
         
         // On efface le buffer lorsqu'on commence à lire un nouveau fichier
         if(lecture.compareTo("0") == 0)
@@ -65,7 +66,8 @@ public class MAJBDFicLocalServlet extends HttpServlet {
             cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
             
             try{
-                ParserXMLFichierWF parserFic = new ParserXMLFichierWF(this.FluxTotal,cheminBD,login, type);
+                System.out.println(this.FluxTotal);
+                ParserXMLFichierWF parserFic = new ParserXMLFichierWF(this.FluxTotal,cheminBD,login, type, fichier);
                 parserFic.majBase();
             }catch(FileNotFoundException e){
                 out.print("0");
