@@ -105,6 +105,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             }
         });
 
+        jTree1.setBorder(new javax.swing.border.EtchedBorder());
         jTree1.setPreferredSize(new java.awt.Dimension(150, 64));
         getContentPane().add(jTree1, java.awt.BorderLayout.WEST);
 
@@ -112,6 +113,7 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         getContentPane().add(PanelContenu, java.awt.BorderLayout.CENTER);
 
+        JMenuBar.setBorder(new javax.swing.border.EtchedBorder());
         JMenuFichier.setBackground(new java.awt.Color(236, 233, 216));
         JMenuFichier.setText("Fichier");
         JMenuItemQuitter.setText("Quitter");
@@ -211,7 +213,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                     creerEnvironnementDir();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, new String("Login Inconnu ou mot de passe incorrect"),new String("Probl?me Login") , JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
                 JDialogLog = new JDialogLogin(this,true);
                 JDialogLog.show();
             }
@@ -235,12 +237,12 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Construction de l'arborescence
         
         // Premier noeud
-        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudSuperviseur"));
+        racine = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
         
         // Ajout des projets supervis?s par l'utilisateur
         
         // Ajout du noeud "Projets"
-        DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
+       // DefaultMutableTreeNode racineProjet = new DefaultMutableTreeNode(Bundle.getText("NoeudProjets"));
         
         // Ajout des projets du superviseur
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
@@ -250,9 +252,9 @@ public class JFrameP2S extends javax.swing.JFrame {
                 NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
                 noeudProjet.add(noeudIteration);
             }
-            racineProjet.add(noeudProjet);
+            racine.add(noeudProjet);
         }
-        racine.add(racineProjet);
+       // racine.add(racineProjet);
         
         // Met ? jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
