@@ -49,6 +49,7 @@ public class JDialogAlerte extends javax.swing.JDialog {
 
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 240, -1));
 
+        jTextArea1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 240, 150));
 
         jButton1.setText("Envoyer");
