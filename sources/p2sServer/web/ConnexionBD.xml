@@ -12,5 +12,5 @@
     <host>localhost</host>
     <base>p2s</base>
     <login>root</login>
-    <password>rootpass</password>
+    <password>admin</password>
 </BD>

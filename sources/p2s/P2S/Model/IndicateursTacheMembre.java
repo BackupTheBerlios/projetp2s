@@ -13,15 +13,17 @@ package P2S.Model;
 public class IndicateursTacheMembre {
     
     private String nom;
-    private int tempsPasse;
+    private String nomProjet;
+    private int charges;
     
     /** Creates a new instance of IndicateursTacheMembre */
     public IndicateursTacheMembre() {
     }
     
-    public IndicateursTacheMembre(String _nom, int _tempsPasse) {
+    public IndicateursTacheMembre(String _nom, String _nomProjet, int _charges) {
         nom = _nom;
-        tempsPasse = _tempsPasse;
+        nomProjet = _nomProjet;
+        charges = _charges;
     }
     
     public String getNom() {
@@ -32,12 +34,20 @@ public class IndicateursTacheMembre {
         this.nom = nom;
     }
 
-    public int getTempsPasse() {
-        return tempsPasse;
+    public int getCharges() {
+        return charges;
     }
 
-    public void setTempsPasse(int tempsPasse) {
-        this.tempsPasse = tempsPasse;
+    public void setCharges(int charges) {
+        this.charges = charges;
+    }
+
+    public String getNomProjet() {
+        return nomProjet;
+    }
+
+    public void setNomProjet(String nomProjet) {
+        this.nomProjet = nomProjet;
     }
     
 }

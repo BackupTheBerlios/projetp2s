@@ -19,7 +19,7 @@ import javax.swing.JTable;
  */
 public class JPanelIndicTachesMembre extends javax.swing.JPanel {
     
-    private String[] nomsColonnes = {Bundle.getText("JTableIndicTachesColonne1"), Bundle.getText("JTableIndicTachesColonne2")} ;
+    private String[] nomsColonnes = {Bundle.getText("JTableIndicTachesColonne1"), Bundle.getText("JTableIndicTachesColonne2"), Bundle.getText("JTableIndicTachesColonne3")} ;
     private Object[][] donnees = null ;
     private javax.swing.JTable table;
     private javax.swing.JScrollPane tableScrollPane;
@@ -30,13 +30,14 @@ public class JPanelIndicTachesMembre extends javax.swing.JPanel {
         // initialisation des donnees
         initComponents ();
         
-        donnees = new Object[indicateursTache.size()][2] ;
+        donnees = new Object[indicateursTache.size()][3] ;
         for (int i = 0 ; i < donnees.length ; i++)
         {
             if (indicateursTache.get(i) instanceof IndicateursTacheMembre)
             {
                 donnees[i][0] = ((IndicateursTacheMembre)indicateursTache.get(i)).getNom() ;
-                donnees[i][1] = new Integer(((IndicateursTacheMembre)indicateursTache.get(i)).getTempsPasse()) ;
+                donnees[i][1] = new Integer(((IndicateursTacheMembre)indicateursTache.get(i)).getCharges()) ;
+                donnees[i][2] = ((IndicateursTacheMembre)indicateursTache.get(i)).getNomProjet();
             }
         }
         

@@ -580,7 +580,8 @@ public class ParserXMLLog {
                 if(attributCourant.getNodeName().equalsIgnoreCase("indicateursTaches")){
                     
                     String nomTache = null;
-                    int tempsPasse = -1;
+                    String nomProjet = null;
+                    int charges = -1;
                     
                     NodeList listeIndicateursTachesMembre = attributCourant.getChildNodes();
                     
@@ -597,12 +598,16 @@ public class ParserXMLLog {
                             if(indicateurActuel.getNodeName().equalsIgnoreCase("nom"))
                                 nomTache = indicateurActuel.getFirstChild().getNodeValue();
                             
+                            //Recuperation du nom du projet associé
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("nomprojet"))
+                                nomProjet = indicateurActuel.getFirstChild().getNodeValue();
+                            
                             //Recuperation des charges dans cette tache
-                            if(indicateurActuel.getNodeName().equalsIgnoreCase("tempspasse"))
-                                tempsPasse = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
+                            if(indicateurActuel.getNodeName().equalsIgnoreCase("charges"))
+                                charges = Integer.parseInt(indicateurActuel.getFirstChild().getNodeValue());
                             
                         }
-                        listeIndicateursTache.add(new IndicateursTacheMembre(nomTache,tempsPasse));
+                        listeIndicateursTache.add(new IndicateursTacheMembre(nomTache,nomProjet,charges));
                     }
                 }
                 
