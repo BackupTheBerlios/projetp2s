@@ -63,10 +63,26 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
         getContentPane().add(JButtonAnnuler, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, -1, -1));
 
         jLabelLogin.setText("Login : ");
-        getContentPane().add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
+        jLabelLogin.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 45, -1, -1));
 
         jLabelPassword.setText("Password :");
-        getContentPane().add(jLabelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+        getContentPane().add(jLabelPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 95, -1, -1));
+
+        jPasswordMDP.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 11));
+        jPasswordMDP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordMDPFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordMDPFocusLost(evt);
+            }
+        });
+        jPasswordMDP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordMDPKeyPressed(evt);
+            }
+        });
 
         getContentPane().add(jPasswordMDP, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 130, -1));
 
@@ -75,6 +91,20 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-292)/2, (screenSize.height-201)/2, 292, 201);
     }//GEN-END:initComponents
+
+    private void jPasswordMDPKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordMDPKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            JButtonOk.doClick() ;
+        }
+    }//GEN-LAST:event_jPasswordMDPKeyPressed
+
+    private void jPasswordMDPFocusLost (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordMDPFocusLost
+        JButtonOk.setSelected(false) ;
+    }//GEN-LAST:event_jPasswordMDPFocusLost
+
+    private void jPasswordMDPFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordMDPFocusGained
+        JButtonOk.setSelected(true) ;
+    }//GEN-LAST:event_jPasswordMDPFocusGained
     
     private void initText() {
         this.setTitle(Bundle.getText("JDialogCreerSuperviseur_TitreFenetre"));
@@ -93,6 +123,13 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
     
     private void JButtonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOkActionPerformed
         
+        // verification si les champs sont vides
+        if (jTextFieldLogin.getText().equals("") || jPasswordMDP.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, Bundle.getText("JDialogCreerSuperviseur_ChampsVides"),Bundle.getText("JDialogCreerSuperviseur_CreationNOkTitle") , JOptionPane.WARNING_MESSAGE);
+            return ;
+        }
+        
         try{
             ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie du login et du password a la servlet "CreerSuperviseurServlet" pour l'ajouter a la BD
@@ -109,7 +146,7 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             if(inputLine.equalsIgnoreCase("nok")){ // Si la servlet repond que ce n'est pas Ok
                 this.setVisible(false); // on cache la fenetre
                 // On affiche un message d'erreur
-                JOptionPane.showMessageDialog(this, new String("Ce login existe deja."),new String("Creation impossible") , JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, Bundle.getText("JDialogCreerSuperviseur_LoginExiste"),Bundle.getText("JDialogCreerSuperviseur_CreationNOkTitle") , JOptionPane.WARNING_MESSAGE);
                 // On remet a vide le login et le password
                 this.jTextFieldLogin.setText("");
                 this.jPasswordMDP.setText("");
@@ -118,13 +155,15 @@ public class JDialogCreerSuperviseur extends javax.swing.JDialog {
             else{
                this.dispose(); // on ferme la fenetre
                // On avertit le directeur que le superviseur a ete cree
-               JOptionPane.showMessageDialog(this, new String("Le superviseur a bien ete ajoute"),new String("Creation effectuee") , JOptionPane.INFORMATION_MESSAGE);                 
+               JOptionPane.showMessageDialog(this, Bundle.getText("JDialogCreerSuperviseur_SupCree"),Bundle.getText("JDialogCreerSuperviseur_CreationOkTitle") , JOptionPane.INFORMATION_MESSAGE);                 
             }
             in.close();
         } catch(MalformedURLException e1){
-            e1.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         } catch(IOException e2){
-            e2.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IllegalArgumentException e3){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         }
     }//GEN-LAST:event_JButtonOkActionPerformed
     
