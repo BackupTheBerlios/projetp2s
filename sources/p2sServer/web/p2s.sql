@@ -171,7 +171,7 @@ CREATE TABLE `projets` (
   `datedebut` date default NULL,
   `datefin` date default NULL,
   `description` varchar(200) default NULL,
-  `budget` int(11) default '0',
+  `budget` float default '0',
   `local` enum('TRUE','FALSE') NOT NULL default 'TRUE',
   `fichier` varchar(150) NOT NULL default '',
   PRIMARY KEY  (`idprojet`)

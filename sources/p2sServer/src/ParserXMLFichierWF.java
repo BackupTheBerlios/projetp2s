@@ -119,6 +119,13 @@ public class ParserXMLFichierWF {
             return Integer.parseInt(s);
     }
     
+    private float updateFloat(String s){
+        if(s == null)
+            return -1;
+        else
+            return Float.parseFloat(s);
+    }
+    
     public String lireIdProjet() throws NullPointerException{
         NodeList listeNoeud = this.document.getElementsByTagName("projet").item(0).getChildNodes();
         String id;
@@ -221,7 +228,7 @@ public class ParserXMLFichierWF {
                 updateProjet.setString(2,dateDebut);
                 updateProjet.setString(3,dateFin);
                 updateProjet.setString(4,description);
-                updateProjet.setInt(5,updateInt(budget));
+                updateProjet.setFloat(5,updateFloat(budget));
                 updateProjet.setString(6,this.local);
                 updateProjet.setString(7,this.fichier);
                 
@@ -962,9 +969,9 @@ public class ParserXMLFichierWF {
                         updateTache.setString(1,nom);
                         updateTache.setString(2,description);
                         updateTache.setInt(3,updateInt(etat));
-                        updateTache.setInt(4,updateInt(chargePrevue));
-                        updateTache.setInt(5,updateInt(tempsPasse));
-                        updateTache.setInt(6,updateInt(resteAPasser));
+                        updateTache.setFloat(4,updateFloat(chargePrevue));
+                        updateTache.setFloat(5,updateFloat(tempsPasse));
+                        updateTache.setFloat(6,updateFloat(resteAPasser));
                         updateTache.setString(7,dateDebutPrevue);
                         updateTache.setString(8,dateFinPrevue);
                         updateTache.setString(9,dateDebutReelle);
@@ -1245,9 +1252,9 @@ public class ParserXMLFichierWF {
                         updateTache.setString(1,nom);
                         updateTache.setString(2,description);
                         updateTache.setInt(3,updateInt(etat));
-                        updateTache.setInt(4,updateInt(chargePrevue));
-                        updateTache.setInt(5,updateInt(tempsPasse));
-                        updateTache.setInt(6,updateInt(resteAPasser));
+                        updateTache.setFloat(4,updateFloat(chargePrevue));
+                        updateTache.setFloat(5,updateFloat(tempsPasse));
+                        updateTache.setFloat(6,updateFloat(resteAPasser));
                         updateTache.setString(7,dateDebutPrevue);
                         updateTache.setString(8,dateFinPrevue);
                         updateTache.setString(9,dateDebutReelle);
