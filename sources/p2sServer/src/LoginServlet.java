@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
             try {
                 // Connexion a la base de donnees
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
-                //Connection conn = DriverManager.getConnection("jdbc:mysql://unicorn-da.berlios.de/projetp2s","projetp2s","N94d8pX9wt");
+                
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from utilisateurs where login = '" + login + "' and password ='"+ password + "'");
                 ResultSet rsUser = prepState.executeQuery(); // Execution de la requete

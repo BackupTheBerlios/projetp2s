@@ -9,10 +9,9 @@ package P2S.Inf;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import P2S.Model.*;
-import java.io.*;
 import java.util.*;
 import java.text.*;
-import java.io.FileOutputStream;
+
 
 
 /**
@@ -120,7 +119,7 @@ public class ParserXMLLog {
             
             //IL FAUT REGARDER COMMENT CA SE PASSE POUR LES MESURES !!
             
-            Projet projetCourant = new Projet(idProjet,nom,description, dateDebut, dateFin, null, null,null,null);
+            Projet projetCourant = new Projet(nom,description, dateDebut, dateFin, null);
             projets.add(projetCourant);
         }
         

@@ -194,7 +194,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             try{                        
                 dateDebut = dateFormat.parse(this.JTextFieldDateDebutAnnee.getText()+"-"+this.JTextFieldDateDebutMois.getText()+"-"+this.JTextFieldDateDebutJour.getText());
             } catch(ParseException e1){
-                System.out.println("Probl?me pour parser dateDebut");
+                System.out.println("Probleme pour parser dateDebut");
             }
             
             // On recupere la date fin
@@ -202,7 +202,7 @@ public class JDialogCreerProjet extends javax.swing.JDialog {
             try{                        
                 dateFin = dateFormat.parse(this.JTextFieldDateFinAnnee.getText()+"-"+this.JTextFieldDateFinMois.getText()+"-"+this.JTextFieldDateFinJour.getText());
             } catch(ParseException e1){
-                System.out.println("Probl?me pour parser dateFin");
+                System.out.println("Probleme pour parser dateFin");
             }
             
             // On ajoute le projet

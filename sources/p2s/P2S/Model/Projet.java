@@ -10,7 +10,6 @@ public class Projet {
     
     //ATTRIBUTS
     
-    private int id;
     private String nom;
     private String description;
     private Date dateDebut;
@@ -19,14 +18,14 @@ public class Projet {
     private Vector listeIt;
     private Vector listeMembres;
     private Vector listeArtefacts;
+    private Vector listeRisques;
     
     
     //CONSTRUCTEURS
     
     /** Creates a new instance of Projet */
     
-    public Projet(String nom, Vector listeMesures) {
-        this.id = 1;
+    public Projet(String nom, Vector listeMesures) {        
         this.nom = nom;
         this.description = new String("");
         this.dateDebut = new Date();
@@ -35,10 +34,10 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();
         this.listeArtefacts = new Vector();
+        this.listeRisques = new Vector();
     }
     
-    public Projet(int idProjet, String nom, String description) {
-        this.id = idProjet;
+    public Projet(String nom, String description) {        
         this.nom = nom;
         this.description = description;
         this.dateDebut = new Date();
@@ -47,10 +46,10 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();
         this.listeArtefacts = new Vector();
+        this.listeRisques = new Vector();
     }
     
-    public Projet(int idProjet,String nom, String description, Vector listeMesure) {
-        this.id = idProjet;
+    public Projet(String nom, String description, Vector listeMesure) {        
         this.nom = nom;
         this.description = description;
         this.dateDebut = new Date();
@@ -59,18 +58,19 @@ public class Projet {
         this.listeIt = new Vector();
         this.listeMembres = new Vector();
         this.listeArtefacts = new Vector();
+        this.listeRisques = new Vector();
     }
     
-    public Projet(int idProjet,String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres, Vector listeArtefacts) {
-        this.id = idProjet;
+    public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure, Vector listeIt, Vector listeMembres, Vector listeArtefacts) {        
         this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.listeMesures = listeMesure;
-        this.listeIt = listeIt;
-        this.listeMembres = listeMembres;
-        this.listeArtefacts = listeArtefacts;
+        this.listeMesures = new Vector(listeMesure);
+        this.listeIt = new Vector(listeIt);
+        this.listeMembres = new Vector(listeMembres);
+        this.listeArtefacts = new Vector(listeArtefacts);
+        this.listeRisques = new Vector();
     }
     
     public Projet(String nom, String description, Date dateDebut, Date dateFin, Vector listeMesure) {
@@ -78,11 +78,13 @@ public class Projet {
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.listeMesures = listeMesure;
+        this.listeMesures = new Vector(listeMesure);
         this.listeIt = new Vector();
         this.listeMembres = new Vector();
         this.listeArtefacts = new Vector();
+        this.listeRisques = new Vector();
     }
+        
     
     public void ajouterMesure(Mesure mesure) {
         this.listeMesures.add(mesure);
@@ -146,15 +148,7 @@ public class Projet {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int idProjet) {
-        this.id = idProjet;
-    }
-    
+   
     public Vector getListeIt() {
         return listeIt;
     }
@@ -177,5 +171,13 @@ public class Projet {
     
     public void setListeArtefacts(Vector listeArtefacts) {
         this.listeArtefacts = listeArtefacts;
+    }
+
+    public Vector getListeRisques() {
+        return listeRisques;
+    }
+
+    public void setListeRisques(Vector listeRisques) {
+        this.listeRisques = listeRisques;
     }
 }
