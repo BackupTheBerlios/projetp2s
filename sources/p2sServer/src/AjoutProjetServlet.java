@@ -87,7 +87,7 @@ public class AjoutProjetServlet extends HttpServlet {
                 
                 if(rsIDMaxProjet.next()){
                     int idProjet = rsIDMaxProjet.getInt(1)+1;
-                    prepState = conn.prepareStatement("insert into projets values ("+idProjet+",'"+nom+"','"+anneeDateDebut+"-"+moisDateDebut+"-"+jourDateDebut+"','"+anneeDateFin+"-"+moisDateFin+"-"+jourDateFin+"','"+description+"')");
+                    prepState = conn.prepareStatement("insert into projets values ("+idProjet+",'"+nom+"','"+anneeDateDebut+"-"+moisDateDebut+"-"+jourDateDebut+"','"+anneeDateFin+"-"+moisDateFin+"-"+jourDateFin+"','"+description+"',"+100+")");
                     prepState.execute(); // Execution de la requete
                     prepState = conn.prepareStatement("insert into superviseurprojets values('"+login+"',"+idProjet+")");
                     prepState.execute(); // Execution de la requete
