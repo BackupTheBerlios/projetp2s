@@ -41,8 +41,8 @@ public class JPanelInfoRisque extends javax.swing.JPanel {
             {
                 donnees[i][0] = ((Risque)risques.get(i)).getNom() ;
                 donnees[i][1] = ((Risque)risques.get(i)).getDescription() ;
-                donnees[i][2] = ((Risque)risques.get(i)).getPriorite() ;
-                donnees[i][3] = ((Risque)risques.get(i)).getImpact() ;
+                donnees[i][2] = new Integer(((Risque)risques.get(i)).getPriorite()) ;
+                donnees[i][3] = new Integer(((Risque)risques.get(i)).getImpact()) ;
                 donnees[i][4] = ((Risque)risques.get(i)).getEtat() ;
             }
         }
