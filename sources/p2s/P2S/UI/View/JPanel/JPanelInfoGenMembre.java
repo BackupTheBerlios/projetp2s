@@ -27,11 +27,17 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
         initText();
         
         // On affiche les infos du membre
-        this.LabelNom.setText(membre.getNom());
+        /*this.LabelNom.setText(membre.getNom());
         this.LabelPrenom.setText(membre.getPrenom());
         this.LabelAdresse.setText(membre.getAdresse());
         this.LabelTelephone.setText(membre.getTelephone());
-        this.LabelEMail.setText(membre.getEmail());
+        this.LabelEMail.setText(membre.getEmail());*/
+        
+        this.textNom.setText(membre.getNom());
+        this.textPrenom.setText(membre.getPrenom());
+        this.textAdresse.setText(membre.getAdresse());
+        this.textTel.setText(membre.getTelephone());
+        this.textMail.setText(membre.getEmail());
     }
     
     /** This method is called from within the constructor to
@@ -42,117 +48,112 @@ public class JPanelInfoGenMembre extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        LabelStaticNom = new javax.swing.JLabel();
-        LabelStaticPrenom = new javax.swing.JLabel();
-        LabelStaticAdresse = new javax.swing.JLabel();
-        LabelStaticTelephone = new javax.swing.JLabel();
-        LabelStaticEMail = new javax.swing.JLabel();
-        LabelNom = new javax.swing.JLabel();
-        LabelPrenom = new javax.swing.JLabel();
-        LabelAdresse = new javax.swing.JLabel();
-        LabelTelephone = new javax.swing.JLabel();
-        LabelEMail = new javax.swing.JLabel();
         LabelVide = new javax.swing.JLabel();
+        textNom = new javax.swing.JTextField();
+        textStaticNom = new javax.swing.JTextField();
+        textStaticPrenom = new javax.swing.JTextField();
+        textPrenom = new javax.swing.JTextField();
+        textStaticAdresse = new javax.swing.JTextField();
+        textAdresse = new javax.swing.JTextField();
+        textStaticTel = new javax.swing.JTextField();
+        textTel = new javax.swing.JTextField();
+        textStaticMail = new javax.swing.JTextField();
+        textMail = new javax.swing.JTextField();
 
-        setLayout(new java.awt.GridBagLayout());
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LabelStaticNom.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        add(LabelStaticNom, gridBagConstraints);
+        LabelVide.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(LabelVide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 348));
 
-        LabelStaticPrenom.setText("jLabel2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        add(LabelStaticPrenom, gridBagConstraints);
+        textNom.setBackground(new java.awt.Color(255, 255, 255));
+        textNom.setEditable(false);
+        textNom.setText("Nom");
+        textNom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 120, -1));
 
-        LabelStaticAdresse.setText("jLabel3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        add(LabelStaticAdresse, gridBagConstraints);
+        textStaticNom.setBackground(new java.awt.Color(255, 255, 255));
+        textStaticNom.setEditable(false);
+        textStaticNom.setText("Nom :");
+        textStaticNom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textStaticNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 70, -1));
 
-        LabelStaticTelephone.setText("jLabel4");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        add(LabelStaticTelephone, gridBagConstraints);
+        textStaticPrenom.setBackground(new java.awt.Color(255, 255, 255));
+        textStaticPrenom.setEditable(false);
+        textStaticPrenom.setText("Pr\u00e9nom :");
+        textStaticPrenom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textStaticPrenom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 70, -1));
 
-        LabelStaticEMail.setText("jLabel5");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        add(LabelStaticEMail, gridBagConstraints);
+        textPrenom.setBackground(new java.awt.Color(255, 255, 255));
+        textPrenom.setEditable(false);
+        textPrenom.setText("Pr\u00e9nom");
+        textPrenom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textPrenom, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 120, -1));
 
-        LabelNom.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        add(LabelNom, gridBagConstraints);
+        textStaticAdresse.setBackground(new java.awt.Color(255, 255, 255));
+        textStaticAdresse.setEditable(false);
+        textStaticAdresse.setText("Adresse :");
+        textStaticAdresse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textStaticAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 70, -1));
 
-        LabelPrenom.setText("jLabel2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        add(LabelPrenom, gridBagConstraints);
+        textAdresse.setBackground(new java.awt.Color(255, 255, 255));
+        textAdresse.setEditable(false);
+        textAdresse.setText("Adresse");
+        textAdresse.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textAdresse, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 120, -1));
 
-        LabelAdresse.setText("jLabel3");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        add(LabelAdresse, gridBagConstraints);
+        textStaticTel.setBackground(new java.awt.Color(255, 255, 255));
+        textStaticTel.setEditable(false);
+        textStaticTel.setText("T\u00e9l\u00e9phonne :");
+        textStaticTel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textStaticTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 70, -1));
 
-        LabelTelephone.setText("jLabel4");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        add(LabelTelephone, gridBagConstraints);
+        textTel.setBackground(new java.awt.Color(255, 255, 255));
+        textTel.setEditable(false);
+        textTel.setText("t\u00e9l\u00e9phonne");
+        textTel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 120, -1));
 
-        LabelEMail.setText("jLabel5");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        add(LabelEMail, gridBagConstraints);
+        textStaticMail.setBackground(new java.awt.Color(255, 255, 255));
+        textStaticMail.setEditable(false);
+        textStaticMail.setText("EMail :");
+        textStaticMail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textStaticMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 70, -1));
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        add(LabelVide, gridBagConstraints);
+        textMail.setBackground(new java.awt.Color(255, 255, 255));
+        textMail.setEditable(false);
+        textMail.setText("EMail");
+        textMail.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
+        add(textMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 120, -1));
 
     }//GEN-END:initComponents
              
     private void initText()
     {
-        this.LabelStaticNom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
+        /*this.LabelStaticNom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
         this.LabelStaticPrenom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
         this.LabelStaticAdresse.setText(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
         this.LabelStaticTelephone.setText(Bundle.getText("JPanelInfoMembre_JLabel_Telephone"));
-        this.LabelStaticEMail.setText(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));
+        this.LabelStaticEMail.setText(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));*/
+        
+        this.textStaticNom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
+        this.textStaticPrenom.setText(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
+        this.textStaticAdresse.setText(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
+        this.textStaticTel.setText(Bundle.getText("JPanelInfoMembre_JLabel_Telephone"));
+        this.textStaticMail.setText(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelAdresse;
-    private javax.swing.JLabel LabelEMail;
-    private javax.swing.JLabel LabelNom;
-    private javax.swing.JLabel LabelPrenom;
-    private javax.swing.JLabel LabelStaticAdresse;
-    private javax.swing.JLabel LabelStaticEMail;
-    private javax.swing.JLabel LabelStaticNom;
-    private javax.swing.JLabel LabelStaticPrenom;
-    private javax.swing.JLabel LabelStaticTelephone;
-    private javax.swing.JLabel LabelTelephone;
     private javax.swing.JLabel LabelVide;
+    private javax.swing.JTextField textAdresse;
+    private javax.swing.JTextField textMail;
+    private javax.swing.JTextField textNom;
+    private javax.swing.JTextField textPrenom;
+    private javax.swing.JTextField textStaticAdresse;
+    private javax.swing.JTextField textStaticMail;
+    private javax.swing.JTextField textStaticNom;
+    private javax.swing.JTextField textStaticPrenom;
+    private javax.swing.JTextField textStaticTel;
+    private javax.swing.JTextField textTel;
     // End of variables declaration//GEN-END:variables
     
 }
