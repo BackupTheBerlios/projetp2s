@@ -143,7 +143,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     private void formWindowClosed (java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         if (fermerApplication)
         {
-            System.exit(0) ;
+           System.exit(0) ;
         }
     }//GEN-LAST:event_formWindowClosed
 
@@ -167,7 +167,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_JButtonAnnulerActionPerformed
     
     private void JButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonOKActionPerformed
-        fermerApplication = true ;
+        fermerApplication = false ;
         try{
             ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie du login et du password a la servlet "LoginServlet" pour identifier l'utilisateur
@@ -196,11 +196,13 @@ public class JDialogLogin extends javax.swing.JDialog {
             }
             in.close();
         } catch(MalformedURLException e1){
-            e1.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         } catch(IOException e2){
-            e2.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IllegalArgumentException e3){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         }
-        fermerApplication = false ;
+        
         this.dispose();
     }//GEN-LAST:event_JButtonOKActionPerformed
     

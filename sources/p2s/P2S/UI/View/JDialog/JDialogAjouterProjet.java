@@ -64,11 +64,32 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
 
         getContentPane().add(jButtonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, -1, -1));
 
+        jTextFieldURL.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldURLFocusGained(evt);
+            }
+        });
+        jTextFieldURL.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldURLKeyPressed(evt);
+            }
+        });
+
         getContentPane().add(jTextFieldURL, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 200, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-345)/2, (screenSize.height-195)/2, 345, 195);
     }//GEN-END:initComponents
+
+    private void jTextFieldURLKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldURLKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            jButtonOK.doClick() ;
+        }
+    }//GEN-LAST:event_jTextFieldURLKeyPressed
+
+    private void jTextFieldURLFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldURLFocusGained
+        jButtonOK.setSelected(true) ;
+    }//GEN-LAST:event_jTextFieldURLFocusGained
     
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         this.dispose();
@@ -87,19 +108,22 @@ public class JDialogAjouterProjet extends javax.swing.JDialog {
                     url.openStream()));
             
             //Recuperation de la reponse envoye par la Servlet
-            /*String reponse = new String("");
+            String reponse = new String("");
             String inputLine;
             while ((inputLine = in.readLine()) != null)
                 reponse += inputLine;
             
             if(reponse.compareTo("erreur") == 0) {
+                javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
                 System.out.println("Probleme lors de l'ajout du projet dans la BD");
-            }*/
+            }
             in.close();
         } catch(MalformedURLException e1){
-            e1.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorURL"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         } catch(IOException e2){
-            e2.printStackTrace();
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorIO"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
+        } catch(IllegalArgumentException e3){
+	    javax.swing.JOptionPane.showMessageDialog(null, Bundle.getText("ExceptionErrorARGS"), Bundle.getText("ExceptionErrorTitle"), javax.swing.JOptionPane.ERROR_MESSAGE) ;
         }
         
         this.dispose();
