@@ -39,8 +39,7 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
     private JLabel nomTache ;
     private JButton boutonDetails ;
     private JTable tableProjets ;
-    private String[] titresColonnes = {Bundle.getText("JPanelTousLesProjets_Projet"),
-                Bundle.getText("JPanelTousLesProjets_IndicateurAvancement"),
+    private String[] titresColonnes = {Bundle.getText("JPanelTousLesProjets_Projet"),                
                 Bundle.getText("JPanelTousLesProjets_IndicateurParticipant"),
                 Bundle.getText("JPanelTousLesProjets_IndicateurTachesTerminees"),
                 Bundle.getText("JPanelTousLesProjets_IndicateurTotalCharges"),
@@ -55,17 +54,17 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
         
-        donnees = new Object[projets.size()][6] ;
+        donnees = new Object[projets.size()][5] ;
         for (int i = 0 ; i < donnees.length ; i++)
         {
             if (projets.get(i) instanceof Projet)
             {
                 donnees[i][0] = ((Projet)projets.get(i)).getNom() ;
-                donnees[i][1] = new Float(((Projet)projets.get(i)).getIndicateursProjet().getAvancementProjet());
-                donnees[i][2] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getNombreParticipants());
-                donnees[i][3] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTachesTerminees());
-                donnees[i][4] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTotalCharges());
-                donnees[i][5] = new JButton(Bundle.getText("JPanelTousLesProjetsDetail")) ;
+                //donnees[i][1] = new Float(((Projet)projets.get(i)).getIndicateursProjet().getAvancementProjet());
+                donnees[i][1] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getNombreParticipants());
+                donnees[i][2] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTachesTerminees());
+                donnees[i][3] = new Integer(((Projet)projets.get(i)).getIndicateursProjet().getTotalCharges());
+                donnees[i][4] = new JButton(Bundle.getText("JTableTachesDetails")) ;
             }
         }
          
@@ -227,7 +226,9 @@ public class JPanelTousLesProjets extends javax.swing.JPanel {
       }
      public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
       {
+         
          details.setText(((JButton)value).getText()) ;
+         
          return details ;
       }
 
