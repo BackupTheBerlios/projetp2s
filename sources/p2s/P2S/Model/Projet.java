@@ -16,6 +16,7 @@ public class Projet {
     private Date dateFin;
     private IndicateursProjet indicateursProjet;
     private Vector listeMesures;
+    private String Commentaire;
     private Vector listeIt;
     private Vector listeMembres;
     private Vector listeRisques;
@@ -192,6 +193,14 @@ public class Projet {
 
     public void setSeuilFixes(SeuilsFixes seuilFixes) {
         this.seuilFixes = seuilFixes;
+    }
+
+    public String getCommentaire() {
+        return Commentaire;
+    }
+
+    public void setCommentaire(String Commentaire) {
+        this.Commentaire = Commentaire;
     }
     
 }

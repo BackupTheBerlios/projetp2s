@@ -297,12 +297,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
             
             SeuilsFixes seuilsFixes = projet.getSeuilFixes();
             
-            // Envoie de tous les jtextfields qui seront insérés dans la servlet
-            
-            
-            
-            
-              
+            // Envoie de tous les jtextfields qui seront insérés dans la servlet    
             
             URL url;
             

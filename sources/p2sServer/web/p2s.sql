@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS `artefacts`;
 CREATE TABLE `artefacts` (
   `idartefact` int(10) unsigned NOT NULL auto_increment,
   `livrable` enum('true','false') default NULL,
-  `etat` int(11) default NULL,
+  `etat` varchar(20) default NULL,
   `nom` varchar(45) NOT NULL default '',
   `description` varchar(200) default NULL,
   `idresponsable` int(10) unsigned NOT NULL default '0',
@@ -72,6 +72,17 @@ CREATE TABLE `chefprojet_projets` (
   KEY `FK_chefprojet_projets_idprojet` (`idprojet`),
   CONSTRAINT `FK_chefprojet_projets_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`),
   CONSTRAINT `FK_chefprojet_projets_login` FOREIGN KEY (`login`) REFERENCES `utilisateurs` (`login`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `commentaire_projet`;
+CREATE TABLE `commentaire_projet` (
+  `idprojet` int(10) unsigned NOT NULL auto_increment,
+  `login` varchar(45) NOT NULL default '',
+  `commentaire` varchar(200) default NULL,
+  PRIMARY KEY  (`idprojet`,`login`),
+  KEY `FK_Commentaire_Projet_login` (`login`),
+  CONSTRAINT `FK_Commentaire_Projet_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`),
+  CONSTRAINT `FK_Commentaire_Projet_login` FOREIGN KEY (`login`) REFERENCES `utilisateurs` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `indicateurs_iteration`;
@@ -210,7 +221,7 @@ CREATE TABLE `risques` (
   `nom` varchar(45) NOT NULL default '',
   `priorite` int(11) default NULL,
   `impact` int(11) default NULL,
-  `etat` int(11) default NULL,
+  `etat` varchar(20) default NULL,
   `description` varchar(200) default NULL,
   `idprojet` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idrisque`),

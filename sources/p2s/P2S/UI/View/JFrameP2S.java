@@ -591,7 +591,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     
     private void afficherInfoProjet(Projet proj) {
-        JTabbedPaneProjet Tab = new JTabbedPaneProjet(proj);
+        JTabbedPaneProjet Tab = new JTabbedPaneProjet(proj,utilisateur);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
         this.validate();

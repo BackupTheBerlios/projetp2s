@@ -144,6 +144,7 @@ public class ParserXMLLog {
             int idProjet = -1;
             String nom = null;
             String description = null;
+            String commentaire = null;
             Date dateDebut = null;
             Date dateFin = null;
             IndicateursProjet indicateursProjet = null;
@@ -188,6 +189,11 @@ public class ParserXMLLog {
                     } catch(ParseException e2){
                         System.out.println("Probleme pour parser dateFin");
                     }
+                
+                //Recuperation de la description de la tache
+                if(attributCourant.getNodeName().equalsIgnoreCase("commentaire"))
+                    if(attributCourant.getFirstChild() != null)
+                        commentaire = attributCourant.getFirstChild().getNodeValue();
                 
                 //Recuperation des indicateurs liées aux projets
                 if(attributCourant.getNodeName().equalsIgnoreCase("indicateursprojet")){
@@ -791,6 +797,8 @@ public class ParserXMLLog {
                 }
             }
             Projet projetCourant = new Projet(nom,description, dateDebut, dateFin);
+            System.out.println(commentaire);
+            projetCourant.setCommentaire(commentaire);
             projetCourant.setListeIt(iterationList);
             projetCourant.setIndicateursProjet(indicateursProjet);
             projetCourant.setListeRisques(risquesList) ;

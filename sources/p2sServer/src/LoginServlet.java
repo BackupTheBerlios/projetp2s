@@ -157,6 +157,19 @@ public class LoginServlet extends HttpServlet {
                                     out.println(rsProjets.getFloat("budget"));
                                 out.println("</budget>");
                                 
+                                /********** COMMENTAIRE DU PROJET ******************/
+                                
+                                prepState = conn.prepareStatement("Select * from commentaire_projet where idprojet = '" + rsIdProjets.getString("idprojet") + "' AND login='" + rsUser.getString("login") + "'");
+                                ResultSet rsCommentaire = prepState.executeQuery(); // Execution de la requete
+                                
+                                out.println("<commentaire>");
+                                if(rsCommentaire.next()){
+                                    if(rsCommentaire.getString("commentaire") != null)
+                                      out.println(rsCommentaire.getString("commentaire"));
+                                }
+                                out.println("</commentaire>");
+                                
+                                
                                 /*********** RECUPERATION DES MEMBRES DU PROJET  ************/
                                 prepState = conn.prepareStatement("Select m.idmembre,m.nom,m.prenom,m.adresse,m.telephone,m.email from membres m, membres_projets mp where m.idmembre = mp.idmembre AND mp.idprojet = '"+ rsIdProjets.getString("idprojet") +"'");
                                 ResultSet rsMembres = prepState.executeQuery(); // Execution de la requete
@@ -253,8 +266,8 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</livrable>");
                                         
                                         out.println("<etat>");
-                                        if(rsArtefacts.getInt("etat") != -1)
-                                            out.println(rsArtefacts.getInt("etat"));
+                                        if(rsArtefacts.getString("etat") != null)
+                                            out.println(rsArtefacts.getString("etat"));
                                         out.println("</etat>");
                                         
                                         out.println("<nom>");
@@ -338,8 +351,8 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</description>");
                                                 
                                                 out.println("<etat>");
-                                                if(rsTaches.getInt("etat") != -1)
-                                                    out.println(rsTaches.getInt("etat"));
+                                                if(rsTaches.getString("etat") != null)
+                                                    out.println(rsTaches.getString("etat"));
                                                 out.println("</etat>");
                                                 
                                                 
@@ -407,8 +420,8 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</description>");
                                                 
                                                 out.println("<etat>");
-                                                if(rsTachesCollaboratives.getInt("etat") != -1)
-                                                    out.println(rsTachesCollaboratives.getInt("etat"));
+                                                if(rsTachesCollaboratives.getString("etat") != null)
+                                                    out.println(rsTachesCollaboratives.getString("etat"));
                                                 out.println("</etat>");
                                                 
                                                 out.println("<chargeprevue>");
@@ -582,8 +595,8 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</impact>");
                                         
                                         out.println("<etat>");
-                                        if(rsRisques.getInt("etat") != -1)
-                                            out.println(rsRisques.getInt("etat"));
+                                        if(rsRisques.getString("etat") != null)
+                                            out.println(rsRisques.getString("etat"));
                                         out.println("</etat>");
                                         
                                         out.println("<description>");
@@ -1289,8 +1302,8 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nom>");
                                     
                                     out.println("<etat>");
-                                    if(rsIndicArtefactMembre.getInt("etat") != -1)
-                                        out.println(rsIndicArtefactMembre.getInt("etat"));
+                                    if(rsIndicArtefactMembre.getString("etat") != null)
+                                        out.println(rsIndicArtefactMembre.getString("etat"));
                                     out.println("</etat>");
                                     
                                     out.println("</indicateurArtefact>");

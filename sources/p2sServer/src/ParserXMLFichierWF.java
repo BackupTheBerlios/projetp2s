@@ -4,6 +4,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -139,6 +141,15 @@ public class ParserXMLFichierWF {
             return Float.parseFloat(s);
     }
     
+    public String changerDate(String date){        
+        if(date == null)
+            return null;
+        else{
+            String T[] = date.split("/");
+            return T[2] + "-" + T[1] + "-" + T[0];
+        }
+    }
+    
     public String lireIdProjet() throws NullPointerException{
         NodeList listeNoeud = this.document.getElementsByTagName("projet").item(0).getChildNodes();
         String id;
@@ -194,7 +205,7 @@ public class ParserXMLFichierWF {
             b++;
         }
         try{
-            dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
+            dateDebut = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
         }catch(NullPointerException e){}
         
         
@@ -204,7 +215,7 @@ public class ParserXMLFichierWF {
             b++;
         }
         try{
-            dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
+            dateFin = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
         }catch(NullPointerException e){}
         
         // on recherche la description
@@ -335,7 +346,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateDebutPrevue = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             // on recherche la date reelle de debut d'iteration
@@ -344,7 +355,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateDebutReelle = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -354,7 +365,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateFinPrevue = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -364,10 +375,10 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateFinReelle = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
-            if(dateFinReelle != null){
+            //if(dateFinReelle != null){
                 try {
                     // Requete SQL
                     PreparedStatement prepState = conn.prepareStatement("Select * from iterations where iditeration="+id);
@@ -394,7 +405,7 @@ public class ParserXMLFichierWF {
                     System.out.println("VendorError: " + ex.getErrorCode());
                     ex.printStackTrace();
                 }
-            }
+            //}
         }
     }
     
@@ -781,7 +792,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                debut = listeNoeud.item(b).getFirstChild().getNodeValue();
+                debut = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             // on recherche la date de fin du probleme
@@ -790,7 +801,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                fin = listeNoeud.item(b).getFirstChild().getNodeValue();
+                fin = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}       
             
             
@@ -919,7 +930,7 @@ public class ParserXMLFichierWF {
                 ResultSet rsrisque = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rsrisque.next()){
-                    prepState = conn.prepareStatement("insert into risques values ("+id+","+insertString(nom)+","+priorite+","+impact+","+etat+","+insertString(description)+","+idProjet+")");
+                    prepState = conn.prepareStatement("insert into risques values ("+id+","+insertString(nom)+","+priorite+","+impact+","+insertString(etat)+","+insertString(description)+","+idProjet+")");
                     prepState.execute(); // Execution de la requete
                 } else{
                     PreparedStatement updateRisque = conn.prepareStatement(
@@ -928,7 +939,7 @@ public class ParserXMLFichierWF {
                     updateRisque.setString(2,description);
                     updateRisque.setInt(3,updateInt(priorite));
                     updateRisque.setInt(4,updateInt(impact));
-                    updateRisque.setInt(5,updateInt(etat));
+                    updateRisque.setString(5,etat);
                     updateRisque.setInt(6,updateInt(idProjet));
                     
                     updateRisque.executeUpdate();
@@ -1053,7 +1064,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateDebutPrevue = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             // on recherche la date reelle de debut de la tache
@@ -1062,7 +1073,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateDebutReelle = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -1072,7 +1083,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateFinPrevue = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -1082,7 +1093,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateFinReelle = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             // on recherche l'id de l'iteration auquel est rattache la tache
@@ -1335,7 +1346,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateDebutPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateDebutPrevue = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             // on recherche la date reelle de debut de la tache
@@ -1344,7 +1355,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateDebutReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateDebutReelle = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -1354,7 +1365,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateFinPrevue = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateFinPrevue = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -1364,7 +1375,7 @@ public class ParserXMLFichierWF {
                 b++;
             }
             try{
-                dateFinReelle = listeNoeud.item(b).getFirstChild().getNodeValue();
+                dateFinReelle = changerDate(listeNoeud.item(b).getFirstChild().getNodeValue());
             }catch(NullPointerException e){}
             
             
@@ -1596,14 +1607,14 @@ public class ParserXMLFichierWF {
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
                 
                 if(!rstache.next()){
-                    prepState = conn.prepareStatement("insert into artefacts values ("+id+","+insertString(livrable)+","+etat+","+insertString(nom)+","+insertString(description)+","+idResponsable+")");
+                    prepState = conn.prepareStatement("insert into artefacts values ("+id+","+insertString(livrable)+","+insertString(etat)+","+insertString(nom)+","+insertString(description)+","+idResponsable+")");
                     prepState.execute(); // Execution de la requete
                 }else{
                     PreparedStatement updateTache = conn.prepareStatement(
                             "update artefacts set nom=?, description=?, etat=?, livrable=?, idresponsable=? where idartefact ="+id);
                     updateTache.setString(1,nom);
                     updateTache.setString(2,description);
-                    updateTache.setInt(3,updateInt(etat));
+                    updateTache.setString(3,etat);
                     updateTache.setString(4,livrable);
                     updateTache.setInt(5,updateInt(idResponsable));
                     
