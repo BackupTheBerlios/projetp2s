@@ -8,7 +8,7 @@ import java.util.Locale;
 
 /**
  *
- * @author  Fabien
+ * @author  kassem
  */
 public class JDialogDetailTacheMembre extends javax.swing.JDialog {
     
