@@ -17,6 +17,7 @@ public class Superviseur extends Utilisateur{
     //ATTRIBUTS
     
     private Vector listeProjets;
+    private Vector listeMessages;
     
     //CONSTRUCTEURS
     
@@ -85,6 +86,16 @@ public class Superviseur extends Utilisateur{
     
     public void setListeProjets(Vector listeProjets) {
         this.listeProjets = listeProjets;
+    }
+    
+    public Vector getListeMessages()
+    {
+        return listeMessages;
+    }
+    
+    public Void setListeMessages(Vector listeMessages)
+    {
+        this.listeMessages = listeMessages;
     }
     
 }
