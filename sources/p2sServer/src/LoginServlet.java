@@ -94,7 +94,7 @@ public class LoginServlet extends HttpServlet {
                         //Dans le cas d'un superviseur ou d'un chef de projet : il faut récupérer toutes les informations relatives à ses projets
                         
                         out.println("<projets>");
-                                                                        
+                        
                         //Récupération des identifiants de tous les projets du superviseur
                         prepState = conn.prepareStatement("Select idprojet from " + nomTable + " where login = '" + rsUser.getString("login")+"'");
                         ResultSet rsIdProjets = prepState.executeQuery(); // Execution de la requete
@@ -119,19 +119,25 @@ public class LoginServlet extends HttpServlet {
                                 out.println("</nom>");
                                 
                                 out.println("<description>");
-                                out.println(rsProjets.getString("description"));
+                                
+                                if(rsProjets.getString("description") != null)
+                                    out.println(rsProjets.getString("description"));
+                                
                                 out.println("</description>");
                                 
                                 out.println("<dateDebut>");
-                                out.println(rsProjets.getString("datedebut"));
+                                if(rsProjets.getString("datedebut") != null)
+                                    out.println(rsProjets.getString("datedebut"));
                                 out.println("</dateDebut>");
                                 
                                 out.println("<dateFin>");
-                                out.println(rsProjets.getString("datefin"));
+                                if(rsProjets.getString("datefin") != null)
+                                    out.println(rsProjets.getString("datefin"));
                                 out.println("</dateFin>");
                                 
                                 out.println("<budget>");
-                                out.println(rsProjets.getString("budget"));
+                                if(rsProjets.getInt("budget") != -1)
+                                    out.println(rsProjets.getInt("budget"));
                                 out.println("</budget>");
                                 
                                 /*********** RECUPERATION DES MEMBRES DU PROJET  ************/
@@ -154,11 +160,13 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</nom>");
                                         
                                         out.println("<prenom>");
-                                        out.println(rsMembres.getString("prenom"));
+                                        if(rsMembres.getString("prenom") != null)
+                                            out.println(rsMembres.getString("prenom"));
                                         out.println("</prenom>");
                                         
                                         out.println("<adresse>");
-                                        out.println(rsMembres.getString("adresse"));
+                                        if(rsMembres.getString("adresse") != null)
+                                            out.println(rsMembres.getString("adresse"));
                                         out.println("</adresse>");
                                         
                                         out.println("<telephone>");
@@ -166,7 +174,8 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</telephone>");
                                         
                                         out.println("<email>");
-                                        out.println(rsMembres.getString("email"));
+                                        if(rsMembres.getString("email") != null)
+                                            out.println(rsMembres.getString("email"));
                                         out.println("</email>");
                                         
                                         /********************* ROLES DU MEMBRE **************/
@@ -185,11 +194,13 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</id>");
                                                 
                                                 out.println("<designation>");
-                                                out.println(rsRoles.getString("nom"));
+                                                if (rsRoles.getString("nom") != null)
+                                                    out.println(rsRoles.getString("nom"));
                                                 out.println("</designation>");
                                                 
                                                 out.println("<description>");
-                                                out.println(rsRoles.getString("description"));
+                                                if (rsRoles.getString("description") != null)
+                                                    out.println(rsRoles.getString("description"));
                                                 out.println("</description>");
                                                 out.println("</role>");
                                             }while(rsRoles.next());
@@ -220,11 +231,13 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</id>");
                                         
                                         out.println("<livrable>");
-                                        out.println(rsArtefacts.getString("livrable"));
+                                        if(rsArtefacts.getString("livrable") != null)
+                                            out.println(rsArtefacts.getString("livrable"));
                                         out.println("</livrable>");
                                         
                                         out.println("<etat>");
-                                        out.println(rsArtefacts.getString("etat"));
+                                        if(rsArtefacts.getInt("etat") != -1)
+                                            out.println(rsArtefacts.getInt("etat"));
                                         out.println("</etat>");
                                         
                                         out.println("<nom>");
@@ -232,11 +245,8 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</nom>");
                                         
                                         out.println("<description>");
-                                        out.println(rsArtefacts.getString("description"));
-                                        out.println("</description>");
-                                        
-                                        out.println("<description>");
-                                        out.println(rsArtefacts.getString("description"));
+                                        if(rsArtefacts.getString("description") != null)
+                                            out.println(rsArtefacts.getString("description"));
                                         out.println("</description>");
                                         
                                         out.println("<idresponsable>");
@@ -268,19 +278,23 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</numero>");
                                         
                                         out.println("<datedebutprevue>");
-                                        out.println(rsIterations.getString("datedebutprevue"));
+                                        if(rsIterations.getString("datedebutprevue") != null)
+                                            out.println(rsIterations.getString("datedebutprevue"));
                                         out.println("</datedebutprevue>");
                                         
                                         out.println("<datedebutreelle>");
-                                        out.println(rsIterations.getString("datedebutreelle"));
+                                        if(rsIterations.getString("datedebutreelle") != null)
+                                            out.println(rsIterations.getString("datedebutreelle"));
                                         out.println("</datedebutreelle>");
                                         
                                         out.println("<datefinprevue>");
-                                        out.println(rsIterations.getString("datefinprevue"));
+                                        if(rsIterations.getString("datefinprevue") != null)
+                                            out.println(rsIterations.getString("datefinprevue"));
                                         out.println("</datefinprevue>");
                                         
                                         out.println("<datefinreelle>");
-                                        out.println(rsIterations.getString("datefinreelle"));
+                                        if(rsIterations.getString("datefinreelle") != null)
+                                            out.println(rsIterations.getString("datefinreelle"));
                                         out.println("</datefinreelle>");
                                         
                                         /****************** Liste des taches dans l'itération ***********/
@@ -302,43 +316,49 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</nom>");
                                                 
                                                 out.println("<description>");
-                                                out.println(rsTaches.getString("description"));
+                                                if(rsTaches.getString("description") != null)
+                                                    out.println(rsTaches.getString("description"));
                                                 out.println("</description>");
                                                 
                                                 out.println("<etat>");
-                                                out.println(rsTaches.getString("etat"));
+                                                if(rsTaches.getInt("etat") != -1)
+                                                    out.println(rsTaches.getInt("etat"));
                                                 out.println("</etat>");
                                                 
-                                                out.println("<etat>");
-                                                out.println(rsTaches.getString("etat"));
-                                                out.println("</etat>");
                                                 
                                                 out.println("<chargeprevue>");
-                                                out.println(rsTaches.getString("chargeprevue"));
+                                                if(rsTaches.getInt("chargeprevue") != -1)
+                                                    out.println(rsTaches.getInt("chargeprevue"));
                                                 out.println("</chargeprevue>");
                                                 
                                                 out.println("<tempspasse>");
-                                                out.println(rsTaches.getString("tempspasse"));
+                                                if(rsTaches.getInt("tempspasse") != -1)
+                                                    out.println(rsTaches.getInt("tempspasse"));
                                                 out.println("</tempspasse>");
                                                 
                                                 out.println("<tempsrestant>");
-                                                out.println(rsTaches.getString("tempsrestant"));
-                                                out.println("</tempsrestant>");                                                
+                                                if(rsTaches.getInt("tempsrestant") != -1)
+                                                    out.println(rsTaches.getInt("tempsrestant"));
+                                                out.println("</tempsrestant>");
                                                 
                                                 out.println("<datedebutprevue>");
-                                                out.println(rsTaches.getString("datedebutprevue"));
+                                                if(rsTaches.getString("datedebutprevue") != null)
+                                                    out.println(rsTaches.getString("datedebutprevue"));
                                                 out.println("</datedebutprevue>");
                                                 
                                                 out.println("<datedebutreelle>");
-                                                out.println(rsTaches.getString("datedebutreelle"));
+                                                if(rsTaches.getString("datedebutreelle") != null)
+                                                    out.println(rsTaches.getString("datedebutreelle"));
                                                 out.println("</datedebutreelle>");
                                                 
                                                 out.println("<datefinprevue>");
-                                                out.println(rsTaches.getString("datefinprevue"));
+                                                if(rsTaches.getString("datefinprevue") != null) 
+                                                    out.println(rsTaches.getString("datefinprevue"));
                                                 out.println("</datefinprevue>");
                                                 
                                                 out.println("<datefinreelle>");
-                                                out.println(rsTaches.getString("datefinreelle"));
+                                                if(rsTaches.getString("datefinreelle") != null)
+                                                    out.println(rsTaches.getString("datefinreelle"));
                                                 out.println("</datefinreelle>");
                                                 
                                                 out.println("</tache>");
@@ -365,43 +385,48 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</nom>");
                                                 
                                                 out.println("<description>");
-                                                out.println(rsTachesCollaboratives.getString("description"));
+                                                if(rsTachesCollaboratives.getString("description") != null)
+                                                    out.println(rsTachesCollaboratives.getString("description"));
                                                 out.println("</description>");
                                                 
                                                 out.println("<etat>");
-                                                out.println(rsTachesCollaboratives.getString("etat"));
-                                                out.println("</etat>");
-                                                
-                                                out.println("<etat>");
-                                                out.println(rsTachesCollaboratives.getString("etat"));
+                                                if(rsTachesCollaboratives.getInt("etat") != -1)
+                                                    out.println(rsTachesCollaboratives.getInt("etat"));
                                                 out.println("</etat>");
                                                 
                                                 out.println("<chargeprevue>");
-                                                out.println(rsTachesCollaboratives.getString("chargeprevue"));
+                                                if(rsTachesCollaboratives.getInt("chargeprevue") != -1)
+                                                    out.println(rsTachesCollaboratives.getInt("chargeprevue"));
                                                 out.println("</chargeprevue>");
                                                 
                                                 out.println("<tempspasse>");
-                                                out.println(rsTachesCollaboratives.getString("tempspasse"));
+                                                if(rsTachesCollaboratives.getInt("tempspasse") != -1)
+                                                    out.println(rsTachesCollaboratives.getInt("tempspasse"));
                                                 out.println("</tempspasse>");
                                                 
                                                 out.println("<tempsrestant>");
-                                                out.println(rsTachesCollaboratives.getString("tempsrestant"));
+                                                if(rsTachesCollaboratives.getInt("tempsrestant") != -1)
+                                                    out.println(rsTachesCollaboratives.getInt("tempsrestant"));
                                                 out.println("</tempsrestant>");
                                                 
                                                 out.println("<datedebutprevue>");
-                                                out.println(rsTachesCollaboratives.getString("datedebutprevue"));
+                                                if(rsTachesCollaboratives.getString("datedebutprevue") != null)
+                                                    out.println(rsTachesCollaboratives.getString("datedebutprevue"));
                                                 out.println("</datedebutprevue>");
                                                 
                                                 out.println("<datedebutreelle>");
-                                                out.println(rsTachesCollaboratives.getString("datedebutreelle"));
+                                                if(rsTachesCollaboratives.getString("datedebutreelle") != null)
+                                                    out.println(rsTachesCollaboratives.getString("datedebutreelle"));
                                                 out.println("</datedebutreelle>");
                                                 
                                                 out.println("<datefinprevue>");
-                                                out.println(rsTachesCollaboratives.getString("datefinprevue"));
+                                                if(rsTachesCollaboratives.getString("datefinprevue") != null)
+                                                    out.println(rsTachesCollaboratives.getString("datefinprevue"));
                                                 out.println("</datefinprevue>");
                                                 
                                                 out.println("<datefinreelle>");
-                                                out.println(rsTachesCollaboratives.getString("datefinreelle"));
+                                                if(rsTachesCollaboratives.getString("datefinreelle") != null)
+                                                    out.println(rsTachesCollaboratives.getString("datefinreelle"));
                                                 out.println("</datefinreelle>");
                                                 
                                                 out.println("</tacheCollaborative>");
@@ -422,27 +447,33 @@ public class LoginServlet extends HttpServlet {
                                             out.println("<indicateursIteration>");
                                             
                                             out.println("<totalcharges>");
-                                            out.println(rsIndicateursIteration.getString("totalcharges"));
+                                            if(rsIndicateursIteration.getInt("totalcharges") != -1)
+                                                out.println(rsIndicateursIteration.getInt("totalcharges"));
                                             out.println("</totalcharges>");
                                             
                                             out.println("<nombreTachesTerminees>");
-                                            out.println(rsIndicateursIteration.getString("nombreTachesTerminees"));
+                                            if(rsIndicateursIteration.getInt("nombreTachesTerminees") != -1)
+                                                out.println(rsIndicateursIteration.getInt("nombreTachesTerminees"));
                                             out.println("</nombreTachesTerminees>");
                                             
                                             out.println("<dureeMoyenneTache>");
-                                            out.println(rsIndicateursIteration.getString("dureeMoyenneTache"));
+                                            if(rsIndicateursIteration.getInt("dureeMoyenneTache") != -1)
+                                                out.println(rsIndicateursIteration.getInt("dureeMoyenneTache"));
                                             out.println("</dureeMoyenneTache>");
                                             
                                             out.println("<nombreParticipants>");
-                                            out.println(rsIndicateursIteration.getString("nombreParticipants"));
+                                            if(rsIndicateursIteration.getInt("nombreParticipants") != -1)
+                                                out.println(rsIndicateursIteration.getInt("nombreParticipants"));
                                             out.println("</nombreParticipants>");
                                             
                                             out.println("<chargeMoyenneParticipants>");
-                                            out.println(rsIndicateursIteration.getString("chargeMoyenneParticipants"));
+                                            if(rsIndicateursIteration.getInt("chargeMoyenneParticipants") != -1)
+                                                out.println(rsIndicateursIteration.getInt("chargeMoyenneParticipants"));
                                             out.println("</chargeMoyenneParticipants>");
                                             
                                             out.println("<nombreMoyenTachesParticipants>");
-                                            out.println(rsIndicateursIteration.getString("nombreMoyenTachesParticipants"));
+                                            if(rsIndicateursIteration.getInt("nombreMoyenTachesParticipants") != -1)
+                                                out.println(rsIndicateursIteration.getInt("nombreMoyenTachesParticipants"));
                                             out.println("</nombreMoyenTachesParticipants>");
                                             
                                             out.println("</indicateursIteration>");
@@ -476,19 +507,23 @@ public class LoginServlet extends HttpServlet {
                                         out.println("</nom>");
                                         
                                         out.println("<priorite>");
-                                        out.println(rsRisques.getString("priorite"));
+                                        if(rsRisques.getInt("priorite") != -1)
+                                            out.println(rsRisques.getInt("priorite"));
                                         out.println("</priorite>");
                                         
                                         out.println("<impact>");
-                                        out.println(rsRisques.getString("impact"));
+                                        if(rsRisques.getInt("impact") != -1)
+                                            out.println(rsRisques.getInt("impact"));
                                         out.println("</impact>");
                                         
                                         out.println("<etat>");
-                                        out.println(rsRisques.getString("etat"));
+                                        if(rsRisques.getInt("etat") != -1)
+                                            out.println(rsRisques.getInt("etat"));
                                         out.println("</etat>");
                                         
                                         out.println("<description>");
-                                        out.println(rsRisques.getString("description"));
+                                        if(rsRisques.getString("description") != null)
+                                            out.println(rsRisques.getString("description"));
                                         out.println("</description>");
                                         
                                         out.println("</risque>");
@@ -715,23 +750,28 @@ public class LoginServlet extends HttpServlet {
                                     out.println("<indicateursProjet>");
                                     
                                     out.println("<totalCharges>");
-                                    out.println(rsIndicateursProjet.getString("totalcharges"));
+                                    if(rsIndicateursProjet.getInt("totalcharges") != -1)
+                                        out.println(rsIndicateursProjet.getInt("totalcharges"));
                                     out.println("</totalCharges>");
                                     
                                     out.println("<tachesTerminees>");
-                                    out.println(rsIndicateursProjet.getString("tachesTerminees"));
+                                    if(rsIndicateursProjet.getInt("tachesTerminees") != -1)
+                                        out.println(rsIndicateursProjet.getInt("tachesTerminees"));
                                     out.println("</tachesTerminees>");
                                     
                                     out.println("<dureeMoyenneTache>");
-                                    out.println(rsIndicateursProjet.getString("dureeMoyenneTache"));
+                                    if(rsIndicateursProjet.getInt("dureeMoyenneTache") != -1)
+                                        out.println(rsIndicateursProjet.getInt("dureeMoyenneTache"));
                                     out.println("</dureeMoyenneTache>");
                                     
                                     out.println("<nombreParticipants>");
-                                    out.println(rsIndicateursProjet.getString("nombreParticipants"));
+                                    if(rsIndicateursProjet.getInt("nombreParticipants") != -1)
+                                        out.println(rsIndicateursProjet.getInt("nombreParticipants"));
                                     out.println("</nombreParticipants>");
                                     
                                     out.println("<avancementProjet>");
-                                    out.println(rsIndicateursProjet.getString("avancementProjet"));
+                                    if(rsIndicateursProjet.getInt("avancementProjet") != -1)
+                                        out.println(rsIndicateursProjet.getInt("avancementProjet"));
                                     out.println("</avancementProjet>");
                                     
                                     out.println("</indicateursProjet>");
@@ -771,19 +811,23 @@ public class LoginServlet extends HttpServlet {
                             out.println("</nom>");
                             
                             out.print("<prenom>");
-                            out.print(rsMembres.getString("prenom"));
+                            if(rsMembres.getString("prenom") != null)
+                                out.print(rsMembres.getString("prenom"));
                             out.print("</prenom>");
                             
                             out.print("<adresse>");
-                            out.print(rsMembres.getString("adresse"));
+                            if(rsMembres.getString("adresse") != null)
+                                out.print(rsMembres.getString("adresse"));
                             out.print("</adresse>");
                             
                             out.print("<telephone>");
-                            out.print(rsMembres.getString("telephone"));
+                            if(rsMembres.getString("telephone") != null)
+                                out.print(rsMembres.getString("telephone"));
                             out.print("</telephone>");
                             
                             out.print("<email>");
-                            out.print(rsMembres.getString("email"));
+                            if(rsMembres.getString("email") != null)
+                                out.print(rsMembres.getString("email"));
                             out.print("</email>");
                             
                             /********************* ROLES DU MEMBRE **************/
@@ -802,11 +846,13 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</id>");
                                     
                                     out.println("<designation>");
-                                    out.println(rsRoles.getString("nom"));
+                                    if(rsRoles.getString("nom") != null)
+                                        out.println(rsRoles.getString("nom"));
                                     out.println("</designation>");
                                     
                                     out.println("<description>");
-                                    out.println(rsRoles.getString("description"));
+                                    if(rsRoles.getString("description") != null)
+                                        out.println(rsRoles.getString("description"));
                                     out.println("</description>");
                                     
                                     out.println("</role>");
