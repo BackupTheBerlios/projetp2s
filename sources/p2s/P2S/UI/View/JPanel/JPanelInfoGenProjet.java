@@ -101,6 +101,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         LabelStaticIndicateursProjet.setText("Indicateurs sur le projet :");
         add(LabelStaticIndicateursProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
+        TextAreaDescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(TextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 340, 90));
 
         LabelIndTotalCharges.setText("totalCharges");
