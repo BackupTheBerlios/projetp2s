@@ -438,6 +438,8 @@ public class JFrameP2S extends javax.swing.JFrame {
      *@version 1.0
      */
     private void construireEnvironnementSuperviseur () {
+        // on efface tout
+        racine.removeAllChildren() ;
         // Ajout des projets du superviseur
         for(int i = 0 ; i < ((Superviseur) utilisateur).nbProjets(); i++){
             Projet proj = ((Superviseur) utilisateur).getProjet(i);
