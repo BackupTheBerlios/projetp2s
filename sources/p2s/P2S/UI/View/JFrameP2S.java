@@ -111,7 +111,6 @@ public class JFrameP2S extends javax.swing.JFrame {
 
         getContentPane().add(PanelContenu, java.awt.BorderLayout.CENTER);
 
-        JMenuBar.setBackground(new java.awt.Color(236, 233, 216));
         JMenuFichier.setBackground(new java.awt.Color(236, 233, 216));
         JMenuFichier.setText("Fichier");
         JMenuItemQuitter.setText("Quitter");
