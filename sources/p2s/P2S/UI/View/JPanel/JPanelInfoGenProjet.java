@@ -31,10 +31,16 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         initText();
         
         // On affiche les infos du projet
-        this.LabelNomProjet.setText(proj.getNom());
+       // this.LabelNomProjet.setText(proj.getNom());
+        this.textNomProjet.setText(proj.getNom());
+        this.textNomProjet.setEditable(false);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
-        this.LabelDateDebut.setText(dateFormat.format(proj.getDateDebut()));
-        this.LabelDateFin.setText(dateFormat.format(proj.getDateFin()));
+        //this.LabelDateDebut.setText(dateFormat.format(proj.getDateDebut()));
+        this.textDateDebut.setText(dateFormat.format(proj.getDateDebut()));
+        this.textDateDebut.setEditable(false);
+        //this.LabelDateFin.setText(dateFormat.format(proj.getDateFin()));
+        this.textDateFin.setText(dateFormat.format(proj.getDateFin()));
+        this.textDateFin.setEditable(false);
         this.TextAreaDescription.setText(proj.getDescription());
         this.TextAreaDescription.setEditable(false);
         
@@ -60,9 +66,6 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         LabelStaticDateFin = new javax.swing.JLabel();
         LabelStaticDescription = new javax.swing.JLabel();
         LabelStaticIndicateursProjet = new javax.swing.JLabel();
-        LabelNomProjet = new javax.swing.JLabel();
-        LabelDateDebut = new javax.swing.JLabel();
-        LabelDateFin = new javax.swing.JLabel();
         TextAreaDescription = new javax.swing.JTextArea();
         LabelIndTotalCharges = new javax.swing.JLabel();
         LabelIndTachesTerminees = new javax.swing.JLabel();
@@ -74,6 +77,9 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         LabelStaticIndDureeMoyenneTache = new javax.swing.JLabel();
         LabelStaticIndNombreParticipants = new javax.swing.JLabel();
         LabelStaticIndAvancementProjet = new javax.swing.JLabel();
+        textNomProjet = new javax.swing.JTextField();
+        textDateDebut = new javax.swing.JTextField();
+        textDateFin = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -81,60 +87,60 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, -1, -1));
 
         LabelStaticNomProjet.setText("Nom du projet : ");
-        add(LabelStaticNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 77, -1));
+        add(LabelStaticNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 77, -1));
 
         LabelStaticDateDebut.setText("Date de d\u00e9but : ");
-        add(LabelStaticDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
+        add(LabelStaticDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, -1));
 
         LabelStaticDateFin.setText("Date de fin : ");
-        add(LabelStaticDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 77, -1));
+        add(LabelStaticDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 77, -1));
 
         LabelStaticDescription.setText("Description : ");
-        add(LabelStaticDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 77, -1));
+        add(LabelStaticDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 77, -1));
 
         LabelStaticIndicateursProjet.setText("Indicateurs sur le projet :");
-        add(LabelStaticIndicateursProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, -1, -1));
+        add(LabelStaticIndicateursProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
-        LabelNomProjet.setText("Nom projet");
-        add(LabelNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 240, -1));
-
-        LabelDateDebut.setText("Date debut");
-        add(LabelDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 270, -1));
-
-        LabelDateFin.setText("Date fin");
-        add(LabelDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 240, -1));
-
-        add(TextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 340, 90));
+        add(TextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 340, 90));
 
         LabelIndTotalCharges.setText("totalCharges");
-        add(LabelIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 80, -1));
+        add(LabelIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 80, -1));
 
         LabelIndTachesTerminees.setText("tachesTerminees");
-        add(LabelIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 100, -1));
+        add(LabelIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 100, -1));
 
         LabelIndDureeMoyenneTache.setText("dureeMoyenneTache");
-        add(LabelIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 100, -1));
+        add(LabelIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 100, -1));
 
         LabelIndNombreParticipants.setText("nombreParticipants");
-        add(LabelIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 120, -1));
+        add(LabelIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 260, 120, -1));
 
         LabelIndAvancementProjet.setText("avancementProjet");
-        add(LabelIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 100, -1));
+        add(LabelIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 100, -1));
 
         LabelStaticIndTotalCharges.setText("Total des charge :");
-        add(LabelStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 170, -1));
+        add(LabelStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 170, -1));
 
         LabelStaticIndTachesTerminees.setText("Nombre de t\u00e2ches termin\u00e9es :");
-        add(LabelStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 160, -1));
+        add(LabelStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 160, -1));
 
         LabelStaticIndDureeMoyenneTache.setText("Dur\u00e9e moyenne des t\u00e2ches :");
-        add(LabelStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 170, -1));
+        add(LabelStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 170, -1));
 
         LabelStaticIndNombreParticipants.setText("Nombre de participants :");
-        add(LabelStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 120, -1));
+        add(LabelStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 120, -1));
 
         LabelStaticIndAvancementProjet.setText("Avancement du projet :");
-        add(LabelStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 140, -1));
+        add(LabelStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 140, -1));
+
+        textNomProjet.setText("jTextField1");
+        add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, -1, -1));
+
+        textDateDebut.setText("jTextField1");
+        add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
+
+        textDateFin.setText("jTextField1");
+        add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
 
     }//GEN-END:initComponents
     
@@ -152,16 +158,14 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         this.LabelIndTotalCharges.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurTotalCharges"));
     }
     
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButtonAlerte;
-    private javax.swing.JLabel LabelDateDebut;
-    private javax.swing.JLabel LabelDateFin;
     private javax.swing.JLabel LabelIndAvancementProjet;
     private javax.swing.JLabel LabelIndDureeMoyenneTache;
     private javax.swing.JLabel LabelIndNombreParticipants;
     private javax.swing.JLabel LabelIndTachesTerminees;
     private javax.swing.JLabel LabelIndTotalCharges;
-    private javax.swing.JLabel LabelNomProjet;
     private javax.swing.JLabel LabelStaticDateDebut;
     private javax.swing.JLabel LabelStaticDateFin;
     private javax.swing.JLabel LabelStaticDescription;
@@ -173,6 +177,9 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
     private javax.swing.JLabel LabelStaticIndicateursProjet;
     private javax.swing.JLabel LabelStaticNomProjet;
     private javax.swing.JTextArea TextAreaDescription;
+    private javax.swing.JTextField textDateDebut;
+    private javax.swing.JTextField textDateFin;
+    private javax.swing.JTextField textNomProjet;
     // End of variables declaration//GEN-END:variables
     
 }
