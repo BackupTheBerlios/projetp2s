@@ -35,7 +35,7 @@ public class ParserXMLFichierWF {
     private Connection conn;
     
     /** Creates a new instance of ParserXMLFichierWF */
-    public ParserXMLFichierWF(String Xml) {
+    public ParserXMLFichierWF(String Xml, String cheminBD) {
         this.fichier = Xml;
         
         try{
@@ -54,13 +54,13 @@ public class ParserXMLFichierWF {
         
         try{
             // Connexion a la base de donnees
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/essai?user=root&password=rootpass");
+            conn = DriverManager.getConnection(cheminBD);
         }catch(SQLException e){
             
         }
     }
     
-    public void majBase() {
+    public void majBase() {        
         
         majProjet();
         majIterations();

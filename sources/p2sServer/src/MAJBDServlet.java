@@ -49,7 +49,11 @@ public class MAJBDServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
                 
-        ParserXMLFichierWF parserFic = new ParserXMLFichierWF(getServletContext().getRealPath("/Projet1.xml"));        
+        String cheminBD;
+        ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
+        cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
+        
+        ParserXMLFichierWF parserFic = new ParserXMLFichierWF(getServletContext().getRealPath("/Projet1.xml"),cheminBD);        
         parserFic.majBase();
         out.close();
     }

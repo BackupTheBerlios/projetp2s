@@ -10,7 +10,7 @@
 
 <BD>
     <host>localhost</host>
-    <base>test</base>
+    <base>p2s</base>
     <login>root</login>
     <password>rootpass</password>
 </BD>
