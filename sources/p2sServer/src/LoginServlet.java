@@ -489,8 +489,8 @@ public class LoginServlet extends HttpServlet {
                                             out.println("</chargeMoyenneParticipants>");
                                             
                                             out.println("<nombreMoyenTachesParticipants>");
-                                            if(rsIndicateursIteration.getInt("nombreMoyenTachesParticipants") != -1)
-                                                out.println(rsIndicateursIteration.getInt("nombreMoyenTachesParticipants"));
+                                            if(rsIndicateursIteration.getFloat("nombreMoyenTachesParticipants") != -1)
+                                                out.println(rsIndicateursIteration.getFloat("nombreMoyenTachesParticipants"));
                                             out.println("</nombreMoyenTachesParticipants>");
                                             
                                             out.println("</indicateursIteration>");

@@ -511,7 +511,7 @@ public class ParserXMLLog {
                                 int dureeMoyenneTacheIte = 0;
                                 int nombreParticipantsIte = 0;
                                 float chargeMoyenneParticipants = 0;
-                                int nombreMoyenTachesParticipants = 0;
+                                float nombreMoyenTachesParticipants = 0;
                                 
                                 NodeList attributsIndicateurIte = attributIterationCourant.getChildNodes();
                                 
@@ -549,7 +549,7 @@ public class ParserXMLLog {
                                     //Recuperation de la charge moyenne des participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombremoyentachesparticipants"))
                                         if(indicateurActuelIte.getFirstChild() != null)
-                                            nombreMoyenTachesParticipants = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                            nombreMoyenTachesParticipants = Float.parseFloat(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                 }
                                 indicateursIteration = new IndicateursIteration(totalChargesIte, tachesTermineesIte, dureeMoyenneTacheIte, nombreParticipantsIte, chargeMoyenneParticipants, nombreMoyenTachesParticipants);

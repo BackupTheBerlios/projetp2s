@@ -30,7 +30,7 @@ public class GrapheIndicateursProjet extends JPanel {
     private int moyenneChargesMax = 0 ;
     private int participantsMax = 0 ;
     private int tachesTermineesMax = 0 ;
-    private int tachesParticipantsMax = 0 ;
+    private float tachesParticipantsMax = 0 ;
     private int nbIt = 0 ;
     
     private static final int RECT_DIM1 = 10 ;
@@ -200,7 +200,7 @@ public class GrapheIndicateursProjet extends JPanel {
 		 
 		 
 		 // affichage de la quatrieme colonne : taches par participant
-		 int tachesParticipants = tempIndIt.getNombreMoyenTachesParticipants() ;
+		 float tachesParticipants = tempIndIt.getNombreMoyenTachesParticipants() ;
 		 if (tachesParticipants > 0)
 		 {
 		    Double y5Height = new Double((new Double(tachesParticipants).doubleValue()/new Double(tachesParticipantsMax).doubleValue())*200.0) ; // longueur de la barre
@@ -210,7 +210,7 @@ public class GrapheIndicateursProjet extends JPanel {
 		    g2d.fill(ligne5) ;
 		    g2d.setPaint(Color.black) ;
 		    g2d.draw(ligne5) ;
-		    g2d.drawString((new Integer(tachesParticipants)).toString(), ITERATION_WIDTH * i + 95+ RECT_DIM1, y5Pos.intValue() - 10) ;
+		    g2d.drawString((new Float(tachesParticipants)).toString(), ITERATION_WIDTH * i + 95+ RECT_DIM1, y5Pos.intValue() - 10) ;
 		 }
 		 
 		 // lignes du bas pour delimiter l'iteration
