@@ -76,10 +76,9 @@ public class MAJBDCDP extends HttpServlet {
         
         if(lecture.compareTo("2") == 0){
             String cheminBD;
-            ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
-            try{
-                
-                Connection conn = DriverManager.getConnection("jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword());
+            
+            try{                
+                Connection conn = DriverManager.getConnection("jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password"));
                 
                 Document document;
                 DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();

@@ -53,8 +53,8 @@ public class MAJFichierServlet extends HttpServlet {
         String login = request.getParameter("login");
         
         String cheminBD;
-        ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
-        cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
+        
+        cheminBD = "jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password");
         try{
             // Connexion a la base de donnees
             Connection conn = DriverManager.getConnection(cheminBD);

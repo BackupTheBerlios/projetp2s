@@ -1,37 +1,37 @@
 /*
- * MAJBDServlet.java
+ * InfosBDServlet.java
  *
- * Created on 26 janvier 2005, 23:28
+ * Created on 13 mars 2005, 23:10
  */
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.io.*;
-import java.net.*;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
  *
- * @author Fabien       
+ * @author Fabien
  * @version
  */
-public class MAJBDServlet extends HttpServlet {
+public class InfosBDServlet extends HttpServlet {
+    
+    public static Properties InfosBD;
     
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         
-        try { 
-            Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-        } catch (Exception ex) { 
-            ex.printStackTrace();
-        }        
+        try{
+            InfosBD = new Properties();
+            InputStream in = new FileInputStream(getServletContext().getRealPath("/ConnexionBD.properties"));
+            InfosBD.load(in);
+            in.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
     
     /** Destroys the servlet.
@@ -48,29 +48,16 @@ public class MAJBDServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        
-        int type = 1; // Fichier distant
-                
-        String login = request.getParameter("login");
-        String urlfichier = request.getParameter("url");
-        
-        String cheminBD;
-        
-        cheminBD = "jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password");
-                
-        try{
-            ParserXMLFichierWF parserFic = new ParserXMLFichierWF(urlfichier,cheminBD,login, type, urlfichier);        
-            parserFic.majBase();
-        }catch(FileNotFoundException e){
-            out.print("0");
-        }catch(NullValueXMLException e){
-            e.printStackTrace();
-            out.print("1");            
-        }catch(NullPointerException e){            
-            e.printStackTrace();
-        }catch(IncorrectFileException e){
-            out.print("0");
-        }
+        /* TODO output your page here
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet</title>");
+        out.println("</head>");
+        out.println("<body>");
+         
+        out.println("</body>");
+        out.println("</html>");
+         */
         out.close();
     }
     

@@ -5,7 +5,6 @@
  */
 
 import java.io.*;
-import java.net.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Properties;
 /**
  *
  * @author Fabien
@@ -22,6 +22,7 @@ import java.sql.ResultSet;
  */
 public class LoginServlet extends HttpServlet {
     
+        
     /** Initializes the servlet.
      */
     public void init(ServletConfig config) throws ServletException {
@@ -30,8 +31,7 @@ public class LoginServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        
+        }        
     }
     
     /** Destroys the servlet.
@@ -57,11 +57,9 @@ public class LoginServlet extends HttpServlet {
         
         // On verifie que le login et que le mot de passe sont non nul
         if ((login != null) && (password != null)){
-            try {
-                ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
-                // Connexion a la base de donnees
-                Connection conn = DriverManager.getConnection("jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword());
-                
+            try {                
+                // Connexion a la base de donnees                
+                Connection conn = DriverManager.getConnection("jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password"));
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from utilisateurs where login = '" + login + "' and password ='"+ password + "'");
                 ResultSet rsUser = prepState.executeQuery(); // Execution de la requete
@@ -84,9 +82,8 @@ public class LoginServlet extends HttpServlet {
                         //récupération des messages du superviseur ou chef de projet
                         prepState = conn.prepareStatement("Select * from messages where login = '" + rsUser.getString("login")+"'");
                         ResultSet rsMessages = prepState.executeQuery(); // Execution de la requete
-                        out.println("<messages>")
-                        while(rsMessages.next())
-                        { //pour chaque message on crée des basiles <message></message>
+                        out.println("<messages>");
+                        while(rsMessages.next()) { //pour chaque message on crée des basiles <message></message>
                             out.println("<message>");
                             out.println("<sujet>");
                             out.println(rsMessages.getString("sujet"));
@@ -97,7 +94,7 @@ public class LoginServlet extends HttpServlet {
                             out.println("<detail>");
                             out.println(rsMessages.getString("message"));
                             out.println("</detail>");
-                            out.println("</message>");            
+                            out.println("</message>");
                         }
                         out.println("</messages>");
                         
@@ -372,7 +369,7 @@ public class LoginServlet extends HttpServlet {
                                                 out.println("</datedebutreelle>");
                                                 
                                                 out.println("<datefinprevue>");
-                                                if(rsTaches.getString("datefinprevue") != null) 
+                                                if(rsTaches.getString("datefinprevue") != null)
                                                     out.println(rsTaches.getString("datefinprevue"));
                                                 out.println("</datefinprevue>");
                                                 
@@ -553,9 +550,9 @@ public class LoginServlet extends HttpServlet {
                                     
                                 }
                                 rsRisques.close();
-				
-				
-				/**************** LES PROBLEMES **************/
+                                
+                                
+                                /**************** LES PROBLEMES **************/
                                 prepState = conn.prepareStatement("Select * from problemes where idprojet = " + rsIdProjets.getString("idprojet"));
                                 ResultSet rsProblemes = prepState.executeQuery(); // Execution de la requete
                                 
@@ -583,11 +580,11 @@ public class LoginServlet extends HttpServlet {
                                         if(rsProblemes.getString("debut") != null)
                                             out.println(rsProblemes.getString("debut"));
                                         out.println("</dateDebut>");
-					
-					out.println("<dateFin>");
+                                        
+                                        out.println("<dateFin>");
                                         if(rsProblemes.getString("fin") != null)
                                             out.println(rsProblemes.getString("fin"));
-                                        out.println("</dateFin>");                                       
+                                        out.println("</dateFin>");
                                         
                                         
                                         out.println("</probleme>");
@@ -1048,7 +1045,7 @@ public class LoginServlet extends HttpServlet {
                                     out.println("</nom>");
                                     
                                     out.println("<charges>");
-                                        out.println(rsIndicTacheMembre.getFloat("tempspasse"));
+                                    out.println(rsIndicTacheMembre.getFloat("tempspasse"));
                                     out.println("</charges>");
                                     
                                     out.println("</indicateurTache>");

@@ -62,9 +62,9 @@ public class MAJBDFicLocalServlet extends HttpServlet {
         
         if(lecture.compareTo("2") == 0){
             String cheminBD;
-            ParserConnexionBD parser = new ParserConnexionBD(getServletContext().getRealPath("/ConnexionBD.xml"));
-            cheminBD = "jdbc:mysql://"+parser.lireHost()+"/"+parser.lireBase()+"?user="+parser.lireLogin()+"&password="+parser.lirePassword();
             
+            cheminBD = "jdbc:mysql://"+InfosBDServlet.InfosBD.getProperty("host")+"/"+InfosBDServlet.InfosBD.getProperty("base")+"?user="+InfosBDServlet.InfosBD.getProperty("login")+"&password="+InfosBDServlet.InfosBD.getProperty("password");
+                        
             try{                
                 ParserXMLFichierWF parserFic = new ParserXMLFichierWF(this.FluxTotal,cheminBD,login, type, fichier);
                 parserFic.majBase();

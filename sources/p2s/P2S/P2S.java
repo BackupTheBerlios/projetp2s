@@ -4,6 +4,7 @@ import P2S.Control.*;
 import P2S.Control.Bundle.Bundle;
 import P2S.UI.View.JFrameP2S;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -58,6 +59,7 @@ public class P2S {
                 InputStream in = readFile("P2S/defaultPreferences.properties");
                 Preferences.load(in);
                 in.close();
+                saveProperties(); // On sauve les preferences par defaut dans le nouveau fichier
             }catch(IOException e2){
                 e2.printStackTrace();
             }
@@ -65,8 +67,17 @@ public class P2S {
             e.printStackTrace();
         }
            
-        Bundle.setCurrentLocale(new Locale(Preferences.getProperty("langue")));        
-        saveProperties();
+        // On recupere la langue
+        Bundle.setCurrentLocale(new Locale(Preferences.getProperty("langue"))); 
+        
+        // On initialise les infos de la BD pour les servlet  
+        try{
+            URL url = new URL("http://"+Preferences.getProperty("host")+":"+Preferences.getProperty("port")+"/p2sserver/InfosBDServlet");
+            url.openStream();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
         // Fenetre principale
         new JFrameP2S().show();
     }

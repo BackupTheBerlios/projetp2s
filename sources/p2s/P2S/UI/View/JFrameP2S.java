@@ -57,7 +57,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        initComponents();                
+        initComponents();
         
         // renderer pour l'arbre
         jTree1.setCellRenderer(new P2STreeRenderer());
@@ -102,7 +102,7 @@ public class JFrameP2S extends javax.swing.JFrame {
                         PanelContenu.removeAll() ;
                         validate() ;
                     }
-		    if (utilisateur instanceof ChefDeProjet) {
+                    if (utilisateur instanceof ChefDeProjet) {
                         construireEnvironnementCDP() ;
                         PanelContenu.removeAll() ;
                         validate() ;
@@ -235,7 +235,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     private void JMenuItemRafraichirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuItemRafraichirActionPerformed
         if(utilisateur instanceof Superviseur){
             try{
-                int flag = 1;               
+                int flag = 1;
                 
                 URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/MAJFichierServlet?login="+utilisateur.getLogin()) ;
                 BufferedReader  out = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -351,7 +351,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             
             char Flux[] = new char[500];
             int nblu;
-            URL url;            
+            URL url;
             
             try{
                 // On indique qu'on va lire un nouveau fichier pour que la servlet vide son buffer de reception
@@ -394,7 +394,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     private void JMenuItemGererCDPActionPerformed(java.awt.event.ActionEvent evt) {
-        try{            
+        try{
             // Envoie du login et du password a la servlet "GestionCDPServlet" pour recevoir tous sur les chefs de projet
             URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/GestionCDPServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword());
             
@@ -468,12 +468,10 @@ public class JFrameP2S extends javax.swing.JFrame {
                 
                 if(utilisateur instanceof Directeur){
                     creerEnvironnementDir();
-                }
-		else if (utilisateur instanceof Superviseur) {
+                } else if (utilisateur instanceof Superviseur) {
                     creerEnvironnementSup();
-                }
-		else{
-                    creerEnvironnementCDP();		    
+                } else{
+                    creerEnvironnementCDP();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
@@ -520,9 +518,9 @@ public class JFrameP2S extends javax.swing.JFrame {
         
         // Construction de l'arborescence
         
-	// Messages
+        // Messages
         messages = new NoeudMessage();
-	// Projets
+        // Projets
         projets = new DefaultMutableTreeNode();
         // Premier noeud
         racine = new DefaultMutableTreeNode();
@@ -535,11 +533,11 @@ public class JFrameP2S extends javax.swing.JFrame {
     /**
      * @author : Conde Mike K.
      **/
-    private void creerEnvironnementCDP() {        
+    private void creerEnvironnementCDP() {
         
         // Messages
         messages = new NoeudMessage();
-	// Projets
+        // Projets
         projets = new DefaultMutableTreeNode();
         // Premier noeud
         racine = new DefaultMutableTreeNode();
@@ -598,9 +596,11 @@ public class JFrameP2S extends javax.swing.JFrame {
     }
     
     private void afficherMessages() {
-        PanelContenu.removeAll();
-        PanelContenu.add(new JPanelMessages(((Superviseur)utilisateur).getListeMessages()), java.awt.BorderLayout.CENTER);
-        this.validate();
+        if(((Superviseur)utilisateur).getListeMessages().size() > 0){
+            PanelContenu.removeAll();
+            PanelContenu.add(new JPanelMessages(((Superviseur)utilisateur).getListeMessages()), java.awt.BorderLayout.CENTER);
+            this.validate();
+        }
     }
     
     /**
@@ -614,7 +614,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             Calendar calendarFin = new GregorianCalendar();
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
-                        
+            
             // Envoie des infos sur le projet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
             URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
             
@@ -660,7 +660,7 @@ public class JFrameP2S extends javax.swing.JFrame {
      */
     public void rafraichirContenuSuperviseur() {
         
-        try {         
+        try {
             URL url = new URL("http://"+P2S.P2S.Preferences.getProperty("host")+":"+P2S.P2S.Preferences.getProperty("port")+"/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
             
             // Buffer qui va recuperer la reponse de la servlet
@@ -708,14 +708,14 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuItemGererCDP.setText(Bundle.getText("JMenuItemGererCDP"));
         JMenuItemGererCDP.setMnemonic(Bundle.getChar("JMenuItemGererCDP"));
         racine.setUserObject(Bundle.getText("NoeudSuperviseur")) ;
-	messages.setUserObject(Bundle.getText("NoeudMessages")) ;
-	projets.setUserObject(Bundle.getText("NoeudProjets")) ;
-	
-	
-	// 
-	messages.removeAllChildren() ;
-	// 
-	projets.removeAllChildren() ;
+        messages.setUserObject(Bundle.getText("NoeudMessages")) ;
+        projets.setUserObject(Bundle.getText("NoeudProjets")) ;
+        
+        
+        //
+        messages.removeAllChildren() ;
+        //
+        projets.removeAllChildren() ;
         // on efface tout
         racine.removeAllChildren() ;
         // Ajout des projets du chef de projet
@@ -731,7 +731,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             
             projets.add(noeudProjet);
         }
-	racine.add(messages);
+        racine.add(messages);
         racine.add(projets);
         
         // Met à jour l'arborescence
@@ -749,8 +749,8 @@ public class JFrameP2S extends javax.swing.JFrame {
                 else if(d instanceof NoeudIteration){//Si len noeud est une iteration
                     afficherInfoIte(((NoeudIteration)d).getIteration());
                 }
-		
-		else if(d instanceof NoeudMessage){//Si len noeud est un message
+                
+                else if(d instanceof NoeudMessage){//Si len noeud est un message
                     afficherMessages();
                 }
                 // si c'est le noeud "projets"
@@ -775,15 +775,15 @@ public class JFrameP2S extends javax.swing.JFrame {
      *@author Conde Mike K.
      *@version 1.0
      */
-    private void construireEnvironnementCDP() {	
+    private void construireEnvironnementCDP() {
         racine.setUserObject(Bundle.getText("NoeudCDP")) ;
-	messages.setUserObject(Bundle.getText("NoeudMessages")) ;
-	projets.setUserObject(Bundle.getText("NoeudProjets")) ;
-	
-	// 
-	messages.removeAllChildren() ;
-	//
-	projets.removeAllChildren() ;
+        messages.setUserObject(Bundle.getText("NoeudMessages")) ;
+        projets.setUserObject(Bundle.getText("NoeudProjets")) ;
+        
+        //
+        messages.removeAllChildren() ;
+        //
+        projets.removeAllChildren() ;
         // on efface tout
         racine.removeAllChildren() ;
         // Ajout des projets du chef de projet
@@ -800,7 +800,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             projets.add(noeudProjet);
         }
         racine.add(messages);
-	racine.add(projets);
+        racine.add(projets);
         
         // Met à jour l'arborescence
         jTree1.setModel(new DefaultTreeModel(racine));
@@ -817,11 +817,11 @@ public class JFrameP2S extends javax.swing.JFrame {
                 else if(d instanceof NoeudIteration){//Si len noeud est une iteration
                     afficherInfoIte(((NoeudIteration)d).getIteration());
                 }
-		
-		else if(d instanceof NoeudMessage){//Si len noeud est un message
+                
+                else if(d instanceof NoeudMessage){//Si len noeud est un message
                     afficherMessages();
                 }
-		
+                
                 // si c'est le noeud "projets"
                 else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0) {
                     Vector listeProjets = new Vector();
