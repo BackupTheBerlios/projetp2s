@@ -5,7 +5,639 @@
 	<!--                          PROCESSUS                              -->
 	<!-- /////////////////////////////////////////////////////////////// -->
 	<exportExecution>
-		<!-- copie du Fichier dpe du groupe xmi-->
+		
+	<processus>
+		<id>PUBe-PUBe</id>
+		<nom>PUBe</nom>
+		<nomAuteur>Dupont</nomAuteur>
+		<emailAuteur>dupont@free.fr</emailAuteur>
+		<dateExport>20050124123455</dateExport>
+		<description/>
+		<cheminGeneration>./WebSite/</cheminGeneration>
+		<liste_composantId>
+			<composantId>PUBe-Expression_des_exigences</composantId>
+			<composantId>PUBe-Gestion_de_projet</composantId>
+		</liste_composantId>
+		<liste_paquetagePresentationId>
+			<paquetagePresentationId>_101</paquetagePresentationId>
+		</liste_paquetagePresentationId>
+	</processus>
+	<liste_composant>
+		<composant>
+			<id>PUBe-Expression_des_exigences</id>
+			<nom>Expression des exigences</nom>
+			<version>1.0</version>
+			<nomAuteur>Dupuits</nomAuteur>
+			<emailAuteur>dupuits@free.fr</emailAuteur>
+			<datePlacement>20050121130000</datePlacement>
+			<description/>
+			<cheminDiagrammeFlots>.\Expression_des_exigences\Diagramme_de_sous_processus\diagramme.png</cheminDiagrammeFlots>
+			<liste_roleId>
+				<roleId>_201</roleId>
+                                <roleId>_202</roleId>
+			</liste_roleId>
+			<liste_produitId>
+				<produitId>_301</produitId>
+				<produitId>_302</produitId>
+                                <produitId>_304</produitId>
+				<produitId>_305</produitId>
+			</liste_produitId>
+			<liste_definitionTravailId>
+				<definitionTravailId>_401</definitionTravailId>
+				<definitionTravailId>_402</definitionTravailId>
+			</liste_definitionTravailId>
+			<interfaceRequise>_501</interfaceRequise>
+			<interfaceFournie>_502</interfaceFournie>
+			<elementPresentationId>_601</elementPresentationId>
+		</composant>
+		<composant>
+			<id>PUBe-Gestion_de_projet</id>
+			<nom>Gestion de projet</nom>
+			<version>1.0</version>
+			<nomAuteur>Dupuits</nomAuteur>
+			<emailAuteur>dupuits@free.fr</emailAuteur>
+			<datePlacement>20050121130100</datePlacement>
+			<description/>
+			<cheminDiagrammeFlots>.\Gestion_de_projet\Diagramme_de_sous_processus\diagramme.png</cheminDiagrammeFlots>
+			<liste_roleId>
+				<roleId>_203</roleId>
+				<roleId>_204</roleId>
+			</liste_roleId>
+			<liste_produitId>
+				<produitId>_303</produitId>
+				<produitId>_306</produitId>
+			</liste_produitId>
+			<liste_definitionTravailId>
+				<definitionTravailId>_403</definitionTravailId>
+			</liste_definitionTravailId>
+			<interfaceRequise>_503</interfaceRequise>
+			<interfaceFournie>_504</interfaceFournie>
+			<elementPresentationId>_602</elementPresentationId>
+		</composant>
+	</liste_composant>
+	<liste_role>
+		<role>
+			<id>201</id>
+			<nom>Analyste</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_responsabiliteProduit>
+				<responsabiliteProduit>_301</responsabiliteProduit>
+				<responsabiliteProduit>_302</responsabiliteProduit>
+			</liste_responsabiliteProduit>
+			<liste_participationActivite>
+				<participationActivite>_801</participationActivite>
+				<participationActivite>_802</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_603</elementPresentationId>
+		</role>
+		<role>
+			<id>202</id>
+			<nom>Comité exigences</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_responsabiliteProduit>
+				<responsabiliteProduit>_304</responsabiliteProduit>
+			</liste_responsabiliteProduit>
+			<liste_participationActivite>
+				<participationActivite>_803</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_604</elementPresentationId>
+		</role>
+		<role>
+			<id>203</id>
+			<nom>Equipier</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<liste_responsabiliteProduit/>
+			<liste_participationActivite>
+				<participationActivite>_804</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_605</elementPresentationId>
+		</role>
+		<role>
+			<id>204</id>
+			<nom>Chef de projet</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<liste_responsabiliteProduit>
+				<responsabiliteProduit>_303</responsabiliteProduit>
+			</liste_responsabiliteProduit>
+			<liste_participationActivite>
+				<participationActivite>_805</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_606</elementPresentationId>
+		</role>
+	</liste_role>
+	<liste_produit>
+		<produit>
+			<id>_301</id>
+			<nom>Cas d'utilisation</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole>_201</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_502</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId>
+				<etatId>_901</etatId>
+			</liste_etatId>
+			<liste_entreeActivite>
+				<entreeActivite>_802</entreeActivite>
+			</liste_entreeActivite>
+			<liste_sortieActivite/>
+			<elementPresentationId>_607</elementPresentationId>
+		</produit>
+		<produit>
+			<id>_302</id>
+			<nom>Vision</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole>_201</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_502</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite>
+				<sortieActivite>_801</sortieActivite>
+			</liste_sortieActivite>
+			<elementPresentationId>_608</elementPresentationId>
+		</produit>
+              	<produit>
+			<id>_307</id>
+			<nom>Vision</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<responsabiliteRole/>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_503</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite>
+				<sortieActivite>_801</sortieActivite>
+			</liste_sortieActivite>
+			<elementPresentationId/>
+		</produit>
+		<produit>
+			<id>_303</id>
+			<nom>Plan d'itération</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<responsabiliteRole>_204</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId/>
+			<liste_etatId/>
+			<liste_entreeActivite>
+				<entreeActivite>_804</entreeActivite>
+				<entreeActivite>_805</entreeActivite>
+			</liste_entreeActivite>
+			<liste_sortieActivite>
+				<sortieActivite>_804</sortieActivite>
+				<sortieActivite>_805</sortieActivite>
+			</liste_sortieActivite>
+			<elementPresentationId>_609</elementPresentationId>
+		</produit>
+		<produit>
+			<id>_304</id>
+			<nom>Référentiel d'exigences</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole>_202</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId/>
+			<liste_etatId/>
+			<liste_entreeActivite>
+				<entreeActivite>_802</entreeActivite>
+			</liste_entreeActivite>
+			<liste_sortieActivite/>
+			<elementPresentationId>_610</elementPresentationId>
+		</produit>
+                <produit>
+			<id>_305</id>
+			<nom>Besoin</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole/>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_501</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite/>
+			<elementPresentationId/>
+		</produit>
+		<produit>
+			<id>_306</id>
+			<nom>Liste des risques</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<responsabiliteRole>_204</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_501</interfaceId>
+				<interfaceId>_504</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite/>
+			<elementPresentationId>_612</elementPresentationId>
+		</produit>
+	</liste_produit>
+	<liste_definitionTravail>
+		<definitionTravail>
+			<id>_401</id>
+			<nom>Analyser le problème</nom>
+               		<cheminDiagrammeActivites>.\Expression_des_exigences\Analyser_le_probleme\Diagramme_d_activites\diagramme.png</cheminDiagrammeActivites>
+                        <cheminDiagrammeFlots>.\Expression_des_exigences\Analyser_le_probleme\Diagramme_de_flots\diagramme.png</cheminDiagrammeFlots>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_activiteId>
+				<activiteId>_801</activiteId>
+			</liste_activiteId>
+			<elementPresentationId>_613</elementPresentationId>
+		</definitionTravail>
+		<definitionTravail>
+			<id>_402</id>
+			<nom>Gérer les exigences</nom>
+               		<cheminDiagrammeActivites>.\Expression_des_exigences\Gerer_les_exigences\Diagramme_d_activites\diagramme.png</cheminDiagrammeActivites>
+                        <cheminDiagrammeFlots>.\Expression_des_exigences\Gerer_les_exigences\Diagramme_de_flots\diagramme.png</cheminDiagrammeFlots>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_activiteId>
+				<activiteId>_802</activiteId>
+				<activiteId>_803</activiteId>
+			</liste_activiteId>
+			<elementPresentationId>_614</elementPresentationId>
+		</definitionTravail>
+		<definitionTravail>
+			<id>_403</id>
+			<nom>Ajuster l'itération</nom>
+               		<cheminDiagrammeActivites>.\Gestion_de_projet\Ajuster_iteration\Diagramme_d_activites\diagramme.png</cheminDiagrammeActivites>
+                        <cheminDiagrammeFlots>.\Gestion_de_projet\Ajuster_iteration\Diagramme_de_flots\diagramme.png</cheminDiagrammeFlots>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<liste_activiteId>
+				<activiteId>_804</activiteId>
+				<activiteId>_805</activiteId>
+			</liste_activiteId>
+			<elementPresentationId>_615</elementPresentationId>
+		</definitionTravail>
+	</liste_definitionTravail>
+	<liste_activite>
+		<activite>
+			<id>_801</id>
+			<nom>Collecter les besoins</nom>
+			<participationRole>_201</participationRole>
+			<agregatDefinitionTravail>_401</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_305</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_302</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_616</elementPresentationId>
+		</activite>
+                <activite>
+			<id>_802</id>
+			<nom>Organiser les exigences</nom>
+			<participationRole>_202</participationRole>
+			<agregatDefinitionTravail>_402</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_301</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_304</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_617</elementPresentationId>
+		</activite>
+                <activite>
+			<id>_803</id>
+			<nom>Fixer les priorites</nom>
+			<participationRole>_202</participationRole>
+			<agregatDefinitionTravail>_402</agregatDefinitionTravail>
+			<liste_entreeProduit/>
+			<liste_sortieProduit>
+				<sortieProduit>_304</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_618</elementPresentationId>
+		</activite>
+		<activite>
+			<id>_804</id>
+			<nom>Distribuer le travail</nom>
+			<participationRole>_203</participationRole>
+			<agregatDefinitionTravail>_403</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_303</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_303</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_619</elementPresentationId>
+		</activite>
+		<activite>
+			<id>_805</id>
+			<nom>Revoir le plan d'itération</nom>
+			<participationRole>_204</participationRole>
+			<agregatDefinitionTravail>_403</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_303</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_303</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_620</elementPresentationId>
+		</activite>
+	</liste_activite>
+	<liste_interface>
+		<interface>
+			<id>_501</id>
+			<interfaceRequiseComposant>PUBe-Expression_des_exigences</interfaceRequiseComposant>
+			<interfaceFournieComposant/>
+			<liste_interfaceProduit>
+				<interfaceProduit>_305</interfaceProduit>
+				<interfaceProduit>_306</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+		<interface>
+			<id>_502</id>
+			<interfaceRequiseComposant/>
+			<interfaceFournieComposant>PUBe-Expression_des_exigences</interfaceFournieComposant>
+			<liste_interfaceProduit>
+				<interfaceProduit>_301</interfaceProduit>
+				<interfaceProduit>_302</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+		<interface>
+			<id>_503</id>
+			<interfaceRequiseComposant>PUBe-Gestion_de_projet</interfaceRequiseComposant>
+			<interfaceFournieComposant/>
+			<liste_interfaceProduit>
+				<interfaceProduit>_307</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+		<interface>
+			<id>_504</id>
+			<interfaceRequiseComposant/>
+			<interfaceFournieComposant>PUBe-Gestion_de_projet</interfaceFournieComposant>
+			<liste_interfaceProduit>
+				<interfaceProduit>_306</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+	</liste_interface>
+	<liste_typeProduit>
+		<typeProduit>
+			<id>_3010</id>
+			<nom>Document</nom>
+		</typeProduit>
+	</liste_typeProduit>
+	<liste_etat>
+		<etat>
+			<id>_901</id>
+			<nom>Commencé</nom>
+		</etat>
+	</liste_etat>
+	<liste_paquetagePresentation>
+		<paquetagePresentation>
+			<id>_101</id>
+			<nom>A propos</nom>
+			<dossierIcone>./applet/images/</dossierIcone>
+			<dossierContenu>./A propos/contenu/</dossierContenu>
+			<liste_agregeElementPresentation>
+				<agregeElementPresentation>_625</agregeElementPresentation>
+			</liste_agregeElementPresentation>
+			<elementPresentationId>_622</elementPresentationId>
+		</paquetagePresentation>
+	</liste_paquetagePresentation>
+	<liste_elementPresentation>
+		<elementPresentation>
+			<id>_601</id>
+			<nom>Expression des exigences</nom>
+			<cheminIcone>./applet/images/TreeComponent.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/dis_exi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Expression_des_exigences_32.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_602</id>
+			<nom>Gestion de projet</nom>
+			<cheminIcone>./applet/images/TreeComponent.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/dis_mgm.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Gestion_de_projet_175.html</cheminPage>
+			<liste_guideId>
+				<guideId>_701</guideId>
+			</liste_guideId>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_603</id>
+			<nom>Analyste</nom>
+			<cheminIcone>./applet/images/TreeRole.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ro_analy.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Roles/Analyste/Analyste_59.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_604</id>
+			<nom>Comité d'exigences</nom>
+			<cheminIcone>./applet/images/roles.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ro_comexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Roles/Comite_exigences/Comite_exigences_60.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_605</id>
+			<nom>Equipier</nom>
+			<cheminIcone>./applet/images/TreeRole.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/ro_equip.html</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Roles/Equipier/Equipier_211.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_606</id>
+			<nom>Chef de projet</nom>
+			<cheminIcone>./applet/images/TreeRole.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/ro_cpro.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Roles/Chef_de_projet/Chef_de_projet_212.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_607</id>
+			<nom>Cas d'utilisation</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/pr_casdut.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Cas_d_utilisation/Cas_d_utilisation_71.html</cheminPage>
+			<liste_guideId>
+				<guideId>_702</guideId>
+			</liste_guideId>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_608</id>
+			<nom>Vision</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/pr_vision.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Vision/Vision_62.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_609</id>
+			<nom>Plan d'itération</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/pr_planit.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Produits/Plan_d_iteration/Plan_d_iteration_227.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_610</id>
+			<nom>Référentiel d'exigences</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/pr_refexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Referentiel_exigences/Referentiel_exigences_78.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_612</id>
+			<nom>Listes des risques</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/pr_lisrsq.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Produits/Liste_risques/Liste_des_risques_222.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_613</id>
+			<nom>Analyser le problème</nom>
+			<cheminIcone>./applet/images/TreeWorkDefinition.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/dt_anpr.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Analyser_le_probleme/Analyser_le_probleme_35.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_614</id>
+			<nom>Gérer les exigences</nom>
+			<cheminIcone>./applet/images/TreeWorkDefinition.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/dt_gerexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Gerer_les_exigences/Gerer_les_exigences_53.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_615</id>
+			<nom>Ajuster l'itération</nom>
+			<cheminIcone>./applet/images/TreeWorkDefinition.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/dt_ajuit.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Ajuster_itération/Ajuster_iteration_186.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_616</id>
+			<nom>Collecter les besoins</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ac_colleb.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Analyser_le_probleme/Collecter_les_besoins/Collecter_les_besoins_38.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_617</id>
+			<nom>Organiser les exigences</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ac_orgexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Gerer_les_exigences/Organiser_les_exigences/Organiser_exigences_56.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_618</id>
+			<nom>Fixer les priorites</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ac_priori.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Gerer_les_exigences/Fixer_les_priorites/Fixer_priorites_57.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_619</id>
+			<nom>Distribuer le travail</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu/>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Ajuster_l_itération/Distribuer_travail/Distribuer_travail_191.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_620</id>
+			<nom>Revoir le plan d'itération</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/ac_initr.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Ajuster_l_itération/Revoir_plan_iteration/Revoir_plan_iteration_190.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+                <elementPresentation>
+			<id>_622</id>
+			<nom>A propos</nom>
+			<cheminIcone>./applet/images/info.gif</cheminIcone>
+			<cheminContenu>./A propos/contenu/about.htm</cheminContenu>
+			<description/>
+			<cheminPage>./A propos/A_propos_262.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_623</id>
+			<nom>Exemple POG</nom>
+			<cheminIcone>./applet/images/GuideExemple.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/POG_spec_ajouter.sxw</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Cas_d_utilisation/Exemple_POG/Exemple_POG_73.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_624</id>
+			<nom>Quoi de neuf ?</nom>
+			<cheminIcone>./applet/images/GuideNeuf.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/gui_qdn.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Quoi_de_neuf__/Quoi_de_neuf___235.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_625</id>
+			<nom>Configuration</nom>
+			<cheminIcone>./applet/images/booko.gif</cheminIcone>
+			<cheminContenu>./A propos/contenu/Configuration.html</cheminContenu>
+			<description/>
+			<cheminPage>./A propos/Configuration/Configuration_263.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+	</liste_elementPresentation>
+	<liste_guide>
+		<guide>
+			<id>_701</id>
+			<nom>Quoi de neuf ?</nom>
+			<typeGuideId>_1101</typeGuideId>
+			<elementPresentationId>_624</elementPresentationId>
+		</guide>
+		<guide>
+			<id>_702</id>
+			<nom>Exemple POG</nom>
+			<typeGuideId>_1100</typeGuideId>
+			<elementPresentationId>_623</elementPresentationId>
+		</guide>
+	</liste_guide>
+	<liste_typeGuide>
+		<typeGuide>
+			<id>_1100</id>
+			<nom>Exemple</nom>
+		</typeGuide>
+		<typeGuide>
+			<id>_1101</id>
+			<nom>Quoi de neuf ?</nom>
+		</typeGuide>
+	</liste_typeGuide>
+
 	</exportExecution>
 
 	<!-- /////////////////////////////////////////////////////////////// -->
@@ -126,34 +758,7 @@
 				<email>email 5</email>
 			</eltMembre>
 		</listeMembres>
-		
-		<listeRoles>
-			<eltRole>
-				<id>1</id>
-				<nom>role 1</nom>
-				<description>desc 1</description>
-			</eltRole>
-                        <eltRole>
-                                <id>2</id>
-				<nom>role 2</nom>
-				<description>desc 2</description>
-			</eltRole>
-                        <eltRole>
-                                <id>3</id>
-				<nom>role 3</nom>
-				<description>desc 3</description>
-			</eltRole>
-                        <eltRole>
-                                <id>4</id>
-				<nom>role 4</nom>
-				<description>desc 4</description>
-			</eltRole>
-                        <eltRole>
-                                <id>5</id>
-				<nom>role 5</nom>
-				<description>desc 5</description>
-			</eltRole>
-		</listeRoles>
+				
 
 		<!--  Liste de toutes les iterations-->
 		<listeIterations>
@@ -418,7 +1023,7 @@
 				<id>11</id>
 				<nom>artefact 11</nom>
 				<description>desc artefact 11</description>
-				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<livrable>true</livrable> <!-- true si le produit est livré au client -->
 				<etat>2</etat> <!-- prete ou pas -->
 			</eltArtefact>
 		</listeArtefacts>
@@ -991,35 +1596,35 @@
 				<Membre>
 					<id>1</id>
 					<listeRole>
-						<id>1</id>
-						<id>5</id>
+						<id>201</id>
+						<id>204</id>
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>2</id>
 					<listeRole>
-						<id>4</id>
-						<id>5</id>
+						<id>203</id>
+						<id>204</id>
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>3</id>
 					<listeRole>
-						<id>2</id>						
+						<id>202</id>						
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>4</id>
 					<listeRole>
-						<id>1</id>
-						<id>5</id>
+						<id>202</id>
+						<id>204</id>
 					</listeRole>
 				</Membre>
 				<Membre>
 					<id>5</id>
 					<listeRole>
-						<id>1</id>
-						<id>3</id>
+						<id>201</id>
+						<id>202</id>
 					</listeRole>
 				</Membre>
 			</listeMembre>

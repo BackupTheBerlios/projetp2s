@@ -50,14 +50,7 @@ public class MAJBDServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
                 
         ParserXMLFichierWF parserFic = new ParserXMLFichierWF(getServletContext().getRealPath("/Projet1.xml"));        
-        parserFic.majProjet();
-        parserFic.majIterations();
-        parserFic.majMembres();
-        parserFic.majMesures();
-        parserFic.majRisques();
-        parserFic.majTaches();  
-        parserFic.majTachesCollaboratives();
-        
+        parserFic.majBase();
         out.close();
     }
     

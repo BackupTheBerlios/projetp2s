@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -59,6 +60,26 @@ public class ParserXMLFichierWF {
         }
     }
     
+    public void majBase() {
+        majProjet();
+        majIterations();
+        majMembres();
+        majRoles();
+        majMesures();
+        majRisques();
+        majTaches();
+        majTachesCollaboratives();
+        majArtefacts();
+        majLiensMembres_TachesCollaboratives();
+        majLiensMembres_Projets();
+        majLiensArtefacts_Entrees_Taches();
+        majLiensArtefacts_Sorties_Taches();
+        majLiensArtefacts_Entrees_TachesCollaboratives();
+        majLiensArtefacts_Sorties_TachesCollaboratives();
+        majLiensMembres_Roles();
+    }
+    
+    
     public int lireIdProjet() {
         NodeList listeNoeud = this.document.getElementsByTagName("projet").item(0).getChildNodes();
         
@@ -104,7 +125,7 @@ public class ParserXMLFichierWF {
         }
         dateDebut = listeNoeud.item(b).getFirstChild().getNodeValue();
         if(dateDebut.compareTo("null") == 0)
-                dateDebut = "0001-01-01";
+            dateDebut = "0001-01-01";
         
         // on recherche la date de fin du projet
         b = 0;
@@ -113,7 +134,7 @@ public class ParserXMLFichierWF {
         }
         dateFin = listeNoeud.item(b).getFirstChild().getNodeValue();
         if(dateFin.compareTo("null") == 0)
-                dateFin = "0001-01-01";
+            dateFin = "0001-01-01";
         
         // on recherche la description
         b = 0;
@@ -295,7 +316,7 @@ public class ParserXMLFichierWF {
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("prenom") != 0) {
                 b++;
-            }            
+            }
             prenom = listeNoeud.item(b).getFirstChild().getNodeValue();
             
             
@@ -339,6 +360,71 @@ public class ParserXMLFichierWF {
                     updateMembre.setString(3, adresse);
                     updateMembre.setString(4, tel);
                     updateMembre.setString(5, mail);
+                    
+                    updateMembre.executeUpdate();
+                }
+                
+                
+            }catch (SQLException ex) { // Si une SQLException survient
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+                ex.printStackTrace();
+            }
+            
+        }
+    }
+    
+    public void majRoles() {
+        int id = -1;
+        String nom = null;
+        String description = "description role manquant dans dpe";
+        
+        
+        NodeList listeRole = this.document.getElementsByTagName("role");
+        NodeList listeNoeud;
+        
+        for(int i=0;i<listeRole.getLength();i++){
+            listeNoeud = listeRole.item(i).getChildNodes();
+            
+            // on recherche l'id du role
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                b++;
+            }
+            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche le nom du role
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
+                b++;
+            }
+            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            
+            // PAS DE DESCRIPTIN DANS LE DPE
+            // on recherche la description du role
+            /*b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
+                b++;
+            }
+            description = listeNoeud.item(b).getFirstChild().getNodeValue();*/
+            
+            try {
+                // Connexion a la base de donnees
+                //Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/p2s?user=root&password=rootpass");
+                
+                // Requete SQL
+                PreparedStatement prepState = conn.prepareStatement("Select * from roles where idrole="+id);
+                ResultSet rsmembre = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rsmembre.next()){
+                    prepState = conn.prepareStatement("insert into roles values ("+id+",'"+nom+"','"+description+"')");
+                    prepState.execute(); // Execution de la requete
+                } else{
+                    PreparedStatement updateMembre = conn.prepareStatement(
+                            "update roles set nom=?, description=? where idrole ="+id);
+                    updateMembre.setString(1,nom);
+                    updateMembre.setString(2, description);
                     
                     updateMembre.executeUpdate();
                 }
@@ -634,15 +720,15 @@ public class ParserXMLFichierWF {
             
             // on recherche l'id de l'iteration auquel est rattache la tache
             idIteration = lireIdIteration_Tache(id);
-                        
+            
             // on recherche l'id du membre auquel est rattache la tache
             idMembre = lireIdMembre_Tache(id);
-                         
+            
             try {
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from taches where idtache="+id);
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
-             
+                
                 if(!rstache.next()){
                     prepState = conn.prepareStatement("insert into taches values ("+id+",'"+nom+"','"+description+"',"+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+",'"+dateDebutPrevue+"','"+dateFinPrevue+"','"+dateDebutReelle+"','"+dateFinReelle+"',"+idIteration+","+idMembre+")");
                     prepState.execute(); // Execution de la requete
@@ -661,17 +747,17 @@ public class ParserXMLFichierWF {
                     updateTache.setString(10,dateFinReelle);
                     updateTache.setInt(11,idIteration);
                     updateTache.setInt(12,idMembre);
-             
+                    
                     updateTache.executeUpdate();
                 }
-             
-             
+                
+                
             }catch (SQLException ex) { // Si une SQLException survient
                 System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
                 ex.printStackTrace();
-            }            
+            }
         }
     }
     
@@ -695,7 +781,7 @@ public class ParserXMLFichierWF {
             listeIdTache = NoeudItTache.getChildNodes().item(b).getChildNodes();
             
             j = 0;
-            while(j<listeIdTache.getLength() && !trouve){                
+            while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
                     if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
                         b = 0;
@@ -703,7 +789,7 @@ public class ParserXMLFichierWF {
                             b++;
                         }
                         id = new Integer(NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
-                        trouve = true;                        
+                        trouve = true;
                     }
                 }
                 j++;
@@ -739,7 +825,7 @@ public class ParserXMLFichierWF {
             listeIdTache = NoeudItTache.getChildNodes().item(b).getChildNodes();
             
             j = 0;
-            while(j<listeIdTache.getLength() && !trouve){                
+            while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
                     if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
                         b = 0;
@@ -747,7 +833,7 @@ public class ParserXMLFichierWF {
                             b++;
                         }
                         id = new Integer(NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
-                        trouve = true;                        
+                        trouve = true;
                     }
                 }
                 j++;
@@ -775,7 +861,7 @@ public class ParserXMLFichierWF {
         String dateDebutReelle = null;
         String dateFinPrevue = null;
         String dateFinReelle = null;
-        int idIteration = -1;        
+        int idIteration = -1;
         
         NodeList listeTache = this.document.getElementsByTagName("eltTacheCollaborative");
         NodeList listeNoeud;
@@ -870,13 +956,13 @@ public class ParserXMLFichierWF {
             
             // on recherche l'id de l'iteration auquel est rattache la tache
             idIteration = lireIdIteration_TacheCollaborative(id);
-                     
-                         
+            
+            
             try {
                 // Requete SQL
                 PreparedStatement prepState = conn.prepareStatement("Select * from tachescollaboratives where idtache="+id);
                 ResultSet rstache = prepState.executeQuery(); // Execution de la requete
-             
+                
                 if(!rstache.next()){
                     prepState = conn.prepareStatement("insert into tachescollaboratives values ("+id+",'"+nom+"','"+description+"',"+etat+","+chargePrevue+","+tempsPasse+","+resteAPasser+",'"+dateDebutPrevue+"','"+dateFinPrevue+"','"+dateDebutReelle+"','"+dateFinReelle+"',"+idIteration+")");
                     prepState.execute(); // Execution de la requete
@@ -893,18 +979,18 @@ public class ParserXMLFichierWF {
                     updateTache.setString(8,dateFinPrevue);
                     updateTache.setString(9,dateDebutReelle);
                     updateTache.setString(10,dateFinReelle);
-                    updateTache.setInt(11,idIteration);                    
-             
+                    updateTache.setInt(11,idIteration);
+                    
                     updateTache.executeUpdate();
                 }
-             
-             
+                
+                
             }catch (SQLException ex) { // Si une SQLException survient
                 System.out.println("SQLException: " + ex.getMessage());
                 System.out.println("SQLState: " + ex.getSQLState());
                 System.out.println("VendorError: " + ex.getErrorCode());
                 ex.printStackTrace();
-            }            
+            }
         }
     }
     
@@ -928,7 +1014,7 @@ public class ParserXMLFichierWF {
             listeIdTache = NoeudItTache.getChildNodes().item(b).getChildNodes();
             
             j = 0;
-            while(j<listeIdTache.getLength() && !trouve){                
+            while(j<listeIdTache.getLength() && !trouve){
                 if(listeIdTache.item(j).getNodeName().compareTo("id") == 0){
                     if(new Integer(listeIdTache.item(j).getFirstChild().getNodeValue()).intValue() == idTache){
                         b = 0;
@@ -936,7 +1022,7 @@ public class ParserXMLFichierWF {
                             b++;
                         }
                         id = new Integer(NoeudItTache.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
-                        trouve = true;                        
+                        trouve = true;
                     }
                 }
                 j++;
@@ -951,4 +1037,507 @@ public class ParserXMLFichierWF {
         
         return(id);
     }
+    
+    
+    public void majArtefacts() {
+        int id = -1;
+        String nom = null;
+        String description = null;
+        String livrable = null;
+        int etat = -1;
+        int idResponsable = -1;
+        
+        NodeList listeArtefact = this.document.getElementsByTagName("eltArtefact");
+        NodeList listeNoeud;
+        
+        for(int i=0;i<listeArtefact.getLength();i++){
+            listeNoeud = listeArtefact.item(i).getChildNodes();
+            
+            // on recherche l'id de l'artefact
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                b++;
+            }
+            id = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche le nom de l'artefact
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
+                b++;
+            }
+            nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            
+            // on recherche la description de l'artefact
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
+                b++;
+            }
+            description = listeNoeud.item(b).getFirstChild().getNodeValue();
+            
+            // on recherche si l'artefact est livrable
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("livrable") != 0) {
+                b++;
+            }
+            livrable = listeNoeud.item(b).getFirstChild().getNodeValue();
+            
+            // on recherche l'etat de l'artefact
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("etat") != 0) {
+                b++;
+            }
+            etat = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche l'id du membre responsable de l'artefact
+            idResponsable = lireIdMembre_Artefact(id);
+            
+            
+            try {
+                // Requete SQL
+                PreparedStatement prepState = conn.prepareStatement("Select * from artefacts where idartefact="+id);
+                ResultSet rstache = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rstache.next()){
+                    prepState = conn.prepareStatement("insert into artefacts values ("+id+",'"+livrable+"',"+etat+",'"+nom+"','"+description+"',"+idResponsable+")");
+                    prepState.execute(); // Execution de la requete
+                }else{
+                    PreparedStatement updateTache = conn.prepareStatement(
+                            "update artefacts set nom=?, description=?, etat=?, livrable=?, idresponsable=? where idartefact ="+id);
+                    updateTache.setString(1,nom);
+                    updateTache.setString(2,description);
+                    updateTache.setInt(3,etat);
+                    updateTache.setString(4,livrable);
+                    updateTache.setInt(5,idResponsable);
+                    
+                    updateTache.executeUpdate();
+                }
+                
+                
+            }catch (SQLException ex) { // Si une SQLException survient
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+                ex.printStackTrace();
+            }
+        }
+    }
+    
+    private int lireIdMembre_Artefact(int idArtefact) {
+        NodeList listeMembreArtefact = this.document.getElementsByTagName("MembreArtefact");
+        NodeList listeIdArtefact;
+        
+        int id = -1;
+        boolean trouve = false;
+        int b = 0;
+        int i = 0;
+        int j = 0;
+        
+        while(i<listeMembreArtefact.getLength() && !trouve){
+            Node NoeudMembreArtefact = listeMembreArtefact.item(i);
+            
+            b = 0;
+            while(NoeudMembreArtefact.getChildNodes().item(b).getNodeName().compareTo("listeArtefact") != 0) {
+                b++;
+            }
+            listeIdArtefact = NoeudMembreArtefact.getChildNodes().item(b).getChildNodes();
+            
+            j = 0;
+            while(j<listeIdArtefact.getLength() && !trouve){
+                if(listeIdArtefact.item(j).getNodeName().compareTo("id") == 0){
+                    if(new Integer(listeIdArtefact.item(j).getFirstChild().getNodeValue()).intValue() == idArtefact){
+                        b = 0;
+                        while(NoeudMembreArtefact.getChildNodes().item(b).getNodeName().compareTo("idMembre") != 0) {
+                            b++;
+                        }
+                        id = new Integer(NoeudMembreArtefact.getChildNodes().item(b).getFirstChild().getNodeValue()).intValue();
+                        trouve = true;
+                    }
+                }
+                j++;
+            }
+            i++;
+        }
+        
+        if(!trouve){
+            // traitement erreur : aucun id iteration n'a etait trouve pour cette tache
+            System.out.println("aucun id iteration n'a etait trouve pour cette tache");
+        }
+        
+        return(id);
+    }
+    
+    
+    public void majLiensMembres_TachesCollaboratives() {
+        int idMembre = -1;
+        Vector listeIdTache = new Vector();
+        
+        NodeList listeMembreTache = this.document.getElementsByTagName("MembreTacheCollaborative_Responsable");
+        NodeList listeNoeud;
+        NodeList listeNoeudIdTache;
+        
+        for(int i=0;i<listeMembreTache.getLength();i++){
+            listeNoeud = listeMembreTache.item(i).getChildNodes();
+            
+            // on recherche l'id du membre
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("idMembre") != 0) {
+                b++;
+            }
+            idMembre = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les taches collaboratives dont il est responsable
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeTacheCollaborative") != 0) {
+                b++;
+            }
+            listeNoeudIdTache = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdTache.getLength();j++){
+                if(listeNoeudIdTache.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdTache.add(listeNoeudIdTache.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdTache.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from membres_tachescollaboratives where idmembre="+idMembre+" and idtache="+listeIdTache.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into membres_tachescollaboratives values ("+idMembre+","+listeIdTache.get(k)+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdTache.removeAllElements();
+        }
+    }
+    
+    
+    
+    public void majLiensMembres_Projets() {
+        int idProjet = lireIdProjet();
+        Vector listeIdMembre = new Vector();
+        
+        NodeList listeMembre = this.document.getElementsByTagName("eltMembre");
+        NodeList listeNoeud;
+        
+        for(int i=0;i<listeMembre.getLength();i++){
+            listeNoeud = listeMembre.item(i).getChildNodes();
+            
+            // on recherche l'id des membres
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                b++;
+            }
+            listeIdMembre.add(listeNoeud.item(b).getFirstChild().getNodeValue());
+        }
+        
+        for(int k=0;k<listeIdMembre.size();k++){
+            try {
+                // Requete SQL
+                PreparedStatement prepState = conn.prepareStatement("Select * from membres_projets where idprojet="+idProjet+" and idmembre="+listeIdMembre.get(k));
+                ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rs.next()){
+                    prepState = conn.prepareStatement("insert into membres_projets values ("+listeIdMembre.get(k)+","+idProjet+")");
+                    prepState.execute(); // Execution de la requete
+                }
+                
+            }catch (SQLException ex) { // Si une SQLException survient
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+                ex.printStackTrace();
+            }
+        }
+        listeIdMembre.removeAllElements();
+    }
+    
+    public void majLiensArtefacts_Entrees_Taches() {
+        int idTache = -1;
+        Vector listeIdArtefacts = new Vector();
+        
+        NodeList listeArtefactTache = this.document.getElementsByTagName("TacheArtefact_Entree");
+        NodeList listeNoeud;
+        NodeList listeNoeudIdArtefacts;
+        
+        for(int i=0;i<listeArtefactTache.getLength();i++){
+            listeNoeud = listeArtefactTache.item(i).getChildNodes();
+            
+            // on recherche l'id de la tache
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("idTache") != 0) {
+                b++;
+            }
+            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les artefacts en entree de la tache
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeArtefact") != 0) {
+                b++;
+            }
+            listeNoeudIdArtefacts = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdArtefacts.getLength();j++){
+                if(listeNoeudIdArtefacts.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdArtefacts.add(listeNoeudIdArtefacts.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdArtefacts.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from artefacts_entrees_taches where idtache="+idTache+" and idartefact="+listeIdArtefacts.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into artefacts_entrees_taches values ("+listeIdArtefacts.get(k)+","+idTache+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdArtefacts.removeAllElements();
+        }
+    }
+    
+    public void majLiensArtefacts_Sorties_Taches() {
+        int idTache = -1;
+        Vector listeIdArtefacts = new Vector();
+        
+        NodeList listeArtefactTache = this.document.getElementsByTagName("TacheArtefact_Sortie");
+        NodeList listeNoeud;
+        NodeList listeNoeudIdArtefacts;
+        
+        for(int i=0;i<listeArtefactTache.getLength();i++){
+            listeNoeud = listeArtefactTache.item(i).getChildNodes();
+            
+            // on recherche l'id de la tache
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("idTache") != 0) {
+                b++;
+            }
+            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les artefacts en sortie de la tache
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeArtefact") != 0) {
+                b++;
+            }
+            listeNoeudIdArtefacts = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdArtefacts.getLength();j++){
+                if(listeNoeudIdArtefacts.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdArtefacts.add(listeNoeudIdArtefacts.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdArtefacts.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from artefacts_sorties_taches where idtache="+idTache+" and idartefact="+listeIdArtefacts.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into artefacts_sorties_taches values ("+listeIdArtefacts.get(k)+","+idTache+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdArtefacts.removeAllElements();
+        }
+    }
+    
+    
+    
+    public void majLiensArtefacts_Entrees_TachesCollaboratives() {
+        int idTache = -1;
+        Vector listeIdArtefacts = new Vector();
+        
+        NodeList listeArtefactTache = this.document.getElementsByTagName("TacheColArtefact_Entree");
+        NodeList listeNoeud;
+        NodeList listeNoeudIdArtefacts;
+        
+        for(int i=0;i<listeArtefactTache.getLength();i++){
+            listeNoeud = listeArtefactTache.item(i).getChildNodes();
+            
+            // on recherche l'id de la tache
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("idTacheCol") != 0) {
+                b++;
+            }
+            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les artefacts en entree de la tache
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeArtefact") != 0) {
+                b++;
+            }
+            listeNoeudIdArtefacts = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdArtefacts.getLength();j++){
+                if(listeNoeudIdArtefacts.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdArtefacts.add(listeNoeudIdArtefacts.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdArtefacts.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from artefacts_entrees_tachescollaboratives where idtache="+idTache+" and idartefact="+listeIdArtefacts.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into artefacts_entrees_tachescollaboratives values ("+listeIdArtefacts.get(k)+","+idTache+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdArtefacts.removeAllElements();
+        }
+    }
+    
+    
+    public void majLiensArtefacts_Sorties_TachesCollaboratives() {
+        int idTache = -1;
+        Vector listeIdArtefacts = new Vector();
+        
+        NodeList listeArtefactTache = this.document.getElementsByTagName("TacheColArtefact_Sortie");
+        NodeList listeNoeud;
+        NodeList listeNoeudIdArtefacts;
+        
+        for(int i=0;i<listeArtefactTache.getLength();i++){
+            listeNoeud = listeArtefactTache.item(i).getChildNodes();
+            
+            // on recherche l'id de la tache
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("idTacheCol") != 0) {
+                b++;
+            }
+            idTache = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les artefacts en sortie de la tache
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeArtefact") != 0) {
+                b++;
+            }
+            listeNoeudIdArtefacts = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdArtefacts.getLength();j++){
+                if(listeNoeudIdArtefacts.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdArtefacts.add(listeNoeudIdArtefacts.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdArtefacts.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from artefacts_sorties_tachescollaboratives where idtache="+idTache+" and idartefact="+listeIdArtefacts.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into artefacts_sorties_tachescollaboratives values ("+listeIdArtefacts.get(k)+","+idTache+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdArtefacts.removeAllElements();
+        }
+    }
+    
+    
+    public void majLiensMembres_Roles() {
+        int idMembre = -1;
+        Vector listeIdRole = new Vector();
+        Vector listeMembreRole = new Vector();
+        
+        NodeList listeNoeud;
+        NodeList listeNoeudIdRole;
+        
+        NodeList listeNoeudTemp = this.document.getElementsByTagName("MembreRole").item(0).getChildNodes();
+        // on recherche le noeud listeMembre
+        int b = 0;
+        while(listeNoeudTemp.item(b).getNodeName().compareTo("listeMembre") != 0) {
+            b++;
+        }
+        listeNoeudTemp = listeNoeudTemp.item(b).getChildNodes();
+        
+        // on recherche les noeuds Membre        
+        for(int n=0;n<listeNoeudTemp.getLength();n++){
+            if(listeNoeudTemp.item(n).getNodeName().compareTo("Membre") == 0){
+                listeMembreRole.add(listeNoeudTemp.item(n));
+            }
+        }          
+        System.out.println(listeMembreRole.size());
+        // on parcourt tous les noeuds Membre
+        for(int i=0;i<listeMembreRole.size();i++){
+            listeNoeud = ((Node)listeMembreRole.get(i)).getChildNodes();
+            
+            // on recherche l'id du membre
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                b++;
+            }
+            idMembre = new Integer(listeNoeud.item(b).getFirstChild().getNodeValue()).intValue();
+            
+            // on recherche les roles qu'il exerce
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("listeRole") != 0) {
+                b++;
+            }
+            listeNoeudIdRole = listeNoeud.item(b).getChildNodes();
+            for(int j=0;j<listeNoeudIdRole.getLength();j++){
+                if(listeNoeudIdRole.item(j).getNodeName().compareTo("id") == 0){
+                    listeIdRole.add(listeNoeudIdRole.item(j).getFirstChild().getNodeValue());
+                }
+            }
+            
+            for(int k=0;k<listeIdRole.size();k++){
+                try {
+                    // Requete SQL
+                    PreparedStatement prepState = conn.prepareStatement("Select * from roles_membres where idmembre="+idMembre+" and idrole="+listeIdRole.get(k));
+                    ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                    
+                    if(!rs.next()){
+                        prepState = conn.prepareStatement("insert into roles_membres values ("+listeIdRole.get(k)+","+idMembre+")");
+                        prepState.execute(); // Execution de la requete
+                    }
+                    
+                }catch (SQLException ex) { // Si une SQLException survient
+                    System.out.println("SQLException: " + ex.getMessage());
+                    System.out.println("SQLState: " + ex.getSQLState());
+                    System.out.println("VendorError: " + ex.getErrorCode());
+                    ex.printStackTrace();
+                }
+            }
+            listeIdRole.removeAllElements();
+        }
+    }
 }
+
