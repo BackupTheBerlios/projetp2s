@@ -10,6 +10,7 @@ import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursTacheMembre;
 import P2S.UI.View.JDialog.ModeleTableMesure;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JFormattedTextField;
@@ -49,6 +50,7 @@ public class JPanelIndicTachesMembre extends javax.swing.JPanel {
         ModeleTableMesure tableModel = new ModeleTableMesure(donnees, nomsColonnes) ;        
         table = new JTable(tableModel) ;
 	table.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+	table.setPreferredScrollableViewportSize(new Dimension(500, 100)) ;
         tableScrollPane = new JScrollPane(table) ;
         add(tableScrollPane, java.awt.BorderLayout.CENTER);
     }

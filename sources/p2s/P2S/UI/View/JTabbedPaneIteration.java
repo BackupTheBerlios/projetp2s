@@ -22,8 +22,8 @@ public class JTabbedPaneIteration extends JTabbedPane {
     public JTabbedPaneIteration (Iteration iter) {
         initComponents ();
                 
-       addTab(Bundle.getText("JTabbedPaneIteration_TabInfoGen"),new JPanelInfoIteration(iter)) ;
-       addTab(Bundle.getText("JTabbedPaneIteration_TabTaches"),new JPanelInfoTaches(iter.getListeTache())) ;
+       addTab(Bundle.getText("JTabbedPaneIteration_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoIteration(iter)) ;
+       addTab(Bundle.getText("JTabbedPaneIteration_TabTaches"),new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_tasks.gif")), new JPanelInfoTaches(iter.getListeTache())) ;
     }
     
     /** This method is called from within the constructor to

@@ -27,9 +27,9 @@ public class JTabbedPaneMembre extends JTabbedPane {
     public JTabbedPaneMembre(Membre membre) {
         initComponents();
         
-        this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoGen"),new JPanelInfoGenMembre(membre));
-        this.addTab(Bundle.getText("JTabbedPaneMembre_TabTaches"), new JPanelIndicTachesMembre(membre.getListeTaches()));
-        this.addTab(Bundle.getText("JTabbedPaneMembre_TabArtefacts"), new JPanelIndicArtefactsMembre(membre.getListeArtefacts()));
+        this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoGen"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_info.gif")), new JPanelInfoGenMembre(membre));
+        this.addTab(Bundle.getText("JTabbedPaneMembre_TabTaches"),new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_tasks.gif")), new JPanelIndicTachesMembre(membre.getListeTaches()));
+        this.addTab(Bundle.getText("JTabbedPaneMembre_TabArtefacts"), new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tab_artefacts.gif")), new JPanelIndicArtefactsMembre(membre.getListeArtefacts()));
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoProf"), new JPanelInfoProfMembre(membre.getListeRoles(), membre.getListeProjets()));
         
     }

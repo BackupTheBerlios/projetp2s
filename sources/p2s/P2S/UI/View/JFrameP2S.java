@@ -94,26 +94,19 @@ public class JFrameP2S extends javax.swing.JFrame {
                 initTexte();
                 
                 if (utilisateur != null) {
-                    if (utilisateur instanceof ChefDeProjet) {
-                        construireEnvironnementCDP() ;
-                        PanelContenu.removeAll() ;
-                        validate() ;
-                    }else{
-                        if (utilisateur instanceof Superviseur) {
+                       if (utilisateur instanceof Superviseur || utilisateur instanceof ChefDeProjet) {
                             construireEnvironnementSuperviseur() ;
                             PanelContenu.removeAll() ;
                             validate() ;
                         }
-                    }
                     if (utilisateur instanceof Directeur) {
                         construireEnvironnementDirecteur() ;
                         PanelContenu.removeAll() ;
                         validate() ;
                     }
                 }
-            }
-        });
-        
+	    }
+        });     
     }
     
     /** This method is called from within the constructor to
@@ -328,15 +321,15 @@ public class JFrameP2S extends javax.swing.JFrame {
             if(this.utilisateur != null) {
                 loginOK = true;
                 // si c'est un superviseur, on cr?e son environnement
-                if(utilisateur instanceof ChefDeProjet){
-                    creerEnvironnementCDP();
+		/*
+		 ** ATTENTION : on ne distingue pas le CDP du SUP car c'est la servlet qui s'en occupe
+		 */
+		
+		
+                if(utilisateur instanceof Directeur){
+                    creerEnvironnementDir();
                 }else{
-                    if(this.utilisateur instanceof Superviseur) {
                         creerEnvironnementSup();
-                    } else // sinon c'est un directeur
-                    {
-                        creerEnvironnementDir();
-                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
@@ -376,8 +369,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         // Premier noeud
         racine = new DefaultMutableTreeNode();
         
-        construireEnvironnementSuperviseur() ;
-        
+        construireEnvironnementSuperviseur() ;        
         
     }
     
@@ -407,14 +399,7 @@ public class JFrameP2S extends javax.swing.JFrame {
         
     }
     
-    private void creerEnvironnementCDP() {
-        racine = new DefaultMutableTreeNode() ;
-        
-        construireEnvironnementCDP() ;
-        
-        
-    }
-    
+      
     
     private void afficherInfoProjet(Projet proj) {
         JTabbedPaneProjet Tab = new JTabbedPaneProjet(proj);
@@ -596,60 +581,6 @@ public class JFrameP2S extends javax.swing.JFrame {
         );
     }
     
-    /**
-     * Dessine/ajoute les composants graphiques dans la fenetre
-     *@author Laffargue Nicolas
-     *@version 1.0
-     */
-    private void construireEnvironnementCDP() {
-        racine.setUserObject(Bundle.getText("NoeudProjets")) ;
-        // on efface tout
-        racine.removeAllChildren() ;
-        // Ajout des projets du superviseur
-        for(int i = 0 ; i < ((ChefDeProjet) utilisateur).nbProjets(); i++){
-            Projet proj = ((ChefDeProjet) utilisateur).getProjet(i);
-            NoeudProjet noeudProjet = new NoeudProjet(proj);
-            
-            // liste des iterations pour le projet
-            for(int j=0;j<proj.getListeIt().size();j++){
-                NoeudIteration noeudIteration = new NoeudIteration((Iteration)proj.getListeIt().get(j));
-                noeudProjet.add(noeudIteration);
-            }
-            
-            racine.add(noeudProjet);
-        }
-        // racine.add(racineProjet);
-        
-        // Met ? jour l'arborescence
-        jTree1.setModel(new DefaultTreeModel(racine));
-        
-        
-        // Ajout du listener pour la selection d'un projet
-        jTree1.addTreeSelectionListener(new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent e) {
-                // On recupere le noeud sur lequel on a clique
-                DefaultMutableTreeNode d = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
-                if(d instanceof NoeudProjet) // si le noeud est un projet
-                    afficherInfoProjet(((NoeudProjet)d).getProjet());
-                
-                else if(d instanceof NoeudIteration){//Si len noeud est une iteration
-                    afficherInfoIte(((NoeudIteration)d).getIteration());
-                }
-                // si c'est le noeud "projets"
-                else if(d.getUserObject() instanceof String && d.toString().compareTo(Bundle.getText("NoeudProjets")) == 0) {
-                    Vector listeProjets = new Vector();
-                    for(int i=0;i<d.getChildCount();i++) {
-                        listeProjets.add(((NoeudProjet)d.getChildAt(i)).getProjet());
-                    }
-                    
-                    PanelContenu.removeAll(); // On supprime tout ce qu'il y a dans le panel contenu
-                    PanelContenu.add(new JPanelTousLesProjets(listeProjets));
-                    validate();
-                }
-            }
-        }
-        );
-    }
     
     /**
      * Dessine/ajoute les composants graphiques dans la fenetre pour le directeur
@@ -706,8 +637,9 @@ public class JFrameP2S extends javax.swing.JFrame {
 	    super.getTreeCellRendererComponent(
                             tree, value, sel,
                             expanded, leaf, row,
-                            hasFocus);
-	    // cas ou c'est des membres
+                            hasFocus);	    
+	    
+	    // cas ou c'est des membres	    
 	    if (value instanceof NoeudMembre)
 	    {
 		// noeud terminal
@@ -722,11 +654,26 @@ public class JFrameP2S extends javax.swing.JFrame {
 		}*/
 		setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_members.gif")));
 	    }
+	    
 	    // cas ou c'est des projets
-	    if (value instanceof NoeudProjet)
+	    else if (value instanceof NoeudProjet)
 	    {
 		setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_projects.gif")));
 	    }
+	    
+	    else if (value instanceof NoeudIteration)
+	    {
+		setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_iteration.gif")));
+	    }
+	    
+	    else // valeur par defaut
+	    {
+		setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general.gif")));
+		setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general_open.gif")));
+		setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tree_general_open.gif")));
+	    }
+	    
+	    
 	    return this ;
 	}
     }
