@@ -32,6 +32,7 @@
             <EtchetBorder/>
           </Border>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -180,12 +181,6 @@
                       <Image iconType="3" name="/P2S/Resources/Logo.png"/>
                     </Property>
                     <Property name="iconTextGap" type="int" value="0"/>
-                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[300, 200]"/>
-                    </Property>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[300, 200]"/>
-                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -245,6 +240,7 @@
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
             <Property name="label" type="java.lang.String" value="Fermer"/>
+            <Property name="name" type="java.lang.String" value="bouton"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="closeButton"/>

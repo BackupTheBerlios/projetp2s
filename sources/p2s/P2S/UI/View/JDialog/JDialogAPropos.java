@@ -54,6 +54,7 @@ public class JDialogAPropos extends javax.swing.JDialog {
         setResizable(false);
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setBorder(new javax.swing.border.EtchedBorder());
+        jTabbedPane1.setFocusable(false);
         memberPanel.setLayout(new java.awt.GridLayout(1, 2));
 
         memberPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -109,8 +110,6 @@ public class JDialogAPropos extends javax.swing.JDialog {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/Logo.png")));
         jLabel11.setIconTextGap(0);
-        jLabel11.setMinimumSize(new java.awt.Dimension(300, 200));
-        jLabel11.setPreferredSize(new java.awt.Dimension(300, 200));
         logo.add(jLabel11);
 
         memberPanel.add(logo);
@@ -133,6 +132,7 @@ public class JDialogAPropos extends javax.swing.JDialog {
 
         buttonPanel.setBorder(new javax.swing.border.EtchedBorder());
         jButton1.setLabel("Fermer");
+        jButton1.setName("bouton");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
