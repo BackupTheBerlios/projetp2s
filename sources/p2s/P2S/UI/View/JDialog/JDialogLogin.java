@@ -146,6 +146,7 @@ public class JDialogLogin extends javax.swing.JDialog {
             String inputLine;
             while ((inputLine = in.readLine()) != null)
                 fluxXml += inputLine;
+                System.out.println("FLUX : " + fluxXml);
             
             if(fluxXml.compareTo("") != 0) {
                 ParserXMLLog parser = new ParserXMLLog(fluxXml);
