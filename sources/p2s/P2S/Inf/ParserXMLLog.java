@@ -140,7 +140,6 @@ public class ParserXMLLog {
             int idMembre = -1;
             String nom = null;
             String prenom = null;
-            String login = null;
             String adresse = null;
             String telephone = null;
             String email = null;
@@ -160,11 +159,7 @@ public class ParserXMLLog {
                 //Recupération du prenom du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("prenom"))
                     prenom = attributCourant.getFirstChild().getNodeValue();
-                
-                //Recupération du login du membre
-                if(attributCourant.getNodeName().equalsIgnoreCase("login"))
-                    login = attributCourant.getFirstChild().getNodeValue();
-                
+                                                
                 //Recupération de l'adresse du membre
                 if(attributCourant.getNodeName().equalsIgnoreCase("adresse"))
                     adresse = attributCourant.getFirstChild().getNodeValue();
@@ -178,7 +173,7 @@ public class ParserXMLLog {
                     email = attributCourant.getFirstChild().getNodeValue();
             }
             
-            Membre membreCourant = new Membre(idMembre,nom,prenom,login,adresse,telephone,email);
+            Membre membreCourant = new Membre(idMembre,nom,prenom,adresse,telephone,email);
             membres.add(membreCourant);
         }
         return membres;

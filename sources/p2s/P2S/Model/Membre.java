@@ -16,8 +16,7 @@ public class Membre {
     
     private int idMembre;
     private String nom;
-    private String prenom;
-    private String login;
+    private String prenom;    
     private String adresse;
     private String telephone;
     private String email;
@@ -26,11 +25,10 @@ public class Membre {
     
     public Membre() {}
 
-    public Membre(int _idMembre,String _nom,String _prenom,String _login,String _adresse,String _telephone,String _email) {
+    public Membre(int _idMembre,String _nom,String _prenom,String _adresse,String _telephone,String _email) {
         idMembre = _idMembre;
         nom = _nom;
-        prenom = _prenom;
-        login = _login;
+        prenom = _prenom;        
         adresse = _adresse;
         telephone = _telephone;
         email = _email;
@@ -63,14 +61,7 @@ public class Membre {
         this.prenom = prenom;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
+    
     public String getAdresse() {
         return adresse;
     }

@@ -139,11 +139,7 @@ public class LoginServlet extends HttpServlet {
                             out.print("<prenom>");
                             out.print(rsMembres.getString("prenom"));
                             out.print("</prenom>");
-                            
-                            out.print("<login>");
-                            out.print(rsMembres.getString("login"));
-                            out.print("</login>");
-                            
+                                                                                    
                             out.print("<adresse>");
                             out.print(rsMembres.getString("adresse"));
                             out.print("</adresse>");

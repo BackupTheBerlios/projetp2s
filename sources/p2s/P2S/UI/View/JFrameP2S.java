@@ -398,104 +398,92 @@ public class JFrameP2S extends javax.swing.JFrame {
         // On réaffiche le bouton "envoyer alerte"
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         jPanelInfo.add(jButton1, gridBagConstraints);
         
-        // On crée les labels pour afficher les infos sur le jPanel
-        JLabel LabelStaticLogin = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Login"));
+        // On crée les labels pour afficher les infos sur le jPanel        
         JLabel LabelStaticNom = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Nom"));
         JLabel LabelStaticPrenom = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Prenom"));
         JLabel LabelStaticAdresse = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Adresse"));
         JLabel LabelStaticTelephone = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_Telephone"));
         JLabel LabelStaticEMail = new JLabel(Bundle.getText("JPanelInfoMembre_JLabel_EMail"));
         
-        JLabel LabelLogin = new JLabel(membre.getLogin());
         JLabel LabelNom = new JLabel(membre.getNom());
         JLabel LabelPrenom = new JLabel(membre.getPrenom());
         JLabel LabelAdresse = new JLabel(membre.getAdresse());
         JLabel LabelTelephone = new JLabel(membre.getTelephone());
         JLabel LabelEMail = new JLabel(membre.getEmail());
         
-        // On place les jLabels sur le panel
-               
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        jPanelInfo.add(LabelStaticLogin, new java.awt.GridBagConstraints());
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        jPanelInfo.add(LabelLogin, gridBagConstraints);
-
+        // On place les jLabels sur le panel               
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
         jPanelInfo.add(LabelStaticNom, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
         jPanelInfo.add(LabelNom, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 3, 0);
         jPanelInfo.add(LabelStaticPrenom, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         jPanelInfo.add(LabelPrenom, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         jPanelInfo.add(LabelStaticAdresse, gridBagConstraints);
 
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
         jPanelInfo.add(LabelAdresse, gridBagConstraints);
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         jPanelInfo.add(LabelStaticTelephone, gridBagConstraints);
 
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
         jPanelInfo.add(LabelTelephone, gridBagConstraints);
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         jPanelInfo.add(LabelStaticEMail, gridBagConstraints);
 
         
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
         jPanelInfo.add(LabelEMail, gridBagConstraints);
         
         // On rafraichit le jPanel
