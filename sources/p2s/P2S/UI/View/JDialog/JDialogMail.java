@@ -54,8 +54,9 @@ public class JDialogMail extends javax.swing.JDialog {
         textIndObjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 360, -1));
 
+        buttonOK.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/mail.gif")));
         buttonOK.setText("Envoyer");
-        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, -1, -1));
+        getContentPane().add(buttonOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, -1, -1));
 
         buttonCancel.setText("Annuler");
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +65,7 @@ public class JDialogMail extends javax.swing.JDialog {
             }
         });
 
-        getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
+        getContentPane().add(buttonCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, -1, -1));
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-494)/2, (screenSize.height-400)/2, 494, 400);

@@ -514,7 +514,7 @@ public class ParserXMLLog {
                                 
                                 int totalChargesIte = 0;
                                 int tachesTermineesIte = 0;
-                                int dureeMoyenneTacheIte = 0;
+                                float dureeMoyenneTacheIte = 0;
                                 int nombreParticipantsIte = 0;
                                 float chargeMoyenneParticipants = 0;
                                 float nombreMoyenTachesParticipants = 0;
@@ -540,7 +540,7 @@ public class ParserXMLLog {
                                     //Recuperation du duree moyenne des taches
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("dureemoyennetache"))
                                         if(indicateurActuelIte.getFirstChild() != null)
-                                            dureeMoyenneTacheIte = Integer.parseInt(indicateurActuelIte.getFirstChild().getNodeValue());
+                                            dureeMoyenneTacheIte = Float.parseFloat(indicateurActuelIte.getFirstChild().getNodeValue());
                                     
                                     //Recuperation du nombre de participants
                                     if(indicateurActuelIte.getNodeName().equalsIgnoreCase("nombreparticipants"))
