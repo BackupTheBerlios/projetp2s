@@ -79,13 +79,13 @@ public class GrapheIndicateursProjet extends JPanel {
 	Rectangle2D.Double ligne1 = new Rectangle2D.Double(5.0, 300.0, RECT_DIM2, RECT_DIM1) ;
 	Rectangle2D.Double ligne2 = new Rectangle2D.Double(5.0, 315.0, RECT_DIM2, RECT_DIM1) ;
 	Rectangle2D.Double ligne3 = new Rectangle2D.Double(5.0, 330.0, RECT_DIM2, RECT_DIM1) ;
-	Line2D.Double axeX = new Line2D.Double(0.0, 230.0, new Double(ITERATION_WIDTH * nbIt), 230.0) ;
+	Line2D.Double axeX = new Line2D.Double(0.0, 230.0, new Double(ITERATION_WIDTH * nbIt).doubleValue(), 230.0) ;
 	Line2D.Double axeY = new Line2D.Double(0.0, 230.0, 0.0, 0.0) ;
 	Line2D.Double underline = new Line2D.Double() ;
 	Line2D.Double limit = new Line2D.Double() ;
 	
 	g2d.setPaint(new Color(240, 240, 240)) ;
-	g2d.fill(new Rectangle2D.Double(0.0, 0.0, new Double(ITERATION_WIDTH * nbIt), 230.0)) ;
+	g2d.fill(new Rectangle2D.Double(0.0, 0.0, new Double(ITERATION_WIDTH * nbIt).doubleValue(), 230.0)) ;
 	
 	g2d.setPaint(Color.black) ;
 	g2d.draw(axeX) ;
@@ -125,9 +125,9 @@ public class GrapheIndicateursProjet extends JPanel {
 		 
 		 // affichage de la premiere colonne : total des charges
 		 int charges = tempIndIt.getTotalCharges() ;
-		 Double y1Height = (new Double(charges)/new Double(chargesMax))*200.0 ; // longueur de la barre
-		 Double y1Pos = 230.0 - y1Height ; // position de la barre
-		 ligne1.setRect(new Double(ITERATION_WIDTH * i + 5), y1Pos, RECT_DIM1, y1Height) ;
+		 Double y1Height = new Double((new Double(charges).doubleValue()/new Double(chargesMax).doubleValue())*200.0) ; // longueur de la barre
+		 Double y1Pos = new Double(230.0 - y1Height.doubleValue()) ; // position de la barre
+		 ligne1.setRect(new Double(ITERATION_WIDTH * i + 5).doubleValue(), y1Pos.doubleValue(), RECT_DIM1, y1Height.doubleValue()) ;
 		 g2d.setPaint(color1) ;
 		 g2d.fill(ligne1) ;
 		 g2d.setPaint(Color.black) ;
@@ -137,9 +137,9 @@ public class GrapheIndicateursProjet extends JPanel {
 		 
 		 // affichage de la deuxieme colonne : nombre participants
 		 int participants = tempIndIt.getNombreParticipants() ;
-		 Double y2Height = (new Double(participants)/new Double(participantsMax))*200.0 ; // longueur de la barre
-		 Double y2Pos = 230.0 - y2Height ; // position de la barre
-		 ligne2.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 20), y2Pos, RECT_DIM1, y2Height) ;
+		 Double y2Height = new Double((new Double(participants).doubleValue()/new Double(participantsMax).doubleValue())*200.0) ; // longueur de la barre
+		 Double y2Pos = new Double(230.0 - y2Height.doubleValue()) ; // position de la barre
+		 ligne2.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 20).doubleValue(), y2Pos.doubleValue(), RECT_DIM1, y2Height.doubleValue()) ;
 		 g2d.setPaint(color2) ;
 		 g2d.fill(ligne2) ;
 		 g2d.setPaint(Color.black) ;
@@ -149,9 +149,9 @@ public class GrapheIndicateursProjet extends JPanel {
 		 
 		 // affichage de la troisieme colonne : moyenne charge/participant
 		 int moyenneCharges = tempIndIt.getDureeMoyenneTaches() ;
-		 Double y3Height = (new Double(moyenneCharges)/new Double(moyenneChargesMax))*200.0 ; // longueur de la barre
-		 Double y3Pos = 230.0 - y3Height ; // position de la barre
-		 ligne3.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 45), y3Pos, RECT_DIM1, y3Height) ;
+		 Double y3Height = new Double((new Double(moyenneCharges).doubleValue()/new Double(moyenneChargesMax).doubleValue())*200.0) ; // longueur de la barre
+		 Double y3Pos = new Double(230.0 - y3Height.doubleValue()) ; // position de la barre
+		 ligne3.setRect(new Double(ITERATION_WIDTH * i + RECT_DIM1 + 45).doubleValue(), y3Pos.doubleValue(), RECT_DIM1, y3Height.doubleValue()) ;
 		 g2d.setPaint(color3) ;
 		 g2d.fill(ligne3) ;
 		 g2d.setPaint(Color.black) ;
@@ -159,11 +159,11 @@ public class GrapheIndicateursProjet extends JPanel {
 		 g2d.drawString((new Integer(moyenneCharges)).toString(), ITERATION_WIDTH * i + 45+ RECT_DIM1, y3Pos.intValue() - 10) ;
 		 
 		 // lignes du bas pour delimiter l'iteration
-		 underline.setLine(new Double(ITERATION_WIDTH * i + 5), 250.0, new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i), 250.0) ;
+		 underline.setLine(new Double(ITERATION_WIDTH * i + 5).doubleValue(), 250.0, new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).doubleValue(), 250.0) ;
 		 g2d.draw(underline) ;
-		 limit.setLine(new Double(ITERATION_WIDTH * i + 5), 250.0, new Double(5 + ITERATION_WIDTH * i), 240.0) ;
+		 limit.setLine(new Double(ITERATION_WIDTH * i + 5).doubleValue(), 250.0, new Double(5 + ITERATION_WIDTH * i).doubleValue(), 240.0) ;
 		 g2d.draw(limit) ;
-		 limit.setLine(new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i), 250.0, new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i), 240.0) ;
+		 limit.setLine(new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).doubleValue(), 250.0, new Double(ITERATION_WIDTH - 15 +ITERATION_WIDTH * i).doubleValue(), 240.0) ;
 		 g2d.draw(limit) ;
 		 g2d.drawString("Iteration "+tempIt.getNumero(), ITERATION_WIDTH * i + 20, 245) ;
             }
