@@ -1,0 +1,1059 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<exportProjet>
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<!--                          PROCESSUS                              -->
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<exportExecution>
+		<!-- copie du Fichier dpe du groupe xmi-->
+	</exportExecution>
+
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<!--                  OBJETS CONSTITUANT LE PORJET                   -->
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<elementProjet>
+
+<!— Condition d’activation d’une definition de travail -->
+<listeConditionDefTravail>
+	<conditionDefTravail>
+				<id></id>
+				<type></type>
+			</conditionDefTravail>
+		</listeConditionDefTravail>
+
+		
+<!-- Unique projet du fichier -->
+		<projet>
+			<id>1</id>
+			<nom>p2s</nom>
+			<description>projet p2s</description>
+			<dateDebut>2002-02-03</dateDebut>
+			<dateFin>2004-03-05</dateFin>
+			<budget>300</budget>
+		</projet>
+
+		<!--  Liste de toutes les metriques -->
+		<listeMetriques>
+			<eltMetrique>
+				<id>1</id>
+				<nom>metrique1</nom>
+				<description>desc metrique 1</description>
+				<valeur>val 1</valeur>
+				<type>2</type>
+			</eltMetrique>
+			<eltMetrique>
+				<id>2</id>
+				<nom>metrique2</nom>
+				<description>desc metrique 2</description>
+				<valeur>val 2</valeur>
+				<type>4</type>
+			</eltMetrique>
+		</listeMetriques>
+
+		<!--  Liste de tous les riques -->
+		<listeRisques>
+			<eltRisque>
+				<id>1</id>
+				<nom>risque1</nom>
+				<description>desc risque1</description>
+				<priorite>2</priorite>
+				<impact>5</impact>
+				<etat>3</etat>
+			</eltRisque>
+			<eltRisque>
+				<id>2</id>
+				<nom>risque2</nom>
+				<description>desc risque2</description>
+				<priorite>4</priorite>
+				<impact>7</impact>
+				<etat>1</etat>
+			</eltRisque>
+			<eltRisque>
+				<id>3</id>
+				<nom>risque3</nom>
+				<description>desc risque3</description>
+				<priorite>1</priorite>
+				<impact>2</impact>
+				<etat>5</etat>
+			</eltRisque>
+		</listeRisques>
+
+		<!--  Liste de tous les membres -->
+		<listeMembres>
+			<eltMembre>
+				<id>1</id>
+				<nom>Bouyssou</nom>
+				<prenom>Fabien</prenom>
+				<login>login1</login>
+				<adresse>adresse 1</adresse>
+				<telephone>05.02.05.06.04</telephone>
+				<email>email 1</email>
+			</eltMembre>
+			<eltMembre>
+				<id>2</id>
+				<nom>Laffargue</nom>
+				<prenom>Nicolas</prenom>
+				<login>login2</login>
+				<adresse>adresse 2</adresse>
+				<telephone>05.02.05.06.07</telephone>
+				<email>email 2</email>
+			</eltMembre>
+                        <eltMembre>
+				<id>3</id>
+				<nom>Laroche</nom>
+				<prenom>Guillaume</prenom>
+				<login>login3</login>
+				<adresse>adresse 3</adresse>
+				<telephone>05.02.05.06.12</telephone>
+				<email>email 3</email>
+			</eltMembre>
+                        <eltMembre>
+				<id>4</id>
+				<nom>Souyris</nom>
+				<prenom>Matthieu</prenom>
+				<login>login4</login>
+				<adresse>adresse 4</adresse>
+				<telephone>05.02.05.06.75</telephone>
+				<email>email 4</email>
+			</eltMembre>
+                        <eltMembre>
+				<id>5</id>
+				<nom>Del Col</nom>
+				<prenom>Nicolas</prenom>
+				<login>login5</login>
+				<adresse>adresse 5</adresse>
+				<telephone>05.02.05.06.45</telephone>
+				<email>email 5</email>
+			</eltMembre>
+		</listeMembres>
+		
+		<listeRoles>
+			<eltRole>
+				<id>1</id>
+				<nom>role 1</nom>
+				<description>desc 1</description>
+			</eltRole>
+			<id>2</id>
+				<nom>role 2</nom>
+				<description>desc 2</description>
+			</eltRole>
+			<id>3</id>
+				<nom>role 3</nom>
+				<description>desc 3</description>
+			</eltRole>
+			<id>4</id>
+				<nom>role 4</nom>
+				<description>desc 4</description>
+			</eltRole>
+			<id>5</id>
+				<nom>role 5</nom>
+				<description>desc 5</description>
+			</eltRole>
+		</listeRoles>
+
+		<!--  Liste de toutes les iterations-->
+		<listeIterations>
+			<eltIteration>
+				<id>1</id>
+				<numero>1</numero>
+				<dateDebutPrevue>2003-02-02</dateDebutPrevue>
+				<dateDebutReelle>2003-02-03</dateDebutReelle>
+				<dateFinPrevue>2003-03-02</dateFinPrevue>
+				<dateFinReelle>2003-03-03</dateFinReelle>
+			</eltIteration>
+			<eltIteration>
+				<id>2</id>
+				<numero>2</numero>
+				<dateDebutPrevue>2003-03-02</dateDebutPrevue>
+				<dateDebutReelle>2003-03-03</dateDebutReelle>
+				<dateFinPrevue>2003-04-02</dateFinPrevue>
+				<dateFinReelle>2003-04-03</dateFinReelle>
+			</eltIteration>
+			<eltIteration>
+				<id>3</id>
+				<numero>3</numero>
+				<dateDebutPrevue>2003-04-02</dateDebutPrevue>
+				<dateDebutReelle>2003-04-03</dateDebutReelle>
+				<dateFinPrevue>2003-05-02</dateFinPrevue>
+				<dateFinReelle>2003-05-03</dateFinReelle>
+			</eltIteration>
+			<eltIteration>
+				<id>4</id>
+				<numero>4</numero>
+				<dateDebutPrevue>2003-05-02</dateDebutPrevue>
+				<dateDebutReelle>2003-05-03</dateDebutReelle>
+				<dateFinPrevue>2003-06-02</dateFinPrevue>
+				<dateFinReelle>2003-06-03</dateFinReelle>
+			</eltIteration>
+		</listeIterations>
+
+		<!--  Liste de toutes les taches -->
+		<listeTaches>
+			<eltTache>
+				<id>1</id>
+				<nom>tache 1</nom>
+				<description>desc tache 1</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-02-02</dateDebutPrevue>
+				<dateDebutReelle>2003-02-03</dateDebutReelle>
+				<dateFinPrevue>2003-02-15</dateFinPrevue>
+				<dateFinReelle>2003-02-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>2</id>
+				<nom>tache 2</nom>
+				<description>desc tache 2</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-02-16</dateDebutPrevue>
+				<dateDebutReelle>2003-02-17</dateDebutReelle>
+				<dateFinPrevue>2003-03-02</dateFinPrevue>
+				<dateFinReelle>2003-03-03</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>3</id>
+				<nom>tache 3</nom>
+				<description>desc tache 3</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-03-02</dateDebutPrevue>
+				<dateDebutReelle>2003-03-03</dateDebutReelle>
+				<dateFinPrevue>2003-03-15</dateFinPrevue>
+				<dateFinReelle>2003-03-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>4</id>
+				<nom>tache 4</nom>
+				<description>desc tache 4</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-03-16</dateDebutPrevue>
+				<dateDebutReelle>2003-03-17</dateDebutReelle>
+				<dateFinPrevue>2003-04-02</dateFinPrevue>
+				<dateFinReelle>2003-04-03</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>5</id>
+				<nom>tache 5</nom>
+				<description>desc tache 5</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-04-02</dateDebutPrevue>
+				<dateDebutReelle>2003-04-03</dateDebutReelle>
+				<dateFinPrevue>2003-04-15</dateFinPrevue>
+				<dateFinReelle>2003-04-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>6</id>
+				<nom>tache 6</nom>
+				<description>desc tache 6</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-04-16</dateDebutPrevue>
+				<dateDebutReelle>2003-04-17</dateDebutReelle>
+				<dateFinPrevue>2003-05-02</dateFinPrevue>
+				<dateFinReelle>2003-05-03</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>7</id>
+				<nom>tache 7</nom>
+				<description>desc tache 7</description>
+				<etat>2</etat><!-- prete - commence - arrete -->
+				<chargePrevue>40</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>20</resteAPasser>
+				<dateDebutPrevue>2003-05-02</dateDebutPrevue>
+				<dateDebutReelle>2003-05-03</dateDebutReelle>
+				<dateFinPrevue>2003-05-15</dateFinPrevue>
+				<dateFinReelle></dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>8</id>
+				<nom>tache 8</nom>
+				<description>desc tache 8</description>
+				<etat>1</etat><!-- prete - commence - arrete -->
+				<chargePrevue>10</chargePrevue>
+				<tempsPasse>0</tempsPasse>
+				<resteAPasser>10</resteAPasser>
+				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
+				<dateDebutReelle></dateDebutReelle>
+				<dateFinPrevue>2003-06-02</dateFinPrevue>
+				<dateFinReelle></dateFinReelle>
+			</eltTache>
+		</listeTaches>
+
+		<!--  Liste de toutes les conditions -->
+		<listeConditionTache>
+			<eltCondition>
+				<id>1</id>
+				<type>1</type><!-- fini - commence -->
+			</eltCondition>
+			<eltCondition>
+				<id>2</id>
+				<type>2</type><!-- fini - commence -->
+			</eltCondition>
+		</listeConditionTache>
+
+		<!--  Liste de toutes les taches colaborative -->
+		<listeTacheCollaboratives>
+			<eltTacheCollaborative>
+				<id>1</id>
+				<nom>tache col 1</nom>
+				<description>desc tache col 1</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-04-02</dateDebutPrevue>
+				<dateDebutReelle>2003-04-03</dateDebutReelle>
+				<dateFinPrevue>2003-04-15</dateFinPrevue>
+				<dateFinReelle>2003-04-16</dateFinReelle>
+			</eltTacheCollaborative>
+			<eltTacheCollaborative>			
+				<id>2</id>
+				<nom>tache col 2</nom>
+				<description>desc tache col 2</description>
+				<etat>1</etat><!-- prete - commence - arrete -->
+				<chargePrevue>10</chargePrevue>
+				<tempsPasse>0</tempsPasse>
+				<resteAPasser>10</resteAPasser>
+				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
+				<dateDebutReelle></dateDebutReelle>
+				<dateFinPrevue>2003-06-02</dateFinPrevue>
+				<dateFinReelle></dateFinReelle>
+			</eltTacheCollaborative>
+		</listeTacheCollaboratives>
+		
+
+		<!--  Liste de tous les artefact -->
+		<listeArtefacts>
+			<eltArtefact>
+				<id>1</id>
+				<nom>artefact 1</nom>
+				<description>desc artefact 1</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>2</id>
+				<nom>artefact 2</nom>
+				<description>desc artefact 2</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>3</id>
+				<nom>artefact 3</nom>
+				<description>desc artefact 3</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>4</id>
+				<nom>artefact 4</nom>
+				<description>desc artefact 4</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>5</id>
+				<nom>artefact 5</nom>
+				<description>desc artefact 5</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>6</id>
+				<nom>artefact 6</nom>
+				<description>desc artefact 6</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>7</id>
+				<nom>artefact 7</nom>
+				<description>desc artefact 7</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>8</id>
+				<nom>artefact 8</nom>
+				<description>desc artefact 8</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>9</id>
+				<nom>artefact 9</nom>
+				<description>desc artefact 9</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>10</id>
+				<nom>artefact 10</nom>
+				<description>desc artefact 10</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>11</id>
+				<nom>artefact 11</nom>
+				<description>desc artefact 11</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+		</listeArtefacts>
+
+		<!--  Liste de tous les problemes -->
+		<listeProblemes>
+			<eltProbleme>
+				<id></id>
+				<nom></nom>
+				<cause></cause>
+				<dateDebut></dateDebut>
+				<dateFin></dateFin>
+			</eltProbleme>
+		</listeProblemes>
+
+	</elementProjet>
+	
+	
+ 
+
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<!--                 LIENS ENTRE LES OBJETS DU PROJET                -->
+	<!-- /////////////////////////////////////////////////////////////// -->
+
+	<lienProjet>
+		
+		<!--  Lien entre les deftravail et leur condition de debut-->
+		<listeDefTravailconditionDefTravail_debuteSi>
+<defTravailconditionDefTravail_debuteSi>
+				<idDefTravail></idDefTravail>
+				<listeIdCondition>
+					<id></id>
+					<id></id>
+				</listeIdCondition >
+			</defTravailconditionDefTravail >
+</listeDefTravailconditionDefTravail_debuteSi>
+
+<!--  Lien entre une condition et la deftravail sur laquelle elle porte-->
+		<listeDefTravailconditionDefTravail_porteSur>
+			<defTravailconditionDefTravail_porteSur>
+				<idDefTravailt></idDefTravailt >
+				< idCondition ></idCondition >
+			</defTravailconditionDefTravail_porteSur>
+		</listeDefTravailconditionDefTravail_porteSur>
+
+		<!--  Lien entre les iteration et le projet-->
+		<listeProjetIteration>
+			<ProjetIteration>
+				<idProjet>1</idProjet>
+				<listeIdIteration>
+					<id>1</id>
+					<id>2</id>
+					<id>3</id>
+					<id>4</id>
+				</listeIdIteration>
+			</ProjetIteration>
+		</listeProjetIteration>
+
+		<!--  Lien entre les mesures et le projet  -->
+		<listeProjetMetrique>
+			<ProjetMetrique>
+				<idProjet>1</idProjet>
+				<listeIdMetrique>
+					<id>1</id>
+					<id>2</id>
+				</listeIdMetrique>
+			</ProjetMetrique>
+		</listeProjetMetrique>
+
+		<!--  Lien entre les risques et le projet -->
+		<listeProjetRisque>
+			<ProjetRisque>
+				<idProjet>1</idProjet>
+				<listeIdRisque>
+					<id>1</id>
+					<id>2</id>
+					<id>3</id>
+				</listeIdRisque>
+			</ProjetRisque>
+		</listeProjetRisque>
+
+		<!--  Lien entre les tache et leur iteration -->
+		<listeIterationTache>
+			<IterationTache>
+				<idIteration>1</idIteration>
+				<listeIdTache>
+					<id>1</id>
+					<id>2</id>
+				</listeIdTache>
+			</IterationTache>
+			<IterationTache>
+				<idIteration>2</idIteration>
+				<listeIdTache>
+					<id>3</id>
+					<id>4</id>
+				</listeIdTache>
+			</IterationTache>
+			<IterationTache>
+				<idIteration>3</idIteration>
+				<listeIdTache>
+					<id>5</id>
+					<id>6</id>
+				</listeIdTache>
+			</IterationTache>
+			<IterationTache>
+				<idIteration>4</idIteration>
+				<listeIdTache>
+					<id>7</id>
+					<id>8</id>
+				</listeIdTache>
+			</IterationTache>
+		</listeIterationTache>
+
+		<!--  Lien entre les tache collaborative et leur iteration -->
+		<listeIterationTacheCol>
+			<IterationTacheCol>
+				<idIteration>3</idIteration>
+				<listeIdTacheCol>
+					<id>1</id>					
+				</listeIdTacheCol>
+			</IterationTacheCol>
+			<IterationTacheCol>
+				<idIteration>4</idIteration>
+				<listeIdTacheCol>
+					<id>2</id>					
+				</listeIdTacheCol>
+			</IterationTacheCol>
+		</listeIterationTacheCol>
+
+
+		<!--  Lien entre les membres et le projet -->
+		<listeProjetMembre>
+			<ProjetMembre>
+				<idProjet>1</idProjet>
+				<listeMembre>
+					<id>1</id>
+					<id>2</id>
+					<id>3</id>
+					<id>4</id>
+					<id>5</id>
+				</listeMembre>
+			</ProjetMembre>
+		</listeProjetMembre>
+
+		<!--  Lien entre des artefact et leurs responsables -->
+		<listeMembreArtefact>
+			<MembreArtefact>
+				<idMembre>1</idMembre>
+				<listeArtefact>
+					<id>2</id>
+					<id>3</id>
+					<id>5</id>
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>2</idMembre>
+				<listeArtefact>
+					<id>1</id>
+					<id>7</id>
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>3</idMembre>
+				<listeArtefact>
+					<id>11</id>
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>4</idMembre>
+				<listeArtefact>
+					<id>4</id>
+					<id>6</id>
+					<id>8</id>
+					<id>9</id>					
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>5</idMembre>
+				<listeArtefact>
+					<id>10</id>
+				</listeArtefact>
+			</MembreArtefact>
+		</listeMembreArtefact>
+
+		<!--  Lien entre les tache et le membre qui les realise -->
+		<listeMembreTache>
+			<MembreTache>
+			<idMembre>1</idMembre>
+				<listeTache>
+					<id>2</id>
+					<id>3</id>
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>2</idMembre>
+				<listeTache>
+					<id>1</id>
+					<id>8</id>
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>3</idMembre>
+				<listeTache>
+					<id>4</id>
+					<id>5</id>
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>4</idMembre>
+				<listeTache>
+					<id>7</id>					
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>5</idMembre>
+				<listeTache>
+					<id>6</id>
+				</listeTache>
+			</MembreTache>
+		</listeMembreTache>
+
+		<!-- Lien entre une tache et une liste de conditions pour que cette tache debute -->
+		<listeTache_DebuteSi_Condition>
+			<Tache_DebuteSi_Condition>
+				<idTache></idTache>
+				<listeCondition>
+					<id></id>
+					<id></id>
+				</listeCondition>
+			</Tache_DebuteSi_Condition>
+		</listeTache_DebuteSi_Condition>
+
+		<!-- Lien entre une condition et la taches qu'elle comporte -->
+		<listeCondition_PorteSur_Tache>
+			<Condition_PorteSur_Tache>
+				<idCondition></idCondition>
+				<idTache></idTache>
+			</Condition_PorteSur_Tache>
+		</listeCondition_PorteSur_Tache>
+
+		<!-- Lien entre une tache collaborative et une liste de conditions pour que cette tache debute -->
+		<listeTacheCol_DebuteSi_Condition>
+			<TacheCol_DebuteSi_Condition>
+				<idTacheCol></idTacheCol>
+				<listeCondition>
+					<id></id>
+					<id></id>
+				</listeCondition>
+			</TacheCol_DebuteSi_Condition>
+		</listeTacheCol_DebuteSi_Condition>
+
+		<!-- Lien entre une condition et la taches collaborative qu'elle comporte -->
+		<listeCondition_PorteSur_TacheCol>
+			<Condition_PorteSur_TacheCol>
+				<idCondition></idCondition>
+				<idTacheCol></idTacheCol>
+			</Condition_PorteSur_TacheCol>
+		</listeCondition_PorteSur_TacheCol>
+
+
+
+
+
+		<!--  Lien entre les artefact en entree et la tache collaborative qui les utilise -->
+		<listeTacheColArtefact_Entree>
+			<TacheColArtefact_Entree>
+				<idTacheCol>1</idTacheCol>
+				<listeArtefact>					
+					<id>7</id>
+				</listeArtefact>
+			</TacheColArtefact_Entree>
+			<TacheColArtefact_Entree>
+				<idTacheCol>2</idTacheCol>
+				<listeArtefact>
+					<id>9</id>					
+				</listeArtefact>
+			</TacheColArtefact_Entree>
+		</listeTacheColArtefact_Entree>
+
+
+		<!--  Lien entre les artefacts en sortie et la tache collaborative qui les produit -->
+		<listeTacheColArtefact_Sortie>
+			<TacheColArtefact_Sortie>
+				<idTacheCol>1</idTacheCol>
+				<listeArtefact>
+					<id>9</id>					
+				</listeArtefact>
+			</TacheColArtefact_Sortie>
+			<TacheColArtefact_Sortie>
+				<idTacheCol>2</idTacheCol>
+				<listeArtefact>
+					<id>10</id>					
+				</listeArtefact>
+			</TacheColArtefact_Sortie>
+		<listeTacheColArtefact_Sortie>
+
+
+		<!--  Lien entre les artefact en entree et la tache qui les utilise -->
+		<listeTacheArtefact_Entree>			
+			<TacheArtefact_Entree>
+				<idTache>1</idTache>
+				<listeArtefact>
+					<id>1</id>					
+				</listeArtefact>			
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>2</idTache>
+				<listeArtefact>
+					<id>2</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>3</idTache>
+				<listeArtefact>
+					<id>3</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>4</idTache>
+				<listeArtefact>
+					<id>4</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>5</idTache>
+				<listeArtefact>
+					<id>5</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>6</idTache>
+				<listeArtefact>
+					<id>6</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>7</idTache>
+				<listeArtefact>
+					<id>7</id>		
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>8</idTache>
+				<listeArtefact>
+					<id>8</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>
+		</listeTacheArtefact_Entree>
+
+
+		<!--  Lien entre les artefacts en sortie et la tache qui les produit -->
+		<listeTacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>1</idTache>
+				<listeArtefact>
+					<id>2</id>					
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>2</idTache>
+				<listeArtefact>
+					<id>3</id>					
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>3</idTache>
+				<listeArtefact>
+					<id>4</id>					
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>4</idTache>
+				<listeArtefact>
+					<id>5</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>5</idTache>
+				<listeArtefact>
+					<id>6</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>6</idTache>
+				<listeArtefact>
+					<id>7</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>7</idTache>
+				<listeArtefact>
+					<id>8</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>8</idTache>
+				<listeArtefact>
+					<id>11</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+		<listeTacheArtefact_Sortie>
+
+		
+		<!-- Lien one to many entre membre et tache collaborative -->
+		<listeMembreTacheCollaborative_Responsable>
+			<MembreTacheCollaborative_Responsable>
+				<idMembre>1</idMembre>
+				<listeTacheCollaborative>
+					<id>1</id>					
+				</listeTacheCollaborative>
+			</MembreTacheCollaborative_Responsable>
+			<MembreTacheCollaborative_Responsable>
+				<idMembre>2</idMembre>
+				<listeTacheCollaborative>					
+					<id>2</id>
+				</listeTacheCollaborative>
+			</MembreTacheCollaborative_Responsable>			
+		</listeMembreTacheCollaborative_Responsable>
+
+		<!-- Lien many to many entre membre et tache collaborative -->
+		<!-- un membre peut realiser 0..* tache colaborative -->
+		<!-- une tache colaborative est realisÃ© par 1..* membre -->
+		<MembreTacheCollaborative_Realise>
+			<listeMembre>
+				<Membre>
+					<id>1</id>
+					<listeTacheCollaborative>
+						<id>1</id>						
+					</listeTacheCollaborative>
+				</Membre>
+				<Membre>
+					<id>2</id>
+					<listeTacheCollaborative>
+						<id>1</id>
+						<id>2</id>
+					</listeTacheCollaborative>
+				</Membre>
+				<Membre>
+					<id>3</id>
+					<listeTacheCollaborative>						
+						<id>2</id>
+					</listeTacheCollaborative>
+				</Membre>
+			</listeMembre>
+		</MembreTacheCollaborative_Realise>
+
+		<!-- Lien many to many entre tache et probleme -->
+		<!-- une tache peut engendrer 0..* probleme  -->
+		<!-- un probleme peut etre genere par 0..* tache -->
+		<Tache_Provoque_Probleme>
+			<listeTache>
+				<Tache>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</Tache>
+				<Tache>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</Tache>
+			</listeTache>
+		</Tache_Provoque_Probleme>
+
+		<!-- Lien many to many entre probleme et tache -->
+		<!-- une tache peut resoudre 0..* probleme  -->
+		<!-- un probleme peut etre resolu par 0..* tache -->
+		<Probleme_Resoud_Tache>
+			<listeProbleme>
+				<Probleme>
+					<id></id>
+					<listeTache>
+						<id></id>
+						<id></id>
+					</listeTache>
+				</Probleme>
+				<Probleme>
+					<id></id>
+					<listeTache>
+						<id></id>
+						<id></id>
+					</listeTache>
+				</Probleme>
+			</listeProbleme>
+		</Probleme_Resoud_Tache>
+		
+		<!-- Lien many to many entre tache collaborative et probleme -->
+		<!-- une tache collaborative peut engendrer 0..* probleme  -->
+		<!-- un probleme peut etre genere par 0..* tache collaborative -->
+		<TacheCol_Provoque_Probleme>
+			<listeTache>
+				<TacheCol>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</TacheCol>
+				<TacheCol>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</ TacheCol>
+			</listeTacheCol>
+		</Tache_Provoque_Probleme>
+
+		<!-- Lien many to many entre probleme et tache collaborative -->
+		<!-- une tache collaborative peut resoudre 0..* probleme  -->
+		<!-- un probleme peut etre resolu par 0..* tache collaborative -->
+		<Probleme_Resoud_TacheCol>
+			<listeProbleme>
+				<Probleme>
+					<id></id>
+					<listeTacheCol>
+						<id></id>
+						<id></id>
+					</listeTacheCol>
+				</Probleme>
+				<Probleme>
+					<id></id>
+					<listeTacheCol>
+						<id></id>
+
+						<id></id>
+					</listeTacheCol>
+				</Probleme>
+			</listeProbleme>
+		</Probleme_Resoud_TacheCol >
+
+	</lienProjet>
+
+	<!-- Lien entre le projet et le processus -->
+	<lienProjetProcessus>
+
+		<ProcessusProjet>
+			<idProcessus></idProcessus>
+			<IdProjet></IdProjet>
+		</ProcessusProjet>
+
+		<!--  lien entre des artefact et le produit duquelle ils decoule  -->
+		<listeProduitArtefact>
+			<ProduitArtefact>
+				<idProduit></idProduit>
+				<listeIdArtefact>
+					<id></id>
+					<id></id>
+				</listeIdArtefact>
+			</ProduitArtefact>
+		</listeProduitArtefact>
+		
+		<!--  lien entre des tache et l'activite duquelle ils decoule -->
+		<listeActiviteTache>
+			<ActiviteTache>
+				<idActivite></idActivite>
+				<listeIdTache>
+					<id></id>
+					<id></id>
+				</listeIdTache>
+			</ActiviteTache>
+		</listeActiviteTache>
+
+		<!--  Lien entre les roles et un membres -->
+		<MembreRole>
+			<listeMembre>
+				<Membre>
+					<id>1</id>
+					<listeRole>
+						<id>1</id>
+						<id>5</id>
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>2</id>
+					<listeRole>
+						<id>4</id>
+						<id>5</id>
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>3</id>
+					<listeRole>
+						<id>2</id>						
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>4</id>
+					<listeRole>
+						<id>1</id>
+						<id>5</id>
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>5</id>
+					<listeRole>
+						<id>1</id>
+						<id>3</id>
+					</listeRole>
+				</Membre>
+			</listeMembre>
+		</MembreRole>
+
+<!--  Lien entre les composant et les iterations-->
+<ComposantIeration>
+			<listeIteration>
+				<Iteration>
+					<id></id>
+					<listeIdComposant>
+						<id></id>
+						<id></id>
+					</listeIdComposant>
+				</Iteration>
+				<Iterataion>
+					<id></id>
+					<listeIdComposant>
+						<id></id>
+						<id></id>
+					</listeIdComposant>
+				</Iteration>
+			</listeIteration>
+		</ComposantIeration >
+
+<!--  Lien entre les condition de defTravail et les iterations-->
+<listCondDefTravailIeration>
+			<condDefTravailIeration>
+					<idTeration></idIteration>
+					<listeIdCondDefTravail>
+						<id></id>
+						<id></id>
+					</listeIdCondDefTravail>
+			</condDefTravailIeration>
+		</listCondDefTravailIeration>
+
+
+
+	</lienProjetProcessus>
+</exportProjet>
