@@ -15,6 +15,7 @@ public class Utilisateur {
     //ATTRIBUTS
     
     protected String login;
+    protected String password ;
     protected String nom;
     protected String prenom;
     
@@ -24,10 +25,20 @@ public class Utilisateur {
         this.login = log;        
     }
     
+    public Utilisateur(String log, String pass) {
+        this(log); 
+	this.password = pass ;
+    }
+    
     public Utilisateur(String log, String nom, String prenom) {
         this.login = log;
         this.nom = nom;
         this.prenom = prenom;
+    }
+    
+    public Utilisateur(String log, String pass, String nom, String prenom) {
+        this(log, nom, prenom) ;
+        this.password = pass ;
     }
     
     //GETTEURS ET SETTEURS
@@ -39,6 +50,11 @@ public class Utilisateur {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+    public String getPassword(){
+	return this.password ;
+    }
+    
 
     public String getPrenom() {
         return this.prenom;

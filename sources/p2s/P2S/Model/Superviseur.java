@@ -20,14 +20,25 @@ public class Superviseur extends Utilisateur{
     
     //CONSTRUCTEURS
     
-    //Constructeur avec le login uniquement
+    //Constructeur avec le login uniquement // deprecie ?
     public Superviseur(String login) {
         super(login);
         this.setListeProjets(new Vector());
     }
     
+    public Superviseur(String login, String pass) {
+        super(login, pass);
+        this.setListeProjets(new Vector());
+    }
+    
+    
     public Superviseur(String login, Vector listeProjets) {
         super(login);
+        this.setListeProjets(new Vector(listeProjets));
+    }
+    
+    public Superviseur(String login, String pass, Vector listeProjets) {
+        super(login, pass);
         this.setListeProjets(new Vector(listeProjets));
     }
     
@@ -36,9 +47,19 @@ public class Superviseur extends Utilisateur{
         this.setListeProjets(new Vector());
     }
     
+    public Superviseur(String login, String pass, String nom, String prenom) {
+        super(login, pass, nom, prenom);
+        this.setListeProjets(new Vector());
+    }
+    
     //Constructeur complet
     public Superviseur(String login, String nom, String prenom, Vector listeProjets) {
         super(login,nom,prenom);
+        this.setListeProjets(new Vector(listeProjets));
+    }
+    
+    public Superviseur(String login, String pass, String nom, String prenom, Vector listeProjets) {
+        super(login, pass, nom, prenom);
         this.setListeProjets(new Vector(listeProjets));
     }
     
