@@ -10,13 +10,15 @@ package P2S.UI.View.JPanel;
 import java.util.Vector ;
 import P2S.Model.Tache;  
 import javax.swing.* ;
-import javax.swing.table.DefaultTableModel ;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.*;
 import P2S.Control.Bundle.Bundle ;
+import P2S.UI.View.JDialog.JDialogDetailTache;
+import P2S.UI.View.JDialog.ModeleTableMesure;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
 import javax.swing.JTable ;
-import javax.swing.JScrollPane ;
-import java.awt.Dimension ;
+import javax.swing.table.TableCellRenderer;
+
 
 /** represente la liste des taches passes dans le constructeur
  *
@@ -27,44 +29,45 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
     private JLabel nomTache ;
     private JButton boutonDetails ;
     private JTable tableTaches ;
+    private String[] titresColonnes = {Bundle.getText("JTableTachesColonne1"),
+                Bundle.getText("JTableTachesColonne2"),
+                Bundle.getText("JTableTachesColonne3"),
+                Bundle.getText("JTableTachesColonne4"),
+                Bundle.getText("JTableTachesColonne5"),
+                Bundle.getText("JTableTachesColonne6")} ;
+    private Object[][] donnees = null ;
+    private Vector taches ;
     
     /** Creates new form JPanelInfoTaches */
     public JPanelInfoTaches (Vector taches) {
-        initComponents ();
+        this.taches = taches ;
         
-       // JScrollPane scrollPane = new JScrollPane(jTable1);
-        
-        // remplissage de la JTable        
-        // titres des colonnes
-        Vector titresColonnes = new Vector() ;
-        titresColonnes.add(Bundle.getText("JTableTachesColonne1")) ;
-        titresColonnes.add(Bundle.getText("JTableTachesColonne2")) ;
-        titresColonnes.add(Bundle.getText("JTableTachesColonne3")) ;
-        titresColonnes.add(Bundle.getText("JTableTachesColonne4")) ;
-        titresColonnes.add(Bundle.getText("JTableTachesColonne5")) ;
-        
-        // changement de taille de certaines colonnes       
-        
-        
-        ((DefaultTableModel)(jTable1.getModel())).setColumnIdentifiers(titresColonnes) ;
-        
-        for (int i = 0 ; i < taches.size() ; i++)
+        //System.out.println(getRootPane()) ;
+        //System.out.println(getParent()) ;
+        donnees = new Object[taches.size()][6] ;
+        for (int i = 0 ; i < donnees.length ; i++)
         {
-            Tache tempTache ;
-            Vector donneesTache ;   // les donnees les plus importantes
-            if (taches.get(i) instanceof Tache) // precaution on teste si l'objet est une Tache
+            if (taches.get(i) instanceof Tache)
             {
-                // affichage des informations sommaires des taches
-                tempTache = (Tache)taches.get(i) ;
-                donneesTache = new Vector() ;
-                donneesTache.add(tempTache.getNom()) ;
-                donneesTache.add(tempTache.getEtat()) ;
-                donneesTache.add(Integer.toString(tempTache.getChargePrevue())) ;
-                donneesTache.add(Integer.toString(tempTache.getTempsPasse())) ;
-                donneesTache.add(Integer.toString(tempTache.getResteAPasser())) ;
-                ((DefaultTableModel)(jTable1.getModel())).addRow (donneesTache) ;
+                donnees[i][0] = ((Tache)taches.get(i)).getNom() ;
+                donnees[i][1] = ((Tache)taches.get(i)).getEtat() ;
+                donnees[i][2] = ((Tache)taches.get(i)).getChargePrevue() ;
+                donnees[i][3] = ((Tache)taches.get(i)).getTempsPasse() ;
+                donnees[i][4] = ((Tache)taches.get(i)).getResteAPasser() ;
+                donnees[i][5] = new JButton(Bundle.getText("JTableTachesDetails")) ;
             }
         }
+                
+        ModeleTableTaches tableModel = new ModeleTableTaches(donnees, titresColonnes) ;
+        
+        initComponents ();
+        
+        table.setModel(tableModel) ;
+        table.setDefaultRenderer(Integer.class, new NumericRenderer()) ;
+        table.setDefaultRenderer(String.class, new StatusRenderer()) ;
+        table.setDefaultRenderer(JButton.class, new ButtonRenderer()) ;
+        table.setDefaultEditor(JButton.class, new ButtonEditor(this)) ;
+
     }    
 
     
@@ -75,11 +78,11 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
      */
     private void initComponents() {//GEN-BEGIN:initComponents
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -95,7 +98,7 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table);
 
         add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -104,7 +107,138 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
     
+    
+    /** classe TaskTableModel permet l'edition uniquement a la dernier colonne pour voir les details
+    * @author C Mike K
+    * @version 1.0
+    */
+    class ModeleTableTaches extends ModeleTableMesure
+    {
+        public ModeleTableTaches(Object donnees[][], String titres[]) {
+            super(donnees, titres) ;
+        }
+        
+        public boolean isCellEditable(int row, int col) {
+            return (col == 5) ;
+        }
+    }
+    
+    
+    /** classe NumericRenderer
+    * @author C Mike K
+    * @version 1.0
+    */
+   class NumericRenderer implements TableCellRenderer
+   {
+      private JFormattedTextField numericField = new JFormattedTextField() ;
+
+      public NumericRenderer()
+      {
+         numericField.setHorizontalAlignment(JTextField.RIGHT) ;
+         numericField.setBorder(BorderFactory.createEmptyBorder()) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+         numericField.setValue(value + " " +Bundle.getText("Constante_heures")) ;
+         return numericField ;
+      }
+
+   } // fin de la classe NumericRenderer
+   
+   /** classe ButtonRenderer
+    * @author C Mike K
+    * @version 1.0
+    */
+   class ButtonRenderer implements TableCellRenderer
+   {
+      private JButton details = null ;
+
+      public ButtonRenderer()
+      {
+         details = new JButton(Bundle.getText("JTableTachesDetails")) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+         details.setText(((JButton)value).getText()) ;
+         return details ;
+      }
+
+   } // fin de la classe ButtonRenderer
+   
+   
+   /** classe ButtonRenderer
+    * @author C Mike K
+    * @version 1.0
+    */
+   class ButtonEditor extends DefaultCellEditor
+   {
+      private JButton details = null ;
+      private JPanelInfoTaches owner ;
+
+      public ButtonEditor(JPanelInfoTaches owner)
+      {
+         super (new JTextField()) ;
+         this.owner = owner ;
+         
+         editorComponent = new JButton(Bundle.getText("JTableTachesDetails")) ;
+            ((JButton)editorComponent).addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(ActionEvent e) {
+                  new JDialogDetailTache(null, true, (Tache)taches.get(0)) ;
+               }
+           }) ;
+      }
+
+      public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+         details.setText(((JButton)value).getText()) ;
+         return details ;
+      }
+
+   } // fin de la classe ButtonEditor
+   
+   /** classe StatusRenderer
+    * @author C Mike K
+    * @version 1.0
+    */
+   class StatusRenderer implements TableCellRenderer
+   {
+      private JFormattedTextField statusField = new JFormattedTextField() ;
+
+      public StatusRenderer()
+      {
+         statusField.setHorizontalAlignment(JTextField.LEFT) ;
+         statusField.setBorder(BorderFactory.createEmptyBorder()) ;
+      }
+
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+      {
+          statusField.setValue(value) ;
+          // on le fait uniquement pour la colonne etat
+          if (column == 1)
+          {
+             statusField.setValue(Bundle.getText("Constante_tache"+value)) ;
+             if (((String)value).equals("1"))
+             {
+                 statusField.setForeground(new Color(20, 20, 250)) ;
+             }
+             if (((String)value).equals("3"))
+             {
+                 statusField.setForeground(new Color(250, 20, 20)) ;
+             }             
+          }
+          else
+          {
+              statusField.setForeground(new Color(0, 0, 0)) ;
+                       
+          }
+          return statusField ;
+      }
+
+   } // fin de la classe NumericRenderer
+   
 }
