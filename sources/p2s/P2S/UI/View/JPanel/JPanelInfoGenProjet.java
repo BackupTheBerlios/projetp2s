@@ -103,21 +103,30 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
                     this.textIndDureeMoyenneTache.setBackground(new Color(240,200,100));
                     jIconDureeMoyenne.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
                     add(jIconDureeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
-            }
+                }
             }
             
             this.textIndNombreParticipants.setBackground(new Color(255,255,255));
             if(new Integer(ind.getNombreParticipants()) != null){
                 this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
-                if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMax().toString())))
+                if(Seuil.estHorsIntervalle(new Integer(ind.getNombreParticipants()),new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getNombreParticipants().getSeuilMax().toString()))){
                     this.textIndNombreParticipants.setBackground(new Color(240,200,100));
+                    JLabel jLabel1 = new JLabel("");
+                    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
+                }
+                
             }
             
             this.textIndTachesTerminees.setBackground(new Color(255,255,255));
             if(new Float(ind.getTachesTerminees()) != null){
                 this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
-                if(Seuil.estHorsIntervalle(new Integer(ind.getTachesTerminees()),new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMax().toString())))
+                if(Seuil.estHorsIntervalle(new Integer(ind.getTachesTerminees()),new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTachesTermineesProjet().getSeuilMax().toString()))){
                     this.textIndTachesTerminees.setBackground(new Color(240,200,100));
+                    JLabel jLabel2 = new JLabel("");
+                    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/warning.gif")));
+                    add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 260, -1, -1));
+                }
             }
             
             if(new Float(ind.getTotalCharges()) != null)
