@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
                         //récupération des messages du superviseur ou chef de projet
                         prepState = conn.prepareStatement("Select * from messages where login = '" + rsUser.getString("login")+"'");
                         ResultSet rsMessages = prepState.executeQuery(); // Execution de la requete
-                        out.println("<messages>");
+                        out.println("<messages>")
                         while(rsMessages.next())
                         { //pour chaque message on crée des basiles <message></message>
                             out.println("<message>");
