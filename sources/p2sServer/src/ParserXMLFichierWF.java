@@ -90,6 +90,7 @@ public class ParserXMLFichierWF {
         majTaches();
         majTachesCollaboratives();
         majArtefacts();
+	majProblemes() ;
         
         // Mise a jour des liens
         majLiensMembres_TachesCollaboratives();
@@ -498,6 +499,8 @@ public class ParserXMLFichierWF {
         }
     }
     
+    
+        
     public void majRoles() throws NullValueXMLException{
         String id = null;
         String nom = null;
@@ -678,6 +681,114 @@ public class ParserXMLFichierWF {
             }
             
         }
+    }
+    
+    public void majProblemes() throws NullValueXMLException{
+        String id = null;
+        String nom = null;
+        String cause = null;
+        String debut = null;
+        String fin = null;
+        String projet = null;
+	
+	try{
+            projet = lireIdProjet();
+        }catch(NullPointerException e){
+            throw new NullValueXMLException();
+        }
+        
+        NodeList listeProblemes = this.document.getElementsByTagName("eltProbleme");
+        NodeList listeNoeud;
+	
+	for(int i=0 ; i<listeProblemes.getLength() ; i++){
+            
+            id = null;
+            nom = null;
+            cause = null;
+            debut = null;
+            fin = null;
+	    
+	    listeNoeud = listeProblemes.item(i).getChildNodes();
+            
+            // on recherche l'id du probleme
+            int b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("id") != 0) {
+                b++;
+            }
+            try{
+                id = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
+            
+            // on recherche le nom du probleme
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("nom") != 0) {
+                b++;
+            }
+            try{
+                nom = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){
+                throw new NullValueXMLException();
+            }
+            
+            // on recherche la cause du probleme
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("cause") != 0) {
+                b++;
+            }
+            try{
+                cause = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            // on recherche la date debut du probleme
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("dateDebut") != 0) {
+                b++;
+            }
+            try{
+                debut = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}
+            
+            // on recherche la date de fin du probleme
+            b = 0;
+            while(listeNoeud.item(b).getNodeName().compareTo("dateFin") != 0) {
+                b++;
+            }
+            try{
+                fin = listeNoeud.item(b).getFirstChild().getNodeValue();
+            }catch(NullPointerException e){}       
+            
+            
+            
+            try {
+                // Requete SQL
+                PreparedStatement prepState = conn.prepareStatement("Select * from problemes where idprobleme="+id);
+                ResultSet rsrisque = prepState.executeQuery(); // Execution de la requete
+                
+                if(!rsrisque.next()){
+                    prepState = conn.prepareStatement("insert into problemes values ("+id+","+insertString(nom)+","+insertString(cause)+","+insertString(debut)+","+insertString(fin)+","+projet+")");
+                    prepState.execute(); // Execution de la requete
+                } else{
+                    PreparedStatement updateRisque = conn.prepareStatement(
+                            "update problemes set nom=?, cause=?, debut=?, fin=?, idprojet=? where idprobleme ="+id);
+                    updateRisque.setString(1,nom);
+                    updateRisque.setString(2,cause);
+		    updateRisque.setString(3,debut);
+		    updateRisque.setString(4,fin);                    
+                    updateRisque.setInt(5,updateInt(projet));
+                    
+                    updateRisque.executeUpdate();
+                }
+                
+                
+            }catch (SQLException ex) { // Si une SQLException survient
+                System.out.println("SQLException: " + ex.getMessage());
+                System.out.println("SQLState: " + ex.getSQLState());
+                System.out.println("VendorError: " + ex.getErrorCode());
+                ex.printStackTrace();
+            }
+	}
     }
     
     public void majRisques() throws NullValueXMLException{
