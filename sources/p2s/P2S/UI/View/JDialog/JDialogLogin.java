@@ -4,9 +4,10 @@ import P2S.Control.Bundle.*;
 import P2S.UI.View.*;
 import P2S.Model.*;
 import P2S.Inf.*;
+import java.awt.Toolkit;
 import java.net.*;
 import java.io.*;
-import java.util.Vector;
+
 
 
 /**
@@ -26,7 +27,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     public JDialogLogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         
-        initComponents();
+        initComponents();        
         
         // Initialisation du texte
         initText();

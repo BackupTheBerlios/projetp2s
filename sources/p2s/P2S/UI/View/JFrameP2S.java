@@ -55,7 +55,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        initComponents();
+        initComponents();                
         
         // renderer pour l'arbre
         jTree1.setCellRenderer(new P2STreeRenderer());
