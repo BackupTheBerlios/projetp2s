@@ -52,7 +52,7 @@ public class JPanelMessages extends JPanel{
                 donnees[i][0] = ((Messages)messages.get(i)).getDate() ;
                 donnees[i][1] = ((Messages)messages.get(i)).getDate() ;
                 donnees[i][2] = new JButton(Bundle.getText("JTableMessagesColonne3")) ;
-                donnees[i][5] = new JButton(Bundle.getText("JTableMessagesColonne4")) ;
+                donnees[i][3] = new JButton(Bundle.getText("JTableMessagesColonne4")) ;
             }
         }
                 
