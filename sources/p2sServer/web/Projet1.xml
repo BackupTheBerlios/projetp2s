@@ -1,0 +1,1658 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<exportProjet>
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<!--                          PROCESSUS                              -->
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<exportExecution>
+		
+	<processus>
+		<id>PUBe-PUBe</id>
+		<nom>PUBe</nom>
+		<nomAuteur>Dupont</nomAuteur>
+		<emailAuteur>dupont@free.fr</emailAuteur>
+		<dateExport>20050124123455</dateExport>
+		<description/>
+		<cheminGeneration>./WebSite/</cheminGeneration>
+		<liste_composantId>
+			<composantId>PUBe-Expression_des_exigences</composantId>
+			<composantId>PUBe-Gestion_de_projet</composantId>
+		</liste_composantId>
+		<liste_paquetagePresentationId>
+			<paquetagePresentationId>_101</paquetagePresentationId>
+		</liste_paquetagePresentationId>
+	</processus>
+	<liste_composant>
+		<composant>
+			<id>PUBe-Expression_des_exigences</id>
+			<nom>Expression des exigences</nom>
+			<version>1.0</version>
+			<nomAuteur>Dupuits</nomAuteur>
+			<emailAuteur>dupuits@free.fr</emailAuteur>
+			<datePlacement>20050121130000</datePlacement>
+			<description/>
+			<cheminDiagrammeFlots>.\Expression_des_exigences\Diagramme_de_sous_processus\diagramme.png</cheminDiagrammeFlots>
+			<liste_roleId>
+				<roleId>_201</roleId>
+                                <roleId>_202</roleId>
+			</liste_roleId>
+			<liste_produitId>
+				<produitId>_301</produitId>
+				<produitId>_302</produitId>
+                                <produitId>_304</produitId>
+				<produitId>_305</produitId>
+			</liste_produitId>
+			<liste_definitionTravailId>
+				<definitionTravailId>_401</definitionTravailId>
+				<definitionTravailId>_402</definitionTravailId>
+			</liste_definitionTravailId>
+			<interfaceRequise>_501</interfaceRequise>
+			<interfaceFournie>_502</interfaceFournie>
+			<elementPresentationId>_601</elementPresentationId>
+		</composant>
+		<composant>
+			<id>PUBe-Gestion_de_projet</id>
+			<nom>Gestion de projet</nom>
+			<version>1.0</version>
+			<nomAuteur>Dupuits</nomAuteur>
+			<emailAuteur>dupuits@free.fr</emailAuteur>
+			<datePlacement>20050121130100</datePlacement>
+			<description/>
+			<cheminDiagrammeFlots>.\Gestion_de_projet\Diagramme_de_sous_processus\diagramme.png</cheminDiagrammeFlots>
+			<liste_roleId>
+				<roleId>_203</roleId>
+				<roleId>_204</roleId>
+			</liste_roleId>
+			<liste_produitId>
+				<produitId>_303</produitId>
+				<produitId>_306</produitId>
+			</liste_produitId>
+			<liste_definitionTravailId>
+				<definitionTravailId>_403</definitionTravailId>
+			</liste_definitionTravailId>
+			<interfaceRequise>_503</interfaceRequise>
+			<interfaceFournie>_504</interfaceFournie>
+			<elementPresentationId>_602</elementPresentationId>
+		</composant>
+	</liste_composant>
+	<liste_role>
+		<role>
+			<id>_201</id>
+			<nom>Analyste</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_responsabiliteProduit>
+				<responsabiliteProduit>_301</responsabiliteProduit>
+				<responsabiliteProduit>_302</responsabiliteProduit>
+			</liste_responsabiliteProduit>
+			<liste_participationActivite>
+				<participationActivite>_801</participationActivite>
+				<participationActivite>_802</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_603</elementPresentationId>
+		</role>
+		<role>
+			<id>_202</id>
+			<nom>Comité exigences</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_responsabiliteProduit>
+				<responsabiliteProduit>_304</responsabiliteProduit>
+			</liste_responsabiliteProduit>
+			<liste_participationActivite>
+				<participationActivite>_803</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_604</elementPresentationId>
+		</role>
+		<role>
+			<id>_203</id>
+			<nom>Equipier</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<liste_responsabiliteProduit/>
+			<liste_participationActivite>
+				<participationActivite>_804</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_605</elementPresentationId>
+		</role>
+		<role>
+			<id>_204</id>
+			<nom>Chef de projet</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<liste_responsabiliteProduit>
+				<responsabiliteProduit>_303</responsabiliteProduit>
+			</liste_responsabiliteProduit>
+			<liste_participationActivite>
+				<participationActivite>_805</participationActivite>
+			</liste_participationActivite>
+			<elementPresentationId>_606</elementPresentationId>
+		</role>
+	</liste_role>
+	<liste_produit>
+		<produit>
+			<id>_301</id>
+			<nom>Cas d'utilisation</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole>_201</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_502</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId>
+				<etatId>_901</etatId>
+			</liste_etatId>
+			<liste_entreeActivite>
+				<entreeActivite>_802</entreeActivite>
+			</liste_entreeActivite>
+			<liste_sortieActivite/>
+			<elementPresentationId>_607</elementPresentationId>
+		</produit>
+		<produit>
+			<id>_302</id>
+			<nom>Vision</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole>_201</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_502</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite>
+				<sortieActivite>_801</sortieActivite>
+			</liste_sortieActivite>
+			<elementPresentationId>_608</elementPresentationId>
+		</produit>
+              	<produit>
+			<id>_307</id>
+			<nom>Vision</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<responsabiliteRole/>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_503</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite>
+				<sortieActivite>_801</sortieActivite>
+			</liste_sortieActivite>
+			<elementPresentationId/>
+		</produit>
+		<produit>
+			<id>_303</id>
+			<nom>Plan d'itération</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<responsabiliteRole>_204</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId/>
+			<liste_etatId/>
+			<liste_entreeActivite>
+				<entreeActivite>_804</entreeActivite>
+				<entreeActivite>_805</entreeActivite>
+			</liste_entreeActivite>
+			<liste_sortieActivite>
+				<sortieActivite>_804</sortieActivite>
+				<sortieActivite>_805</sortieActivite>
+			</liste_sortieActivite>
+			<elementPresentationId>_609</elementPresentationId>
+		</produit>
+		<produit>
+			<id>_304</id>
+			<nom>Référentiel d'exigences</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole>_202</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId/>
+			<liste_etatId/>
+			<liste_entreeActivite>
+				<entreeActivite>_802</entreeActivite>
+			</liste_entreeActivite>
+			<liste_sortieActivite/>
+			<elementPresentationId>_610</elementPresentationId>
+		</produit>
+                <produit>
+			<id>_305</id>
+			<nom>Besoin</nom>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<responsabiliteRole/>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_501</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite/>
+			<elementPresentationId/>
+		</produit>
+		<produit>
+			<id>_306</id>
+			<nom>Liste des risques</nom>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<responsabiliteRole>_204</responsabiliteRole>
+			<typeProduitId>_3010</typeProduitId>
+			<liste_interfaceId>
+				<interfaceId>_501</interfaceId>
+				<interfaceId>_504</interfaceId>
+			</liste_interfaceId>
+			<liste_etatId/>
+			<liste_entreeActivite/>
+			<liste_sortieActivite/>
+			<elementPresentationId>_612</elementPresentationId>
+		</produit>
+	</liste_produit>
+	<liste_definitionTravail>
+		<definitionTravail>
+			<id>_401</id>
+			<nom>Analyser le problème</nom>
+               		<cheminDiagrammeActivites>.\Expression_des_exigences\Analyser_le_probleme\Diagramme_d_activites\diagramme.png</cheminDiagrammeActivites>
+                        <cheminDiagrammeFlots>.\Expression_des_exigences\Analyser_le_probleme\Diagramme_de_flots\diagramme.png</cheminDiagrammeFlots>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_activiteId>
+				<activiteId>_801</activiteId>
+			</liste_activiteId>
+			<elementPresentationId>_613</elementPresentationId>
+		</definitionTravail>
+		<definitionTravail>
+			<id>_402</id>
+			<nom>Gérer les exigences</nom>
+               		<cheminDiagrammeActivites>.\Expression_des_exigences\Gerer_les_exigences\Diagramme_d_activites\diagramme.png</cheminDiagrammeActivites>
+                        <cheminDiagrammeFlots>.\Expression_des_exigences\Gerer_les_exigences\Diagramme_de_flots\diagramme.png</cheminDiagrammeFlots>
+			<agregatComposant>PUBe-Expression_des_exigences</agregatComposant>
+			<liste_activiteId>
+				<activiteId>_802</activiteId>
+				<activiteId>_803</activiteId>
+			</liste_activiteId>
+			<elementPresentationId>_614</elementPresentationId>
+		</definitionTravail>
+		<definitionTravail>
+			<id>_403</id>
+			<nom>Ajuster l'itération</nom>
+               		<cheminDiagrammeActivites>.\Gestion_de_projet\Ajuster_iteration\Diagramme_d_activites\diagramme.png</cheminDiagrammeActivites>
+                        <cheminDiagrammeFlots>.\Gestion_de_projet\Ajuster_iteration\Diagramme_de_flots\diagramme.png</cheminDiagrammeFlots>
+			<agregatComposant>PUBe-Gestion_de_projet</agregatComposant>
+			<liste_activiteId>
+				<activiteId>_804</activiteId>
+				<activiteId>_805</activiteId>
+			</liste_activiteId>
+			<elementPresentationId>_615</elementPresentationId>
+		</definitionTravail>
+	</liste_definitionTravail>
+	<liste_activite>
+		<activite>
+			<id>_801</id>
+			<nom>Collecter les besoins</nom>
+			<participationRole>_201</participationRole>
+			<agregatDefinitionTravail>_401</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_305</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_302</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_616</elementPresentationId>
+		</activite>
+                <activite>
+			<id>_802</id>
+			<nom>Organiser les exigences</nom>
+			<participationRole>_202</participationRole>
+			<agregatDefinitionTravail>_402</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_301</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_304</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_617</elementPresentationId>
+		</activite>
+                <activite>
+			<id>_803</id>
+			<nom>Fixer les priorites</nom>
+			<participationRole>_202</participationRole>
+			<agregatDefinitionTravail>_402</agregatDefinitionTravail>
+			<liste_entreeProduit/>
+			<liste_sortieProduit>
+				<sortieProduit>_304</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_618</elementPresentationId>
+		</activite>
+		<activite>
+			<id>_804</id>
+			<nom>Distribuer le travail</nom>
+			<participationRole>_203</participationRole>
+			<agregatDefinitionTravail>_403</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_303</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_303</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_619</elementPresentationId>
+		</activite>
+		<activite>
+			<id>_805</id>
+			<nom>Revoir le plan d'itération</nom>
+			<participationRole>_204</participationRole>
+			<agregatDefinitionTravail>_403</agregatDefinitionTravail>
+			<liste_entreeProduit>
+				<entreeProduit>_303</entreeProduit>
+			</liste_entreeProduit>
+			<liste_sortieProduit>
+				<sortieProduit>_303</sortieProduit>
+			</liste_sortieProduit>
+			<elementPresentationId>_620</elementPresentationId>
+		</activite>
+	</liste_activite>
+	<liste_interface>
+		<interface>
+			<id>_501</id>
+			<interfaceRequiseComposant>PUBe-Expression_des_exigences</interfaceRequiseComposant>
+			<interfaceFournieComposant/>
+			<liste_interfaceProduit>
+				<interfaceProduit>_305</interfaceProduit>
+				<interfaceProduit>_306</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+		<interface>
+			<id>_502</id>
+			<interfaceRequiseComposant/>
+			<interfaceFournieComposant>PUBe-Expression_des_exigences</interfaceFournieComposant>
+			<liste_interfaceProduit>
+				<interfaceProduit>_301</interfaceProduit>
+				<interfaceProduit>_302</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+		<interface>
+			<id>_503</id>
+			<interfaceRequiseComposant>PUBe-Gestion_de_projet</interfaceRequiseComposant>
+			<interfaceFournieComposant/>
+			<liste_interfaceProduit>
+				<interfaceProduit>_307</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+		<interface>
+			<id>_504</id>
+			<interfaceRequiseComposant/>
+			<interfaceFournieComposant>PUBe-Gestion_de_projet</interfaceFournieComposant>
+			<liste_interfaceProduit>
+				<interfaceProduit>_306</interfaceProduit>
+			</liste_interfaceProduit>
+		</interface>
+	</liste_interface>
+	<liste_typeProduit>
+		<typeProduit>
+			<id>_3010</id>
+			<nom>Document</nom>
+		</typeProduit>
+	</liste_typeProduit>
+	<liste_etat>
+		<etat>
+			<id>_901</id>
+			<nom>Commencé</nom>
+		</etat>
+	</liste_etat>
+	<liste_paquetagePresentation>
+		<paquetagePresentation>
+			<id>_101</id>
+			<nom>A propos</nom>
+			<dossierIcone>./applet/images/</dossierIcone>
+			<dossierContenu>./A propos/contenu/</dossierContenu>
+			<liste_agregeElementPresentation>
+				<agregeElementPresentation>_625</agregeElementPresentation>
+			</liste_agregeElementPresentation>
+			<elementPresentationId>_622</elementPresentationId>
+		</paquetagePresentation>
+	</liste_paquetagePresentation>
+	<liste_elementPresentation>
+		<elementPresentation>
+			<id>_601</id>
+			<nom>Expression des exigences</nom>
+			<cheminIcone>./applet/images/TreeComponent.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/dis_exi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Expression_des_exigences_32.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_602</id>
+			<nom>Gestion de projet</nom>
+			<cheminIcone>./applet/images/TreeComponent.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/dis_mgm.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Gestion_de_projet_175.html</cheminPage>
+			<liste_guideId>
+				<guideId>_701</guideId>
+			</liste_guideId>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_603</id>
+			<nom>Analyste</nom>
+			<cheminIcone>./applet/images/TreeRole.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ro_analy.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Roles/Analyste/Analyste_59.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_604</id>
+			<nom>Comité d'exigences</nom>
+			<cheminIcone>./applet/images/roles.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ro_comexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Roles/Comite_exigences/Comite_exigences_60.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_605</id>
+			<nom>Equipier</nom>
+			<cheminIcone>./applet/images/TreeRole.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/ro_equip.html</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Roles/Equipier/Equipier_211.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_606</id>
+			<nom>Chef de projet</nom>
+			<cheminIcone>./applet/images/TreeRole.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/ro_cpro.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Roles/Chef_de_projet/Chef_de_projet_212.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_607</id>
+			<nom>Cas d'utilisation</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/pr_casdut.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Cas_d_utilisation/Cas_d_utilisation_71.html</cheminPage>
+			<liste_guideId>
+				<guideId>_702</guideId>
+			</liste_guideId>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_608</id>
+			<nom>Vision</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/pr_vision.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Vision/Vision_62.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_609</id>
+			<nom>Plan d'itération</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/pr_planit.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Produits/Plan_d_iteration/Plan_d_iteration_227.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_610</id>
+			<nom>Référentiel d'exigences</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/pr_refexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Referentiel_exigences/Referentiel_exigences_78.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_612</id>
+			<nom>Listes des risques</nom>
+			<cheminIcone>./applet/images/TreeWorkProduct.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/pr_lisrsq.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Produits/Liste_risques/Liste_des_risques_222.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_613</id>
+			<nom>Analyser le problème</nom>
+			<cheminIcone>./applet/images/TreeWorkDefinition.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/dt_anpr.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Analyser_le_probleme/Analyser_le_probleme_35.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_614</id>
+			<nom>Gérer les exigences</nom>
+			<cheminIcone>./applet/images/TreeWorkDefinition.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/dt_gerexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Gerer_les_exigences/Gerer_les_exigences_53.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_615</id>
+			<nom>Ajuster l'itération</nom>
+			<cheminIcone>./applet/images/TreeWorkDefinition.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/dt_ajuit.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Ajuster_itération/Ajuster_iteration_186.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_616</id>
+			<nom>Collecter les besoins</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ac_colleb.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Analyser_le_probleme/Collecter_les_besoins/Collecter_les_besoins_38.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_617</id>
+			<nom>Organiser les exigences</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ac_orgexi.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Gerer_les_exigences/Organiser_les_exigences/Organiser_exigences_56.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_618</id>
+			<nom>Fixer les priorites</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/ac_priori.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Gerer_les_exigences/Fixer_les_priorites/Fixer_priorites_57.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_619</id>
+			<nom>Distribuer le travail</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu/>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Ajuster_l_itération/Distribuer_travail/Distribuer_travail_191.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_620</id>
+			<nom>Revoir le plan d'itération</nom>
+			<cheminIcone>./applet/images/TreeActivity.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/ac_initr.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Ajuster_l_itération/Revoir_plan_iteration/Revoir_plan_iteration_190.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+                <elementPresentation>
+			<id>_622</id>
+			<nom>A propos</nom>
+			<cheminIcone>./applet/images/info.gif</cheminIcone>
+			<cheminContenu>./A propos/contenu/about.htm</cheminContenu>
+			<description/>
+			<cheminPage>./A propos/A_propos_262.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_623</id>
+			<nom>Exemple POG</nom>
+			<cheminIcone>./applet/images/GuideExemple.gif</cheminIcone>
+			<cheminContenu>./Expression_des_exigences/contenu/POG_spec_ajouter.sxw</cheminContenu>
+			<description/>
+			<cheminPage>./Expression_des_exigences/Produits/Cas_d_utilisation/Exemple_POG/Exemple_POG_73.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_624</id>
+			<nom>Quoi de neuf ?</nom>
+			<cheminIcone>./applet/images/GuideNeuf.gif</cheminIcone>
+			<cheminContenu>./Gestion_de_projet/contenu/gui_qdn.htm</cheminContenu>
+			<description/>
+			<cheminPage>./Gestion_de_projet/Quoi_de_neuf__/Quoi_de_neuf___235.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+		<elementPresentation>
+			<id>_625</id>
+			<nom>Configuration</nom>
+			<cheminIcone>./applet/images/booko.gif</cheminIcone>
+			<cheminContenu>./A propos/contenu/Configuration.html</cheminContenu>
+			<description/>
+			<cheminPage>./A propos/Configuration/Configuration_263.html</cheminPage>
+			<liste_guideId/>
+		</elementPresentation>
+	</liste_elementPresentation>
+	<liste_guide>
+		<guide>
+			<id>_701</id>
+			<nom>Quoi de neuf ?</nom>
+			<typeGuideId>_1101</typeGuideId>
+			<elementPresentationId>_624</elementPresentationId>
+		</guide>
+		<guide>
+			<id>_702</id>
+			<nom>Exemple POG</nom>
+			<typeGuideId>_1100</typeGuideId>
+			<elementPresentationId>_623</elementPresentationId>
+		</guide>
+	</liste_guide>
+	<liste_typeGuide>
+		<typeGuide>
+			<id>_1100</id>
+			<nom>Exemple</nom>
+		</typeGuide>
+		<typeGuide>
+			<id>_1101</id>
+			<nom>Quoi de neuf ?</nom>
+		</typeGuide>
+	</liste_typeGuide>
+
+	</exportExecution>
+
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<!--                  OBJETS CONSTITUANT LE PORJET                   -->
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<elementProjet>
+
+<!-- Condition d’activation d’une definition de travail -->
+<listeConditionDefTravail>
+	<conditionDefTravail>
+				<id></id>
+				<type></type>
+			</conditionDefTravail>
+		</listeConditionDefTravail>
+
+		
+<!-- Unique projet du fichier -->
+		<projet>
+			<id>1</id>
+			<nom>p2s</nom>
+			<description></description>
+			<dateDebut></dateDebut>
+			<dateFin>2004-03-05</dateFin>
+			<budget></budget>
+		</projet>
+
+		<!--  Liste de toutes les metriques -->
+		<listeMetriques>
+			<eltMetriques>
+				<id>1</id>
+				<nom>metrique 1</nom> <!-- nom de la metrique, n'est pas unique -->
+				<description>desc metrique 1</description> <!--description de la metrique -->
+				<unite>ligne</unite> <!-- ligne, classe, page etc… -->
+				<valeur>50000</valeur> <!-- saisi par le membre -->
+				<commentaire>pas de commentaire</commentaire> <!-- commentaire du membre -->
+				<idMembre>1</idMembre> <!-- membre qui a saisi les mesures -->
+			</eltMetriques>
+			<eltMetriques>
+				<id>2</id>
+				<nom>metrique 2</nom> <!-- nom de la metrique, n'est pas unique -->
+				<description>desc metrique 2</description> <!--description de la metrique -->
+				<unite>page</unite> <!-- ligne, classe, page etc… -->
+				<valeur>121</valeur> <!-- saisi par le membre -->
+				<commentaire>pas de commentaire</commentaire> <!-- commentaire du membre -->
+				<idMembre>3</idMembre> <!-- membre qui a saisi les mesures -->
+			</eltMetriques>
+		</listeMetriques>
+		
+
+		<!--  Liste de tous les riques -->
+		<listeRisques>
+			<eltRisque>
+				<id>1</id>
+				<nom>risque1</nom>
+				<description>desc risque1</description>
+				<priorite>2</priorite>
+				<impact>5</impact>
+				<etat>3</etat>
+			</eltRisque>
+			<eltRisque>
+				<id>2</id>
+				<nom>risque2</nom>
+				<description>desc risque2</description>
+				<priorite>4</priorite>
+				<impact>7</impact>
+				<etat>1</etat>
+			</eltRisque>
+			<eltRisque>
+				<id>3</id>
+				<nom>risque3</nom>
+				<description>desc risque3</description>
+				<priorite>1</priorite>
+				<impact>2</impact>
+				<etat>5</etat>
+			</eltRisque>
+		</listeRisques>
+
+		<!--  Liste de tous les membres -->
+		<listeMembres>
+			<eltMembre>
+				<id>1</id>
+				<nom>Bouyssou</nom>
+				<prenom>Fabien</prenom>
+				<login>login1</login>
+				<adresse>adresse 1</adresse>
+				<telephone>05.02.05.06.04</telephone>
+				<email>email 1</email>
+			</eltMembre>
+			<eltMembre>
+				<id>2</id>
+				<nom>Laffargue</nom>
+				<prenom>Nicolas</prenom>
+				<login>login2</login>
+				<adresse>adresse 2</adresse>
+				<telephone>05.02.05.06.07</telephone>
+				<email>email 2</email>
+			</eltMembre>
+                        <eltMembre>
+				<id>3</id>
+				<nom>Laroche</nom>
+				<prenom>Guillaume</prenom>
+				<login>login3</login>
+				<adresse>adresse 3</adresse>
+				<telephone>05.02.05.06.12</telephone>
+				<email>email 3</email>
+			</eltMembre>
+                        <eltMembre>
+				<id>4</id>
+				<nom>Souyris</nom>
+				<prenom>Matthieu</prenom>
+				<login>login4</login>
+				<adresse>adresse 4</adresse>
+				<telephone>05.02.05.06.75</telephone>
+				<email>email 4</email>
+			</eltMembre>
+                        <eltMembre>
+				<id>5</id>
+				<nom>Del Col</nom>
+				<prenom>Nicolas</prenom>
+				<login>login5</login>
+				<adresse>adresse 5</adresse>
+				<telephone>05.02.05.06.45</telephone>
+				<email>email 5</email>
+			</eltMembre>
+		</listeMembres>
+				
+
+		<!--  Liste de toutes les iterations-->
+		<listeIterations>
+			<eltIteration>
+				<id>1</id>
+				<numero>1</numero>
+				<dateDebutPrevue>2003-02-02</dateDebutPrevue>
+				<dateDebutReelle>2003-02-03</dateDebutReelle>
+				<dateFinPrevue>2003-03-02</dateFinPrevue>
+				<dateFinReelle>2003-03-03</dateFinReelle>
+			</eltIteration>
+			<eltIteration>
+				<id>2</id>
+				<numero>2</numero>
+				<dateDebutPrevue>2003-03-02</dateDebutPrevue>
+				<dateDebutReelle>2003-03-03</dateDebutReelle>
+				<dateFinPrevue>2003-04-02</dateFinPrevue>
+				<dateFinReelle>2003-04-03</dateFinReelle>
+			</eltIteration>
+			<eltIteration>
+				<id>3</id>
+				<numero>3</numero>
+				<dateDebutPrevue>2003-04-02</dateDebutPrevue>
+				<dateDebutReelle>2003-04-03</dateDebutReelle>
+				<dateFinPrevue>2003-05-02</dateFinPrevue>
+				<dateFinReelle>2003-05-03</dateFinReelle>
+			</eltIteration>
+			<eltIteration>
+				<id>4</id>
+				<numero>4</numero>
+				<dateDebutPrevue>2003-05-02</dateDebutPrevue>
+				<dateDebutReelle>2003-05-03</dateDebutReelle>
+				<dateFinPrevue>2003-06-02</dateFinPrevue>
+				<dateFinReelle>2003-06-03</dateFinReelle>
+			</eltIteration>
+		</listeIterations>
+
+		<!--  Liste de toutes les taches -->
+		<listeTaches>
+			<eltTache>
+				<id>1</id>
+				<nom>tache 1</nom>
+				<description>desc tache 1</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-02-02</dateDebutPrevue>
+				<dateDebutReelle>2003-02-03</dateDebutReelle>
+				<dateFinPrevue>2003-02-15</dateFinPrevue>
+				<dateFinReelle>2003-02-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>2</id>
+				<nom>tache 2</nom>
+				<description>desc tache 2</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-02-16</dateDebutPrevue>
+				<dateDebutReelle>2003-02-17</dateDebutReelle>
+				<dateFinPrevue>2003-03-02</dateFinPrevue>
+				<dateFinReelle>2003-03-03</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>3</id>
+				<nom>tache 3</nom>
+				<description>desc tache 3</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-03-02</dateDebutPrevue>
+				<dateDebutReelle>2003-03-03</dateDebutReelle>
+				<dateFinPrevue>2003-03-15</dateFinPrevue>
+				<dateFinReelle>2003-03-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>4</id>
+				<nom>tache 4</nom>
+				<description>desc tache 4</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-03-16</dateDebutPrevue>
+				<dateDebutReelle>2003-03-17</dateDebutReelle>
+				<dateFinPrevue>2003-04-02</dateFinPrevue>
+				<dateFinReelle>2003-04-03</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>5</id>
+				<nom>tache 5</nom>
+				<description>desc tache 5</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-04-02</dateDebutPrevue>
+				<dateDebutReelle>2003-04-03</dateDebutReelle>
+				<dateFinPrevue>2003-04-15</dateFinPrevue>
+				<dateFinReelle>2003-04-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>6</id>
+				<nom>tache 6</nom>
+				<description>desc tache 6</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-04-16</dateDebutPrevue>
+				<dateDebutReelle>2003-04-17</dateDebutReelle>
+				<dateFinPrevue>2003-05-02</dateFinPrevue>
+				<dateFinReelle>2003-05-03</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>7</id>
+				<nom>tache 7</nom>
+				<description>desc tache 7</description>
+				<etat>2</etat><!-- prete - commence - arrete -->
+				<chargePrevue>40</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>20</resteAPasser>
+				<dateDebutPrevue>2003-05-02</dateDebutPrevue>
+				<dateDebutReelle>2003-05-03</dateDebutReelle>
+				<dateFinPrevue>2003-05-15</dateFinPrevue>
+				<dateFinReelle>2003-05-16</dateFinReelle>
+			</eltTache>
+			<eltTache>
+				<id>8</id>
+				<nom>tache 8</nom>
+				<description>desc tache 8</description>
+				<etat>1</etat><!-- prete - commence - arrete -->
+				<chargePrevue>10</chargePrevue>
+				<tempsPasse>0</tempsPasse>
+				<resteAPasser>10</resteAPasser>
+				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
+				<dateDebutReelle>2003-05-17</dateDebutReelle>
+				<dateFinPrevue>2003-06-02</dateFinPrevue>
+				<dateFinReelle>2003-06-03</dateFinReelle>
+			</eltTache>
+		</listeTaches>
+
+		<!--  Liste de toutes les conditions -->
+		<listeConditionTache>
+			<eltCondition>
+				<id>1</id>
+				<type>1</type><!-- fini - commence -->
+			</eltCondition>
+			<eltCondition>
+				<id>2</id>
+				<type>2</type><!-- fini - commence -->
+			</eltCondition>
+		</listeConditionTache>
+
+		<!--  Liste de toutes les taches colaborative -->
+		<listeTacheCollaboratives>
+			<eltTacheCollaborative>
+				<id>1</id>
+				<nom>tache col 1</nom>
+				<description>desc tache col 1</description>
+				<etat>3</etat><!-- prete - commence - arrete -->
+				<chargePrevue>20</chargePrevue>
+				<tempsPasse>20</tempsPasse>
+				<resteAPasser>0</resteAPasser>
+				<dateDebutPrevue>2003-04-02</dateDebutPrevue>
+				<dateDebutReelle>2003-04-03</dateDebutReelle>
+				<dateFinPrevue>2003-04-15</dateFinPrevue>
+				<dateFinReelle>2003-04-16</dateFinReelle>
+			</eltTacheCollaborative>
+			<eltTacheCollaborative>			
+				<id>2</id>
+				<nom>tache col 2</nom>
+				<description>desc tache col 2</description>
+				<etat>1</etat><!-- prete - commence - arrete -->
+				<chargePrevue>10</chargePrevue>
+				<tempsPasse>0</tempsPasse>
+				<resteAPasser>10</resteAPasser>
+				<dateDebutPrevue>2003-05-16</dateDebutPrevue>
+				<dateDebutReelle>2003-05-17</dateDebutReelle>
+				<dateFinPrevue>2003-06-02</dateFinPrevue>
+				<dateFinReelle>2003-06-03</dateFinReelle>
+			</eltTacheCollaborative>
+		</listeTacheCollaboratives>
+		
+
+		<!--  Liste de tous les artefact -->
+		<listeArtefacts>
+			<eltArtefact>
+				<id>1</id>
+				<nom>artefact 1</nom>
+				<description>desc artefact 1</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>2</id>
+				<nom>artefact 2</nom>
+				<description>desc artefact 2</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>3</id>
+				<nom>artefact 3</nom>
+				<description>desc artefact 3</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>4</id>
+				<nom>artefact 4</nom>
+				<description>desc artefact 4</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>5</id>
+				<nom>artefact 5</nom>
+				<description>desc artefact 5</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>6</id>
+				<nom>artefact 6</nom>
+				<description>desc artefact 6</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>7</id>
+				<nom>artefact 7</nom>
+				<description>desc artefact 7</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>8</id>
+				<nom>artefact 8</nom>
+				<description>desc artefact 8</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>9</id>
+				<nom>artefact 9</nom>
+				<description>desc artefact 9</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>10</id>
+				<nom>artefact 10</nom>
+				<description>desc artefact 10</description>
+				<livrable>false</livrable> <!-- true si le produit est livré au client -->
+				<etat>1</etat> <!-- prete ou pas -->
+			</eltArtefact>
+			<eltArtefact>
+				<id>11</id>
+				<nom>artefact 11</nom>
+				<description>desc artefact 11</description>
+				<livrable>true</livrable> <!-- true si le produit est livré au client -->
+				<etat>2</etat> <!-- prete ou pas -->
+			</eltArtefact>
+		</listeArtefacts>
+
+		<!--  Liste de tous les problemes -->
+		<listeProblemes>
+			<eltProbleme>
+				<id>1</id>
+				<nom>probleme 1</nom>
+				<cause>cause</cause>
+				<dateDebut>2005-01-02</dateDebut>
+				<dateFin>2005-02-03</dateFin>
+			</eltProbleme>
+		</listeProblemes>
+
+	</elementProjet>
+	
+	
+ 
+
+	<!-- /////////////////////////////////////////////////////////////// -->
+	<!--                 LIENS ENTRE LES OBJETS DU PROJET                -->
+	<!-- /////////////////////////////////////////////////////////////// -->
+
+	<lienProjet>
+		
+		<!--  Lien entre les deftravail et leur condition de debut-->
+		<listeDefTravailconditionDefTravail_debuteSi>
+                        <defTravailconditionDefTravail_debuteSi>
+				<idDefTravail></idDefTravail>
+				<listeIdCondition>
+					<id></id>
+					<id></id>
+				</listeIdCondition>
+			</defTravailconditionDefTravail_debuteSi>
+                </listeDefTravailconditionDefTravail_debuteSi>
+
+<!--  Lien entre une condition et la deftravail sur laquelle elle porte-->
+		<listeDefTravailconditionDefTravail_porteSur>
+			<defTravailconditionDefTravail_porteSur>
+				<idDefTravailt></idDefTravailt>
+				<idCondition ></idCondition>
+			</defTravailconditionDefTravail_porteSur>
+		</listeDefTravailconditionDefTravail_porteSur>
+
+		<!--  Lien entre les iteration et le projet-->
+		<listeProjetIteration>
+			<ProjetIteration>
+				<idProjet>1</idProjet>
+				<listeIdIteration>
+					<id>1</id>
+					<id>2</id>
+					<id>3</id>
+					<id>4</id>
+				</listeIdIteration>
+			</ProjetIteration>
+		</listeProjetIteration>
+
+		<!--  Lien entre les mesures et l'iteration  -->		
+		<listeIterationMetrique>
+			<IterationMetrique>				
+				<idIteration>1</idIteration>
+				<listeIdMetrique>
+					<id>1</id>
+					<id>2</id>
+				</listeIdMetrique>
+			</IterationMetrique>
+		</listeIterationMetrique>		
+
+		<!--  Lien entre les risques et le projet -->
+		<listeProjetRisque>
+			<ProjetRisque>
+				<idProjet>1</idProjet>
+				<listeIdRisque>
+					<id>1</id>
+					<id>2</id>
+					<id>3</id>
+				</listeIdRisque>
+			</ProjetRisque>
+		</listeProjetRisque>
+
+		<!--  Lien entre les tache et leur iteration -->
+		<listeIterationTache>
+			<IterationTache>
+				<idIteration>1</idIteration>
+				<listeIdTache>
+					<id>1</id>
+					<id>2</id>
+				</listeIdTache>
+			</IterationTache>
+			<IterationTache>
+				<idIteration>2</idIteration>
+				<listeIdTache>
+					<id>3</id>
+					<id>4</id>
+				</listeIdTache>
+			</IterationTache>
+			<IterationTache>
+				<idIteration>3</idIteration>
+				<listeIdTache>
+					<id>5</id>
+					<id>6</id>
+				</listeIdTache>
+			</IterationTache>
+			<IterationTache>
+				<idIteration>4</idIteration>
+				<listeIdTache>
+					<id>7</id>
+					<id>8</id>
+				</listeIdTache>
+			</IterationTache>
+		</listeIterationTache>
+
+		<!--  Lien entre les tache collaborative et leur iteration -->
+		<listeIterationTacheCol>
+			<IterationTacheCol>
+				<idIteration>3</idIteration>
+				<listeIdTacheCol>
+					<id>1</id>					
+				</listeIdTacheCol>
+			</IterationTacheCol>
+			<IterationTacheCol>
+				<idIteration>4</idIteration>
+				<listeIdTacheCol>
+					<id>2</id>					
+				</listeIdTacheCol>
+			</IterationTacheCol>
+		</listeIterationTacheCol>
+
+
+		<!--  Lien entre les membres et le projet -->
+		<listeProjetMembre>
+			<ProjetMembre>
+				<idProjet>1</idProjet>
+				<listeMembre>
+					<id>1</id>
+					<id>2</id>
+					<id>3</id>
+					<id>4</id>
+					<id>5</id>
+				</listeMembre>
+			</ProjetMembre>
+		</listeProjetMembre>
+
+		<!--  Lien entre des artefact et leurs responsables -->
+		<listeMembreArtefact>
+			<MembreArtefact>
+				<idMembre>1</idMembre>
+				<listeArtefact>
+					<id>2</id>
+					<id>3</id>
+					<id>5</id>
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>2</idMembre>
+				<listeArtefact>
+					<id>1</id>
+					<id>7</id>
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>3</idMembre>
+				<listeArtefact>
+					<id>11</id>
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>4</idMembre>
+				<listeArtefact>
+					<id>4</id>
+					<id>6</id>
+					<id>8</id>
+					<id>9</id>					
+				</listeArtefact>
+			</MembreArtefact>
+			<MembreArtefact>
+				<idMembre>5</idMembre>
+				<listeArtefact>
+					<id>10</id>
+				</listeArtefact>
+			</MembreArtefact>
+		</listeMembreArtefact>
+
+		<!--  Lien entre les tache et le membre qui les realise -->
+		<listeMembreTache>
+			<MembreTache>
+			<idMembre>1</idMembre>
+				<listeTache>
+					<id>2</id>
+					<id>3</id>
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>2</idMembre>
+				<listeTache>
+					<id>1</id>
+					<id>8</id>
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>3</idMembre>
+				<listeTache>
+					<id>4</id>
+					<id>5</id>
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>4</idMembre>
+				<listeTache>
+					<id>7</id>					
+				</listeTache>
+			</MembreTache>
+			<MembreTache>
+			<idMembre>5</idMembre>
+				<listeTache>
+					<id>6</id>
+				</listeTache>
+			</MembreTache>
+		</listeMembreTache>
+
+		<!-- Lien entre une tache et une liste de conditions pour que cette tache debute -->
+		<listeTache_DebuteSi_Condition>
+			<Tache_DebuteSi_Condition>
+				<idTache></idTache>
+				<listeCondition>
+					<id></id>
+					<id></id>
+				</listeCondition>
+			</Tache_DebuteSi_Condition>
+		</listeTache_DebuteSi_Condition>
+
+		<!-- Lien entre une condition et la taches qu'elle comporte -->
+		<listeCondition_PorteSur_Tache>
+			<Condition_PorteSur_Tache>
+				<idCondition></idCondition>
+				<idTache></idTache>
+			</Condition_PorteSur_Tache>
+		</listeCondition_PorteSur_Tache>
+
+		<!-- Lien entre une tache collaborative et une liste de conditions pour que cette tache debute -->
+		<listeTacheCol_DebuteSi_Condition>
+			<TacheCol_DebuteSi_Condition>
+				<idTacheCol></idTacheCol>
+				<listeCondition>
+					<id></id>
+					<id></id>
+				</listeCondition>
+			</TacheCol_DebuteSi_Condition>
+		</listeTacheCol_DebuteSi_Condition>
+
+		<!-- Lien entre une condition et la taches collaborative qu'elle comporte -->
+		<listeCondition_PorteSur_TacheCol>
+			<Condition_PorteSur_TacheCol>
+				<idCondition></idCondition>
+				<idTacheCol></idTacheCol>
+			</Condition_PorteSur_TacheCol>
+		</listeCondition_PorteSur_TacheCol>
+
+
+
+
+
+		<!--  Lien entre les artefact en entree et la tache collaborative qui les utilise -->
+		<listeTacheColArtefact_Entree>
+			<TacheColArtefact_Entree>
+				<idTacheCol>1</idTacheCol>
+				<listeArtefact>					
+					<id>7</id>
+				</listeArtefact>
+			</TacheColArtefact_Entree>
+			<TacheColArtefact_Entree>
+				<idTacheCol>2</idTacheCol>
+				<listeArtefact>
+					<id>9</id>					
+				</listeArtefact>
+			</TacheColArtefact_Entree>
+		</listeTacheColArtefact_Entree>
+
+
+		<!--  Lien entre les artefacts en sortie et la tache collaborative qui les produit -->
+		<listeTacheColArtefact_Sortie>
+			<TacheColArtefact_Sortie>
+				<idTacheCol>1</idTacheCol>
+				<listeArtefact>
+					<id>9</id>					
+				</listeArtefact>
+			</TacheColArtefact_Sortie>
+			<TacheColArtefact_Sortie>
+				<idTacheCol>2</idTacheCol>
+				<listeArtefact>
+					<id>10</id>					
+				</listeArtefact>
+			</TacheColArtefact_Sortie>
+		</listeTacheColArtefact_Sortie>
+
+
+		<!--  Lien entre les artefact en entree et la tache qui les utilise -->
+		<listeTacheArtefact_Entree>			
+			<TacheArtefact_Entree>
+				<idTache>1</idTache>
+				<listeArtefact>
+					<id>1</id>					
+				</listeArtefact>			
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>2</idTache>
+				<listeArtefact>
+					<id>2</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>3</idTache>
+				<listeArtefact>
+					<id>3</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>4</idTache>
+				<listeArtefact>
+					<id>4</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>5</idTache>
+				<listeArtefact>
+					<id>5</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>6</idTache>
+				<listeArtefact>
+					<id>6</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>7</idTache>
+				<listeArtefact>
+					<id>7</id>		
+				</listeArtefact>
+			</TacheArtefact_Entree>		
+			<TacheArtefact_Entree>
+				<idTache>8</idTache>
+				<listeArtefact>
+					<id>8</id>					
+				</listeArtefact>
+			</TacheArtefact_Entree>
+		</listeTacheArtefact_Entree>
+
+
+		<!--  Lien entre les artefacts en sortie et la tache qui les produit -->
+		<listeTacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>1</idTache>
+				<listeArtefact>
+					<id>2</id>					
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>2</idTache>
+				<listeArtefact>
+					<id>3</id>					
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>3</idTache>
+				<listeArtefact>
+					<id>4</id>					
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>4</idTache>
+				<listeArtefact>
+					<id>5</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>5</idTache>
+				<listeArtefact>
+					<id>6</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>6</idTache>
+				<listeArtefact>
+					<id>7</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>7</idTache>
+				<listeArtefact>
+					<id>8</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+			<TacheArtefact_Sortie>
+				<idTache>8</idTache>
+				<listeArtefact>
+					<id>11</id>
+				</listeArtefact>
+			</TacheArtefact_Sortie>
+		</listeTacheArtefact_Sortie>
+
+		
+		<!-- Lien one to many entre membre et tache collaborative -->
+		<listeMembreTacheCollaborative_Responsable>
+			<MembreTacheCollaborative_Responsable>
+				<idMembre>1</idMembre>
+				<listeTacheCollaborative>
+					<id>1</id>					
+				</listeTacheCollaborative>
+			</MembreTacheCollaborative_Responsable>
+			<MembreTacheCollaborative_Responsable>
+				<idMembre>2</idMembre>
+				<listeTacheCollaborative>					
+					<id>2</id>
+				</listeTacheCollaborative>
+			</MembreTacheCollaborative_Responsable>			
+		</listeMembreTacheCollaborative_Responsable>
+
+		<!-- Lien many to many entre membre et tache collaborative -->
+		<!-- un membre peut realiser 0..* tache colaborative -->
+		<!-- une tache colaborative est realisÃ© par 1..* membre -->
+		<MembreTacheCollaborative_Realise>
+				<Membre>
+					<id>1</id>
+					<listeTacheCollaborative>
+						<id>1</id>						
+					</listeTacheCollaborative>
+				</Membre>
+				<Membre>
+					<id>2</id>
+					<listeTacheCollaborative>
+						<id>1</id>
+						<id>2</id>
+					</listeTacheCollaborative>
+				</Membre>
+				<Membre>
+					<id>3</id>
+					<listeTacheCollaborative>						
+						<id>2</id>
+					</listeTacheCollaborative>
+				</Membre>			
+		</MembreTacheCollaborative_Realise>
+
+		<!-- Lien many to many entre tache et probleme -->
+		<!-- une tache peut engendrer 0..* probleme  -->
+		<!-- un probleme peut etre genere par 0..* tache -->
+		<Tache_Provoque_Probleme>
+				<Tache>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</Tache>
+				<Tache>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</Tache>			
+		</Tache_Provoque_Probleme>
+
+		<!-- Lien many to many entre probleme et tache -->
+		<!-- une tache peut resoudre 0..* probleme  -->
+		<!-- un probleme peut etre resolu par 0..* tache -->
+		<Probleme_Resoud_Tache>
+				<Probleme>
+					<id></id>
+					<listeTache>
+						<id></id>
+						<id></id>
+					</listeTache>
+				</Probleme>
+				<Probleme>
+					<id></id>
+					<listeTache>
+						<id></id>
+						<id></id>
+					</listeTache>
+				</Probleme>			
+		</Probleme_Resoud_Tache>
+		
+		<!-- Lien many to many entre tache collaborative et probleme -->
+		<!-- une tache collaborative peut engendrer 0..* probleme  -->
+		<!-- un probleme peut etre genere par 0..* tache collaborative -->
+		<TacheCol_Provoque_Probleme>
+				<TacheCol>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</TacheCol>
+				<TacheCol>
+					<id></id>
+					<listeProbleme>
+						<id></id>
+						<id></id>
+					</listeProbleme>
+				</TacheCol>			
+		</TacheCol_Provoque_Probleme>
+
+		<!-- Lien many to many entre probleme et tache collaborative -->
+		<!-- une tache collaborative peut resoudre 0..* probleme  -->
+		<!-- un probleme peut etre resolu par 0..* tache collaborative -->
+		<Probleme_Resoud_TacheCol>			
+				<Probleme>
+					<id></id>
+					<listeTacheCol>
+						<id></id>
+						<id></id>
+					</listeTacheCol>
+				</Probleme>
+				<Probleme>
+					<id></id>
+					<listeTacheCol>
+						<id></id>
+
+						<id></id>
+					</listeTacheCol>
+				</Probleme>			
+		</Probleme_Resoud_TacheCol>
+
+	</lienProjet>
+
+	<!-- Lien entre le projet et le processus -->
+	<lienProjetProcessus>
+
+		<ProcessusProjet>
+			<idProcessus></idProcessus>
+			<IdProjet></IdProjet>
+		</ProcessusProjet>
+
+		<!--  lien entre des artefact et le produit duquelle ils decoule  -->
+		<listeProduitArtefact>
+			<ProduitArtefact>
+				<idProduit></idProduit>
+				<listeIdArtefact>
+					<id></id>
+					<id></id>
+				</listeIdArtefact>
+			</ProduitArtefact>
+		</listeProduitArtefact>
+		
+		<!--  lien entre des tache et l'activite duquelle ils decoule -->
+		<listeActiviteTache>
+			<ActiviteTache>
+				<idActivite></idActivite>
+				<listeIdTache>
+					<id></id>					
+				</listeIdTache>
+			</ActiviteTache>
+		</listeActiviteTache>
+
+		<!--  Lien entre les roles et un membres -->
+		<MembreRole>			
+				<Membre>
+					<id>1</id>
+					<listeRole>
+						<id>_201</id>
+						<id>_204</id>
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>2</id>
+					<listeRole>
+						<id>_203</id>
+						<id>_204</id>
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>3</id>
+					<listeRole>
+						<id>_202</id>						
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>4</id>
+					<listeRole>
+						<id>_202</id>
+						<id>_204</id>
+					</listeRole>
+				</Membre>
+				<Membre>
+					<id>5</id>
+					<listeRole>
+						<id>_201</id>
+						<id>_202</id>
+					</listeRole>
+				</Membre>			
+		</MembreRole>
+
+<!--  Lien entre les composant et les iterations-->
+            <ComposantIteration>			
+				<Iteration>
+					<id></id>
+					<listeIdComposant>
+						<id></id>
+						<id></id>
+					</listeIdComposant>
+				</Iteration>
+				<Iteration>
+					<id></id>
+					<listeIdComposant>
+						<id></id>
+						<id></id>
+					</listeIdComposant>
+				</Iteration>			
+		</ComposantIteration>
+
+<!--  Lien entre les condition de defTravail et les iterations-->
+<listCondDefTravailIeration>
+			<condDefTravailIeration>
+					<idIteration></idIteration>
+					<listeIdCondDefTravail>
+						<id></id>
+						<id></id>
+					</listeIdCondDefTravail>
+			</condDefTravailIeration>
+		</listCondDefTravailIeration>
+
+
+
+	</lienProjetProcessus>
+</exportProjet>
