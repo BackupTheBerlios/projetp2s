@@ -2,5 +2,7 @@
 
 <Form version="1.0" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
 
-  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+    <Property name="useNullLayout" type="boolean" value="false"/>
+  </Layout>
 </Form>
