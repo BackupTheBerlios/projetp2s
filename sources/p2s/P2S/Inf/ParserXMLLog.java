@@ -120,9 +120,10 @@ public class ParserXMLLog {
                 if(attributCourant.getNodeName().equalsIgnoreCase("detail"))
                     message = attributCourant.getFirstChild().getNodeValue();
                 
-                Messages mess = new Messages(sujet,message,date);
-                messages.add(mess);
+                
              }
+            Messages mess = new Messages(sujet,message,date);
+            messages.add(mess);
         }
         return messages;
     }
