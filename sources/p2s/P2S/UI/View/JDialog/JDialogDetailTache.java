@@ -8,6 +8,8 @@ import java.util.Locale;
 import javax.swing.table.TableCellRenderer;
 import java.awt.Component;
 import java.util.Vector ;
+import javax.swing.* ;
+import java.awt.Color;
 import P2S.UI.View.JDialog.ModeleTableMesure;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -35,17 +37,37 @@ public class JDialogDetailTache extends javax.swing.JDialog {
         this.initText();
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
         this.textIndNom.setText(tacheDetail.getNom());
+        this.textIndNom.setBackground(new Color(255,255,255));
         this.textIndRealisateur.setText((tacheDetail.getRealisateur()).getNom());
+        this.textIndRealisateur.setBackground(new Color(255,255,255));
         this.textDescription.setText(tacheDetail.getDescription());
         this.textIndCharge.setText(new Integer(tacheDetail.getChargePrevue()).toString());
+        this.textIndCharge.setBackground(new Color(255,255,255));
         this.textIndTempsPasse.setText(new Integer(tacheDetail.getTempsPasse()).toString());
+        this.textIndTempsPasse.setBackground(new Color(255,255,255));
         this.textIndTempsRestant.setText(new Integer(tacheDetail.getResteAPasser()).toString());
+        this.textIndTempsRestant.setBackground(new Color(255,255,255));
         this.textIndDateDebutPrevue.setText(dateFormat.format(tacheDetail.getDateDebutPrevue()));
+        this.textIndDateDebutPrevue.setBackground(new Color(255,255,255));
         this.textIndDateDebutReelle.setText(dateFormat.format(tacheDetail.getDateDebutReelle()));
+        this.textIndDateDebutReelle.setBackground(new Color(255,255,255));
         this.textIndDateFinPrevue.setText(dateFormat.format(tacheDetail.getDateFinPrevue()));
+        this.textIndDateFinPrevue.setBackground(new Color(255,255,255));
         this.textIndDateFinReelle.setText(dateFormat.format(tacheDetail.getDateFinReelle()));
-        this.textIndEtat.setText(tacheDetail.getEtat());
+        this.textIndDateFinReelle.setBackground(new Color(255,255,255));
         
+        //affichage de l'état
+        Object value = tacheDetail.getEtat();
+        this.textIndEtat.setText(Bundle.getText("Constante_tache"+value)) ;
+             if (((String)value).equals("1"))
+             {
+                 textIndEtat.setForeground(new Color(20, 20, 250)) ;
+             }
+             if (((String)value).equals("3"))
+             {
+                 textIndEtat.setForeground(new Color(250, 20, 20)) ;
+             }
+        this.textIndEtat.setBackground(new Color(255,255,255));
         //recupération de la liste des artefacts en entrées
         /*Vector artefactsEntrees = new Vector();
         artefactsEntrees = tacheDetail.getListeArtefactsEntrees();

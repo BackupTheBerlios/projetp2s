@@ -12,12 +12,13 @@ import P2S.Model.Projet;
 import P2S.UI.View.JDialog.JDialogMail;
 import java.text.DateFormat;
 import java.util.Locale;
+import java.awt.Color;
 
 
 
 /**
  * JPanel affichant les informations generales d'un projet
- * @author Fabien
+ * @author Kassem
  */
 public class JPanelInfoGenProjet extends javax.swing.JPanel {
     
@@ -35,13 +36,16 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         // On affiche les infos du projet
        // this.LabelNomProjet.setText(proj.getNom());
         this.textNomProjet.setText(proj.getNom());
+        this.textNomProjet.setBackground(new Color(255,255,255));
         this.textNomProjet.setEditable(false);
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault());
         //this.LabelDateDebut.setText(dateFormat.format(proj.getDateDebut()));
         this.textDateDebut.setText(dateFormat.format(proj.getDateDebut()));
+        this.textDateDebut.setBackground(new Color(255,255,255));
         this.textDateDebut.setEditable(false);
         //this.LabelDateFin.setText(dateFormat.format(proj.getDateFin()));
         this.textDateFin.setText(dateFormat.format(proj.getDateFin()));
+        this.textDateFin.setBackground(new Color(255,255,255));
         this.textDateFin.setEditable(false);
         this.TextAreaDescription.setText(proj.getDescription());
         this.TextAreaDescription.setEditable(false);
@@ -55,10 +59,15 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         //this.LabelIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
         
         this.textIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString()+" %");
+        this.textIndAvancementProjet.setBackground(new Color(255,255,255));
         this.textIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
+        this.textIndDureeMoyenneTache.setBackground(new Color(255,255,255));
         this.textIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
+        this.textIndNombreParticipants.setBackground(new Color(255,255,255));
         this.textIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());
+        this.textIndTachesTerminees.setBackground(new Color(255,255,255));
         this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+        this.textIndTotalCharges.setBackground(new Color(255,255,255));
     }
     
     /** This method is called from within the constructor to
@@ -209,11 +218,15 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         this.LabelIndTotalCharges.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurTotalCharges"));*/
         
         this.textStaticIndAvancementProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurAvancement"));
-        
+        this.textStaticIndAvancementProjet.setBackground(new Color(255,255,255));
         this.textStaticIndDureeMoyenneTache.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurMoyenneTache"));
+        this.textStaticIndDureeMoyenneTache.setBackground(new Color(255,255,255));
         this.textStaticIndNombreParticipants.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurParticipant"));
+        this.textStaticIndNombreParticipants.setBackground(new Color(255,255,255));
         this.textStaticIndTachesTerminees.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurTachesTerminees"));
+        this.textStaticIndTachesTerminees.setBackground(new Color(255,255,255));
         this.textStaticIndTotalCharges.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurTotalCharges"));
+        this.textStaticIndTotalCharges.setBackground(new Color(255,255,255));
     }
     
     
