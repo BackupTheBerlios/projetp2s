@@ -59,9 +59,9 @@ public class JPanelInfoTaches extends javax.swing.JPanel {
                 donneesTache = new Vector() ;
                 donneesTache.add(tempTache.getNom()) ;
                 donneesTache.add(tempTache.getEtat()) ;
-                donneesTache.add(tempTache.getChargePrevue()) ;
-                donneesTache.add(tempTache.getTempsPasse()) ;
-                donneesTache.add(tempTache.getResteAPasser()) ;
+                donneesTache.add(Integer.toString(tempTache.getChargePrevue())) ;
+                donneesTache.add(Integer.toString(tempTache.getTempsPasse())) ;
+                donneesTache.add(Integer.toString(tempTache.getResteAPasser())) ;
                 ((DefaultTableModel)(jTable1.getModel())).addRow (donneesTache) ;
             }
         }

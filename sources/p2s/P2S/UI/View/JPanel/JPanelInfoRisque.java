@@ -56,9 +56,9 @@ public class JPanelInfoRisque extends javax.swing.JPanel {
                 donneesRisque = new Vector() ;
                 donneesRisque.add(tempRisque.getNom()) ;
                 donneesRisque.add(tempRisque.getDescription()) ;
-                donneesRisque.add(tempRisque.getPriorite()) ;
-                donneesRisque.add(tempRisque.getImpact()) ;
-                donneesRisque.add(tempRisque.getEtat()) ;                                
+                donneesRisque.add(Integer.toString(tempRisque.getPriorite())) ;
+                donneesRisque.add(Integer.toString(tempRisque.getImpact())) ;
+                donneesRisque.add(Integer.toString(tempRisque.getEtat())) ;                                
                 ((DefaultTableModel)(jTable1.getModel())).addRow (donneesRisque) ;
             }
         }
