@@ -344,8 +344,9 @@ public class JFrameP2S extends javax.swing.JFrame {
             calendarDebut.setTime(projet.getDateDebut());
             calendarFin.setTime(projet.getDateFin());
                      
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
             // Envoie des infos sur le projet à la servlet "AjoutProjetServlet" pour l'ajouter a la BD
-            URL url = new URL("http://localhost:8084/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
+            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/AjoutProjetServlet?login="+((Superviseur)this.utilisateur).getLogin() +"&nom="+projet.getNom()+"&jourDateDebut="+calendarDebut.get(Calendar.DAY_OF_MONTH)+"&moisDateDebut="+(calendarDebut.get(Calendar.MONTH)+1)+"&anneeDateDebut="+calendarDebut.get(Calendar.YEAR)+"&jourDateFin="+calendarFin.get(Calendar.DAY_OF_MONTH)+"&moisDateFin="+(calendarFin.get(Calendar.MONTH)+1)+"&anneeDateFin="+calendarFin.get(Calendar.YEAR)+"&description="+projet.getDescription());
             
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
@@ -395,7 +396,8 @@ public class JFrameP2S extends javax.swing.JFrame {
 	
 	try {
                 
-            URL url = new URL("http://localhost:8084/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
+            ParserXMLPreferences parserPref = new ParserXMLPreferences(P2S.P2S.readFile("P2S/preferences.xml"));
+            URL url = new URL("http://"+parserPref.lireAdresseServeur()+":"+parserPref.lirePortServeur()+"/p2sserver/LoginServlet?login="+utilisateur.getLogin()+"&password="+utilisateur.getPassword()) ;
 	
             // Buffer qui va recuperer la reponse de la servlet
             BufferedReader in = new BufferedReader(
