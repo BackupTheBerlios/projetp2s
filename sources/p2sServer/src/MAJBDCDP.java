@@ -107,6 +107,20 @@ public class MAJBDCDP extends HttpServlet {
                         
                     }
                     
+                    PreparedStatement prepState3 = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + login +"'");
+                    ResultSet rs3 = prepState3.executeQuery(); // Execution de la requete
+                    
+                    if(rs3.next()){
+                        do{
+                            int id = 0;
+                            for(int n = 0 ; n < projets.size() ; n++){
+
+                                Statement sdrop = conn.createStatement();
+                                sdrop.executeUpdate("Delete from chefprojet_projets where idprojet = " + rs3.getInt("idprojet"));
+                            }
+                        }while(rs3.next());
+                    }
+                    
                     for(int l = 0 ; l < projets.size() ; l++){
                         
                         PreparedStatement prepState = conn.prepareStatement("Select idprojet from projets where nom = '" + projets.get(l) +"'");
@@ -123,30 +137,6 @@ public class MAJBDCDP extends HttpServlet {
                         if(!rs2.next())
                             s.executeUpdate("Insert into chefprojet_projets values('" + loginCDP + "'," + id + ")");
                         
-                    }
-                    
-                    PreparedStatement prepState3 = conn.prepareStatement("Select idprojet from chefprojet_projets where login = '" + loginCDP +"'");
-                    ResultSet rs3 = prepState3.executeQuery(); // Execution de la requete
-                    
-                    if(rs3.next()){
-                        do{
-                            boolean trouve = false;
-                            int id = 0;
-                            for(int n = 0 ; n < projets.size() && !trouve ; n++){
-                                
-                                PreparedStatement prepState = conn.prepareStatement("Select idprojet from projets where nom = '" + projets.get(n) +"'");
-                                ResultSet rs = prepState.executeQuery(); // Execution de la requete
-                                
-                                if(rs.next()){
-                                    id = rs.getInt("idprojet");
-                                }
-                                trouve = (rs3.getInt("idprojet") == id);
-                            }
-                            if(!trouve){
-                                Statement sdrop = conn.createStatement();
-                                sdrop.executeUpdate("Delete from chefprojet_projets where idprojet = " + rs3.getInt("idprojet"));
-                            }
-                        }while(rs3.next());
                     }
                     
                 }
