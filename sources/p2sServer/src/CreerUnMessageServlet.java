@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.util.*;
+import java.text.DateFormat;
 
 /**
  *
@@ -52,7 +53,10 @@ public class CreerUnMessageServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-       
+        java.util.Date d = new java.util.Date();
+        d = Calendar.getInstance().getTime();
+        java.sql.Date date = new java.sql.Date(d.getTime());
+        
         String login = request.getParameter("login");
         String sujet = request.getParameter("sujet");
         String message = request.getParameter("message");
@@ -71,7 +75,7 @@ public class CreerUnMessageServlet extends HttpServlet {
                     //C'est bon le superviseur existe
                     out.println("ok");
                     Statement s = conn.createStatement();
-                    s.executeUpdate("Insert into messages(login,sujet,message) values('" + login + "','" + sujet + "','" + message + "')");
+                    s.executeUpdate("Insert into messages(login,sujet,date,message) values('" + login + "','" + sujet + "','" + date + "','" + message + "')");
                     s.close();
                     
                 }
