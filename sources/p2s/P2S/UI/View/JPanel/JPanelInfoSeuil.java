@@ -28,6 +28,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     public JPanelInfoSeuil(Projet proj) {
         projet = proj;
         initComponents();
+        initText();
         initSeuil();
     }
     
@@ -75,7 +76,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        indicateursGeneraux.setText("Seuil pour les indicateurs g\u00e9n\u00e9raux :");
+        indicateursGeneraux.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_titreGeneral"));
         add(indicateursGeneraux, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 210, -1));
 
         seuilMin.setText("Min");
@@ -84,7 +85,6 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
         seuilMax.setText("Max");
         add(seuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
-        totalChargesProjet.setText("Total des charges");
         add(totalChargesProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, -1));
 
         totalChargesProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -103,7 +103,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(totalChargesProjetSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 40, -1));
 
-        tacheTermineesProjet.setText("Nombre de t\u00e2ches termin\u00e9es");
+        tacheTermineesProjet.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_nbTachesTerminees"));
         add(tacheTermineesProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, -1));
 
         tacheTermineesProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -122,7 +122,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(tacheTermineesProjetSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 40, -1));
 
-        dureeMoyenneProjet.setText("Dur\u00e9e moyenne d'une t\u00e2che");
+        dureeMoyenneProjet.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_duréeMoyenneTâches"));
         add(dureeMoyenneProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 220, -1));
 
         dureeMoyenneProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -141,7 +141,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(dureeMoyenneProjetSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 40, -1));
 
-        nombreParticipantProjet.setText("Nombre de participants");
+        nombreParticipantProjet.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_nbParticipantsTaches"));
         add(nombreParticipantProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 220, -1));
 
         nombreParticipantProjetSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -160,10 +160,10 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(nombreParticipantProjetSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 40, -1));
 
-        indicateursIterations.setText("Seuil pour les indicateurs des t\u00e2ches :");
+        indicateursIterations.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_titreTaches"));
         add(indicateursIterations, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 200, -1));
 
-        totalChargesIteration.setText("Total des charges");
+        totalChargesIteration.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_totalChargesTaches"));
         add(totalChargesIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 220, -1));
 
         totalChargesIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -182,9 +182,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(totalChargesIterationSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 40, -1));
 
-        tacheTermineesIteration.setText("Nombre de t\u00e2ches termin\u00e9es");
+        tacheTermineesIteration.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_nbTachesTermineesTaches"));
         add(tacheTermineesIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 220, -1));
-
 
         tacheTermineesIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -202,7 +201,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(tacheTermineesIterationSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 40, -1));
 
-        dureeMoyenneIteration.setText("Dur\u00e9e moyenne des t\u00e2ches");
+        dureeMoyenneIteration.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_duréeMoyenneTâchesTaches"));
         add(dureeMoyenneIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 220, -1));
 
         dureeMoyenneIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -221,7 +220,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(dureeMoyenneIterationSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 210, 40, -1));
 
-        nombreParticipantIteration.setText("Nombre de participants");
+        nombreParticipantIteration.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_nbParticipantsTaches"));
         add(nombreParticipantIteration, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 230, -1));
 
         nombreParticipantIterationSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -240,7 +239,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(nombreParticipantIterationSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, 40, -1));
 
-        chargeMoyenne.setText("Charge moyenne des participants");
+        chargeMoyenne.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_chargeMoyenneParticipants"));
         add(chargeMoyenne, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 210, -1));
 
         chargeMoyenneSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -259,7 +258,7 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(chargeMoyenneSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 40, -1));
 
-        nombreTacheParticipant.setText("Nombre moyen de t\u00e2ches par participants");
+        nombreTacheParticipant.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_nbMoyenTaches"));
         add(nombreTacheParticipant, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 230, -1));
 
         nombreTacheParticipantSeuilMin.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -278,7 +277,8 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
 
         add(nombreTacheParticipantSeuilMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 270, 40, -1));
 
-        jButton1.setText("Enregistrer");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/save.gif")));
+        jButton1.setText(java.util.ResourceBundle.getBundle("P2S/Control/Bundle/label_fr").getString("JPanelSeuils_bouton"));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -701,4 +701,22 @@ public class JPanelInfoSeuil extends javax.swing.JPanel {
     private javax.swing.JTextField totalChargesProjetSeuilMin;
     // End of variables declaration//GEN-END:variables
     
+    
+    void initText(){
+
+                
+            totalChargesProjet.setText(Bundle.getText("JPanelSeuils_totalCharges"));
+            totalChargesIteration.setText(Bundle.getText("JPanelSeuils_totalChargesTaches"));
+            tacheTermineesProjet.setText(Bundle.getText("JPanelSeuils_nbTachesTerminees"));
+            tacheTermineesIteration.setText(Bundle.getText("JPanelSeuils_nbTachesTermineesTaches"));
+            nombreTacheParticipant.setText(Bundle.getText("JPanelSeuils_nbMoyenTaches"));
+            nombreParticipantProjet.setText(Bundle.getText("JPanelSeuils_nbParticipants"));
+            nombreParticipantIteration.setText(Bundle.getText("JPanelSeuils_nbParticipants"));
+            indicateursIterations.setText(Bundle.getText("JPanelSeuils_titreTaches"));
+            indicateursGeneraux.setText(Bundle.getText("JPanelSeuils_titreGeneral"));
+            dureeMoyenneProjet.setText(Bundle.getText("JPanelSeuils_duréeMoyenneTâches"));
+            dureeMoyenneIteration.setText(Bundle.getText("JPanelSeuils_duréeMoyenneTâches"));
+            chargeMoyenne.setText(Bundle.getText("JPanelSeuils_chargeMoyenneParticipants"));
+            jButton1.setText(Bundle.getText("JPanelSeuils_bouton"));
+    }
 }

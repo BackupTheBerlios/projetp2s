@@ -11,7 +11,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="indicateursGeneraux">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Seuil pour les indicateurs généraux :"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_titreGeneral" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -41,7 +43,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="totalChargesProjet">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Total des charges"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.beaninfo.editors.StringEditor">
+          <SerializedValue value="-84,-19,0,5,115,114,0,45,111,114,103,46,110,101,116,98,101,97,110,115,46,109,111,100,117,108,101,115,46,105,49,56,110,46,102,111,114,109,46,70,111,114,109,73,49,56,110,83,116,114,105,110,103,-8,-67,-1,29,-103,24,49,-101,2,0,1,76,0,10,98,117,110,100,108,101,78,97,109,101,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,112"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -51,7 +55,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="totalChargesProjetSeuilMin">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="totalChargesProjetSeuilMinActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesProjetSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -72,7 +75,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="tacheTermineesProjet">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre de tâches terminées"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_nbTachesTerminees" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -102,7 +107,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="dureeMoyenneProjet">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Durée moyenne d&apos;une tâche"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_duréeMoyenneTâches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -132,7 +139,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="nombreParticipantProjet">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre de participants"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_nbParticipantsTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -142,7 +151,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="nombreParticipantProjetSeuilMin">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreParticipantProjetSeuilMinActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nombreParticipantProjetSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -163,7 +171,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="indicateursIterations">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Seuil pour les indicateurs des tâches :"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_titreTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -173,7 +183,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="totalChargesIteration">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Total des charges"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_totalChargesTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -183,7 +195,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="totalChargesIterationSeuilMin">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="totalChargesIterationSeuilMinActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="totalChargesIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -204,7 +215,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="tacheTermineesIteration">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre de tâches terminées"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_nbTachesTermineesTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -214,7 +227,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tacheTermineesIterationSeuilMin">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tacheTermineesIterationSeuilMinActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tacheTermineesIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -235,7 +247,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="dureeMoyenneIteration">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Durée moyenne des tâches"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_duréeMoyenneTâchesTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -245,7 +259,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="dureeMoyenneIterationSeuilMin">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dureeMoyenneIterationSeuilMinActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dureeMoyenneIterationSeuilMinFocusLost"/>
       </Events>
       <Constraints>
@@ -266,7 +279,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="nombreParticipantIteration">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre de participants"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_nbParticipantsTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -296,7 +311,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="chargeMoyenne">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Charge moyenne des participants"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_chargeMoyenneParticipants" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -326,7 +343,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="nombreTacheParticipant">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre moyen de tâches par participants"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_nbMoyenTaches" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -356,7 +375,12 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Enregistrer"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/P2S/Resources/save.gif"/>
+        </Property>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="P2S/Control/Bundle/label_fr.properties" key="JPanelSeuils_bouton" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
