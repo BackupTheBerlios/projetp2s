@@ -131,8 +131,9 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuFichier = new javax.swing.JMenu();
         JMenuItemQuitter = new javax.swing.JMenuItem();
         JMenuOutils = new javax.swing.JMenu();
-        JMenuItemRafraichir = new javax.swing.JMenuItem();
+        JMenuOptions = new javax.swing.JMenu();
         JMenuItemPreferences = new javax.swing.JMenuItem();
+        JMenuItemRafraichir = new javax.swing.JMenuItem();
         JMenuAide = new javax.swing.JMenu();
         JMenuItemAProposDe = new javax.swing.JMenuItem();
 
@@ -190,6 +191,19 @@ public class JFrameP2S extends javax.swing.JFrame {
             }
         });
 
+        JMenuBar.add(JMenuOutils);
+
+        JMenuOptions.setText("Menu");
+        JMenuItemPreferences.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_prefs.gif")));
+        JMenuItemPreferences.setText("Pr\u00e9f\u00e9rences...");
+        JMenuItemPreferences.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemPreferencesActionPerformed(evt);
+            }
+        });
+
+        JMenuOptions.add(JMenuItemPreferences);
+
         JMenuItemRafraichir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         JMenuItemRafraichir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_refresh.gif")));
         JMenuItemRafraichir.setText("Rafraichir");
@@ -199,19 +213,9 @@ public class JFrameP2S extends javax.swing.JFrame {
             }
         });
 
-        JMenuOutils.add(JMenuItemRafraichir);
+        JMenuOptions.add(JMenuItemRafraichir);
 
-        JMenuItemPreferences.setIcon(new javax.swing.ImageIcon(getClass().getResource("/P2S/Resources/tools_prefs.gif")));
-        JMenuItemPreferences.setText("Pr\u00e9f\u00e9rences...");
-        JMenuItemPreferences.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMenuItemPreferencesActionPerformed(evt);
-            }
-        });
-
-        JMenuOutils.add(JMenuItemPreferences);
-
-        JMenuBar.add(JMenuOutils);
+        JMenuBar.add(JMenuOptions);
 
         JMenuAide.setText("Aide");
         JMenuItemAProposDe.setText("A Propos de...");
@@ -435,6 +439,8 @@ public class JFrameP2S extends javax.swing.JFrame {
         JMenuFichier.setMnemonic(Bundle.getChar("JMenuFichier"));
         JMenuOutils.setText(Bundle.getText("JMenuOutils"));
         JMenuOutils.setMnemonic(Bundle.getChar("JMenuOutils"));
+	JMenuOptions.setText(Bundle.getText("JMenuOptions"));
+        JMenuOptions.setMnemonic(Bundle.getChar("JMenuOptions"));
         JMenuAide.setText(Bundle.getText("JMenuAide"));
         JMenuAide.setMnemonic(Bundle.getChar("JMenuAide"));
         
@@ -468,10 +474,10 @@ public class JFrameP2S extends javax.swing.JFrame {
                 
                 if(utilisateur instanceof Directeur){
                     creerEnvironnementDir();
-                } else if (utilisateur instanceof Superviseur) {
-                    creerEnvironnementSup();
-                } else{
+                } else if (utilisateur instanceof ChefDeProjet) {
                     creerEnvironnementCDP();
+                } else{
+                    creerEnvironnementSup();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, Bundle.getText("ExceptionErrorMessageLogin"), Bundle.getText("ExceptionErrorMessageLoginTitle"), JOptionPane.WARNING_MESSAGE);
@@ -495,16 +501,7 @@ public class JFrameP2S extends javax.swing.JFrame {
             }
         });
         
-        // On ajoute le menu "Gérer chef de projet" au menu Outils
-        JMenuItemGererCDP = new JMenuItem();
-        JMenuItemGererCDP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMenuItemGererCDPActionPerformed(evt);
-            }
-        });
-        
-        JMenuOutils.add(JMenuItemCreerProjetDistant,0);
-        JMenuOutils.add(JMenuItemGererCDP,1);
+               
         
         // On ajoute le menu "Ajouter projet local" au menu Outils
         JMenuItemCreerProjetLocal = new JMenuItem();
@@ -514,7 +511,20 @@ public class JFrameP2S extends javax.swing.JFrame {
                 JMenuItemCreerProjetLocalActionPerformed(evt);
             }
         });
-        JMenuOutils.add(JMenuItemCreerProjetLocal,0);
+	
+	// On ajoute le menu "Gérer chef de projet" au menu Outils
+        JMenuItemGererCDP = new JMenuItem();
+        JMenuItemGererCDP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuItemGererCDPActionPerformed(evt);
+            }
+        });
+	
+	
+        JMenuOutils.add(JMenuItemCreerProjetLocal);
+	JMenuOutils.add(JMenuItemCreerProjetDistant);
+	JMenuOutils.addSeparator() ;
+        JMenuOutils.add(JMenuItemGererCDP);
         
         // Construction de l'arborescence
         
@@ -535,12 +545,14 @@ public class JFrameP2S extends javax.swing.JFrame {
      **/
     private void creerEnvironnementCDP() {
         
+	JMenuOutils.setVisible(false) ;
         // Messages
         messages = new NoeudMessage();
         // Projets
         projets = new DefaultMutableTreeNode();
         // Premier noeud
         racine = new DefaultMutableTreeNode();
+	
         
         construireEnvironnementCDP() ;
         
@@ -776,7 +788,7 @@ public class JFrameP2S extends javax.swing.JFrame {
      *@version 1.0
      */
     private void construireEnvironnementCDP() {
-        racine.setUserObject(Bundle.getText("NoeudCDP")) ;
+        racine.setUserObject(utilisateur.getLogin()) ;
         messages.setUserObject(Bundle.getText("NoeudMessages")) ;
         projets.setUserObject(Bundle.getText("NoeudProjets")) ;
         
@@ -944,6 +956,7 @@ public class JFrameP2S extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMenuItemPreferences;
     private javax.swing.JMenuItem JMenuItemQuitter;
     private javax.swing.JMenuItem JMenuItemRafraichir;
+    private javax.swing.JMenu JMenuOptions;
     private javax.swing.JMenu JMenuOutils;
     private javax.swing.JPanel PanelContenu;
     private javax.swing.JScrollPane jScrollPane1;
