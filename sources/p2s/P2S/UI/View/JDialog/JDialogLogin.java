@@ -14,6 +14,7 @@ import java.net.*;
 import java.io.*;
 import java.util.Vector;
 import java.util.List;
+import javax.swing.JOptionPane ;
 
 /**
  * JDialog permettant ? un utilisateur de se connecter ? l'application en tant que directeur ou superviseur
@@ -111,6 +112,17 @@ public class JDialogLogin extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(20, 53, 16, 0);
         getContentPane().add(JButtonAnnuler, gridBagConstraints);
 
+        JPasswordFieldMDP.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                JPasswordFieldMDPFocusGained(evt);
+            }
+        });
+        JPasswordFieldMDP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                JPasswordFieldMDPKeyPressed(evt);
+            }
+        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
@@ -125,6 +137,17 @@ public class JDialogLogin extends javax.swing.JDialog {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-305)/2, (screenSize.height-153)/2, 305, 153);
     }//GEN-END:initComponents
+
+    private void JPasswordFieldMDPFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPFocusGained
+        JButtonOK.setSelected(true) ;
+    }//GEN-LAST:event_JPasswordFieldMDPFocusGained
+
+    private void JPasswordFieldMDPKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            JButtonOK.doClick() ;
+        }
+            
+    }//GEN-LAST:event_JPasswordFieldMDPKeyPressed
     
     private void JButtonAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAnnulerActionPerformed
         System.exit(0); // On quitte l'application
@@ -140,7 +163,7 @@ public class JDialogLogin extends javax.swing.JDialog {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(
                     url.openStream()));
-            
+	    
             //Recuperation du fluxXml envoye par la Servlet : LoginServlet contenant toutes les donnees de l'utilisateur
             String fluxXml = new String("");
             String inputLine;
@@ -152,7 +175,7 @@ public class JDialogLogin extends javax.swing.JDialog {
                 ParserXMLLog parser = new ParserXMLLog(fluxXml);
                                 
                 if(parser.lireFonction().compareTo("sup") == 0) {
-                    ((JFrameP2S)this.getParent()).utilisateur = new Superviseur(this.JTextFieldLogin.getText(),parser.lireProjets());
+                    ((JFrameP2S)this.getParent()).utilisateur = new Superviseur(this.JTextFieldLogin.getText(), Md5.getEncodedPassword(this.JPasswordFieldMDP.getText()), parser.lireProjets());
                 } else if(parser.lireFonction().compareTo("dir") == 0) {
                     ((JFrameP2S)this.getParent()).utilisateur = new Directeur(this.JTextFieldLogin.getText(),parser.lireMembres());
                 }
@@ -174,6 +197,9 @@ public class JDialogLogin extends javax.swing.JDialog {
         JButtonOK.setText(Bundle.getText("JDialogLogin_JButton_Ok"));
         JButtonAnnuler.setText(Bundle.getText("JDialogLogin_JButton_Annuler"));        
     }
+
+
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

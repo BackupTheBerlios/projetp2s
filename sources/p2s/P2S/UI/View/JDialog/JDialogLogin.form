@@ -70,6 +70,10 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JPasswordField" name="JPasswordFieldMDP">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="JPasswordFieldMDPFocusGained"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="JPasswordFieldMDPKeyPressed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
           <GridBagConstraints gridX="4" gridY="2" gridWidth="2" gridHeight="2" fill="0" ipadX="119" ipadY="-2" insetsTop="10" insetsLeft="3" insetsBottom="0" insetsRight="47" anchor="18" weightX="0.0" weightY="0.0"/>
