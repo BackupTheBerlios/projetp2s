@@ -60,7 +60,7 @@ public class ParserXMLCDP {
                     NodeList leProjet = projets.getChildNodes();
                     idProjet = Integer.parseInt(leProjet.item(0).getFirstChild().getNodeValue());
                     nomProjet = leProjet.item(1).getFirstChild().getNodeValue();
-                    mapProjet.put(idProjet, nomProjet);
+                    mapProjet.put(new Integer(idProjet), nomProjet);
                 }
             }
             
@@ -80,8 +80,8 @@ public class ParserXMLCDP {
                     String nomCdpLien = leLien.item(0).getFirstChild().getNodeValue();
                     if (nomCdpLien.equalsIgnoreCase(nomCdp)){
                         idProjet = Integer.parseInt(leLien.item(1).getFirstChild().getNodeValue());
-                        listeProjets.add((String)mapProjet.get(idProjet));
-                        mapProjet.remove(idProjet);
+                        listeProjets.add((String)mapProjet.get(new Integer(idProjet)));
+                        mapProjet.remove(new Integer(idProjet));
                     }
                 }
                 mapCdp.put(nomCdp,listeProjets);
