@@ -318,7 +318,8 @@ public class JFrameP2S extends javax.swing.JFrame {
     
     private void afficherInfoIte(Iteration ite)
     {
-        JPanelInfoIteration Tab = new JPanelInfoIteration(ite);
+        //JPanelInfoIteration Tab = new JPanelInfoIteration(ite);
+        JTabbedPaneIteration Tab = new JTabbedPaneIteration(ite);
         PanelContenu.removeAll();
         PanelContenu.add(Tab, java.awt.BorderLayout.CENTER);
         this.validate();        
