@@ -39,11 +39,26 @@ public class JPanelInfoRisque extends javax.swing.JPanel {
         {
             if (risques.get(i) instanceof Risque)
             {
-                donnees[i][0] = ((Risque)risques.get(i)).getNom() ;
-                donnees[i][1] = ((Risque)risques.get(i)).getDescription() ;
-                donnees[i][2] = new Integer(((Risque)risques.get(i)).getPriorite()) ;
-                donnees[i][3] = new Integer(((Risque)risques.get(i)).getImpact()) ;
-                donnees[i][4] = new Integer(((Risque)risques.get(i)).getEtat()) ;
+                if(((Risque)risques.get(i)).getNom() != null)
+                    donnees[i][0] = ((Risque)risques.get(i)).getNom() ;
+                else
+                    donnees[i][0] = "n/c";
+                if(((Risque)risques.get(i)).getDescription() != null)
+                    donnees[i][1] = ((Risque)risques.get(i)).getDescription() ;
+                else
+                    donnees[i][1] = "n/c";
+                if(new Integer(((Risque)risques.get(i)).getPriorite()) != null)
+                    donnees[i][2] = new Integer(((Risque)risques.get(i)).getPriorite()) ;
+                else
+                    donnees[i][2] = "n/c";
+                if(new Integer(((Risque)risques.get(i)).getImpact()) != null)
+                    donnees[i][3] = new Integer(((Risque)risques.get(i)).getImpact()) ;
+                else
+                    donnees[i][3] = "n/c";
+                if(new Integer(((Risque)risques.get(i)).getEtat()) != null)
+                    donnees[i][4] = new Integer(((Risque)risques.get(i)).getEtat()) ;
+                else
+                    donnees[i][4] = "n/c";
             }
         }
         

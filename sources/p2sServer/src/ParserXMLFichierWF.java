@@ -123,8 +123,10 @@ public class ParserXMLFichierWF {
     private String insertString(String s){
         if(s == null)
             return null;
-        else
+        else{
+            s = s.replaceAll("'", "\\\\\\\'");
             return "'"+s+"'";
+        }
     }
     
     private int updateInt(String s){
@@ -647,6 +649,7 @@ public class ParserXMLFichierWF {
                 throw new NullValueXMLException();
             }
             
+            
             // on recherche la description de la mesure
             b = 0;
             while(listeNoeud.item(b).getNodeName().compareTo("description") != 0) {
@@ -654,7 +657,7 @@ public class ParserXMLFichierWF {
             }
             try{
                 description = listeNoeud.item(b).getFirstChild().getNodeValue();
-            }catch(NullPointerException e){}
+            }catch(NullPointerException e){}            
             
             // on recherche la valeur de la mesure
             b = 0;
