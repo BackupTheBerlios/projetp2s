@@ -1,6 +1,3 @@
--- Commande pour importer la base : mysql -u user -ppassword database < p2s.sql
--- Commande pour exporter la base : mysqldump -u user -ppassword database > p2s.sql
-
 -- MySQL dump 10.9
 --
 -- Host: localhost    Database: p2s
@@ -52,8 +49,8 @@ CREATE TABLE `artefacts_entrees_taches` (
   `idtache` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idartefact`,`idtache`),
   KEY `FK_artefacts_entrees_taches_idtache` (`idtache`),
-  CONSTRAINT `FK_artefacts_entrees_taches_idtache` FOREIGN KEY (`idtache`) REFERENCES `taches` (`idtache`),
-  CONSTRAINT `FK_artefacts_entrees_taches_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`)
+  CONSTRAINT `FK_artefacts_entrees_taches_idartefact` FOREIGN KEY (`idartefact`) REFERENCES `artefacts` (`idartefact`),
+  CONSTRAINT `FK_artefacts_entrees_taches_idtache` FOREIGN KEY (`idtache`) REFERENCES `taches` (`idtache`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -142,6 +139,30 @@ CREATE TABLE `membres` (
 LOCK TABLES `membres` WRITE;
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `membres` ENABLE KEYS */;
+
+--
+-- Table structure for table `membres_projets`
+--
+
+DROP TABLE IF EXISTS `membres_projets`;
+CREATE TABLE `membres_projets` (
+  `idmembre` int(10) unsigned NOT NULL auto_increment,
+  `idprojet` int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`idmembre`,`idprojet`),
+  KEY `FK_membres_projets_idprojet` (`idprojet`),
+  CONSTRAINT `FK_membres_projets_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`),
+  CONSTRAINT `FK_membres_projets_idprojet` FOREIGN KEY (`idprojet`) REFERENCES `projets` (`idprojet`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `membres_projets`
+--
+
+
+/*!40000 ALTER TABLE `membres_projets` DISABLE KEYS */;
+LOCK TABLES `membres_projets` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `membres_projets` ENABLE KEYS */;
 
 --
 -- Table structure for table `membres_tachescolaboratives`
@@ -276,8 +297,8 @@ CREATE TABLE `roles_membres` (
   `idmembre` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`idrole`,`idmembre`),
   KEY `FK_roles_membres_idmembre` (`idmembre`),
-  CONSTRAINT `FK_roles_membres_idrole` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`),
-  CONSTRAINT `FK_roles_membres_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`)
+  CONSTRAINT `FK_roles_membres_idmembre` FOREIGN KEY (`idmembre`) REFERENCES `membres` (`idmembre`),
+  CONSTRAINT `FK_roles_membres_idrole` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
