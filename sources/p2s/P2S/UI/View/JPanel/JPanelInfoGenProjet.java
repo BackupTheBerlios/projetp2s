@@ -9,6 +9,7 @@ package P2S.UI.View.JPanel;
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
 import P2S.Model.Projet;
+import P2S.Model.Seuil;
 import P2S.UI.Graphic2D.GrapheIndicateursProjet;
 import P2S.UI.View.JDialog.JDialogAlerte;
 import java.text.DateFormat;
@@ -99,6 +100,10 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
             
             if(new Float(ind.getTotalCharges()) != null)
                 this.textIndTotalCharges.setText(new Integer(ind.getTotalCharges()).toString());
+            
+            //if(Seuil.estHorsIntervalle(new Integer(ind.getTotalCharges()),new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMin().toString()), new Integer(proj.getSeuilFixes().getTotalChargesProjet().getSeuilMax().toString())))
+            //    this.textIndTotalCharges.setForeground(new Color(151,151,12));
+            
             this.textIndTotalCharges.setBackground(new Color(255,255,255));
         }else{
             this.textIndAvancementProjet.setText("0");

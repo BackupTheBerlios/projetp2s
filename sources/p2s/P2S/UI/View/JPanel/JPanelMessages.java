@@ -132,6 +132,7 @@ public class JPanelMessages extends JPanel{
          
          super (new JTextField()) ;
          this.owner = owner ;
+         this.clickCountToStart = 1;
          
          
          editorComponent = new JButton(Bundle.getText("")) ;        
@@ -186,14 +187,13 @@ public class JPanelMessages extends JPanel{
       {
          
 	 details.setText(((JButton)value).getText()) ;
+                 
          return details ;
       }
 
    } // fin de la classe ButtonEditor
     
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration
-   // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     
 }

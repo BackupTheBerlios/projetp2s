@@ -85,6 +85,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(6, 20, 0, 0);
         getContentPane().add(jComboBoxChoixCDP, gridBagConstraints);
 
+        jListProjetSupervise.setBorder(new javax.swing.border.EtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 153, 255), null));
         jListProjetSupervise.setAlignmentX(1.0F);
         jListProjetSupervise.setAlignmentY(10.0F);
         jListProjetSupervise.setMaximumSize(new java.awt.Dimension(10, 10));
@@ -102,6 +103,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(8, 21, 0, 0);
         getContentPane().add(jListProjetSupervise, gridBagConstraints);
 
+        jListProjetNonSupervise.setBorder(new javax.swing.border.EtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 153, 255), null));
         jListProjetNonSupervise.setAlignmentX(1.0F);
         jListProjetNonSupervise.setAlignmentY(10.0F);
         jListProjetNonSupervise.setMaximumSize(new java.awt.Dimension(110, 110));
@@ -119,6 +121,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(8, 10, 0, 30);
         getContentPane().add(jListProjetNonSupervise, gridBagConstraints);
 
+        jButtonSupprimer.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14));
         jButtonSupprimer.setText(">>");
         jButtonSupprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +137,7 @@ public class JDialogGestionCDP extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(58, 10, 0, 0);
         getContentPane().add(jButtonSupprimer, gridBagConstraints);
 
+        jButtonAjouter.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 14));
         jButtonAjouter.setText("<<");
         jButtonAjouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -40,4 +40,26 @@ public class Seuil {
         this.seuilMax = seuilMax;
     }
     
+    public static boolean estHorsIntervalle(Float valeur,Float min,Float max){
+        
+        if(min == 0.0 && max==0.0)
+            return false;
+        
+        if(valeur<min || valeur > max)
+            return true;
+        
+        return false;    
+    }
+    
+        public static boolean estHorsIntervalle(Integer valeur,Integer min,Integer max){
+        
+        if(min == 0.0 && max==0.0)
+            return false;
+        
+        if(valeur<min || valeur > max)
+            return true;
+        
+        return false;    
+    }
+    
 }

@@ -84,16 +84,7 @@ public class MAJBDCDP extends HttpServlet {
                 DocumentBuilderFactory usine = DocumentBuilderFactory.newInstance();
                 DocumentBuilder constructeur = usine.newDocumentBuilder();
                 document= constructeur.parse(new java.io.ByteArrayInputStream(FluxTotal.getBytes()));
-                
-                PreparedStatement prepState3 = conn.prepareStatement("Select idprojet from superviseur_projets where login = '" + login +"'");
-                ResultSet rs3 = prepState3.executeQuery(); // Execution de la requete
-                
-                if(rs3.next()){
-                    do{ 
-                            Statement sdrop = conn.createStatement();
-                            sdrop.executeUpdate("Delete from chefprojet_projets where idprojet = " + rs3.getInt("idprojet"));
-                    }while(rs3.next());
-                }
+        
                 
                 NodeList liens = document.getElementsByTagName("CDP");
                 for(int i = 0 ; i < liens.getLength() ; i++){
@@ -116,9 +107,27 @@ public class MAJBDCDP extends HttpServlet {
                         
                     }
                     
+                    PreparedStatement psAncienneProjet = conn.prepareStatement("Select p.nom from projets p, chefprojet_projets cp where cp.idprojet=p.idprojet AND cp.login = '"+ loginCDP +"'");
+                    ResultSet rsAncienProjet = psAncienneProjet.executeQuery(); // Execution de la requete
+                    Vector anciensProjets = new Vector();
+                    while(rsAncienProjet.next())
+                           anciensProjets.add(rsAncienProjet.getString("nom"));
                     
+                    for(int u = 0 ; u < anciensProjets.size() ; u++)
+                    {
+                        System.out.println("Listing des anciens projets : " + anciensProjets.get(u));
+                    }
+                    
+                    //Ajout des nouveaux projets
                     for(int l = 0 ; l < projets.size() ; l++){
                         
+                        System.out.println("");System.out.println("");
+                        System.out.println("Nouveaux projets : " + projets.get(l));
+                        
+                        if(anciensProjets.contains(projets.get(l))){
+                            //Rien faire
+                        }
+                        else{
                         PreparedStatement prepState = conn.prepareStatement("Select idprojet from projets where nom = '" + projets.get(l) +"'");
                         ResultSet rs = prepState.executeQuery(); // Execution de la requete
                         int id = 0;
@@ -132,8 +141,35 @@ public class MAJBDCDP extends HttpServlet {
                         
                         s.executeUpdate("Insert into chefprojet_projets values('" + loginCDP + "'," + id + ")");
                         
+                        s.executeUpdate("insert into seuilsfixes_projet values ("+ id +",0,0,0,0,0.0,0.0,0,0,0,0,0,0,0,0,0.0,0.0,0,0,0.0,0.0,0.0,0.0,'"+loginCDP+"')");
+                    
+                        }
                     }
                     
+                    //Suppression des anciens projets
+                    for(int l = 0 ; l < anciensProjets.size() ; l++){
+                        
+                        System.out.println("");System.out.println("");
+                        System.out.println("Anciens projets : " + anciensProjets.get(l));
+                        
+                        if(projets.contains(anciensProjets.get(l))){
+                            //Rien faire
+                        }
+                        else{
+                        PreparedStatement prepState = conn.prepareStatement("Select idprojet from projets where nom = '" + anciensProjets.get(l) +"'");
+                        ResultSet rs = prepState.executeQuery(); // Execution de la requete
+                        int id = 0;
+                        if(rs.next())
+                        
+                        id = rs.getInt("idprojet");
+                        Statement s = conn.createStatement();
+        
+                        s.executeUpdate("DELETE FROM chefprojet_projets WHERE login='" + loginCDP + "' AND idprojet=" + id + "");
+                        
+                        s.executeUpdate("DELETE FROM seuilsfixes_projet WHERE login='" + loginCDP + "' AND idprojet=" + id + "");
+                    
+                        }
+                    }
                 }
             } catch(SQLException e){
                 e.printStackTrace();
