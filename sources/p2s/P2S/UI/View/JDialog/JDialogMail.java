@@ -12,9 +12,9 @@ import java.util.Locale;
  */
 public class JDialogMail extends javax.swing.JDialog {
     
-    /** Creates new form JDialogAjoutMesure */
     public JDialogMail(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        this.setTitle("Envoyer un mail");
         initComponents();
        
         this.initText();
@@ -42,8 +42,6 @@ public class JDialogMail extends javax.swing.JDialog {
         getContentPane().add(labelDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, -1));
 
         textIndDestinataire.setBackground(new java.awt.Color(255, 255, 255));
-        textIndDestinataire.setEditable(false);
-        textIndDestinataire.setText("a");
         textIndDestinataire.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndDestinataire, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 170, -1));
 
@@ -54,8 +52,6 @@ public class JDialogMail extends javax.swing.JDialog {
         getContentPane().add(labelObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 60, -1));
 
         textIndObjet.setBackground(new java.awt.Color(255, 255, 255));
-        textIndObjet.setEditable(false);
-        textIndObjet.setText("objet");
         textIndObjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(textIndObjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 170, -1));
 

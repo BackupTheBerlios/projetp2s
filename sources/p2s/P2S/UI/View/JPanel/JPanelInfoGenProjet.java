@@ -8,10 +8,12 @@ package P2S.UI.View.JPanel;
 
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.IndicateursProjet;
-import P2S.Model.Iteration;
 import P2S.Model.Projet;
+import P2S.UI.View.JDialog.*;
+import java.awt.event.*;
 import java.text.DateFormat;
 import java.util.Locale;
+
 
 
 /**
@@ -24,6 +26,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
      * Creates new form JPanelInfoGenProjet
      * @param proj projet a afficher
      */
+    
     public JPanelInfoGenProjet(Projet proj) {
         initComponents();
         
@@ -89,6 +92,12 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         JButtonAlerte.setText("jButton1");
+        JButtonAlerte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButtonAlerteActionPerformed(evt);
+            }
+        });
+
         add(JButtonAlerte, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, -1, -1));
 
         LabelStaticNomProjet.setText("Nom du projet : ");
@@ -109,85 +118,76 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         TextAreaDescription.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(TextAreaDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 340, 90));
 
-        textNomProjet.setBackground(new java.awt.Color(255, 255, 255));
         textNomProjet.setEditable(false);
         textNomProjet.setText("nomProjet");
         textNomProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textNomProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 340, -1));
 
-        textDateDebut.setBackground(new java.awt.Color(255, 255, 255));
         textDateDebut.setEditable(false);
         textDateDebut.setText("dateDebut");
         textDateDebut.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textDateDebut, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 340, -1));
 
-        textDateFin.setBackground(new java.awt.Color(255, 255, 255));
         textDateFin.setEditable(false);
         textDateFin.setText("dateFin");
         textDateFin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 340, -1));
 
-        textIndTotalCharges.setBackground(new java.awt.Color(255, 255, 255));
         textIndTotalCharges.setEditable(false);
         textIndTotalCharges.setText("totalCharges");
         textIndTotalCharges.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 200, 60, -1));
 
-        textIndTachesTerminees.setBackground(new java.awt.Color(255, 255, 255));
         textIndTachesTerminees.setEditable(false);
         textIndTachesTerminees.setText("tachesTerminees");
         textIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 60, -1));
 
-        textIndDureeMoyenneTache.setBackground(new java.awt.Color(255, 255, 255));
         textIndDureeMoyenneTache.setEditable(false);
         textIndDureeMoyenneTache.setText("dureeMoyenneTache");
         textIndDureeMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 60, -1));
 
-        textIndNombreParticipants.setBackground(new java.awt.Color(255, 255, 255));
         textIndNombreParticipants.setEditable(false);
         textIndNombreParticipants.setText("nombreParticipants");
         textIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 60, -1));
 
-        textIndAvancementProjet.setBackground(new java.awt.Color(255, 255, 255));
         textIndAvancementProjet.setEditable(false);
         textIndAvancementProjet.setText("avancemantProjet");
         textIndAvancementProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 60, -1));
 
-        textStaticIndTotalCharges.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndTotalCharges.setEditable(false);
         textStaticIndTotalCharges.setText("Total des charges :");
         textStaticIndTotalCharges.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textStaticIndTotalCharges, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 270, -1));
 
-        textStaticIndTachesTerminees.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndTachesTerminees.setEditable(false);
         textStaticIndTachesTerminees.setText("Nombre de t\u00e2ches termin\u00e9es :");
         textStaticIndTachesTerminees.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textStaticIndTachesTerminees, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 270, -1));
 
-        textStaticIndDureeMoyenneTache.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndDureeMoyenneTache.setEditable(false);
         textStaticIndDureeMoyenneTache.setText("Dur\u00e9e moyenne des t\u00e2ches :");
         textStaticIndDureeMoyenneTache.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textStaticIndDureeMoyenneTache, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 270, -1));
 
-        textStaticIndNombreParticipants.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndNombreParticipants.setEditable(false);
         textStaticIndNombreParticipants.setText("Nombre de participants :");
         textStaticIndNombreParticipants.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textStaticIndNombreParticipants, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 270, -1));
 
-        textStaticIndAvancementProjet.setBackground(new java.awt.Color(255, 255, 255));
         textStaticIndAvancementProjet.setEditable(false);
         textStaticIndAvancementProjet.setText("Avancement du projet :");
         textStaticIndAvancementProjet.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0)));
         add(textStaticIndAvancementProjet, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 270, -1));
 
     }//GEN-END:initComponents
+
+    private void JButtonAlerteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButtonAlerteActionPerformed
+    new JDialogMail((java.awt.Frame)this.getRootPane().getParent(),true).show();
+    }//GEN-LAST:event_JButtonAlerteActionPerformed
     
     private void initText() {
         this.LabelStaticNomProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_NomProjet"));
@@ -197,6 +197,12 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         this.LabelStaticIndicateursProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurProjet"));
         
         this.JButtonAlerte.setText(Bundle.getText("JPanelInfoGenProjet_JButton_Alerte"));
+        /*this.JButtonAlerte.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e)
+                {
+                    JDialogMail mail = new JDialogMail(this, true);
+                }
+        });*/
         /*this.LabelIndAvancementProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurAvancement"));
         this.LabelIndDureeMoyenneTache.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurMoyenneTache"));
         this.LabelIndNombreParticipants.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurParticipant"));
@@ -204,6 +210,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         this.LabelIndTotalCharges.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurTotalCharges"));*/
         
         this.textStaticIndAvancementProjet.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurAvancement"));
+        
         this.textStaticIndDureeMoyenneTache.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurMoyenneTache"));
         this.textStaticIndNombreParticipants.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurParticipant"));
         this.textStaticIndTachesTerminees.setText(Bundle.getText("JPanelInfoGenProjet_JLabel_IndicateurTachesTerminees"));
