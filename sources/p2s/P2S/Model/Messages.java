@@ -19,17 +19,17 @@ public class Messages {
     /** Creates a new instance of Messages */
     
     //Constructeur
-    public Messages(String login)
+    public Messages()
     {
-        this.login = login;
+        //this.login = login;
         this.sujet = new String("");
         this.date = new Date();
         this.message = new String("");
     }
     
-    public Messages(String login, String sujet, String message, Date date)
+    public Messages(String sujet, String message, Date date)
     {
-        this.login = login;
+        //this.login = login;
         this.sujet = sujet;
         this.date = date;
         this.message = message;
