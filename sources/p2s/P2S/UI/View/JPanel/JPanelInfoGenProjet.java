@@ -40,7 +40,7 @@ public class JPanelInfoGenProjet extends javax.swing.JPanel {
         
         //Affichage des indicateurs généraux aux projets
         IndicateursProjet ind = proj.getIndicateursProjet();
-        this.LabelIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString());
+        this.LabelIndAvancementProjet.setText(new Float(ind.getAvancementProjet()).toString()+" %");
         this.LabelIndDureeMoyenneTache.setText(new Integer(ind.getDureeMoyenneTache()).toString());
         this.LabelIndNombreParticipants.setText(new Integer(ind.getNombreParticipants()).toString());
         this.LabelIndTachesTerminees.setText(new Integer(ind.getTachesTerminees()).toString());

@@ -405,6 +405,10 @@ public class LoginServlet extends HttpServlet {
                                         if(rsIndicateursIteration.next()){
                                             out.println("<indicateursIteration>");
                                             
+                                            out.println("<totalcharges>");
+                                            out.println(rsIndicateursIteration.getString("totalcharges"));
+                                            out.println("</totalcharges>");                                            
+                                            
                                             out.println("<nombreTachesTerminees>");
                                             out.println(rsIndicateursIteration.getString("nombreTachesTerminees"));
                                             out.println("</nombreTachesTerminees>");
