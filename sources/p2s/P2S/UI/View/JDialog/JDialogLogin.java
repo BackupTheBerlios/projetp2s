@@ -152,7 +152,7 @@ public class JDialogLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_JPasswordFieldMDPFocusLost
 
     private void JPasswordFieldMDPFocusGained (java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPFocusGained
-        //JButtonOK.setSelected(true) ;
+        JButtonOK.setSelected(true) ;
     }//GEN-LAST:event_JPasswordFieldMDPFocusGained
 
     private void JPasswordFieldMDPKeyPressed (java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JPasswordFieldMDPKeyPressed

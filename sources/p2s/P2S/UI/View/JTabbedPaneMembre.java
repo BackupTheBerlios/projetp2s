@@ -8,6 +8,7 @@ package P2S.UI.View;
 
 import P2S.Control.Bundle.Bundle;
 import P2S.Model.Membre;
+import P2S.UI.View.JPanel.JPanelIndicArtefactsMembre;
 import P2S.UI.View.JPanel.JPanelInfoGenMembre;
 import P2S.UI.View.JPanel.JPanelIndicTachesMembre;
 import P2S.UI.View.JPanel.JPanelInfoProfMembre;
@@ -28,6 +29,7 @@ public class JTabbedPaneMembre extends JTabbedPane {
         
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoGen"),new JPanelInfoGenMembre(membre));
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabTaches"), new JPanelIndicTachesMembre(membre.getListeTaches()));
+        this.addTab(Bundle.getText("JTabbedPaneMembre_TabArtefacts"), new JPanelIndicArtefactsMembre(membre.getListeArtefacts()));
         this.addTab(Bundle.getText("JTabbedPaneMembre_TabInfoProf"), new JPanelInfoProfMembre(membre.getListeRoles(), membre.getListeProjets()));
         
     }
